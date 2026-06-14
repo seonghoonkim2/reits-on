@@ -1,0 +1,1904 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="국내 상장리츠 25개를 한 화면에서 쉽게 비교하고, 배당 캘린더·포트폴리오 현금흐름·계산기·학습 코스까지 제공하는 일반 투자자용 정보 플랫폼." />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#3254ff" />
+  <title>리츠온 REITs ON · 상장리츠 정보 플랫폼</title>
+  <style>
+    /* =========================================================
+       DESIGN TOKENS
+       - 8px spacing grid, semantic colors, explicit tint tokens
+         (tints replace most color-mix() so older browsers work).
+       ========================================================= */
+    :root {
+      /* surfaces & text */
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #fbfcff;
+      --surface-strong: #ffffff;
+      --text: #172033;
+      --muted: #5b657c;
+      --line: #e5e9f2;
+      --line-soft: #eef1f7;
+
+      /* brand / semantic */
+      --brand: #3254ff;        --primary: #3254ff;
+      --brand-2: #00a78e;      --compare: #00a78e;
+      --good: #0c9b69;         --success: #0c9b69;
+      --accent: #c07a00;       --warning: #c07a00;
+      --danger: #d22d32;       --error: #d22d32;
+
+      /* tints (solid, no color-mix needed) */
+      --brand-soft: #edf1ff;
+      --primary-tint: #edf1ff;
+      --primary-tint-strong: #dde4ff;
+      --success-tint: #e4f5ec;
+      --warning-tint: #fdf0d8;
+      --error-tint: #fde7e8;
+      --compare-tint: #e0f5f1;
+      --hover: #f1f4ff;
+
+      --shadow: 0 16px 40px rgba(22, 34, 64, 0.10);
+      --shadow-sm: 0 8px 22px rgba(22, 34, 64, 0.05);
+
+      /* spacing — 8px grid */
+      --space-1: 8px;  --space-2: 16px; --space-3: 24px;
+      --space-4: 32px; --space-5: 40px; --space-6: 48px; --space-8: 64px;
+
+      --radius: 22px;
+      --radius-sm: 14px;
+      --radius-pill: 999px;
+      --max: 1220px;
+
+      --ease: cubic-bezier(.2, 0, .38, .9);
+      --t-micro: 150ms;
+      --t-move: 250ms;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0c1220;
+      --surface: #161d30;
+      --surface-2: #131a2b;
+      --surface-strong: #1a2238;
+      --text: #edf2ff;
+      --muted: #aeb9d6;
+      --line: #2a3550;
+      --line-soft: #222c44;
+
+      --brand: #8ba2ff;        --primary: #8ba2ff;
+      --brand-2: #5ee6ca;      --compare: #5ee6ca;
+      --good: #6ee7b7;         --success: #6ee7b7;
+      --accent: #ffd27a;       --warning: #ffd27a;
+      --danger: #ff8b8f;       --error: #ff8b8f;
+
+      --brand-soft: #1a2440;
+      --primary-tint: #1a2440;
+      --primary-tint-strong: #243154;
+      --success-tint: #143026;
+      --warning-tint: #3a2f17;
+      --error-tint: #3a1f22;
+      --compare-tint: #123a32;
+      --hover: #1c2747;
+
+      --shadow: 0 16px 42px rgba(0, 0, 0, 0.30);
+      --shadow-sm: 0 8px 22px rgba(0, 0, 0, 0.22);
+    }
+
+    /* Respect OS dark mode when the user hasn't set a manual preference */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]):not([data-theme="dark"]) {
+        --bg: #0c1220; --surface: #161d30; --surface-2: #131a2b; --surface-strong: #1a2238;
+        --text: #edf2ff; --muted: #aeb9d6; --line: #2a3550; --line-soft: #222c44;
+        --brand: #8ba2ff; --primary: #8ba2ff; --brand-2: #5ee6ca; --compare: #5ee6ca;
+        --good: #6ee7b7; --success: #6ee7b7; --accent: #ffd27a; --warning: #ffd27a;
+        --danger: #ff8b8f; --error: #ff8b8f;
+        --brand-soft: #1a2440; --primary-tint: #1a2440; --primary-tint-strong: #243154;
+        --success-tint: #143026; --warning-tint: #3a2f17; --error-tint: #3a1f22; --compare-tint: #123a32;
+        --hover: #1c2747; --shadow: 0 16px 42px rgba(0,0,0,.30); --shadow-sm: 0 8px 22px rgba(0,0,0,.22);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(50, 84, 255, 0.14), transparent 32rem),
+        radial-gradient(circle at top right, rgba(0, 167, 142, 0.12), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+    }
+    [data-theme="dark"] body,
+    :root:not([data-theme="light"]) body {
+      background:
+        radial-gradient(circle at top left, rgba(50, 84, 255, 0.10), transparent 34rem),
+        radial-gradient(circle at top right, rgba(0, 167, 142, 0.08), transparent 36rem),
+        var(--bg);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    .wrap { width: min(var(--max), calc(100% - var(--space-4))); margin: 0 auto; }
+
+    /* Focus + motion accessibility */
+    :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 6px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; }
+    }
+
+    /* Scroll reveal (added by JS; if JS is off, nothing is hidden) */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* Topbar / nav */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(16px);
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+    @supports (backdrop-filter: blur(1px)) { .topbar { background: rgba(255,255,255,0.82); } }
+    @supports (backdrop-filter: blur(1px)) { [data-theme="dark"] .topbar, :root:not([data-theme="light"]) .topbar { background: rgba(18,26,43,0.86); } }
+    .nav { height: 68px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 900; letter-spacing: -0.03em; }
+    .logo {
+      width: 38px; height: 38px; border-radius: 13px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      display: grid; place-items: center; color: #fff; font-weight: 900;
+      box-shadow: 0 10px 22px rgba(50,84,255,.25);
+    }
+    .navlinks { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .navlinks a, .pill-btn {
+      border: 1px solid transparent; padding: 9px 12px; border-radius: var(--radius-pill);
+      color: var(--muted); background: transparent; cursor: pointer;
+      transition: background var(--t-micro) var(--ease), color var(--t-micro) var(--ease);
+    }
+    .navlinks a:hover, .pill-btn:hover { background: var(--primary-tint); color: var(--text); }
+    .primary-btn {
+      border: 0; border-radius: var(--radius-pill); padding: 10px 16px;
+      background: var(--text); color: var(--surface-strong); cursor: pointer; font-weight: 750;
+      transition: transform var(--t-micro) var(--ease), box-shadow var(--t-micro) var(--ease), filter var(--t-micro) var(--ease);
+    }
+    .primary-btn:hover { box-shadow: 0 8px 20px rgba(50,84,255,.20); }
+    .primary-btn:active, .pill-btn:active, .ghost-btn:active, .chip:active, .fav:active, .cmp:active { transform: scale(.97); }
+    .menu-toggle {
+      display: none; border: 1px solid var(--line); background: var(--surface);
+      color: var(--text); border-radius: 12px; width: 44px; height: 44px; font-size: 20px; cursor: pointer;
+    }
+
+    /* Hero */
+    .hero { padding: var(--space-8) 0 var(--space-5); }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: var(--space-3); align-items: stretch; }
+    .hero-card {
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, var(--surface-strong), var(--primary-tint));
+      border-radius: 32px; padding: var(--space-4); box-shadow: var(--shadow);
+      overflow: hidden; position: relative;
+    }
+    .hero-card::after {
+      content:""; position:absolute; width: 240px; height: 240px; right: -70px; bottom: -90px;
+      border-radius: 50%; background: linear-gradient(135deg, rgba(50,84,255,.18), rgba(0,167,142,.16));
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px;
+      border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius-pill);
+      color: var(--muted); font-size: 14px;
+    }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--success); box-shadow: 0 0 0 4px var(--success-tint); }
+    h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.04; letter-spacing: -0.06em; margin: var(--space-3) 0; }
+    h2 { font-size: clamp(26px, 3.2vw, 38px); line-height: 1.18; letter-spacing: -0.045em; margin: 0 0 var(--space-3); }
+    h3 { font-size: 20px; letter-spacing: -0.03em; margin: 0 0 var(--space-2); }
+    .lead { font-size: 18px; color: var(--muted); max-width: 720px; margin: 0 0 var(--space-3); }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top: var(--space-3); position: relative; z-index:1; }
+    .hero-actions a { border-radius: var(--radius-pill); padding: 12px 18px; border: 1px solid var(--line); background: var(--surface); font-weight: 800; transition: transform var(--t-micro) var(--ease); }
+    .hero-actions a:hover { transform: translateY(-2px); }
+    .hero-actions a:first-child { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+    .side-card {
+      border: 1px solid var(--line); background: var(--surface); border-radius: 32px;
+      padding: var(--space-3); box-shadow: var(--shadow);
+      display: flex; flex-direction: column; justify-content: space-between; min-height: 390px;
+    }
+    .pulse-row { display:flex; justify-content:space-between; gap:12px; padding: var(--space-2) 0; border-bottom: 1px dashed var(--line); }
+    .pulse-row:last-child { border-bottom:0; }
+    .pulse-label { color: var(--muted); font-size:14px; }
+    .pulse-value { font-weight:900; font-size:22px; letter-spacing:-0.04em; }
+    .pulse-value.two { font-size:17px; line-height:1.35; }
+    .mini-note { color: var(--muted); font-size: 13px; }
+
+    .section { padding: var(--space-6) 0; }
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:var(--space-2); margin-bottom: var(--space-3); }
+    .section-head p { color: var(--muted); margin: var(--space-1) 0 0; max-width: 760px; }
+
+    .note-banner {
+      border: 1px solid var(--line); border-left: 4px solid var(--warning);
+      background: var(--warning-tint); color: var(--text);
+      border-radius: var(--radius-sm); padding: 12px 14px; font-size: 14px; margin-bottom: var(--space-3);
+    }
+    .note-banner.info { border-left-color: var(--brand); background: var(--primary-tint); }
+
+    .freshness {
+      display:inline-flex; flex-wrap:wrap; gap:6px 12px; align-items:center;
+      font-size: 12.5px; color: var(--muted); border:1px dashed var(--line);
+      border-radius: var(--radius-pill); padding: 7px 13px; margin-bottom: var(--space-2);
+    }
+
+    /* Help popover (details) */
+    .help { display:inline-block; position:relative; }
+    .help > summary {
+      list-style:none; cursor:pointer; width:24px; height:24px; line-height:22px; text-align:center;
+      border:1px solid var(--line); border-radius:50%; color:var(--muted); font-size:13px; font-weight:800; background:var(--surface);
+    }
+    .help > summary::-webkit-details-marker { display:none; }
+    .help[open] > summary { color:#fff; background:var(--brand); border-color:var(--brand); }
+    .help .pop {
+      position:absolute; z-index:30; top:30px; right:0; width:min(320px, 78vw);
+      border:1px solid var(--line); background:var(--surface-strong); border-radius:14px; padding:14px;
+      box-shadow:var(--shadow); color:var(--muted); font-size:13px; font-weight:500; line-height:1.55;
+    }
+
+    /* Intro */
+    .intro-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-2); }
+    .intro-card { border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); padding: var(--space-3); box-shadow: var(--shadow-sm); }
+    .intro-card .ic { width: 46px; height: 46px; border-radius: 14px; display:grid; place-items:center; font-size: 24px; margin-bottom: var(--space-2); background: var(--primary-tint); }
+    .intro-card p { color: var(--muted); margin: var(--space-1) 0 0; }
+    .intro-card ul { color: var(--muted); margin: var(--space-2) 0 0; padding-left: 18px; }
+    .intro-card li { margin: 4px 0; }
+
+    .kpi-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-2); }
+    .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: var(--space-2); box-shadow: var(--shadow-sm); min-height: 124px; }
+    .kpi .label { color: var(--muted); font-size: 13px; }
+    .kpi .value { font-size: 30px; font-weight: 950; letter-spacing: -0.06em; margin-top: 9px; }
+    .kpi .sub { color: var(--muted); font-size: 13px; margin-top: var(--space-1); }
+
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3); box-shadow: var(--shadow); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+
+    .filters { display: grid; grid-template-columns: minmax(210px, 1fr) 180px 180px auto; gap: 10px; margin-bottom: var(--space-2); align-items: center; }
+    .input, .select {
+      width: 100%; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 13px;
+      background: var(--surface-strong); color: var(--text); outline: none;
+      transition: border-color var(--t-micro) var(--ease), box-shadow var(--t-micro) var(--ease);
+    }
+    .input:focus, .select:focus { border-color: var(--brand); box-shadow: 0 0 0 4px rgba(50,84,255,.13); }
+    .chip-row { display:flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 var(--space-2); }
+    .chip {
+      border: 1px solid var(--line); background: var(--surface-strong); color: var(--muted);
+      border-radius: var(--radius-pill); padding: 9px 13px; cursor: pointer; font-weight: 750; font-size: 13px; min-height: 40px;
+      transition: background var(--t-micro) var(--ease), color var(--t-micro) var(--ease), border-color var(--t-micro) var(--ease);
+    }
+    .chip:hover { background: var(--hover); color: var(--text); }
+    .chip.active { color: #fff; background: var(--brand); border-color: var(--brand); }
+
+    .seg { display:inline-flex; border:1px solid var(--line); border-radius:var(--radius-pill); padding:3px; background:var(--surface-strong); gap:3px; }
+    .seg button { border:0; background:transparent; color:var(--muted); border-radius:var(--radius-pill); padding:8px 14px; cursor:pointer; font-weight:800; font-size:13px; min-height:36px; }
+    .seg button.on { background:var(--brand); color:#fff; }
+
+    .cards-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+    .reit-card {
+      border: 1px solid var(--line); background: var(--surface-strong); border-radius: 20px; padding: 17px;
+      min-height: 238px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; position: relative;
+      transition: transform var(--t-micro) var(--ease), box-shadow var(--t-micro) var(--ease), border-color var(--t-micro) var(--ease);
+    }
+    .reit-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(22,34,64,.10); border-color: var(--primary-tint-strong); }
+    .reit-card.in-compare { border-color: var(--compare); box-shadow: 0 0 0 2px var(--compare-tint); }
+    .reit-card[data-selected="true"] { border-color: var(--brand); box-shadow: 0 0 0 2px var(--primary-tint-strong); }
+    .reit-top { display:flex; align-items:flex-start; justify-content:space-between; gap: 10px; }
+    .reit-name { font-weight: 950; letter-spacing:-0.04em; font-size: 19px; }
+    .ticker { color: var(--muted); font-size: 13px; margin-top: 3px; }
+    .card-btns { display:flex; gap:6px; }
+    .fav, .cmp {
+      border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 12px;
+      min-height: 44px; cursor: pointer;
+      transition: background var(--t-micro) var(--ease), color var(--t-micro) var(--ease), border-color var(--t-micro) var(--ease);
+    }
+    .fav { min-width: 44px; }
+    .cmp { padding: 0 12px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+    .fav:hover, .cmp:hover { background: var(--hover); color: var(--text); }
+    .fav.on { color: var(--warning); border-color: var(--warning); background: var(--warning-tint); }
+    .cmp.on { color: #fff; border-color: var(--compare); background: var(--compare); }
+    .tags { display:flex; flex-wrap:wrap; gap: 6px; }
+    .tag { padding: 5px 9px; border-radius: var(--radius-pill); background: var(--primary-tint); color: var(--brand); font-size: 12px; font-weight: 800; }
+    .pill-diff { font-size:12px; font-weight:800; border-radius:var(--radius-pill); padding:5px 9px; }
+    .pill-diff[data-d="입문"] { background: var(--success-tint); color: var(--success); }
+    .pill-diff[data-d="중급"] { background: var(--warning-tint); color: var(--accent); }
+    .pill-diff[data-d="심화"] { background: var(--error-tint); color: var(--error); }
+    .metric-line { display:flex; justify-content:space-between; gap: 12px; border-top: 1px dashed var(--line); padding-top: 10px; color: var(--muted); font-size: 13px; }
+    .metric-line strong { color: var(--text); }
+    .reit-note { color: var(--muted); font-size: 14px; margin: 0; flex: 1; }
+
+    .table-wrap { overflow:auto; border-radius: 18px; border:1px solid var(--line); position:relative; }
+    table { border-collapse: collapse; width: 100%; min-width: 880px; background: var(--surface-strong); }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+    th { color: var(--muted); font-size: 13px; background: var(--primary-tint); position: sticky; top: 0; }
+    td { font-size: 14px; }
+    tr:hover td { background: var(--hover); }
+    .link { color: var(--brand); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+    .scroll-hint { display:none; }
+
+    .detail-box { position: sticky; top: 88px; }
+    .detail-title { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+    .detail-list { margin: var(--space-2) 0 0; padding:0; list-style:none; display:grid; gap:9px; }
+    .detail-list li { border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; background: var(--surface-strong); color: var(--muted); }
+    .detail-list strong { color: var(--text); }
+    .detail-month { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
+    .mchip { font-size:12px; border-radius:var(--radius-pill); padding:5px 9px; border:1px solid var(--line); color:var(--muted); min-width:30px; text-align:center; }
+    .mchip.on { background: var(--brand); color:#fff; border-color: var(--brand); font-weight:800; }
+
+    /* Compare */
+    .compare-empty { color: var(--muted); }
+    .compare-wrap { overflow:auto; border-radius:18px; border:1px solid var(--line); margin-top: var(--space-1); }
+    .compare-table { border-collapse: collapse; width:100%; min-width: 560px; background: var(--surface-strong); }
+    .compare-table th, .compare-table td { padding: 12px 14px; border-bottom:1px solid var(--line); text-align:left; font-size:14px; vertical-align: top; }
+    .compare-table th.rowhead { background: var(--primary-tint); color: var(--muted); font-size:13px; width: 132px; position: sticky; left:0; }
+    .compare-table thead th { background: var(--primary-tint); top:0; position:sticky; }
+    .compare-table .colname { font-weight:950; letter-spacing:-.03em; }
+    .compare-table tr.cmp-group th { background: var(--surface-2); color: var(--text); font-weight:900; letter-spacing:-.02em; }
+    .needcheck { color: var(--accent); font-weight:700; }
+    .rm-col { border:1px solid var(--line); background:var(--surface); color:var(--muted); border-radius:10px; padding:6px 10px; cursor:pointer; font-size:12px; margin-top:6px; min-height:36px; }
+
+    /* Calendar */
+    .calendar { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2); }
+    .month-card { border: 1px solid var(--line); background: var(--surface-strong); border-radius: 18px; padding: var(--space-2); min-height: 170px; }
+    .month-card h3 { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
+    .month-card .count { color: var(--muted); font-size: 13px; font-weight: 700; }
+    .mc-bar { height:6px; border-radius:var(--radius-pill); background:var(--line-soft); overflow:hidden; }
+    .mc-bar > i { display:block; height:100%; background:linear-gradient(90deg,var(--brand),var(--brand-2)); border-radius:var(--radius-pill); }
+    .month-list { display:flex; flex-wrap:wrap; gap: 6px; margin-top: 12px; }
+    .month-list button { border:1px solid var(--line); background:var(--surface); color:var(--text); border-radius:var(--radius-pill); padding:7px 10px; cursor:pointer; font-size: 12px; min-height:36px; transition: background var(--t-micro) var(--ease); }
+    .month-list button:hover { background: var(--hover); }
+
+    /* Bars / charts */
+    .bar-list { display:grid; gap: 12px; }
+    .bar-row { display:grid; grid-template-columns: 90px 1fr 78px; gap: 10px; align-items:center; }
+    .bar-track { height: 13px; border-radius:var(--radius-pill); background: var(--line-soft); overflow:hidden; }
+    .bar-fill { height: 100%; width: 0; border-radius:var(--radius-pill); background: linear-gradient(90deg, var(--brand), var(--brand-2)); transition: width .7s var(--ease); }
+    .bar-fill.steady { background: linear-gradient(90deg, var(--success), #2bbd86); }
+    .bar-fill.cyclical { background: linear-gradient(90deg, var(--warning), #e0a93a); }
+    .bar-fill.fx { background: linear-gradient(90deg, var(--error), #ef6b6f); }
+    .bar-fill.neutral { background: linear-gradient(90deg, #8893ad, #aab3c9); }
+    .legend { display:flex; flex-wrap:wrap; gap:12px; margin-top: var(--space-2); font-size:12.5px; color:var(--muted); }
+    .legend span { display:inline-flex; align-items:center; gap:6px; }
+    .sw { width:12px; height:12px; border-radius:4px; display:inline-block; }
+    .rank { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:7px; background:var(--primary-tint); color:var(--brand); font-weight:900; font-size:12px; margin-right:2px; }
+
+    .growth { width:100%; }
+    .growth svg { width:100%; height:auto; display:block; }
+    .growth .gx { fill: var(--muted); font-size: 11px; }
+    .growth .gv { fill: var(--text); font-size: 11px; font-weight:700; }
+
+    /* Tools */
+    .tool-grid { display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+    .calc-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px; }
+    .calc-grid label { font-size:14px; }
+    .result-card { border:1px solid var(--line); border-radius:18px; padding:16px; background:var(--surface-strong); }
+    .result-card .big { font-size: 26px; font-weight: 950; letter-spacing:-0.05em; }
+    .result-card .small { color: var(--muted); font-size: 13px; }
+    @media (prefers-reduced-motion: no-preference) { .result-card.flash { animation: flash .8s var(--ease); } }
+    @keyframes flash { 0% { background: var(--primary-tint); } 100% { background: var(--surface-strong); } }
+    .helper { color: var(--muted); font-size: 12.5px; margin-top: 6px; line-height:1.5; }
+
+    /* Portfolio */
+    .pf-add { display:grid; grid-template-columns: 1fr 150px auto; gap:10px; align-items:end; }
+    .pf-list { display:grid; gap:8px; margin-top: var(--space-2); }
+    .pf-row { display:grid; grid-template-columns: 1fr 140px auto; gap:10px; align-items:center; border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:var(--surface-strong); }
+    .pf-row .dotc { width:11px; height:11px; border-radius:3px; display:inline-block; margin-right:8px; vertical-align:middle; }
+    .pf-chart { display:grid; grid-template-columns: repeat(12, 1fr); gap:6px; align-items:end; height:180px; margin-top: var(--space-2); }
+    .pf-col { display:flex; flex-direction:column; justify-content:flex-end; height:100%; gap:2px; }
+    .pf-seg { width:100%; border-radius:4px 4px 0 0; min-height:2px; }
+    .pf-mlabels { display:grid; grid-template-columns: repeat(12, 1fr); gap:6px; margin-top:6px; font-size:11px; color:var(--muted); text-align:center; }
+    .pf-summary { display:grid; grid-template-columns: repeat(3, 1fr); gap:var(--space-2); margin-top: var(--space-3); }
+
+    /* Steps / checklist */
+    .steps { counter-reset: step; display:grid; gap: 12px; }
+    .step { counter-increment: step; border:1px solid var(--line); border-radius: 18px; padding: 16px; background:var(--surface-strong); display:grid; grid-template-columns: 44px 1fr; gap: 12px; }
+    .step::before { content: counter(step); width: 36px; height: 36px; border-radius: 12px; display:grid; place-items:center; background: var(--primary-tint); color: var(--brand); font-weight: 950; }
+    .step p { margin: 4px 0 0; color: var(--muted); }
+    .checklist { display:grid; gap: 8px; }
+    .check { display:flex; align-items:flex-start; gap: 10px; border:1px solid var(--line); background:var(--surface-strong); border-radius: 14px; padding: 12px; }
+    .check input { margin-top: 4px; width:20px; height:20px; accent-color: var(--brand); }
+    .progress-box { margin-top: var(--space-2); border:1px solid var(--line); border-radius:18px; padding:16px; background:var(--surface-strong); }
+    .meter-track { height: 12px; border-radius:var(--radius-pill); background: var(--line-soft); overflow:hidden; margin: 10px 0; }
+    .meter-fill { height: 100%; width: 0%; background: var(--brand); transition: width var(--t-move) var(--ease); }
+    .always-warn { color: var(--error); font-weight: 800; font-size: 13px; margin-top: 8px; }
+
+    /* Sector guide */
+    .sector-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-2); }
+    .sector-card { border:1px solid var(--line); border-radius:18px; padding:16px; background:var(--surface-strong); }
+    .sector-card .stop { display:flex; align-items:center; gap:10px; }
+    .sector-card .sicon { width:40px; height:40px; border-radius:12px; display:grid; place-items:center; font-size:21px; background: var(--primary-tint); }
+    .sector-card h3 { margin:0; }
+    .sector-card p { color: var(--muted); margin: 10px 0 0; font-size: 14px; }
+    .sector-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top: 12px; }
+    .badge { font-size:12px; font-weight:800; border-radius:var(--radius-pill); padding:5px 10px; }
+    .badge.steady { background: var(--success-tint); color: var(--success); }
+    .badge.cyclical { background: var(--warning-tint); color: var(--accent); }
+    .badge.fx { background: var(--error-tint); color: var(--error); }
+    .sector-card .scount { background: var(--line-soft); color: var(--muted); }
+    .sector-card .watch, .sector-card .risk { color: var(--text); font-weight:700; font-size:13px; margin-top:10px; }
+    .sector-card .risk span, .sector-card .watch span { color: var(--muted); font-weight:500; }
+
+    /* FAQ */
+    .faq-list { display:grid; gap: 10px; }
+    .faq { border:1px solid var(--line); border-radius:16px; background: var(--surface-strong); padding: 4px 16px; }
+    .faq summary { cursor:pointer; font-weight:800; padding: 14px 0; list-style:none; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary::after { content:"+"; color: var(--brand); font-weight:900; font-size:20px; }
+    .faq[open] summary::after { content:"\2212"; }
+    .faq p { color: var(--muted); margin: 0 0 16px; }
+
+    /* Glossary */
+    .gloss-group { margin-top: var(--space-2); }
+    .gloss-group h3 { color: var(--muted); font-size: 14px; text-transform: none; margin-bottom: 10px; }
+    .glossary { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2); }
+    .term-card { border: 1px solid var(--line); background: var(--surface-strong); border-radius:18px; padding:15px; }
+    .term-card strong { color: var(--brand); font-size: 17px; }
+    .term-card p { color: var(--muted); margin: 8px 0 0; font-size: 14px; }
+
+    .source-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; }
+    .source-card { border:1px solid var(--line); border-radius: 16px; padding: 14px; background: var(--surface-strong); }
+    .source-card a { color: var(--brand); font-weight: 900; }
+
+    .footer { padding: var(--space-6) 0 90px; color: var(--muted); }
+
+    /* Scanner & Risk tools */
+    textarea.input { min-height: 160px; resize: vertical; font-family: inherit; line-height: 1.55; }
+    .tool-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .tpill { font-size:12px; font-weight:800; border-radius:var(--radius-pill); padding:6px 10px; border:1px solid var(--line); background:var(--surface-strong); color:var(--muted); }
+    .tpill.warn { background:var(--warning-tint); color:var(--accent); border-color:transparent; }
+    .tpill.bad { background:var(--error-tint); color:var(--error); border-color:transparent; }
+    .tpill.good { background:var(--success-tint); color:var(--success); border-color:transparent; }
+    .tpill.blue { background:var(--primary-tint); color:var(--brand); border-color:transparent; }
+    .score-circle { width:124px; height:124px; border-radius:50%; display:grid; place-items:center; margin:0 auto; position:relative; background:conic-gradient(var(--brand) calc(var(--score,70)*1%), var(--line-soft) 0); }
+    .score-circle::after { content:""; position:absolute; inset:13px; border-radius:50%; background:var(--surface-strong); border:1px solid var(--line); }
+    .score-circle b { position:relative; z-index:1; font-size:30px; font-weight:950; letter-spacing:-0.04em; }
+    .flag-list { display:grid; gap:8px; margin-top:12px; }
+    .flag { border:1px solid var(--line); border-left:4px solid var(--warning); background:var(--warning-tint); color:var(--text); border-radius:12px; padding:10px 12px; font-size:13px; }
+    .quality-list { display:grid; gap:8px; }
+    .q-item { display:flex; gap:10px; align-items:flex-start; border:1px solid var(--line); border-radius:12px; padding:10px 12px; background:var(--surface-strong); }
+    .q-badge { font-size:11px; font-weight:900; border-radius:8px; padding:4px 8px; flex-shrink:0; }
+    .q-badge.pass { background:var(--success-tint); color:var(--success); }
+    .q-badge.check { background:var(--warning-tint); color:var(--accent); }
+    .toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(40px); background:var(--surface-strong); border:1px solid var(--brand); color:var(--text); padding:12px 18px; border-radius:14px; box-shadow:var(--shadow); opacity:0; transition:opacity .2s ease, transform .2s ease; z-index:500; font-weight:800; pointer-events:none; max-width:calc(100% - 36px); }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+    /* sticky compare bar */
+    .compare-bar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+      transform: translateY(140%); transition: transform var(--t-move) var(--ease);
+      padding: 10px 0; padding-bottom: max(10px, env(safe-area-inset-bottom));
+      background: var(--surface); border-top: 1px solid var(--line);
+    }
+    @supports (backdrop-filter: blur(1px)) { .compare-bar { background: rgba(255,255,255,0.9); } [data-theme="dark"] .compare-bar, :root:not([data-theme="light"]) .compare-bar { background: rgba(18,26,43,0.92); } }
+    .compare-bar.show { transform: translateY(0); }
+    .compare-bar .inner { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:48px; }
+    .compare-bar .cb-names { color: var(--muted); font-size: 14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .compare-bar .cb-actions { display:flex; gap:8px; flex-shrink:0; }
+    .ghost-btn { border:1px solid var(--line); background:var(--surface); color:var(--text); border-radius:var(--radius-pill); padding:10px 16px; cursor:pointer; font-weight:750; min-height:44px; transition: background var(--t-micro) var(--ease); }
+    .ghost-btn:hover { background: var(--hover); }
+
+    .hidden { display: none !important; }
+    .muted { color: var(--muted); }
+    .strong { font-weight: 900; }
+    .right { text-align:right; }
+    .small { font-size: 13px; }
+    .empty { padding: 26px; text-align:center; color: var(--muted); border:1px dashed var(--line); border-radius:18px; background:var(--surface-strong); }
+
+    @media (max-width: 980px) {
+      .hero-grid, .grid-2, .tool-grid { grid-template-columns: 1fr; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .calendar { grid-template-columns: repeat(2, 1fr); }
+      .glossary { grid-template-columns: repeat(2, 1fr); }
+      .source-grid, .intro-grid, .sector-grid { grid-template-columns: repeat(2, 1fr); }
+      .filters { grid-template-columns: 1fr 1fr; }
+      .detail-box { position: static; }
+    }
+    @media (max-width: 680px) {
+      html { scroll-padding-top: 70px; }
+      .wrap { width: min(100% - var(--space-3), var(--max)); }
+      .nav { height: 60px; }
+      .menu-toggle { display: block; }
+      .navlinks {
+        position: absolute; top: 60px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px;
+        background: var(--surface-strong); border-bottom: 1px solid var(--line); padding: 12px 18px 18px; box-shadow: var(--shadow); max-height: calc(100vh - 60px); overflow:auto;
+      }
+      .navlinks a, .navlinks .pill-btn { text-align: left; padding: 12px; border-radius: 12px; }
+      .navlinks.closed { display: none; }
+      .hero { padding-top: var(--space-4); }
+      .hero-card, .side-card, .panel { border-radius: 22px; padding: 18px; }
+      .kpi-grid, .cards-grid, .calendar, .grid-3, .calc-grid, .glossary, .source-grid, .filters, .intro-grid, .sector-grid, .pf-summary { grid-template-columns: 1fr; }
+      .section-head { align-items:flex-start; flex-direction:column; }
+      .bar-row { grid-template-columns: 72px 1fr 64px; }
+      .pf-add, .pf-row { grid-template-columns: 1fr; }
+      .scroll-hint { display:block; font-size:12px; color:var(--muted); margin-bottom:8px; }
+    }
+    @media (max-width: 480px) {
+      .compare-bar .inner { flex-direction: column; align-items: stretch; }
+      .compare-bar .cb-actions { justify-content: space-between; }
+      .compare-bar .cb-actions button { flex:1; }
+      .pf-chart { height: 150px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="리츠온 홈">
+        <span class="logo">R</span>
+        <span>리츠온 <span class="muted">REITs ON</span></span>
+      </a>
+      <button id="menuToggle" class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <nav class="navlinks closed" id="navLinks" aria-label="주요 메뉴">
+        <a href="#intro">리츠란?</a>
+        <a href="#learn">분석 틀</a>
+        <a href="#finder">리츠 찾기</a>
+        <a href="#compare">비교</a>
+        <a href="#calendar">배당 캘린더</a>
+        <a href="#portfolio">현금흐름</a>
+        <a href="#tools">계산기</a>
+        <a href="#scanner">공시 스캐너</a>
+        <a href="#risk">리스크 레이더</a>
+        <a href="#sectors">섹터 가이드</a>
+        <a href="#faq">FAQ</a>
+        <button id="themeToggle" class="pill-btn" type="button">🌙 모드</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-card">
+          <span class="eyebrow"><span class="dot"></span> 상장리츠 일반 투자자를 위한 정보 플랫폼</span>
+          <h1>부동산을<br />주식처럼 읽고,<br />배당을 숫자로 본다.</h1>
+          <p class="lead">국내 상장리츠 25개를 한 화면에서 비교하고, 배당 월을 캘린더로 보고, 초보자가 꼭 확인할 공시 체크리스트까지 연결한 정보 플랫폼입니다. 매수 추천이 아닌 <strong>학습·비교 도구</strong>입니다.</p>
+          <div class="hero-actions">
+            <a href="#learn">배당 구조 5분 이해하기</a>
+            <a href="#finder">25개 리츠 비교 시작</a>
+          </div>
+        </div>
+        <aside class="side-card" aria-label="시장 요약">
+          <div>
+            <span class="eyebrow">Market snapshot · <span id="asOf"></span> · 실시간 아님</span>
+            <div class="pulse-row">
+              <div><div class="pulse-label">국내 운용리츠</div><div class="pulse-value" id="totalReits"></div></div>
+              <div class="right"><div class="pulse-label">총 AUM</div><div class="pulse-value" id="totalAum"></div></div>
+            </div>
+            <div class="pulse-row">
+              <div><div class="pulse-label">상장리츠</div><div class="pulse-value" id="listedReits"></div></div>
+              <div class="right"><div class="pulse-label">상장리츠 시가총액</div><div class="pulse-value" id="listedCap"></div></div>
+            </div>
+            <div class="pulse-row">
+              <div><div class="pulse-label">상장리츠 평균 배당수익률</div><div class="pulse-value two" id="listedYield"></div></div>
+            </div>
+          </div>
+          <p class="mini-note" id="yieldNote"></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section reveal" id="intro">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>리츠가 처음이라면</h2>
+            <p>3가지만 이해하면 나머지는 따라옵니다. 리츠가 무엇인지, 왜 상장리츠인지, 배당은 어떻게 들어오는지부터 보세요.</p>
+          </div>
+        </div>
+        <div class="intro-grid">
+          <div class="intro-card">
+            <div class="ic">🏢</div>
+            <h3>리츠(REITs)란?</h3>
+            <p>여러 투자자의 돈을 모아 빌딩·물류센터·상가 같은 <strong>부동산에 투자하고, 거기서 나온 임대수익을 나눠주는 회사</strong>입니다. 직접 건물을 사지 않아도 소액으로 부동산에 투자하는 셈입니다.</p>
+            <ul>
+              <li>법적으로 배당가능이익의 90% 이상을 배당</li>
+              <li>그래서 "배당주"로 분류되는 경우가 많음</li>
+            </ul>
+          </div>
+          <div class="intro-card">
+            <div class="ic">📈</div>
+            <h3>왜 "상장"리츠인가?</h3>
+            <p>증권시장에 상장된 리츠는 <strong>주식처럼 실시간으로 사고팔 수 있습니다.</strong> 부동산 직접 투자와 달리 소액·분산·환금이 쉽고, 공시 의무가 있어 정보 접근성이 높습니다.</p>
+            <ul>
+              <li>최소 수천 원 단위로 매수 가능</li>
+              <li>정기·수시 공시로 자산·배당 확인</li>
+            </ul>
+          </div>
+          <div class="intro-card">
+            <div class="ic">💸</div>
+            <h3>배당은 어떻게 들어오나?</h3>
+            <p>리츠마다 <strong>결산월</strong>이 있고, 결산 후 일정 기간이 지나 배당이 지급됩니다. 주기가 달라(분기·반기·연1회) 여러 리츠를 섞으면 <strong>월별로 분산된 현금흐름</strong>을 설계할 수 있습니다(특정 월 집중 경향 있음).</p>
+            <ul>
+              <li>임대수익 기반 = 반복 배당</li>
+              <li>자산 매각 이익 = 일회성 특별배당(구분 필요)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="learn">
+      <div class="wrap grid-2">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <h2>분석 틀 (5분)</h2>
+              <p>초보 투자자가 상장리츠를 처음 볼 때의 순서입니다. 아래 리츠들을 이 6가지 질문으로 읽어보세요.</p>
+            </div>
+          </div>
+          <div class="steps">
+            <div class="step"><div><strong>무엇을 보유했는가?</strong><p>오피스, 물류, 리테일, 호텔, 주거, 해외 자산을 먼저 구분합니다.</p></div></div>
+            <div class="step"><div><strong>누가 임차인인가?</strong><p>임차인 신용도와 임대차 만기가 배당 안정성의 출발점입니다.</p></div></div>
+            <div class="step"><div><strong>차입금 만기는 언제인가?</strong><p>금리가 오를 때 리파이낸싱 비용이 배당을 압박할 수 있습니다.</p></div></div>
+            <div class="step"><div><strong>배당은 반복 가능한가?</strong><p>임대수익 기반 배당과 자산 매각 특별배당을 분리해서 봅니다.</p></div></div>
+            <div class="step"><div><strong>유상증자 가능성은?</strong><p>신규 자산 편입은 성장 요인이지만 단기 주가·주당배당 부담이 될 수 있습니다.</p></div></div>
+            <div class="step"><div><strong>공시 원문을 확인했는가?</strong><p>리츠정보시스템, KIND, DART, 개별 리츠 홈페이지를 연결해서 봅니다.</p></div></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <h2>투자 전 공시 확인 체크리스트</h2>
+              <p>이 체크는 "원문을 확인했다"는 기록일 뿐, 이해·투자 준비 완료를 뜻하지 않습니다.</p>
+            </div>
+          </div>
+          <div class="checklist" id="checklist">
+            <label class="check"><input type="checkbox" data-check><span><strong>투자보고서 최신본 확인</strong><br/><span class="muted small">자산, 임차인, 차입금, 배당 재원을 확인했습니다.</span></span></label>
+            <label class="check"><input type="checkbox" data-check><span><strong>배당 원천 구분</strong><br/><span class="muted small">반복 임대수익인지, 일회성 매각이익인지 나눠 봤습니다.</span></span></label>
+            <label class="check"><input type="checkbox" data-check><span><strong>차입금 만기·금리 확인</strong><br/><span class="muted small">향후 12~24개월 리파이낸싱 일정을 확인했습니다.</span></span></label>
+            <label class="check"><input type="checkbox" data-check><span><strong>공실률·WALE 확인</strong><br/><span class="muted small">임차인 집중도와 임대차 만기를 봤습니다.</span></span></label>
+            <label class="check"><input type="checkbox" data-check><span><strong>NAV 대비 주가 확인</strong><br/><span class="muted small">할인율이 단순 저평가인지, 리스크 반영인지 생각했습니다.</span></span></label>
+            <label class="check"><input type="checkbox" data-check><span><strong>유상증자·자산편입 계획 확인</strong><br/><span class="muted small">성장 계획과 단기 수급 부담을 같이 봤습니다.</span></span></label>
+          </div>
+          <div class="progress-box">
+            <div class="strong">공시 확인 진행률 <span id="riskScore">0%</span></div>
+            <div class="meter-track"><div class="meter-fill" id="riskFill"></div></div>
+            <div id="riskText" class="muted small">아직 자료 확인 전입니다. 투자 판단보다 원문 확인이 먼저입니다.</div>
+            <div class="always-warn">⚠ 리츠는 배당 삭감·중단, 주가 손실이 가능합니다.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="market">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>시장 한눈에 보기</h2>
+            <p>리츠 시장 전체 규모와 상장리츠의 위치를 먼저 잡아두면, 개별 종목의 규모와 배당을 더 쉽게 비교할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="kpi-grid" id="kpis"></div>
+        <div class="panel" style="margin-top:var(--space-2);">
+          <div class="section-head"><div><h3 style="margin:0;">리츠 시장 성장 (2002 → <span id="growthAsOf"></span>)</h3><p>국토부·협회 공개 통계 기준 AUM(조원)과 리츠 수 추이입니다.</p></div></div>
+          <div class="growth" id="growthChart"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="wrap grid-2">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <h2>전체 리츠 자산 섹터</h2>
+              <p>국내 전체 운용리츠 AUM 기준. 색상은 일반적 배당 안정성 성격을 나타냅니다(개별 리츠와 다를 수 있음).</p>
+            </div>
+          </div>
+          <div id="sectorBars" class="bar-list"></div>
+          <div class="legend">
+            <span><i class="sw" style="background:var(--success)"></i>안정 편</span>
+            <span><i class="sw" style="background:var(--warning)"></i>경기 민감</span>
+            <span><i class="sw" style="background:var(--error)"></i>환율/변동 큼</span>
+            <span><i class="sw" style="background:#8893ad"></i>기타</span>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <h2>상장리츠 규모감</h2>
+              <p>상장리츠 종목별 자산총계 기준 상위 8개. 자산 기준일은 2025년말 투자보고서 기준입니다.</p>
+            </div>
+          </div>
+          <div id="assetBars" class="bar-list"></div>
+          <p class="helper" id="concentrationNote"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="finder">
+      <div class="wrap grid-2" style="grid-template-columns: 1.35fr .65fr; align-items:start;">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <h2>리츠 찾기 <details class="help" style="vertical-align:middle;"><summary aria-label="정보 이해 난이도 설명">?</summary><div class="pop">‘정보 이해 난이도’(입문·중급·심화)는 자산 규모·배당 빈도·섹터 단순성만 반영한 <strong>학습 지표</strong>이며, 투자 위험도·수익성·안전성과 무관합니다. 입문 등급도 배당 삭감·중단·원금 손실이 가능합니다. 모든 등급에서 투자보고서 정독이 필수입니다.</div></details></h2>
+              <p>이름·티커·섹터·배당 월로 좁혀보세요. ★는 관심리츠, <b>비교</b>는 나란히 비교 목록에 담깁니다.</p>
+            </div>
+            <span class="eyebrow"><span id="resultCount">0</span>개 표시</span>
+          </div>
+          <div class="freshness" id="freshness"></div>
+          <div class="filters">
+            <input id="searchInput" class="input" type="search" placeholder="예: 오피스, SK, 395400" aria-label="리츠 검색 (이름·티커·섹터)" />
+            <select id="sectorSelect" class="select" aria-label="섹터 선택"></select>
+            <select id="monthSelect" class="select" aria-label="배당기준월 선택"></select>
+            <select id="sortSelect" class="select" aria-label="정렬 선택">
+              <option value="name">이름순</option>
+              <option value="assetDesc">자산총계 큰 순</option>
+              <option value="assetAsc">자산총계 작은 순</option>
+              <option value="freq">결산 빈도 높은 순</option>
+              <option value="learning">이해 난이도 낮은 순 (학습용)</option>
+              <option value="watch">관심리츠 먼저</option>
+            </select>
+          </div>
+          <div class="chip-row" id="quickChips" aria-label="빠른 필터"></div>
+          <div style="display:flex; justify-content:flex-end; margin-bottom:var(--space-2);">
+            <div class="seg" role="tablist" aria-label="보기 전환">
+              <button id="viewCards" class="on" type="button" aria-pressed="true">카드</button>
+              <button id="viewTable" type="button" aria-pressed="false">표</button>
+            </div>
+          </div>
+          <div id="cards" class="cards-grid"></div>
+          <div id="tableView" class="hidden">
+            <p class="scroll-hint">← 좌우로 스크롤할 수 있어요</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>종목</th><th>티커</th><th>대표 섹터</th><th>배당기준월</th><th>최근배당금</th><th>자산총계</th><th>링크</th></tr>
+                </thead>
+                <tbody id="reitTable"></tbody>
+              </table>
+            </div>
+          </div>
+          <div id="emptyState" class="empty hidden">조건에 맞는 리츠가 없습니다. 필터를 조금 넓혀보세요.</div>
+        </div>
+
+        <aside class="panel detail-box" id="detailPanel">
+          <div class="detail-title">
+            <div>
+              <span class="eyebrow">선택 리츠</span>
+              <h2 id="detailName" style="margin:10px 0 0;">리츠를 선택하세요</h2>
+              <p id="detailTicker" class="muted"></p>
+            </div>
+          </div>
+          <p id="detailNote" class="muted">카드를 클릭하면 자산·배당·확인 포인트를 보여줍니다.</p>
+          <div class="detail-month" id="detailMonths"></div>
+          <ul class="detail-list" id="detailList"></ul>
+          <div class="hero-actions" id="detailLinks" style="margin-top:var(--space-2);"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section reveal" id="compare">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>리츠 비교하기</h2>
+            <p>유사 섹터 2~3개를 규모·배당 주기·이해 난이도로 나란히 두고 <b>“어느 것을 먼저 깊게 조사할지”</b> 고를 때 씁니다. 투자 판단은 각 리츠 공시·현재가 확인 후에 합니다.</p>
+          </div>
+          <button id="clearCompare" class="ghost-btn" type="button">비교 비우기</button>
+        </div>
+        <div class="panel">
+          <div id="compareEmpty" class="compare-empty">아직 비교에 담은 리츠가 없습니다. 위 <b>리츠 찾기</b>에서 카드의 <b>비교</b>를 눌러보세요.</div>
+          <div id="compareContent" class="hidden"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="calendar">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>배당기준월 캘린더</h2>
+            <p>상장리츠는 결산월과 실제 지급일 사이에 시차가 있습니다. 여기서는 “배당기준월”을 기준으로 월별 분산을 보여줍니다.</p>
+          </div>
+        </div>
+        <div class="note-banner info" id="calendarNote"></div>
+        <div class="calendar" id="calendarGrid"></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="portfolio">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>포트폴리오 월별 현금흐름 (추정)</h2>
+            <p>관심 리츠와 보유 주식 수를 넣으면, 배당기준월에 맞춰 월별 배당 현금흐름을 그려봅니다.</p>
+          </div>
+        </div>
+        <div class="note-banner">⚠ 최근배당금은 <b>최근 1회 지급액 기준(연환산 아님)</b>이며 향후 변동·중단될 수 있습니다. 실제 지급일은 배당기준월 이후입니다. 아래는 <b>교육용 추정치</b>로, 실제 수령액·세금과 다릅니다.</div>
+        <div class="panel">
+          <div class="pf-add">
+            <label>리츠 선택<br/><select id="pfSelect" class="select" aria-label="포트폴리오에 추가할 리츠"></select></label>
+            <label>보유 주식 수<br/><input id="pfShares" class="input" type="number" min="0" step="1" value="100" aria-label="보유 주식 수" /></label>
+            <button id="pfAdd" class="primary-btn" type="button" style="height:46px;">추가</button>
+          </div>
+          <div class="pf-list" id="pfList"></div>
+          <div id="pfResult" class="hidden">
+            <h3 style="margin-top:var(--space-4);">월별 배당 추정 (1년)</h3>
+            <div class="pf-chart" id="pfChart" aria-hidden="true"></div>
+            <div class="pf-mlabels" id="pfLabels"></div>
+            <div class="legend" id="pfLegend"></div>
+            <div class="pf-summary">
+              <div class="result-card"><div class="small">연간 배당 합계(추정)</div><div class="big" id="pfAnnual">-</div></div>
+              <div class="result-card"><div class="small">월평균(추정)</div><div class="big" id="pfMonthly">-</div></div>
+              <div class="result-card"><div class="small">최대 배당 월</div><div class="big" id="pfPeak">-</div></div>
+            </div>
+            <p class="helper" id="pfNullNote"></p>
+          </div>
+          <div id="pfEmpty" class="empty">아직 담은 리츠가 없습니다. 위에서 리츠와 주식 수를 추가해 보세요.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="tools">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>배당·가격 계산기</h2>
+            <p>상장리츠의 첫 질문은 “얼마를 벌까?”보다 “이 배당이 반복 가능한가?”입니다. 계산기는 숫자의 감을 잡는 용도입니다.</p>
+          </div>
+        </div>
+        <div class="tool-grid">
+          <div class="panel">
+            <h3>배당 시나리오 계산기</h3>
+            <p class="muted small">투자금액과 가정한 연 배당률을 넣으면 세전·세후 현금흐름을 계산합니다.</p>
+            <div class="note-banner" style="margin:12px 0;">⚠ 가정 기반 시나리오입니다. 실제 배당은 공실·금리·임차인 신용도에 따라 삭감·중단될 수 있어 월급처럼 반복되지 않을 수 있습니다.</div>
+            <div class="chip-row" id="calcPresets"></div>
+            <div class="calc-grid">
+              <label>투자금액(원)<br/><input id="investAmount" class="input" type="number" value="50000000" min="0" step="1000000" /></label>
+              <label>가정 연 배당률(%)<br/><input id="yieldInput" class="input" type="number" value="7.0" min="0" max="100" step="0.1" /></label>
+              <label>세금 가정<br/><select id="taxMode" class="select">
+                <option value="normal">일반 배당세 15.4%</option>
+                <option value="reitSep">상장리츠 분리과세 9.9%</option>
+                <option value="isaGeneral">ISA 일반형 (200만 비과세 후 9.9%)</option>
+                <option value="isaLow">ISA 서민·농어민형 (400만 비과세 후 9.9%)</option>
+                <option value="custom">직접 입력</option>
+              </select></label>
+              <label id="customTaxWrap" class="hidden">직접 세율(%)<br/><input id="taxInput" class="input" type="number" value="15.4" min="0" max="100" step="0.1" /></label>
+            </div>
+            <p class="helper">일반 15.4%(소득세+지방세) 외에, 요건을 갖춘 공모리츠는 분리과세(예: 9.9%), ISA 계좌 활용 등 절세 수단이 있습니다. ISA 비과세 한도·9.9%는 <b>단순 가정</b>이며 보유기간·납입한도·종합과세 여부에 따라 달라집니다. 세율·요건은 변경될 수 있으니 국세청·증권사에서 최신 기준을 확인하세요.</p>
+            <div class="grid-3" style="margin-top:12px;" aria-live="polite" aria-atomic="true">
+              <div class="result-card"><div class="small">세전 연 배당</div><div class="big" id="grossAnnual">-</div></div>
+              <div class="result-card"><div class="small">세후 연 배당 (<span id="taxModeLabel">일반 15.4%</span>)</div><div class="big" id="netAnnual">-</div></div>
+              <div class="result-card"><div class="small">세후 월평균</div><div class="big" id="netMonthly">-</div></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>배당수익률 역산</h3>
+            <p class="muted small">연간 주당 배당금과 현재가를 넣어 배당수익률, 목표수익률 기준 가격을 계산합니다.</p>
+            <div class="calc-grid">
+              <label>현재가(원)<br/><input id="priceInput" class="input" type="number" value="5000" min="0" step="10" /></label>
+              <label>연간 주당 배당금(원)<br/><input id="annualDpsInput" class="input" type="number" value="350" min="0" step="1" /></label>
+              <label>목표 배당수익률(%)<br/><input id="targetYieldInput" class="input" type="number" value="7.0" min="0.1" max="100" step="0.1" /></label>
+              <label>가격 안전마진(%)<br/><input id="marginInput" class="input" type="number" value="5" min="0" max="100" step="0.5" /></label>
+            </div>
+            <p class="helper">‘연간 주당 배당금’은 1년치 합계를 직접 넣어야 합니다(카드의 최근배당금은 1회 기준이라 그대로 쓰면 안 됩니다).</p>
+            <div class="grid-3" style="margin-top:12px;" aria-live="polite" aria-atomic="true">
+              <div class="result-card"><div class="small">현재 배당수익률</div><div class="big" id="calcYield">-</div></div>
+              <div class="result-card"><div class="small">목표수익률 가격</div><div class="big" id="impliedPrice">-</div></div>
+              <div class="result-card"><div class="small">안전마진 가격</div><div class="big" id="marginPrice">-</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="scanner">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>공시 읽기 도우미</h2>
+            <p>투자보고서·공시 문장을 붙여넣으면 위험 키워드와 숫자를 짚어주고, IR에 물어볼 질문을 만들어 줍니다. 붙여넣은 글은 <b>브라우저 안에서만 처리</b>되며 어디에도 전송되지 않습니다.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <label class="strong" for="disclosureText">공시 / 투자보고서 / IR 문구 붙여넣기</label>
+            <textarea id="disclosureText" class="input" style="margin-top:8px;">본 리츠는 차입금 만기 도래에 따라 리파이낸싱을 추진 중이며, 일부 변동금리 차입금의 이자비용이 증가할 수 있습니다. 주요 임차인의 계약 만기는 2027년이며, 매각차익에 따른 특별배당 가능성이 있습니다. 해외 자산 관련 환헤지 비용도 점검이 필요합니다.</textarea>
+            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;">
+              <button class="primary-btn" id="scanBtn" type="button">스캔하기</button>
+              <button class="ghost-btn" id="scanSample" type="button">샘플 불러오기</button>
+              <button class="ghost-btn" id="scanAd" type="button">과장광고 문구 검증</button>
+            </div>
+          </div>
+          <div class="panel">
+            <h3>스캔 결과</h3>
+            <div id="scanOutput"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="risk">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>리스크 레이더 (직접 입력)</h2>
+            <p>투자보고서에서 찾은 숫자를 넣으면 어떤 점을 더 따져봐야 하는지 알려줍니다. 값은 본인이 공시에서 확인해 입력하세요 — 이 화면은 수치를 만들어내지 않습니다.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="panel">
+            <div class="calc-grid">
+              <label>LTV(차입금 비율 %)<br/><input id="ltv" class="input" type="number" value="45" min="0" max="100" /></label>
+              <label>12개월 내 만기 차입 비중(%)<br/><input id="maturity12" class="input" type="number" value="25" min="0" max="100" /></label>
+              <label>임대율(%)<br/><input id="occupancy" class="input" type="number" value="96" min="0" max="100" /></label>
+              <label>WALE(잔여 임대차 년)<br/><input id="wale" class="input" type="number" value="4.2" min="0" step="0.1" /></label>
+              <label>변동금리 비중(%)<br/><input id="floating" class="input" type="number" value="35" min="0" max="100" /></label>
+              <label>해외자산 비중(%)<br/><input id="foreign" class="input" type="number" value="0" min="0" max="100" /></label>
+              <label>단일 임차인 비중(%)<br/><input id="singleTenant" class="input" type="number" value="35" min="0" max="100" /></label>
+              <label>특별배당 의존도<br/><select id="specialDiv" class="select"><option value="0">낮음</option><option value="15">일부 있음</option><option value="30">높음</option></select></label>
+              <label>개발/매각차익 의존도<br/><select id="development" class="select"><option value="0">낮음</option><option value="15">일부 있음</option><option value="30">높음</option></select></label>
+            </div>
+            <p class="helper">점수는 입력값을 단순 가중한 <b>교육용 지표</b>이며, 투자 적합성·안전성을 보장하지 않습니다.</p>
+          </div>
+          <div class="panel">
+            <div class="grid-2" style="align-items:center;">
+              <div><h3 style="text-align:center; margin-bottom:12px;">점검 강도</h3><div class="score-circle" id="riskScoreC" style="--score:70"><b>70</b></div></div>
+              <div id="riskSummary"></div>
+            </div>
+            <div id="riskBars" class="bar-list" style="margin-top:14px;"></div>
+            <div id="riskFlags" class="flag-list"></div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:var(--space-2);">
+          <h3>금리·리파이낸싱 시나리오</h3>
+          <p class="muted small">금리가 오를 때 이자비용이 배당을 얼마나 누르는지 감을 잡는 교육용 계산입니다.</p>
+          <div class="calc-grid">
+            <label>자산총계(억원)<br/><input id="scenarioAum" class="input" type="number" value="10000" min="0" step="100" /></label>
+            <label>LTV(%)<br/><input id="scenarioLtv" class="input" type="number" value="45" min="0" max="100" /></label>
+            <label>12개월 내 재조달 비중(%)<br/><input id="scenarioRefi" class="input" type="number" value="30" min="0" max="100" /></label>
+            <label>금리 변화(%p)<br/><input id="scenarioRate" class="input" type="number" value="1.0" step="0.1" /></label>
+          </div>
+          <div id="scenarioOutput" class="grid-3" style="margin-top:12px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="sectors">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>섹터 가이드</h2>
+            <p>리츠는 무엇을 보유했느냐가 곧 위험·수익의 성격입니다. 섹터별로 배당 안정성과 핵심 변수를 정리했습니다.</p>
+          </div>
+        </div>
+        <div class="note-banner">아래 설명은 일반적 특성이며, 개별 리츠의 위험은 투자보고서로 직접 확인해야 합니다. <b>모든 섹터에서 배당 삭감·중단·주가 손실이 가능합니다.</b></div>
+        <div class="sector-grid" id="sectorGuide"></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>자주 묻는 질문</h2>
+            <p>상장리츠를 처음 볼 때 가장 많이 나오는 질문을 모았습니다.</p>
+          </div>
+        </div>
+        <div class="faq-list" id="faqList"></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="glossary">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>리츠 용어를 쉽게</h2>
+            <p>투자보고서와 이 화면에서 자주 보는 단어를 일반 투자자 언어로 바꿨습니다.</p>
+          </div>
+        </div>
+        <div id="glossaryGrid"></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="sources">
+      <div class="wrap">
+        <div class="panel">
+          <div class="section-head">
+            <div>
+              <h2>데이터 출처와 실제 운영 구조</h2>
+              <p>이 화면은 정적 파일이라 실시간 주가를 직접 저장하지 않습니다. 실제 서비스에서는 아래 원천을 주기적으로 수집·검증하는 구조가 필요합니다.</p>
+            </div>
+          </div>
+          <div class="source-grid" id="sourceGrid"></div>
+          <div class="grid-3" style="margin-top:var(--space-2);">
+            <div class="result-card"><strong>1. Seed data</strong><p class="muted small">상장리츠 명단, 티커, 배당기준월, 최근배당금, 자산총계는 한국리츠협회 공개 페이지 기준으로 입력.</p></div>
+            <div class="result-card"><strong>2. Live quote layer</strong><p class="muted small">운영 버전에서는 KRX·증권사 API 또는 라이선스 데이터로 현재가, 시가총액, 거래량을 갱신.</p></div>
+            <div class="result-card"><strong>3. Filing parser</strong><p class="muted small">리츠정보시스템·KIND·DART에서 투자보고서, 수시공시, 영업보고서를 수집해 변경점을 알림.</p></div>
+          </div>
+        </div>
+        <div class="grid-2" style="margin-top:var(--space-2);">
+          <div class="panel">
+            <h3>데이터 품질 자가 점검</h3>
+            <p class="muted small">이 화면이 쓰는 seed 데이터의 정합성을 스스로 점검한 결과입니다.</p>
+            <div id="qualityChecks" class="quality-list" style="margin-top:12px;"></div>
+          </div>
+          <div class="panel">
+            <h3>데이터 내보내기</h3>
+            <p class="muted small">이 화면이 사용하는 seed 데이터(시장 통계·25개 리츠·출처)를 JSON 파일로 저장할 수 있습니다.</p>
+            <button class="ghost-btn" id="exportBtn" type="button" style="margin-top:12px;">데이터 JSON 내보내기</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="compare-bar" id="compareBar" aria-live="polite">
+    <div class="wrap inner">
+      <div class="cb-names" id="cbNames"></div>
+      <div class="cb-actions">
+        <button class="ghost-btn" id="cbClear" type="button">비우기</button>
+        <button class="primary-btn" id="cbGo" type="button">비교 보기</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer class="footer">
+    <div class="wrap panel">
+      <strong>리츠온 REITs ON</strong>
+      <p class="small">본 화면은 일반 투자자 교육과 정보 접근성 개선을 위한 정보 플랫폼입니다. <b>특정 종목의 매수·매도·보유 추천이 아니며</b>, 모든 정렬·점수·난이도 표시는 학습 보조 지표일 뿐입니다. 리츠는 배당 삭감·중단 및 원금 손실이 가능하며, 투자 결정 전 공식 공시와 최신 가격을 반드시 확인해야 합니다.</p>
+      <p class="small">데이터 기준: 시장 통계는 2026년 5월말 공개 통계, 개별 상장리츠 자산총계·최근배당금은 한국리츠협회 공개 표의 기준일(2025년말 투자보고서) 설명을 반영했습니다. 실시간 데이터가 아닙니다.</p>
+    </div>
+  </footer>
+
+  <script id="seed-data" type="application/json">{"reits": [{"name": "대신밸류리츠", "ticker": "0030R0", "sector": ["오피스"], "primary": "오피스", "divMonths": [2, 5, 8, 11], "recentDiv": 73, "assetText": "7,217억", "assetBn": 721.7, "homepage": "https://www.daishinvaluereit.com/", "note": "서울 도심 오피스 ‘대신343’을 기초자산으로 출발한 스폰서형 리츠.", "difficulty": "쉬움", "tags": ["분기결산", "신규상장", "스폰서형"]}, {"name": "신한글로벌액티브리츠", "ticker": "481850", "sector": ["해외", "재간접"], "primary": "해외", "divMonths": [2, 8], "recentDiv": 127, "assetText": "1,157억", "assetBn": 115.7, "homepage": "https://shglobalreit.com/", "note": "해외 부동산·리츠 노출도가 큰 재간접 성격의 리츠. 환율, 해외 금리, 현지 자산가치가 핵심 변수.", "difficulty": "보통", "tags": ["해외", "환율민감", "반기결산"]}, {"name": "삼성FN리츠", "ticker": "448730", "sector": ["오피스"], "primary": "오피스", "divMonths": [1, 4, 7, 10], "recentDiv": 69, "assetText": "8,681억", "assetBn": 868.1, "homepage": "https://www.samsungfnreit.com/", "note": "국내 오피스 중심의 분기 결산 리츠. 임차인 안정성, 오피스 공실률, 금리 비용을 함께 확인.", "difficulty": "쉬움", "tags": ["분기결산", "오피스"]}, {"name": "한화리츠", "ticker": "451800", "sector": ["오피스"], "primary": "오피스", "divMonths": [4, 10], "recentDiv": 135, "assetText": "1조 5,559억", "assetBn": 1555.9, "homepage": "https://hanwhareit.com/", "note": "한화그룹 계열 오피스 자산 중심. 스폰서 임차 구조와 계열 임대차 조건을 같이 본다.", "difficulty": "쉬움", "tags": ["스폰서형", "오피스", "반기결산"]}, {"name": "KB스타리츠", "ticker": "432320", "sector": ["오피스", "해외"], "primary": "해외", "divMonths": [1, 7], "recentDiv": 170, "assetText": "1조 798억", "assetBn": 1079.8, "homepage": "https://kbstarreit.com/", "note": "해외 오피스 노출이 있는 리츠. 현지 임대차와 환율, 해외 자산 리파이낸싱 조건 확인이 중요.", "difficulty": "보통", "tags": ["해외", "오피스", "환율민감"]}, {"name": "마스턴프리미어리츠", "ticker": "357430", "sector": ["물류", "해외", "복합"], "primary": "물류", "divMonths": [3, 9], "recentDiv": 96, "assetText": "1,549억", "assetBn": 154.9, "homepage": "https://masternpremier.com/", "note": "해외·국내 물류 관련 자산이 섞인 리츠. 임차인 신용도, 환율, 물류 임대료 사이클을 확인.", "difficulty": "보통", "tags": ["물류", "해외", "반기결산"]}, {"name": "코람코더원리츠", "ticker": "417310", "sector": ["오피스"], "primary": "오피스", "divMonths": [2, 5, 8, 11], "recentDiv": 94, "assetText": "5,097억", "assetBn": 509.7, "homepage": "https://koramcothe1.com/", "note": "국내 핵심 오피스 중심의 분기 결산 리츠. 단일 또는 소수 자산 집중도를 함께 점검.", "difficulty": "쉬움", "tags": ["분기결산", "오피스"]}, {"name": "신한서부티엔디리츠", "ticker": "404990", "sector": ["호텔", "리테일", "복합"], "primary": "복합", "divMonths": [6, 12], "recentDiv": 130, "assetText": "1조 855억", "assetBn": 1085.5, "homepage": "https://www.shsbreit.com/", "note": "호텔·리테일 성격이 섞인 복합 리츠. 객실 수요, 리테일 매출, 임대차 조건을 같이 본다.", "difficulty": "보통", "tags": ["호텔", "리테일", "경기민감"]}, {"name": "미래에셋글로벌리츠", "ticker": "396690", "sector": ["물류", "해외"], "primary": "해외", "divMonths": [3, 9], "recentDiv": 135, "assetText": "3,659억", "assetBn": 365.9, "homepage": "https://www.globalreit.miraeasset.com/", "note": "해외 물류 자산 중심 리츠. 글로벌 전자상거래, 임차인 신용도, 환율을 함께 본다.", "difficulty": "보통", "tags": ["해외", "물류", "환율민감"]}, {"name": "NH올원리츠", "ticker": "400760", "sector": ["복합", "오피스", "물류"], "primary": "복합", "divMonths": [6, 12], "recentDiv": 170, "assetText": "9,288억", "assetBn": 928.8, "homepage": "https://nhallonereit.com/", "note": "복수 자산을 담은 복합형 리츠. 자산별 임대차 만기와 차입금 만기를 나눠 본다.", "difficulty": "쉬움", "tags": ["복합", "반기결산"]}, {"name": "SK리츠", "ticker": "395400", "sector": ["오피스", "인프라", "복합"], "primary": "복합", "divMonths": [3, 6, 9, 12], "recentDiv": 66, "assetText": "5조 624억", "assetBn": 5062.4, "homepage": "https://skreit.co.kr/", "note": "국내 최대권 상장리츠 중 하나. 오피스와 인프라성 자산이 섞여 있어 배당 안정성과 금리 비용을 같이 본다.", "difficulty": "쉬움", "tags": ["분기결산", "대형", "스폰서형"]}, {"name": "디앤디플랫폼리츠", "ticker": "377190", "sector": ["오피스", "물류", "복합"], "primary": "복합", "divMonths": [3, 9], "recentDiv": 120, "assetText": "1조 423억", "assetBn": 1042.3, "homepage": "https://dndplatformreit.com/", "note": "오피스·물류 등 플랫폼형 자산을 보유. 자산별 성과 편차와 리파이낸싱 일정을 체크.", "difficulty": "보통", "tags": ["복합", "물류", "반기결산"]}, {"name": "ESR켄달스퀘어리츠", "ticker": "365550", "sector": ["물류"], "primary": "물류", "divMonths": [5, 11], "recentDiv": 139, "assetText": "2조 6,270억", "assetBn": 2627.0, "homepage": "https://www.esrks-reit.com/", "note": "국내 물류센터 포트폴리오에 특화. 임차인 분산도, 물류 공급량, 임대료 재계약 조건이 핵심.", "difficulty": "쉬움", "tags": ["물류", "대형", "반기결산"]}, {"name": "코람코라이프인프라리츠", "ticker": "357120", "sector": ["리테일", "인프라"], "primary": "인프라", "divMonths": [5, 11], "recentDiv": 164, "assetText": "1조 2,730억", "assetBn": 1273.0, "homepage": "https://koramcolifeinfra.com/", "note": "생활 인프라·리테일 성격의 자산을 담은 리츠. 업태 전환, 임차인 매출, 장기 임대차 구조를 본다.", "difficulty": "쉬움", "tags": ["인프라", "리테일", "반기결산"]}, {"name": "제이알글로벌리츠", "ticker": "348950", "sector": ["오피스", "해외"], "primary": "해외", "divMonths": [6, 12], "recentDiv": 115, "assetText": "2조 7,760억", "assetBn": 2776.0, "homepage": "https://jrglobalreit.com/", "note": "해외 오피스 자산 비중이 큰 리츠. 현지 임차인, 금리, 환율, 자산가치 변동을 함께 확인.", "difficulty": "보통", "tags": ["해외", "오피스", "대형"]}, {"name": "미래에셋맵스리츠", "ticker": "357250", "sector": ["리테일"], "primary": "리테일", "divMonths": [5, 11], "recentDiv": 112, "assetText": "3,041억", "assetBn": 304.1, "homepage": "https://www.maps1reit.miraeasset.com/", "note": "리테일 자산 성격이 강한 리츠. 핵심 임차인의 영업 안정성과 소비 경기 영향을 본다.", "difficulty": "보통", "tags": ["리테일", "반기결산"]}, {"name": "이지스레지던스리츠", "ticker": "350520", "sector": ["주거"], "primary": "주거", "divMonths": [6, 12], "recentDiv": 150, "assetText": "4,155억", "assetBn": 415.5, "homepage": "https://igisresidencereit.com/", "note": "주거·임대주택 성격의 리츠. 임대율, 주택 매매·전월세 시장, 자산 매각 계획을 함께 본다.", "difficulty": "보통", "tags": ["주거", "반기결산"]}, {"name": "이지스밸류플러스리츠", "ticker": "334890", "sector": ["오피스", "복합"], "primary": "오피스", "divMonths": [5, 11], "recentDiv": 172, "assetText": "5,970억", "assetBn": 597.0, "homepage": "https://www.igisvaluereit.com/", "note": "오피스·복합형 자산을 중심으로 운용. 자산 편입·매각에 따른 특별배당 가능성도 체크.", "difficulty": "보통", "tags": ["오피스", "복합", "반기결산"]}, {"name": "NH프라임리츠", "ticker": "338100", "sector": ["오피스"], "primary": "오피스", "divMonths": [5, 11], "recentDiv": 625, "assetText": "1,078억", "assetBn": 107.8, "homepage": "https://www.nhprimereit.com/", "note": "소형 오피스 지분·수익증권형 성격을 가진 리츠. 자산 구조와 배당 원천을 세부적으로 확인.", "difficulty": "보통", "tags": ["오피스", "소형"]}, {"name": "롯데리츠", "ticker": "330590", "sector": ["리테일", "물류"], "primary": "리테일", "divMonths": [6, 12], "recentDiv": 117, "assetText": "2조 6,155억", "assetBn": 2615.5, "homepage": "https://www.lottereit.co.kr/", "note": "롯데 계열 리테일·물류 자산 중심. 리테일 업황, 임차인 신용도, 장기 임대차 구조를 본다.", "difficulty": "쉬움", "tags": ["대형", "리테일", "스폰서형"]}, {"name": "신한알파리츠", "ticker": "293940", "sector": ["오피스"], "primary": "오피스", "divMonths": [3, 9], "recentDiv": 179, "assetText": "3조 1,449억", "assetBn": 3144.9, "homepage": "https://www.shalphareit.com/", "note": "국내 오피스 중심의 대표 상장리츠. 공실률, 임대료 상승률, 차입금 금리 변화를 중점 확인.", "difficulty": "쉬움", "tags": ["대형", "오피스", "반기결산"]}, {"name": "이리츠코크렙", "ticker": "088260", "sector": ["리테일"], "primary": "리테일", "divMonths": [6, 12], "recentDiv": 174, "assetText": "6,658억", "assetBn": 665.8, "homepage": "https://www.ereits.co.kr/", "note": "리테일 자산 중심. 소비 경기와 임차인 매출 안정성, 자산 매각 가능성을 점검.", "difficulty": "보통", "tags": ["리테일", "반기결산"]}, {"name": "케이탑리츠", "ticker": "145270", "sector": ["복합", "오피스"], "primary": "복합", "divMonths": [12], "recentDiv": 68, "assetText": "2,078억", "assetBn": 207.8, "homepage": "https://www.ktopreits.co.kr/", "note": "자기관리 성격의 오래된 상장리츠. 보유 자산별 임대수익과 매각손익 변동을 함께 본다.", "difficulty": "상세확인", "tags": ["연결산", "자기관리", "소형"]}, {"name": "스타에스엠리츠", "ticker": "204210", "sector": ["호텔"], "primary": "호텔", "divMonths": [12], "recentDiv": null, "assetText": "668억", "assetBn": 66.8, "homepage": "https://www.modetourreit.com/", "note": "호텔 자산 성격이 강한 소형 리츠. 객실 수요, 임대차 구조, 배당 재개 여부를 별도 확인.", "difficulty": "상세확인", "tags": ["호텔", "소형", "연결산"]}, {"name": "에이리츠", "ticker": "140910", "sector": ["주거", "개발"], "primary": "주거", "divMonths": [12], "recentDiv": null, "assetText": "811억", "assetBn": 81.1, "homepage": "https://www.areit.co.kr/", "note": "주거·개발 성격을 함께 보는 소형 리츠. 프로젝트 진행률, 매각손익, 배당 변동성을 확인.", "difficulty": "상세확인", "tags": ["주거", "개발", "소형"]}], "market": {"asOf": "2026년 5월말", "totalReits": 463, "totalAumTn": 123.4, "listedReits": 25, "listedMarketCapTn": 8.8103, "listedAumTn": 29.3112, "listedDividendYieldPaidInCapital": 5.8, "listedDividendYieldPriceBasis": 7.7, "sectorAum": [{"name": "주택", "pct": 43.7, "aum": 53927.7}, {"name": "오피스", "pct": 35.0, "aum": 43183.9}, {"name": "물류", "pct": 6.7, "aum": 8294.4}, {"name": "리테일", "pct": 6.4, "aum": 7932.3}, {"name": "복합", "pct": 5.0, "aum": 6219.4}, {"name": "기타", "pct": 2.1, "aum": 2568.0}, {"name": "호텔", "pct": 1.1, "aum": 1315.1}], "growth": [{"year": "2002", "count": 4, "aum": 0.5584}, {"year": "2010", "count": 50, "aum": 7.6312}, {"year": "2017", "count": 193, "aum": 34.8834}, {"year": "2024", "count": 399, "aum": 105.3367}, {"year": "2026.5", "count": 463, "aum": 123.4409}]}, "glossary": [{"term": "NAV", "plain": "리츠가 보유한 자산가치에서 부채를 뺀 순자산가치. 주가가 NAV보다 많이 낮으면 할인, 높으면 프리미엄으로 본다."}, {"term": "LTV", "plain": "담보가치 대비 차입금 비율. 높아질수록 금리 상승·리파이낸싱 때 배당 압박이 커질 수 있다."}, {"term": "NOI", "plain": "임대수익에서 운영비를 뺀 부동산의 순영업수익. 배당의 원천을 볼 때 핵심이다."}, {"term": "Cap Rate", "plain": "NOI를 자산가치로 나눈 비율. 부동산의 수익률이자 매매가격을 판단하는 기준이다."}, {"term": "WALE", "plain": "가중평균 잔여 임대차 기간. 길수록 단기 공실 위험은 낮지만, 임대료 상승 반영은 느릴 수 있다."}, {"term": "Refi", "plain": "기존 차입금을 새 차입금으로 갈아타는 것. 금리가 오르면 이자비용이 늘어 배당이 줄 수 있다."}, {"term": "AFFO", "plain": "배당 가능 현금흐름을 보기 위한 지표. 국내 리츠는 공시 양식이 다르므로 투자보고서의 현금흐름과 함께 본다."}, {"term": "특별배당", "plain": "자산 매각이익 등 일회성 이익으로 지급되는 배당. 반복 가능한 배당과 구분해야 한다."}], "sources": [{"label": "한국리츠협회 · 쉽게 보는 통계", "url": "https://www.kareit.or.kr/reference/page1.php"}, {"label": "한국리츠협회 · 상장리츠 시장 현황", "url": "https://www.kareit.or.kr/invest/page2.php"}, {"label": "한국리츠협회 · 리츠란 무엇인가", "url": "https://www.kareit.or.kr/invest/page1.php"}, {"label": "국토교통부 리츠정보시스템", "url": "https://reits.molit.go.kr/pub/main/mainPage"}, {"label": "KIND 한국거래소 공시", "url": "https://kind.krx.co.kr/"}, {"label": "DART 전자공시", "url": "https://dart.fss.or.kr/"}, {"label": "국세청 (배당소득 세제 확인)", "url": "https://www.nts.go.kr/"}]}</script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    const seed = JSON.parse(document.getElementById('seed-data').textContent);
+    const REITS = seed.reits;
+    const MARKET = seed.market;
+    const GLOSSARY = seed.glossary;
+    const SOURCES = seed.sources;
+    const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    const COMPARE_MAX = 3;
+    const PALETTE = ['#3254ff', '#00a78e', '#c07a00', '#d22d32', '#7c5cff'];
+    const DIFF_LABEL = { '쉬움': '입문', '보통': '중급', '상세확인': '심화' };
+    const diffLabel = (d) => DIFF_LABEL[d] || d;
+
+    // Stability class per sector (qualitative, for color-coding only)
+    const STABILITY = { '오피스':'steady','물류':'steady','복합':'steady','인프라':'steady','주거':'steady','리테일':'cyclical','호텔':'cyclical','해외':'fx','주택':'steady','기타':'neutral' };
+
+    const SECTOR_INFO = [
+      {key:'오피스', icon:'🏢', stability:'steady', stabilityText:'안정 편', summary:'서울 도심·강남·여의도 등 핵심권역 빌딩이 주력. 우량 임차인의 장기 임대차가 많아 배당이 비교적 꾸준한 편입니다.', watch:'공실률, 임대료 상승률, 차입금 금리', downside:'경기 둔화·재택근무 확산 시 공실 증가, 금리 상승 시 이자비용으로 배당 압박.'},
+      {key:'물류', icon:'📦', stability:'steady', stabilityText:'구조적 수요', summary:'전자상거래 성장과 맞물린 물류센터 중심. 임차인 분산도와 신규 공급(과잉 여부)이 임대료를 좌우합니다.', watch:'임차인 분산, 신규 공급량, 재계약 임대료', downside:'특정 지역 공급 과잉 시 임대료 하락, 핵심 임차인 신용도 악화 시 공실·연체.'},
+      {key:'리테일', icon:'🛍️', stability:'cyclical', stabilityText:'경기 민감', summary:'백화점·마트·복합쇼핑몰 등. 소비 경기와 핵심 임차인 매출에 영향을 받지만, 장기 책임임대차면 방어력이 있습니다.', watch:'소비 경기, 임차인 매출, 임대차 잔여기간', downside:'소비 위축·온라인 전환 시 매출 연동 임대료 하락, 핵심 임차인 부실 시 타격.'},
+      {key:'주거', icon:'🏠', stability:'steady', stabilityText:'수요 안정', summary:'임대주택 중심. 주거는 수요가 안정적이지만, 임대료 규제·주택시장·자산 매각 계획을 함께 봐야 합니다.', watch:'임대율, 전월세 시장, 매각 계획', downside:'임대료 규제·전세 시장 변동, 개발·매각 지연 시 배당 변동성 확대.'},
+      {key:'호텔', icon:'🏨', stability:'cyclical', stabilityText:'변동성 큼', summary:'관광·출장 수요에 크게 좌우됩니다. 객실 가동률·객단가 변동이 커서 배당 변동성도 상대적으로 큰 편입니다.', watch:'객실 가동률, 관광 수요, 임대차 구조', downside:'경기·감염병·여행 수요 급변에 직접 노출, 고정비 부담으로 적자·배당 중단 가능.'},
+      {key:'해외', icon:'🌏', stability:'fx', stabilityText:'환율 민감', summary:'해외 오피스·물류 등에 투자. 현지 자산가치·금리뿐 아니라 환율 변동이 배당과 평가액에 직접 영향을 줍니다.', watch:'환율, 현지 금리, 해외 리파이낸싱', downside:'원화 강세 시 배당·평가액 감소, 현지 금리 급등·리파이낸싱 실패 시 큰 손실.'},
+      {key:'복합', icon:'🧩', stability:'steady', stabilityText:'분산 효과', summary:'오피스·물류·리테일 등 여러 유형을 한 리츠에 담아 분산 효과를 노립니다. 대신 자산별 성과 편차를 나눠 봐야 합니다.', watch:'자산별 임대차·차입금 만기, 성과 편차', downside:'한 자산의 부실이 전체 배당을 끌어내릴 수 있고, 구조가 복잡해 분석 난도 높음.'},
+      {key:'인프라', icon:'🛣️', stability:'steady', stabilityText:'장기 계약', summary:'생활 인프라·장기 임대 자산 중심. 장기 계약으로 현금흐름이 안정적이지만, 업태 전환 위험을 점검해야 합니다.', watch:'장기 임대차 구조, 업태 전환, 임차인 매출', downside:'임차 업종 구조 변화·핵심 임차인 부실 시 장기 계약도 재협상 위험.'},
+    ];
+    const sectorInfoOf = (key) => SECTOR_INFO.find(s => s.key === key);
+
+    const FAQ = [
+      {q:'리츠는 예금이나 채권처럼 원금이 보장되나요?', a:'아닙니다. 리츠는 주식처럼 매매되는 상장 증권이라 주가가 오르내리고 원금 손실이 가능합니다. 배당도 임대수익·금리·공실 상황에 따라 줄거나 멈출 수 있습니다. "배당주"이지 "예금"이 아닙니다.'},
+      {q:'배당은 매달 들어오나요?', a:'개별 리츠는 보통 분기·반기·연 1회로 배당합니다. 결산월이 서로 다른 여러 리츠를 섞으면 결과적으로 여러 달에 배당이 들어오게 설계할 수 있지만, 국내 배당기준월은 6·9·12월에 몰리는 경향이 있어 완전한 "매달 균등"은 쉽지 않습니다. "배당 캘린더"와 "포트폴리오 현금흐름"에서 분산을 확인하세요.'},
+      {q:'배당수익률이 높으면 무조건 좋은 건가요?', a:'아닙니다. 수익률이 비정상적으로 높다면 (1) 주가가 많이 빠졌거나 (2) 자산 매각에 따른 일회성 특별배당일 수 있습니다. 반복 가능한 임대수익 기반 배당인지부터 투자보고서로 확인해야 합니다.'},
+      {q:'리츠 배당의 세금은 어떻게 되나요?', a:'배당소득은 기본적으로 15.4%(소득세+지방세) 원천징수 대상이며, 금융소득이 크면 종합과세될 수 있습니다. 한편 일정 요건을 갖춘 공모리츠 장기투자에 대해 분리과세(예: 9.9%) 혜택이 적용되는 제도가 운영되어 왔습니다. 세율·요건은 바뀔 수 있으니 매수 전 최신 세제와 증권사·국세청 안내를 반드시 확인하세요.'},
+      {q:'금리가 오르면 리츠는 왜 약세인가요?', a:'리츠는 차입금(대출)을 활용하므로 금리가 오르면 이자비용이 늘어 배당 여력이 줄 수 있습니다. 또 안전자산(예금·채권) 금리가 오르면 배당주의 상대 매력이 떨어져 주가가 눌리는 경향이 있습니다. 그래서 차입금 만기·금리 구조 확인이 중요합니다.'},
+      {q:'NAV보다 주가가 싸면 무조건 저평가인가요?', a:'꼭 그렇지 않습니다. NAV 대비 할인은 단순 저평가일 수도 있지만, 금리·공실·임차인 리스크를 시장이 미리 반영한 결과일 수도 있습니다. 할인의 "이유"를 함께 봐야 합니다.'},
+      {q:'유상증자를 한다는데 악재인가요?', a:'양면적입니다. 신규 우량 자산을 편입하기 위한 증자는 장기 성장 요인이지만, 단기적으로 주식 수가 늘어 주가·주당배당이 희석될 수 있습니다. 편입 자산의 수익성과 발행 조건을 함께 봐야 합니다.'},
+      {q:'이 화면의 "정보 이해 난이도"는 안전하다는 뜻인가요?', a:'전혀 아닙니다. 입문/중급/심화는 자산 규모·배당 빈도·섹터 단순성만 반영한 학습용 지표로, 투자 위험·수익·안전성과 무관합니다. "입문"으로 표시돼도 배당 삭감·중단·원금 손실이 가능하며, 마지막엔 반드시 공식 공시를 직접 확인해야 합니다.'},
+    ];
+
+    // Extra glossary terms used on-page (content only, no numbers)
+    const EXTRA_GLOSSARY = [
+      {term:'배당기준월', plain:'배당을 받을 주주를 확정하는 결산 기준이 되는 달. 실제 지급은 그 이후 일정 기간 뒤에 이뤄진다.'},
+      {term:'공실률', plain:'전체 임대 가능 면적 중 비어 있는 비율. 높을수록 임대수익과 배당이 줄어들 수 있다.'},
+      {term:'임차인', plain:'건물을 빌려 쓰며 임대료를 내는 회사·기관. 신용도가 높고 분산될수록 배당이 안정적이다.'},
+      {term:'스폰서형', plain:'대기업 그룹이 자산·임차를 지원하는 구조의 리츠. 안정성은 높지만 계열 임대차 조건을 따져봐야 한다.'},
+      {term:'유상증자', plain:'새 주식을 발행해 자금을 모으는 것. 신규 자산 편입엔 도움이 되지만 단기 주가·주당배당 희석이 있을 수 있다.'},
+      {term:'투자보고서', plain:'리츠가 자산·임차인·차입금·배당 재원을 정리해 공시하는 핵심 문서. 매수 전 반드시 확인한다.'},
+      {term:'분리과세', plain:'다른 소득과 합산하지 않고 별도 세율로 과세하는 방식. 공모리츠 장기투자 등 요건 충족 시 적용될 수 있다.'},
+      {term:'NAV 할인율', plain:'주가가 순자산가치(NAV)보다 얼마나 싸게(또는 비싸게) 거래되는지를 나타내는 비율.'},
+    ];
+
+    // ---- utilities ----
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+    const fmt = new Intl.NumberFormat('ko-KR');
+    const won = (n) => Number(n || 0).toLocaleString('ko-KR') + '원';
+    const codeUrl = (ticker) => 'https://finance.naver.com/item/main.naver?code=' + ticker;
+    const escapeHTML = (str) => String(str == null ? '' : str).replace(/[&<>'"]/g, t => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[t]));
+    const byTicker = (t) => REITS.find(r => r.ticker === t);
+    const freqLabel = (n) => n >= 4 ? '분기(연 4회)' : n === 2 ? '반기(연 2회)' : n === 1 ? '연 1회' : ('연 ' + n + '회');
+    const payMonth = (m) => ((m + 2) % 12) + 1; // 결산월 + 약 3개월 가정
+    const clampNum = (v) => { const n = Number(v); return isFinite(n) && n > 0 ? n : 0; };
+
+    const store = {
+      get(k, f) { try { const v = JSON.parse(localStorage.getItem('reiton_' + k)); return v == null ? f : v; } catch (e) { return f; } },
+      set(k, v) { try { localStorage.setItem('reiton_' + k, JSON.stringify(v)); } catch (e) {} }
+    };
+
+    const state = {
+      search:'', sector:'전체', month:'전체', sort:'name',
+      selected: null, quick:null, view:'cards',
+      watch: new Set((store.get('watch', [])).filter(t => byTicker(t))),
+      compare: (store.get('compare', [])).filter(t => byTicker(t)).slice(0, COMPARE_MAX),
+      portfolio: (store.get('portfolio', [])).filter(h => h && byTicker(h.ticker)),
+    };
+
+    // ---- hash state (shareable links) ----
+    function readHashState() {
+      const h = location.hash || '';
+      if (h.indexOf('~') === -1) return;
+      const q = h.slice(h.indexOf('~') + 1);
+      const p = new URLSearchParams(q);
+      const t = p.get('t');
+      const c = p.get('c');
+      if (c) { const list = c.split(',').filter(x => byTicker(x)).slice(0, COMPARE_MAX); if (list.length) state.compare = list; }
+      if (t && byTicker(t)) state.selected = t;
+    }
+    function writeHashState() {
+      const p = new URLSearchParams();
+      if (state.selected) p.set('t', state.selected);
+      if (state.compare.length) p.set('c', state.compare.join(','));
+      const str = p.toString();
+      try { history.replaceState(null, '', str ? ('#~' + str) : (location.pathname + location.search)); } catch (e) {}
+    }
+
+    function init() {
+      readHashState();
+      if (!state.selected) state.selected = REITS[0].ticker;
+      initTheme();
+      initNav();
+      renderHeroStats();
+      renderKpis();
+      renderGrowth();
+      renderFilters();
+      renderQuickChips();
+      renderCharts();
+      renderFinder();
+      renderCompare();
+      renderCalendar();
+      renderPortfolio();
+      renderTools();
+      initRiskTools();
+      bindScanner();
+      scanDisclosure();
+      renderSectorGuide();
+      renderChecklist();
+      renderFaq();
+      renderGlossary();
+      renderSources();
+      renderQuality();
+      bindEvents();
+      selectReit(state.selected, false);
+      initReveal();
+    }
+
+    function initTheme() {
+      const saved = store.get('theme', null);
+      if (saved === 'dark') document.documentElement.dataset.theme = 'dark';
+      else if (saved === 'light') document.documentElement.dataset.theme = 'light';
+      const btn = $('#themeToggle');
+      if (btn) btn.addEventListener('click', () => {
+        const cur = document.documentElement.dataset.theme;
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = cur === 'dark' || (!cur && prefersDark);
+        const next = isDark ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        store.set('theme', next);
+      });
+    }
+
+    function initNav() {
+      const toggle = $('#menuToggle');
+      const links = $('#navLinks');
+      if (!toggle || !links) return;
+      const setOpen = (open) => {
+        links.classList.toggle('closed', !open);
+        toggle.setAttribute('aria-expanded', String(open));
+        if (window.innerWidth <= 680) document.body.style.overflow = open ? 'hidden' : '';
+      };
+      toggle.addEventListener('click', () => setOpen(links.classList.contains('closed')));
+      $$('#navLinks a').forEach(a => a.addEventListener('click', () => { if (window.innerWidth <= 680) setOpen(false); }));
+    }
+
+    function initReveal() {
+      const els = $$('.reveal');
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+      els.forEach(e => io.observe(e));
+    }
+
+    function renderHeroStats() {
+      $('#asOf').textContent = MARKET.asOf;
+      $('#totalReits').textContent = fmt.format(MARKET.totalReits) + '개';
+      $('#totalAum').textContent = MARKET.totalAumTn.toFixed(1) + '조';
+      $('#listedReits').textContent = fmt.format(MARKET.listedReits) + '개';
+      $('#listedCap').textContent = MARKET.listedMarketCapTn.toFixed(2) + '조';
+      $('#listedYield').textContent = '납입자본 기준 ' + MARKET.listedDividendYieldPaidInCapital.toFixed(1) + '% · 현재가 기준 ' + MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%';
+      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + ', 실시간 아님. 배당수익률은 산식·기준가에 따라 달라지며, 현재 수익률은 증권사·각 리츠 공시에서 확인하세요. 이 화면은 학습·비교용이며 매수 추천이 아닙니다.';
+    }
+
+    function renderKpis() {
+      const kpis = [
+        ['국내 운용리츠', fmt.format(MARKET.totalReits) + '개', '전체 리츠 수'],
+        ['전체 AUM', MARKET.totalAumTn.toFixed(1) + '조원', '운용 중인 리츠 총자산'],
+        ['상장리츠', MARKET.listedReits + '개', '국내 증시 상장'],
+        ['상장리츠 시총', MARKET.listedMarketCapTn.toFixed(2) + '조원', '시장가격 기준'],
+        ['상장리츠 AUM', MARKET.listedAumTn.toFixed(1) + '조원', 'AUM 연결기준'],
+      ];
+      $('#kpis').innerHTML = kpis.map(k =>
+        '<div class="kpi"><div class="label">' + escapeHTML(k[0]) + '</div><div class="value">' + escapeHTML(k[1]) + '</div><div class="sub">' + escapeHTML(k[2]) + '</div></div>'
+      ).join('');
+    }
+
+    function renderGrowth() {
+      $('#growthAsOf').textContent = MARKET.asOf;
+      const g = MARKET.growth;
+      if (!g || !g.length) return;
+      const W = 680, H = 240, padL = 40, padR = 18, padT = 22, padB = 40;
+      const maxAum = Math.max.apply(null, g.map(d => d.aum));
+      const xs = (i) => padL + (W - padL - padR) * (i / (g.length - 1));
+      const ys = (v) => H - padB - (H - padT - padB) * (v / maxAum);
+      const pts = g.map((d, i) => [xs(i), ys(d.aum)]);
+      const poly = pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+      const area = 'M ' + pts[0][0].toFixed(1) + ',' + (H - padB) + ' L ' + poly.split(' ').join(' L ') + ' L ' + pts[pts.length - 1][0].toFixed(1) + ',' + (H - padB) + ' Z';
+      let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="리츠 시장 AUM 성장 추이">';
+      svg += '<defs><linearGradient id="gar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--brand)" stop-opacity="0.28"/><stop offset="100%" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs>';
+      // baseline
+      svg += '<line x1="' + padL + '" y1="' + (H - padB) + '" x2="' + (W - padR) + '" y2="' + (H - padB) + '" stroke="var(--line)" />';
+      svg += '<path d="' + area + '" fill="url(#gar)" />';
+      svg += '<polyline points="' + poly + '" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round" />';
+      g.forEach((d, i) => {
+        const x = pts[i][0], y = pts[i][1];
+        svg += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="3.5" fill="var(--brand)" />';
+        svg += '<text class="gv" x="' + x.toFixed(1) + '" y="' + (y - 9).toFixed(1) + '" text-anchor="middle">' + d.aum.toFixed(0) + '조</text>';
+        svg += '<text class="gx" x="' + x.toFixed(1) + '" y="' + (H - padB + 16) + '" text-anchor="middle">' + escapeHTML(d.year) + '</text>';
+        svg += '<text class="gx" x="' + x.toFixed(1) + '" y="' + (H - padB + 30) + '" text-anchor="middle">' + d.count + '개</text>';
+      });
+      svg += '</svg>';
+      $('#growthChart').innerHTML = svg;
+    }
+
+    function renderFilters() {
+      const sectors = ['전체'].concat(Array.from(new Set(REITS.flatMap(r => r.sector))).sort((a,b)=>a.localeCompare(b,'ko')));
+      $('#sectorSelect').innerHTML = sectors.map(s => '<option value="' + escapeHTML(s) + '">' + escapeHTML(s) + '</option>').join('');
+      $('#monthSelect').innerHTML = ['전체'].concat(MONTHS).map((m, i) => '<option value="' + (i === 0 ? '전체' : i) + '">' + m + '</option>').join('');
+      $('#sortSelect').value = state.sort;
+      $('#freshness').innerHTML = '<span>📌 카드 수치 기준: 2025년말 투자보고서</span><span>· 시장통계 기준: ' + escapeHTML(MARKET.asOf) + '</span><span>· <b>실시간 아님</b></span>';
+    }
+
+    function renderQuickChips() {
+      const chips = [
+        {label:'전체', key:null},
+        {label:'분기 결산', key:'quarterly'},
+        {label:'오피스', key:'오피스'},
+        {label:'물류', key:'물류'},
+        {label:'리테일', key:'리테일'},
+        {label:'해외', key:'해외'},
+        {label:'대형 1조+', key:'large'},
+        {label:'관심리츠', key:'watch'},
+      ];
+      $('#quickChips').innerHTML = chips.map(c =>
+        '<button class="chip ' + (state.quick === c.key ? 'active' : '') + '" data-chip="' + (c.key == null ? '' : escapeHTML(c.key)) + '" aria-pressed="' + (state.quick === c.key) + '">' + escapeHTML(c.label) + '</button>'
+      ).join('');
+      $$('#quickChips .chip').forEach(btn => btn.addEventListener('click', () => {
+        state.quick = btn.dataset.chip || null;
+        renderQuickChips();
+        renderFinder();
+      }));
+    }
+
+    function scoreLearning(r) {
+      let score = 0;
+      if (r.assetBn >= 1000) score += 3;
+      if (r.divMonths.length >= 4) score += 3;
+      if (['오피스','물류','리테일','복합','인프라'].includes(r.primary)) score += 2;
+      if (r.sector.includes('해외')) score -= 1;
+      if (r.tags.includes('소형')) score -= 2;
+      if (r.difficulty === '쉬움') score += 2;
+      return score;
+    }
+
+    function getFiltered() {
+      const q = state.search.trim().toLowerCase();
+      let rows = REITS.filter(r => {
+        const hay = [r.name, r.ticker, r.primary].concat(r.sector, r.tags, [r.note]).join(' ').toLowerCase();
+        const searchOk = !q || hay.includes(q);
+        const sectorOk = state.sector === '전체' || r.sector.includes(state.sector);
+        const monthOk = state.month === '전체' || r.divMonths.includes(Number(state.month));
+        let quickOk = true;
+        if (state.quick === 'quarterly') quickOk = r.divMonths.length >= 4;
+        if (['오피스','물류','리테일','해외'].includes(state.quick)) quickOk = r.sector.includes(state.quick);
+        if (state.quick === 'large') quickOk = r.assetBn >= 1000;
+        if (state.quick === 'watch') quickOk = state.watch.has(r.ticker);
+        return searchOk && sectorOk && monthOk && quickOk;
+      });
+      rows.sort((a,b) => {
+        if (state.sort === 'assetDesc') return b.assetBn - a.assetBn;
+        if (state.sort === 'assetAsc') return a.assetBn - b.assetBn;
+        if (state.sort === 'name') return a.name.localeCompare(b.name, 'ko');
+        if (state.sort === 'freq') return b.divMonths.length - a.divMonths.length || b.assetBn - a.assetBn;
+        if (state.sort === 'watch') return Number(state.watch.has(b.ticker)) - Number(state.watch.has(a.ticker)) || b.assetBn - a.assetBn;
+        if (state.sort === 'learning') return scoreLearning(b) - scoreLearning(a) || b.assetBn - a.assetBn;
+        return a.name.localeCompare(b.name, 'ko');
+      });
+      return rows;
+    }
+
+    function renderFinder() {
+      const rows = getFiltered();
+      $('#resultCount').textContent = rows.length;
+      $('#emptyState').classList.toggle('hidden', rows.length > 0);
+      $('#cards').innerHTML = rows.map(renderReitCard).join('');
+      $('#reitTable').innerHTML = rows.map(renderTableRow).join('');
+    }
+
+    function renderReitCard(r) {
+      const watched = state.watch.has(r.ticker);
+      const inCompare = state.compare.includes(r.ticker);
+      const selected = state.selected === r.ticker;
+      const recent = r.recentDiv ? (fmt.format(r.recentDiv) + '원 (기준일 공시 확인)') : '확인 필요';
+      const d = diffLabel(r.difficulty);
+      return '<article class="reit-card ' + (inCompare ? 'in-compare' : '') + '" data-ticker="' + r.ticker + '" data-selected="' + selected + '" tabindex="0" role="button" aria-label="' + escapeHTML(r.name) + ' 상세 보기">'
+        + '<div class="reit-top"><div><div class="reit-name">' + escapeHTML(r.name) + '</div><div class="ticker">' + escapeHTML(r.ticker) + ' · ' + escapeHTML(r.primary) + ' · <span class="pill-diff" data-d="' + d + '">' + d + '</span></div></div>'
+        + '<div class="card-btns">'
+        + '<button class="cmp ' + (inCompare ? 'on' : '') + '" data-cmp="' + r.ticker + '" aria-pressed="' + inCompare + '">' + (inCompare ? '담김' : '＋비교') + '</button>'
+        + '<button class="fav ' + (watched ? 'on' : '') + '" data-fav="' + r.ticker + '" aria-pressed="' + watched + '" aria-label="관심리츠 ' + (watched ? '해제' : '추가') + '">★</button>'
+        + '</div></div>'
+        + '<div class="tags">' + r.tags.slice(0,4).map(t => '<span class="tag">' + escapeHTML(t) + '</span>').join('') + '</div>'
+        + '<p class="reit-note">' + escapeHTML(r.note) + '</p>'
+        + '<div class="metric-line"><span>배당기준월</span><strong>' + r.divMonths.map(m=>m+'월').join(' · ') + '</strong></div>'
+        + '<div class="metric-line"><span>최근배당금</span><strong>' + recent + '</strong></div>'
+        + '<div class="metric-line"><span>자산총계</span><strong>' + escapeHTML(r.assetText) + '</strong></div>'
+        + '</article>';
+    }
+
+    function renderTableRow(r) {
+      const recent = r.recentDiv ? (fmt.format(r.recentDiv) + '원') : '확인 필요';
+      return '<tr data-ticker="' + r.ticker + '" style="cursor:pointer">'
+        + '<td><strong>' + escapeHTML(r.name) + '</strong></td><td>' + escapeHTML(r.ticker) + '</td><td>' + escapeHTML(r.primary) + '</td>'
+        + '<td>' + r.divMonths.map(m=>m+'월').join(', ') + '</td><td>' + recent + '</td><td>' + escapeHTML(r.assetText) + '</td>'
+        + '<td><a class="link" href="' + escapeHTML(r.homepage) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 공식 홈페이지">홈페이지</a></td></tr>';
+    }
+
+    function toggleWatch(ticker) {
+      if (state.watch.has(ticker)) state.watch.delete(ticker); else state.watch.add(ticker);
+      store.set('watch', Array.from(state.watch));
+      renderFinder();
+      renderQuickChips();
+      if (state.selected === ticker) selectReit(ticker, false);
+    }
+
+    function toggleCompare(ticker) {
+      const i = state.compare.indexOf(ticker);
+      if (i >= 0) state.compare.splice(i, 1);
+      else {
+        if (state.compare.length >= COMPARE_MAX) { alert('비교는 최대 ' + COMPARE_MAX + '개까지 가능합니다. 하나를 빼고 다시 담아주세요.'); return; }
+        state.compare.push(ticker);
+      }
+      store.set('compare', state.compare);
+      writeHashState();
+      renderFinder();
+      renderCompare();
+      if (state.selected === ticker) selectReit(ticker, false);
+    }
+
+    function clearCompare() {
+      state.compare = [];
+      store.set('compare', state.compare);
+      writeHashState();
+      renderFinder();
+      renderCompare();
+    }
+
+    function renderCompare() {
+      const list = state.compare.map(byTicker).filter(Boolean);
+      const empty = $('#compareEmpty');
+      const content = $('#compareContent');
+      const bar = $('#compareBar');
+      if (list.length) {
+        $('#cbNames').textContent = '비교 담음 ' + list.length + '/' + COMPARE_MAX + ' · ' + list.map(r => r.name).join(', ');
+        bar.classList.add('show');
+      } else bar.classList.remove('show');
+
+      if (!list.length) { empty.classList.remove('hidden'); content.classList.add('hidden'); content.innerHTML = ''; return; }
+      empty.classList.add('hidden'); content.classList.remove('hidden');
+
+      const groups = [
+        { title: '기본', rows: [
+          ['대표 섹터', r => escapeHTML(r.primary)],
+          ['세부 섹터', r => escapeHTML(r.sector.join(', '))],
+          ['정보 이해 난이도', r => '<span class="pill-diff" data-d="' + diffLabel(r.difficulty) + '">' + diffLabel(r.difficulty) + '</span>'],
+        ]},
+        { title: '배당', rows: [
+          ['배당기준월', r => r.divMonths.map(m=>m+'월').join(' · ')],
+          ['결산 빈도', r => freqLabel(r.divMonths.length)],
+          ['최근배당금', r => r.recentDiv ? (won(r.recentDiv) + ' <span class="muted small">(1회·기준일 공시 확인)</span>') : '<span class="needcheck">확인 필요</span>'],
+          ['자산총계', r => escapeHTML(r.assetText)],
+        ]},
+        { title: '위험 (직접 확인할 항목)', rows: [
+          ['차입금 비율(LTV)', r => linkCheck(r)],
+          ['공실률', r => linkCheck(r)],
+          ['WALE(임대차 잔존)', r => linkCheck(r)],
+          ['NAV 할인율', r => linkCheck(r)],
+        ]},
+        { title: '요약', rows: [
+          ['특징 태그', r => escapeHTML(r.tags.join(', '))],
+          ['한 줄 메모', r => escapeHTML(r.note)],
+        ]},
+      ];
+      function linkCheck(r) { return '<span class="needcheck">공시 확인 필요</span><br><a class="link small" href="' + escapeHTML(r.homepage) + '" target="_blank" rel="noreferrer">투자보고서 →</a>'; }
+
+      const head = '<tr><th class="rowhead">항목</th>' + list.map(r =>
+        '<th><div class="colname">' + escapeHTML(r.name) + '</div><div class="muted small">' + escapeHTML(r.ticker) + '</div><button class="rm-col" data-rm="' + r.ticker + '">빼기</button></th>'
+      ).join('') + '</tr>';
+      let body = '';
+      groups.forEach(g => {
+        body += '<tr class="cmp-group"><th class="rowhead">' + escapeHTML(g.title) + '</th>' + list.map(()=>'<td></td>').join('') + '</tr>';
+        g.rows.forEach(row => {
+          body += '<tr><th class="rowhead">' + escapeHTML(row[0]) + '</th>' + list.map(r => '<td>' + row[1](r) + '</td>').join('') + '</tr>';
+        });
+      });
+      content.innerHTML = '<div class="compare-wrap"><table class="compare-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>'
+        + '<p class="muted small" style="margin-top:12px;">※ 표의 수치는 학습·비교용입니다. ‘위험’ 항목은 의도적으로 빈칸이며, 각 리츠의 최신 투자보고서·공시·현재가에서 직접 확인하세요.</p>';
+      $$('#compareContent [data-rm]').forEach(b => b.addEventListener('click', () => toggleCompare(b.dataset.rm)));
+    }
+
+    function sectorQuestions(r) {
+      if (r.primary === '복합' || r.sector.length > 2) {
+        return ['보유 자산별 임대차·차입금 만기 분리', '임대수익 기반 반복 배당인지', '유상증자·자산 편입 계획'];
+      }
+      const info = sectorInfoOf(r.primary);
+      const watch = info ? info.watch.split(',').map(s => s.trim()) : [];
+      return watch.concat(['임대수익 기반 반복 배당인지', '유상증자 가능성']);
+    }
+
+    function selectReit(ticker, scroll) {
+      const r = byTicker(ticker) || REITS[0];
+      state.selected = r.ticker;
+      $$('.reit-card').forEach(c => c.dataset.selected = String(c.dataset.ticker === r.ticker));
+      const recent = r.recentDiv ? (fmt.format(r.recentDiv) + '원 (1회 기준·공시 확인 필요)') : '공식 공시 확인 필요';
+      $('#detailName').textContent = r.name;
+      $('#detailTicker').innerHTML = escapeHTML(r.ticker) + ' · ' + escapeHTML(r.primary) + ' · <span class="pill-diff" data-d="' + diffLabel(r.difficulty) + '">' + diffLabel(r.difficulty) + '</span>';
+      $('#detailNote').textContent = r.note;
+      $('#detailMonths').innerHTML = MONTHS.map((m, i) => '<span class="mchip ' + (r.divMonths.includes(i+1) ? 'on' : '') + '">' + (i+1) + '</span>').join('');
+      const qs = sectorQuestions(r).map(q => escapeHTML(q)).join(', ');
+      $('#detailList').innerHTML =
+          '<li><strong>배당기준월 / 빈도</strong><br>' + r.divMonths.map(m=>m+'월').join(' · ') + ' · ' + freqLabel(r.divMonths.length) + '</li>'
+        + '<li><strong>최근배당금</strong><br>' + recent + '</li>'
+        + '<li><strong>연환산 추정 DPS</strong><br>' + (r.recentDiv ? (fmt.format(r.recentDiv * r.divMonths.length) + '원 <span class="muted small">(1회×' + r.divMonths.length + '회 단순 추정)</span>') : '확인 필요') + '</li>'
+        + '<li><strong>예상 지급월(가정)</strong><br>' + r.divMonths.map(m=>payMonth(m)+'월').join(' · ') + ' <span class="muted small">(결산월+약3개월 가정·실제 리츠별 상이)</span></li>'
+        + '<li><strong>자산총계</strong><br>' + escapeHTML(r.assetText) + '</li>'
+        + '<li><strong>세부 섹터</strong><br>' + escapeHTML(r.sector.join(', ')) + '</li>'
+        + '<li><strong>이 섹터에서 먼저 볼 질문</strong><br>' + qs + '</li>'
+        + '<li class="muted small">‘난이도’는 학습 지표이며 투자 안전성과 무관합니다. 매수 전 공시 확인 필수.</li>';
+      const inCompare = state.compare.includes(r.ticker);
+      $('#detailLinks').innerHTML =
+          '<a href="' + escapeHTML(r.homepage) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 공식 홈페이지">공식 홈페이지</a>'
+        + '<a href="' + codeUrl(r.ticker) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 현재가 보기">현재가 보기</a>'
+        + '<button class="primary-btn" type="button" data-fav="' + r.ticker + '">' + (state.watch.has(r.ticker) ? '관심 해제' : '관심 추가') + '</button>'
+        + '<button class="pill-btn" type="button" data-cmp="' + r.ticker + '" style="border:1px solid var(--line);">' + (inCompare ? '비교에서 빼기' : '비교에 담기') + '</button>'
+        + '<button class="pill-btn" type="button" data-copyq="1" style="border:1px solid var(--line);">📋 확인 질문 복사</button>';
+      $('#detailLinks [data-fav]').addEventListener('click', () => toggleWatch(r.ticker));
+      $('#detailLinks [data-cmp]').addEventListener('click', () => toggleCompare(r.ticker));
+      $('#detailLinks [data-copyq]').addEventListener('click', () => copyQuestions(r));
+      writeHashState();
+      if (scroll && window.innerWidth < 980) $('#detailPanel').scrollIntoView({block:'start', behavior:'smooth'});
+    }
+
+    function renderCalendar() {
+      const counts = MONTHS.map((_, i) => REITS.filter(r => r.divMonths.includes(i+1)).length);
+      const maxC = Math.max.apply(null, counts) || 1;
+      const peakMonths = counts.map((c,i)=>({c,i})).filter(o=>o.c===maxC).map(o=>MONTHS[o.i]).join('·');
+      $('#calendarNote').innerHTML = '배당기준월이 <b>' + peakMonths + '</b>에 몰리는 경향이 있어, "매달 균등" 현금흐름은 조합 구성으로 직접 확인해야 합니다. 아래 막대는 월별 종목 수 비중입니다.';
+      $('#calendarGrid').innerHTML = MONTHS.map((label, idx) => {
+        const month = idx + 1;
+        const list = REITS.filter(r => r.divMonths.includes(month));
+        return '<div class="month-card"><h3>' + label + '<span class="count">' + list.length + '개</span></h3>'
+          + '<div class="mc-bar"><i style="width:' + ((list.length/maxC)*100).toFixed(0) + '%"></i></div>'
+          + '<div class="month-list">' + (list.map(r => '<button type="button" data-ticker="' + r.ticker + '">' + escapeHTML(r.name) + '</button>').join('') || '<span class="muted small">해당 없음</span>') + '</div></div>';
+      }).join('');
+      $$('#calendarGrid [data-ticker]').forEach(btn => btn.addEventListener('click', () => {
+        selectReit(btn.dataset.ticker, false);
+        $('#finder').scrollIntoView({behavior:'smooth', block:'start'});
+      }));
+    }
+
+    function renderCharts() {
+      const maxPct = Math.max.apply(null, MARKET.sectorAum.map(s => s.pct));
+      $('#sectorBars').innerHTML = MARKET.sectorAum.map(s => {
+        const cls = STABILITY[s.name] || 'neutral';
+        return '<div class="bar-row"><strong>' + escapeHTML(s.name) + '</strong><div class="bar-track"><div class="bar-fill ' + cls + '" style="width:' + ((s.pct/maxPct)*100) + '%"></div></div><div class="bar-value">' + s.pct + '%</div></div>';
+      }).join('');
+
+      const sorted = REITS.slice().sort((a,b)=>b.assetBn-a.assetBn);
+      const top = sorted.slice(0,8);
+      const max = top[0].assetBn;
+      $('#assetBars').innerHTML = top.map((r,i) =>
+        '<div class="bar-row" style="grid-template-columns: 150px 1fr 86px;"><strong><span class="rank">' + (i+1) + '</span>' + escapeHTML(r.name) + '</strong><div class="bar-track"><div class="bar-fill" style="width:' + ((r.assetBn/max)*100) + '%"></div></div><div class="bar-value">' + (r.assetBn/1000).toFixed(1) + '조</div></div>'
+      ).join('');
+      const totalAll = REITS.reduce((s,r)=>s+r.assetBn,0);
+      const top8 = top.reduce((s,r)=>s+r.assetBn,0);
+      $('#concentrationNote').textContent = '상위 8개가 상장리츠 자산총계 합의 약 ' + Math.round(top8/totalAll*100) + '%를 차지합니다(집중도 참고).';
+    }
+
+    // ---- Portfolio ----
+    function renderPortfolio() {
+      const owned = new Set(state.portfolio.map(h => h.ticker));
+      const opts = ['<option value="">+ 리츠 선택</option>'].concat(
+        REITS.filter(r => !owned.has(r.ticker)).map(r => '<option value="' + r.ticker + '">' + escapeHTML(r.name) + '</option>')
+      ).join('');
+      $('#pfSelect').innerHTML = opts;
+
+      const holdings = state.portfolio.map(h => Object.assign({}, h, { reit: byTicker(h.ticker) })).filter(h => h.reit);
+      $('#pfList').innerHTML = holdings.map((h, idx) => {
+        const color = PALETTE[idx % PALETTE.length];
+        return '<div class="pf-row"><div><span class="dotc" style="background:' + color + '"></span><strong>' + escapeHTML(h.reit.name) + '</strong> <span class="muted small">' + escapeHTML(h.reit.primary) + ' · ' + h.reit.divMonths.map(m=>m+'월').join('·') + '</span></div>'
+          + '<div><input class="input" type="number" min="0" step="1" value="' + Number(h.shares||0) + '" data-shares="' + h.reit.ticker + '" aria-label="' + escapeHTML(h.reit.name) + ' 보유 주식 수" /></div>'
+          + '<button class="ghost-btn" data-pfrm="' + h.reit.ticker + '">삭제</button></div>';
+      }).join('');
+
+      $$('#pfList [data-shares]').forEach(inp => inp.addEventListener('input', () => {
+        const h = state.portfolio.find(x => x.ticker === inp.dataset.shares);
+        if (h) { h.shares = clampNum(inp.value); store.set('portfolio', state.portfolio); computePortfolio(); }
+      }));
+      $$('#pfList [data-pfrm]').forEach(btn => btn.addEventListener('click', () => {
+        state.portfolio = state.portfolio.filter(x => x.ticker !== btn.dataset.pfrm);
+        store.set('portfolio', state.portfolio);
+        renderPortfolio();
+      }));
+
+      const has = holdings.length > 0;
+      $('#pfEmpty').classList.toggle('hidden', has);
+      $('#pfResult').classList.toggle('hidden', !has);
+      if (has) computePortfolio();
+    }
+
+    function computePortfolio() {
+      const holdings = state.portfolio.map((h, idx) => ({ reit: byTicker(h.ticker), shares: clampNum(h.shares), color: PALETTE[idx % PALETTE.length] })).filter(h => h.reit);
+      const monthly = Array.from({length:12}, () => []); // each: {amount,color}
+      const totals = Array(12).fill(0);
+      let annual = 0;
+      const nullNames = [];
+      holdings.forEach(h => {
+        if (!h.reit.recentDiv) { if (h.shares > 0) nullNames.push(h.reit.name); return; }
+        const pay = h.reit.recentDiv * h.shares;
+        h.reit.divMonths.forEach(m => { monthly[m-1].push({ amount: pay, color: h.color }); totals[m-1] += pay; annual += pay; });
+      });
+      const maxM = Math.max.apply(null, totals.concat([1]));
+      $('#pfChart').innerHTML = totals.map((t, i) => {
+        const segs = monthly[i].map(s => '<div class="pf-seg" style="height:' + ((s.amount/maxM)*100).toFixed(1) + '%;background:' + s.color + '" title="' + won(Math.round(s.amount)) + '"></div>').join('');
+        return '<div class="pf-col" title="' + MONTHS[i] + ' ' + won(Math.round(t)) + '">' + segs + '</div>';
+      }).join('');
+      $('#pfLabels').innerHTML = MONTHS.map((m,i)=>'<div>' + (i+1) + '</div>').join('');
+      $('#pfLegend').innerHTML = holdings.filter(h=>h.reit.recentDiv).map(h => '<span><i class="sw" style="background:' + h.color + '"></i>' + escapeHTML(h.reit.name) + '</span>').join('');
+      const peakIdx = totals.indexOf(Math.max.apply(null, totals));
+      $('#pfAnnual').textContent = won(Math.round(annual));
+      $('#pfMonthly').textContent = won(Math.round(annual/12));
+      $('#pfPeak').textContent = annual > 0 ? (MONTHS[peakIdx] + ' · ' + won(Math.round(totals[peakIdx]))) : '-';
+      $('#pfNullNote').textContent = nullNames.length ? ('※ ' + nullNames.join(', ') + ' 은(는) 최근배당금이 공시 확인 필요 상태라 합계에서 제외했습니다.') : '※ 최근배당금(1회) × 보유 수 × 연간 배당 횟수로 추정한 교육용 수치입니다. 실제 배당은 변동·중단될 수 있고 세금·지급일이 반영되지 않았습니다.';
+    }
+
+    // ---- Tools ----
+    function renderTools() {
+      const presets = [
+        {label:'소액 (₩500만·6%)', amount:5000000, y:6},
+        {label:'표준 (₩5,000만·7%)', amount:50000000, y:7},
+        {label:'대규모 (₩5억·7%)', amount:500000000, y:7},
+      ];
+      $('#calcPresets').innerHTML = presets.map((p,i)=>'<button class="chip" type="button" data-preset="' + i + '">' + escapeHTML(p.label) + '</button>').join('');
+      $$('#calcPresets [data-preset]').forEach(btn => btn.addEventListener('click', () => {
+        const p = presets[Number(btn.dataset.preset)];
+        $('#investAmount').value = p.amount; $('#yieldInput').value = p.y; updateCalcs(true);
+      }));
+      ['investAmount','yieldInput','taxInput','priceInput','annualDpsInput','targetYieldInput','marginInput']
+        .forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', () => updateCalcs(true)); });
+      $('#taxMode').addEventListener('change', () => {
+        $('#customTaxWrap').classList.toggle('hidden', $('#taxMode').value !== 'custom');
+        updateCalcs(true);
+      });
+      updateCalcs(false);
+    }
+
+    function flash(el) {
+      if (!el) return;
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    }
+
+    const TAXLABEL = { normal:'일반 15.4%', reitSep:'분리과세 9.9%', isaGeneral:'ISA 일반형', isaLow:'ISA 서민형', custom:'직접 입력' };
+    function afterTax(gross) {
+      const mode = $('#taxMode').value;
+      if (mode === 'reitSep') return gross * (1 - 0.099);
+      if (mode === 'isaGeneral') { const f = 2000000; return Math.min(gross, f) + Math.max(0, gross - f) * (1 - 0.099); }
+      if (mode === 'isaLow') { const f = 4000000; return Math.min(gross, f) + Math.max(0, gross - f) * (1 - 0.099); }
+      if (mode === 'custom') return gross * (1 - clampNum($('#taxInput').value) / 100);
+      return gross * (1 - 0.154);
+    }
+
+    function updateCalcs(doFlash) {
+      const amount = clampNum($('#investAmount').value);
+      const y = clampNum($('#yieldInput').value) / 100;
+      const gross = amount * y;
+      const net = afterTax(gross);
+      $('#grossAnnual').textContent = won(Math.round(gross));
+      $('#netAnnual').textContent = won(Math.round(net));
+      $('#netMonthly').textContent = won(Math.round(net / 12));
+      $('#taxModeLabel').textContent = TAXLABEL[$('#taxMode').value] || '';
+
+      const price = clampNum($('#priceInput').value);
+      const dps = clampNum($('#annualDpsInput').value);
+      const target = clampNum($('#targetYieldInput').value) / 100;
+      const margin = clampNum($('#marginInput').value) / 100;
+      const currentYield = price > 0 ? dps / price * 100 : 0;
+      const implied = target > 0 ? dps / target : 0;
+      $('#calcYield').textContent = currentYield.toFixed(2) + '%';
+      $('#impliedPrice').textContent = won(Math.round(implied));
+      $('#marginPrice').textContent = won(Math.round(implied * (1 - margin)));
+      if (doFlash) { $$('#tools .result-card').forEach(flash); }
+    }
+
+    function renderSectorGuide() {
+      $('#sectorGuide').innerHTML = SECTOR_INFO.map(s => {
+        const count = REITS.filter(r => r.sector.includes(s.key)).length;
+        return '<div class="sector-card"><div class="stop"><div class="sicon">' + s.icon + '</div>'
+          + '<div><h3>' + escapeHTML(s.key) + '</h3><div class="muted small">상장리츠 ' + count + '개 포함</div></div></div>'
+          + '<div class="sector-meta"><span class="badge ' + s.stability + '">' + escapeHTML(s.stabilityText) + '</span></div>'
+          + '<p>' + escapeHTML(s.summary) + '</p>'
+          + '<div class="watch">👀 확인 포인트: <span>' + escapeHTML(s.watch) + '</span></div>'
+          + '<div class="risk">⚠ 리스크: <span>' + escapeHTML(s.downside) + '</span></div></div>';
+      }).join('');
+    }
+
+    function renderChecklist() {
+      const saved = store.get('checklist', []);
+      $$('[data-check]').forEach((el, i) => { el.checked = !!saved[i]; el.addEventListener('change', updateChecklist); });
+      updateChecklist();
+    }
+    function updateChecklist() {
+      const checks = $$('[data-check]');
+      const done = checks.filter(c => c.checked).length;
+      const score = Math.round(done / checks.length * 100);
+      store.set('checklist', checks.map(c => c.checked));
+      $('#riskScore').textContent = score + '%';
+      $('#riskFill').style.width = score + '%';
+      $('#riskText').textContent = score < 34
+        ? '자료 확인이 아직 부족합니다. 투자보고서와 공시부터 확인하세요.'
+        : score < 100
+          ? '확인을 진행 중입니다. 차입금과 배당 원천을 한 번 더 확인하세요.'
+          : '체크는 "확인 단계" 기록일 뿐, 이해·투자 준비 완료를 뜻하지 않습니다. 각 항목의 숫자 의미는 투자보고서·KIND·DART에서 직접 검증하세요.';
+    }
+
+    function renderFaq() {
+      $('#faqList').innerHTML = FAQ.map(f => '<details class="faq"><summary>' + escapeHTML(f.q) + '</summary><p>' + escapeHTML(f.a) + '</p></details>').join('');
+    }
+
+    function renderGlossary() {
+      const card = (g) => '<div class="term-card"><strong>' + escapeHTML(g.term) + '</strong><p>' + escapeHTML(g.plain) + '</p></div>';
+      $('#glossaryGrid').innerHTML =
+        '<div class="gloss-group"><h3>재무 지표</h3><div class="glossary">' + GLOSSARY.map(card).join('') + '</div></div>'
+        + '<div class="gloss-group"><h3>이 화면에서 자주 보는 말</h3><div class="glossary">' + EXTRA_GLOSSARY.map(card).join('') + '</div></div>';
+    }
+
+    function renderSources() {
+      $('#sourceGrid').innerHTML = SOURCES.map(s => '<div class="source-card"><a href="' + escapeHTML(s.url) + '" target="_blank" rel="noreferrer">' + escapeHTML(s.label) + '</a><p class="muted small">원문 열기</p></div>').join('');
+    }
+
+    function setView(v) {
+      state.view = v;
+      $('#cards').classList.toggle('hidden', v !== 'cards');
+      $('#tableView').classList.toggle('hidden', v !== 'table');
+      $('#viewCards').classList.toggle('on', v === 'cards');
+      $('#viewTable').classList.toggle('on', v === 'table');
+      $('#viewCards').setAttribute('aria-pressed', String(v === 'cards'));
+      $('#viewTable').setAttribute('aria-pressed', String(v === 'table'));
+    }
+
+    function bindEvents() {
+      let searchT;
+      $('#searchInput').addEventListener('input', e => { state.search = e.target.value; clearTimeout(searchT); searchT = setTimeout(renderFinder, 250); });
+      $('#sectorSelect').addEventListener('change', e => { state.sector = e.target.value; renderFinder(); });
+      $('#monthSelect').addEventListener('change', e => { state.month = e.target.value; renderFinder(); });
+      $('#sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderFinder(); });
+      $('#clearCompare').addEventListener('click', clearCompare);
+      $('#cbClear').addEventListener('click', clearCompare);
+      $('#cbGo').addEventListener('click', () => $('#compare').scrollIntoView({behavior:'smooth', block:'start'}));
+      $('#viewCards').addEventListener('click', () => setView('cards'));
+      $('#viewTable').addEventListener('click', () => setView('table'));
+      $('#exportBtn').addEventListener('click', exportSeed);
+
+      // delegated finder events (attached once)
+      const cards = $('#cards');
+      cards.addEventListener('click', e => {
+        const fav = e.target.closest('[data-fav]'); if (fav) { e.stopPropagation(); toggleWatch(fav.dataset.fav); return; }
+        const cmp = e.target.closest('[data-cmp]'); if (cmp) { e.stopPropagation(); toggleCompare(cmp.dataset.cmp); return; }
+        const card = e.target.closest('.reit-card'); if (card) selectReit(card.dataset.ticker, true);
+      });
+      cards.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const card = e.target.closest('.reit-card');
+        if (card && !e.target.closest('button')) { e.preventDefault(); selectReit(card.dataset.ticker, true); }
+      });
+      $('#reitTable').addEventListener('click', e => {
+        if (e.target.closest('a')) return;
+        const row = e.target.closest('tr'); if (row) selectReit(row.dataset.ticker, true);
+      });
+
+      // portfolio add
+      $('#pfAdd').addEventListener('click', () => {
+        const t = $('#pfSelect').value;
+        if (!t || !byTicker(t)) return;
+        const shares = clampNum($('#pfShares').value);
+        if (state.portfolio.some(h => h.ticker === t)) return;
+        state.portfolio.push({ ticker: t, shares: shares });
+        store.set('portfolio', state.portfolio);
+        renderPortfolio();
+      });
+    }
+
+    // ---- Disclosure scanner ----
+    const KW = {
+      debt:['차입','만기','리파이낸싱','refinanc','금리','변동금리','담보','대출','사채'],
+      dividend:['배당','특별배당','매각차익','배당가능이익','분배금','dps'],
+      tenant:['임차인','공실','임대율','wale','재계약','계약만기','마스터리스','책임임대'],
+      equity:['유상증자','공모','신주','발행가','희석','자금조달'],
+      asset:['편입','매각','취득','감정평가','cap rate','noi'],
+      fx:['해외','환율','환헤지','fx','현지','달러','유로','외화'],
+      marketing:['확정','보장','원금보장','무위험','매월 확정','고수익','손실 없음','안전한 고배당']
+    };
+    const GLABEL = { debt:'차입/만기', dividend:'배당 원천', tenant:'임차인/공실', equity:'증자/희석', asset:'자산 편입/매각', fx:'해외/환율', marketing:'⚠ 과장광고 위험' };
+    function scanDisclosure() {
+      const text = $('#disclosureText').value || '';
+      const lower = text.toLowerCase();
+      const hits = [];
+      Object.keys(KW).forEach(g => { const found = KW[g].filter(w => lower.includes(w.toLowerCase())); if (found.length) hits.push([g, found]); });
+      const nums = (text.match(/(\d+(?:[.,]\d+)?)\s*(%p|%|년|개월|억원|조원|원|bp)/g) || []).slice(0, 14);
+      const has = (g) => hits.some(h => h[0] === g);
+      const qs = [];
+      if (has('debt')) qs.push('차입금 만기별 금액, 평균 금리, 고정/변동 비중은 어떻게 되나요?');
+      if (has('tenant')) qs.push('주요 임차인의 잔여 계약기간(WALE)과 재계약 가능성은?');
+      if (has('dividend')) qs.push('이번 배당은 반복 가능한 임대수익인가요, 일회성 매각차익·특별배당인가요?');
+      if (has('equity')) qs.push('유상증자 자금의 사용처와 기존 주주 희석을 상쇄할 근거는?');
+      if (has('fx')) qs.push('환헤지 비율·만기·비용과 미헤지 노출 규모는?');
+      if (has('asset')) qs.push('편입/매각 자산의 Cap Rate·감정평가·NOI 근거는?');
+      if (!qs.length) qs.push('투자보고서에서 배당 원천, 차입금, 임차인, 자산가치 변화를 추가로 확인하세요.');
+      const adHit = hits.find(h => h[0] === 'marketing');
+      $('#scanOutput').innerHTML =
+        (adHit ? '<div class="flag" style="border-left-color:var(--error);background:var(--error-tint);margin-bottom:12px;">⚠ 과장광고 위험 문구 감지: <b>' + adHit[1].map(escapeHTML).join(', ') + '</b><br>“확정·보장·무위험” 등은 리츠 배당의 변동성과 맞지 않을 수 있습니다. 원문과 법적 근거를 확인하세요.</div>' : '')
+        + '<div class="strong small">감지된 주제</div><div class="tool-pills">'
+        + (hits.length ? hits.map(h => '<span class="tpill ' + (h[0] === 'marketing' ? 'bad' : 'warn') + '">' + escapeHTML(GLABEL[h[0]]) + ': ' + h[1].map(escapeHTML).join(', ') + '</span>').join('') : '<span class="tpill good">핵심 위험 키워드가 적게 감지됨</span>')
+        + '</div>'
+        + '<div class="strong small" style="margin-top:14px;">감지된 숫자</div><div class="tool-pills">' + (nums.length ? nums.map(n => '<span class="tpill blue">' + escapeHTML(n) + '</span>').join('') : '<span class="tpill">숫자 표현 없음</span>') + '</div>'
+        + '<div class="strong small" style="margin-top:14px;">IR·공시에 물어볼 질문</div><ol class="muted" style="margin:8px 0 0; padding-left:18px;">' + qs.map(q => '<li>' + escapeHTML(q) + '</li>').join('') + '</ol>';
+    }
+    function bindScanner() {
+      $('#scanBtn').addEventListener('click', scanDisclosure);
+      $('#scanSample').addEventListener('click', () => {
+        $('#disclosureText').value = '주요 임차인의 계약 만기가 2027년 도래할 예정이며, 차입금 일부는 변동금리로 조달되어 금리 상승 시 이자비용이 증가할 수 있습니다. 신규 자산 편입을 위한 유상증자를 검토 중이며, 배당 재원에는 매각차익에 따른 특별배당이 포함될 수 있습니다. 해외 자산의 환헤지 비용도 점검이 필요합니다.';
+        scanDisclosure(); toast('샘플 문구를 넣었어요');
+      });
+      $('#scanAd').addEventListener('click', () => {
+        const lower = ($('#disclosureText').value || '').toLowerCase();
+        const found = KW.marketing.filter(w => lower.includes(w.toLowerCase()));
+        scanDisclosure();
+        if (!found.length) toast('명백한 보장성 광고 문구는 감지되지 않았습니다');
+      });
+    }
+
+    // ---- Risk radar ----
+    function initRiskTools() {
+      ['ltv','maturity12','occupancy','wale','floating','foreign','singleTenant'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', analyzeRisk); });
+      ['specialDiv','development'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('change', analyzeRisk); });
+      ['scenarioAum','scenarioLtv','scenarioRefi','scenarioRate'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', simulateRefi); });
+      analyzeRisk(); simulateRefi();
+    }
+    function analyzeRisk() {
+      const v = id => clampNum($('#'+id).value);
+      const ltv = v('ltv'), mat = v('maturity12'), occ = v('occupancy'), wale = v('wale'), fl = v('floating'), fo = v('foreign'), sg = v('singleTenant');
+      const sp = Number($('#specialDiv').value || 0), dev = Number($('#development').value || 0);
+      let risk = 0;
+      risk += Math.max(0, ltv - 40) * 0.8;
+      risk += mat * 0.45;
+      risk += Math.max(0, 95 - occ) * 2.2;
+      risk += Math.max(0, 4 - wale) * 6;
+      risk += fl * 0.28;
+      risk += fo * 0.22;
+      risk += Math.max(0, sg - 35) * 0.35;
+      risk += sp + dev;
+      const health = Math.max(5, Math.min(95, Math.round(100 - risk)));
+      $('#riskScoreC').style.setProperty('--score', health);
+      $('#riskScoreC b').textContent = health;
+      const flags = [];
+      if (ltv > 50) flags.push('LTV가 높아 추가 차입·리파이낸싱 부담을 확인하세요.');
+      if (mat > 30) flags.push('12개월 내 만기 비중이 높습니다. 만기별 차입금 표를 확인하세요.');
+      if (occ < 95) flags.push('임대율이 낮습니다. 공실 원인과 회복 가능성을 보세요.');
+      if (wale < 4) flags.push('WALE가 짧습니다. 주요 임차인 만기·재계약 가능성을 확인하세요.');
+      if (fl > 40) flags.push('변동금리 비중이 높아 금리 민감도가 큽니다.');
+      if (fo > 0) flags.push('해외자산은 환율·현지 금리·환헤지 비용을 확인하세요.');
+      if (sg > 50) flags.push('단일 임차인 의존도가 높습니다.');
+      if (sp || dev) flags.push('배당 원천이 반복 가능한 임대수익인지 별도 확인하세요.');
+      $('#riskSummary').innerHTML = '<h3 style="margin:0 0 6px;">' + (health >= 75 ? '상대적으로 양호' : health >= 55 ? '주의' : '집중 점검') + '</h3>'
+        + '<p class="muted" style="margin:0;">' + (flags.length ? escapeHTML(flags[0]) : '입력값 기준 큰 경고는 낮지만, 투자보고서 원문 확인은 필요합니다.') + '</p>';
+      const bars = [['LTV 부담', Math.min(100, ltv * 1.4), ltv + '%'], ['만기 집중', Math.min(100, mat), mat + '%'], ['임대율', Math.min(100, occ), occ + '%'], ['WALE', Math.min(100, wale / 8 * 100), wale + '년'], ['변동금리', Math.min(100, fl), fl + '%'], ['해외자산', Math.min(100, fo), fo + '%']];
+      $('#riskBars').innerHTML = bars.map(b => '<div class="bar-row"><strong>' + b[0] + '</strong><div class="bar-track"><div class="bar-fill" style="width:' + b[1] + '%"></div></div><div class="bar-value">' + b[2] + '</div></div>').join('');
+      $('#riskFlags').innerHTML = flags.length ? flags.map(f => '<div class="flag">⚠ ' + escapeHTML(f) + '</div>').join('') : '';
+    }
+    function simulateRefi() {
+      const aum = clampNum($('#scenarioAum').value), ltv = clampNum($('#scenarioLtv').value) / 100, refi = clampNum($('#scenarioRefi').value) / 100, delta = Number($('#scenarioRate').value || 0) / 100;
+      const debt = aum * ltv, refiDebt = debt * refi, impact = refiDebt * delta, equity = aum * (1 - ltv);
+      const eqImpact = equity ? impact / equity * 100 : 0;
+      const eok = (n) => fmt.format(Math.round(n)) + '억원';
+      $('#scenarioOutput').innerHTML =
+        '<div class="result-card"><div class="small">재조달 대상 차입금</div><div class="big">' + eok(refiDebt) + '</div><div class="small muted">자산×LTV×만기비중</div></div>'
+        + '<div class="result-card"><div class="small">연 이자비용 변화</div><div class="big">' + eok(impact) + '</div><div class="small muted">금리 ' + (delta * 100).toFixed(1) + '%p 가정</div></div>'
+        + '<div class="result-card"><div class="small">자기자본 수익률 영향</div><div class="big">' + (eqImpact >= 0 ? '+' : '') + eqImpact.toFixed(2) + '%p</div><div class="small muted">단순 교육용 추정</div></div>';
+    }
+
+    // ---- Data quality + utilities ----
+    function renderQuality() {
+      const nullDps = REITS.filter(r => !r.recentDiv).length;
+      const subtotalTrn = REITS.reduce((s, r) => s + r.assetBn, 0) / 1000;
+      const checks = [
+        ['상장리츠 수', true, 'seed ' + REITS.length + '개 = 공식 ' + MARKET.listedReits + '개'],
+        ['홈페이지 링크', REITS.every(r => r.homepage), REITS.filter(r => r.homepage).length + '/' + REITS.length + '개 보유'],
+        ['최근배당금 표기', false, nullDps + '개 종목 공시 확인 필요(의도적 null 유지)'],
+        ['출처 매핑', true, SOURCES.length + '개 공식/준공식 원천 연결'],
+        ['자산총계 합계(참고)', null, 'seed 개별 합 약 ' + subtotalTrn.toFixed(1) + '조 · 공식 연결 AUM ' + MARKET.listedAumTn.toFixed(1) + '조 (개별 펀드 합 ≠ 연결, 차이는 정상)'],
+      ];
+      $('#qualityChecks').innerHTML = checks.map(c => {
+        const txt = c[1] === true ? 'PASS' : c[1] === false ? 'CHECK' : '참고';
+        return '<div class="q-item"><span class="q-badge ' + (c[1] === true ? 'pass' : 'check') + '">' + txt + '</span><div><strong>' + escapeHTML(c[0]) + '</strong><div class="muted small">' + escapeHTML(c[2]) + '</div></div></div>';
+      }).join('');
+    }
+    function exportSeed() {
+      try {
+        const blob = new Blob([JSON.stringify(seed, null, 2)], { type: 'application/json;charset=utf-8' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'reiton_seed.json'; a.click(); URL.revokeObjectURL(a.href);
+        toast('데이터 JSON을 내려받았어요');
+      } catch (e) { alert('내보내기에 실패했습니다.'); }
+    }
+    function irQuestions(r) {
+      const base = ['최근 배당의 재원은 임대수익인가요, 매각차익·특별배당인가요?', '차입금 만기·평균 금리·고정/변동 비중은 어떻게 되나요?', '주요 임차인과 WALE, 재계약 가능성은 어떤가요?'];
+      if (r.sector.includes('해외')) base.push('환헤지 비율·비용과 현지 금리 변화가 배당에 미치는 영향은?');
+      if (r.sector.includes('리테일')) base.push('소비 둔화·핵심 임차인 매출 변화에 대한 방어 장치는?');
+      if (r.sector.includes('호텔') || r.primary === '호텔') base.push('객실 가동률·ADR·RevPAR 추이는 어떻게 되나요?');
+      if (r.sector.includes('주거') || r.sector.includes('개발')) base.push('임대료 규제·매각/개발 계획이 배당에 주는 영향은?');
+      if (r.tags.includes('소형') || !r.recentDiv) base.push('배당 미표기/변동 사유와 향후 배당 정책 공시는?');
+      return base;
+    }
+    function copyQuestions(r) {
+      const text = r.name + ' (' + r.ticker + ') 확인 질문\n\n' + irQuestions(r).map((q, i) => (i + 1) + '. ' + q).join('\n') + '\n\n※ 공식 공시(DART·KIND·리츠정보시스템)에서 원문을 확인하세요.';
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => toast('확인 질문을 복사했어요')).catch(() => fallbackCopy(text));
+      else fallbackCopy(text);
+    }
+    function fallbackCopy(text) {
+      try { const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); toast('확인 질문을 복사했어요'); }
+      catch (e) { alert(text); }
+    }
+    let toastT;
+    function toast(msg) {
+      const t = $('#toast'); if (!t) return;
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1900);
+    }
+
+    try { init(); }
+    catch (e) { console.error('리츠온 초기화 오류:', e); }
+  })();
+  </script>
+</body>
+</html>
