@@ -173,9 +173,23 @@
       display: none; border: 1px solid var(--line); background: var(--surface);
       color: var(--text); border-radius: 12px; width: 44px; height: 44px; font-size: 20px; cursor: pointer;
     }
+    /* Tab navigation */
+    .tabbar { display:flex; gap:4px; flex:1; min-width:0; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding:4px 0; justify-content:center; }
+    .tabbar::-webkit-scrollbar { display:none; }
+    .tabbtn {
+      flex:0 0 auto; border:1px solid transparent; background:transparent; color:var(--muted);
+      padding:9px 14px; border-radius:var(--radius-pill); font-weight:800; font-size:14px; cursor:pointer; white-space:nowrap; min-height:40px;
+      transition: background var(--t-micro) var(--ease), color var(--t-micro) var(--ease);
+    }
+    .tabbtn:hover { background:var(--primary-tint); color:var(--text); }
+    .tabbtn.active { background:var(--brand); color:#fff; }
+    body.has-tabs section[data-tab] { display:none; }
+    body.has-tabs section[data-tab].show-tab { display:block; animation: tabIn .28s var(--ease) both; }
+    @media (prefers-reduced-motion: reduce) { body.has-tabs section[data-tab].show-tab { animation:none; } }
+    @keyframes tabIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
 
     /* Hero */
-    .hero { padding: var(--space-8) 0 var(--space-5); }
+    .hero { padding: var(--space-5) 0 var(--space-3); }
     .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: var(--space-3); align-items: stretch; }
     .hero-card {
       border: 1px solid var(--line);
@@ -214,7 +228,7 @@
     .pulse-value.two { font-size:17px; line-height:1.35; }
     .mini-note { color: var(--muted); font-size: 13px; }
 
-    .section { padding: var(--space-6) 0; }
+    .section { padding: var(--space-4) 0; }
     .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:var(--space-2); margin-bottom: var(--space-3); }
     .section-head p { color: var(--muted); margin: var(--space-1) 0 0; max-width: 760px; }
 
@@ -504,10 +518,13 @@
       .detail-box { position: static; }
     }
     @media (max-width: 680px) {
-      html { scroll-padding-top: 70px; }
+      html { scroll-padding-top: 116px; }
       .wrap { width: min(100% - var(--space-3), var(--max)); }
-      .nav { height: 60px; }
-      .menu-toggle { display: block; }
+      .nav { height: auto; flex-wrap: wrap; padding: 8px 0; row-gap: 4px; }
+      .brand { order: 1; }
+      #themeToggle { order: 2; margin-left: auto; }
+      .tabbar { order: 3; flex-basis: 100%; justify-content: flex-start; }
+      .menu-toggle { display: none; }
       .navlinks {
         position: absolute; top: 60px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px;
         background: var(--surface-strong); border-bottom: 1px solid var(--line); padding: 12px 18px 18px; box-shadow: var(--shadow); max-height: calc(100vh - 60px); overflow:auto;
@@ -533,38 +550,31 @@
 <body>
   <header class="topbar">
     <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="리츠온 홈">
+      <a class="brand" href="#top" aria-label="리츠온 홈" data-go="home">
         <span class="logo">R</span>
         <span>리츠온 <span class="muted">REITs ON</span></span>
       </a>
-      <button id="menuToggle" class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navLinks">☰</button>
-      <nav class="navlinks closed" id="navLinks" aria-label="주요 메뉴">
-        <a href="#intro">리츠란?</a>
-        <a href="#learn">분석 틀</a>
-        <a href="#finder">리츠 찾기</a>
-        <a href="#compare">비교</a>
-        <a href="#calendar">배당 캘린더</a>
-        <a href="#portfolio">현금흐름</a>
-        <a href="#tools">계산기</a>
-        <a href="#scanner">공시 스캐너</a>
-        <a href="#risk">리스크 레이더</a>
-        <a href="#sectors">섹터 가이드</a>
-        <a href="#faq">FAQ</a>
-        <button id="themeToggle" class="pill-btn" type="button">🌙 모드</button>
+      <nav class="tabbar" id="tabbar" aria-label="주요 메뉴">
+        <button class="tabbtn" type="button" data-go="home">홈</button>
+        <button class="tabbtn" type="button" data-go="find">리츠 찾기</button>
+        <button class="tabbtn" type="button" data-go="income">배당·현금흐름</button>
+        <button class="tabbtn" type="button" data-go="tools">심화 도구</button>
+        <button class="tabbtn" type="button" data-go="learn">배우기</button>
       </nav>
+      <button id="themeToggle" class="pill-btn" type="button" aria-label="다크 모드 전환">🌙</button>
     </div>
   </header>
 
   <main id="top">
-    <section class="hero">
+    <section class="hero" data-tab="home">
       <div class="wrap hero-grid">
         <div class="hero-card">
           <span class="eyebrow"><span class="dot"></span> 상장리츠 일반 투자자를 위한 정보 플랫폼</span>
           <h1>부동산을<br />주식처럼 읽고,<br />배당을 숫자로 본다.</h1>
           <p class="lead">국내 상장리츠 25개를 한 화면에서 비교하고, 배당 월을 캘린더로 보고, 초보자가 꼭 확인할 공시 체크리스트까지 연결한 정보 플랫폼입니다. 매수 추천이 아닌 <strong>학습·비교 도구</strong>입니다.</p>
           <div class="hero-actions">
-            <a href="#learn">배당 구조 5분 이해하기</a>
-            <a href="#finder">25개 리츠 비교 시작</a>
+            <a href="#" data-go="learn">배당 구조 5분 이해하기</a>
+            <a href="#" data-go="find">25개 리츠 비교 시작</a>
           </div>
         </div>
         <aside class="side-card" aria-label="시장 요약">
@@ -587,7 +597,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="intro">
+    <section class="section reveal" id="intro" data-tab="learn">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -627,7 +637,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="learn">
+    <section class="section reveal" id="learn" data-tab="learn">
       <div class="wrap grid-2">
         <div class="panel">
           <div class="section-head">
@@ -671,7 +681,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="market">
+    <section class="section reveal" id="market" data-tab="home">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -687,7 +697,7 @@
       </div>
     </section>
 
-    <section class="section reveal">
+    <section class="section reveal" data-tab="home">
       <div class="wrap grid-2">
         <div class="panel">
           <div class="section-head">
@@ -717,7 +727,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="finder">
+    <section class="section reveal" id="finder" data-tab="find">
       <div class="wrap grid-2" style="grid-template-columns: 1.35fr .65fr; align-items:start;">
         <div class="panel">
           <div class="section-head">
@@ -779,7 +789,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="compare">
+    <section class="section reveal" id="compare" data-tab="find">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -795,7 +805,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="calendar">
+    <section class="section reveal" id="calendar" data-tab="income">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -808,7 +818,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="portfolio">
+    <section class="section reveal" id="portfolio" data-tab="income">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -841,7 +851,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="tools">
+    <section class="section reveal" id="tools" data-tab="income">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -895,7 +905,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="scanner">
+    <section class="section reveal" id="scanner" data-tab="tools">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -921,7 +931,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="risk">
+    <section class="section reveal" id="risk" data-tab="tools">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -967,7 +977,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="sectors">
+    <section class="section reveal" id="sectors" data-tab="learn">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -980,7 +990,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="faq">
+    <section class="section reveal" id="faq" data-tab="learn">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -992,7 +1002,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="glossary">
+    <section class="section reveal" id="glossary" data-tab="learn">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -1004,7 +1014,7 @@
       </div>
     </section>
 
-    <section class="section reveal" id="sources">
+    <section class="section reveal" id="sources" data-tab="learn">
       <div class="wrap">
         <div class="panel">
           <div class="section-head">
@@ -1128,8 +1138,9 @@
       set(k, v) { try { localStorage.setItem('reiton_' + k, JSON.stringify(v)); } catch (e) {} }
     };
 
+    const TABS = ['home', 'find', 'income', 'tools', 'learn'];
     const state = {
-      search:'', sector:'전체', month:'전체', sort:'name',
+      search:'', sector:'전체', month:'전체', sort:'name', tab:'home',
       selected: null, quick:null, view:'cards',
       watch: new Set((store.get('watch', [])).filter(t => byTicker(t))),
       compare: (store.get('compare', [])).filter(t => byTicker(t)).slice(0, COMPARE_MAX),
@@ -1144,11 +1155,14 @@
       const p = new URLSearchParams(q);
       const t = p.get('t');
       const c = p.get('c');
+      const tb = p.get('tab');
       if (c) { const list = c.split(',').filter(x => byTicker(x)).slice(0, COMPARE_MAX); if (list.length) state.compare = list; }
       if (t && byTicker(t)) state.selected = t;
+      if (tb && TABS.indexOf(tb) >= 0) state.tab = tb;
     }
     function writeHashState() {
       const p = new URLSearchParams();
+      if (state.tab && state.tab !== 'home') p.set('tab', state.tab);
       if (state.selected) p.set('t', state.selected);
       if (state.compare.length) p.set('c', state.compare.join(','));
       const str = p.toString();
@@ -1183,6 +1197,8 @@
       bindEvents();
       selectReit(state.selected, false);
       initReveal();
+      initTabs();
+      setTab(state.tab, { noScroll: true });
     }
 
     function initTheme() {
@@ -1214,13 +1230,25 @@
     }
 
     function initReveal() {
-      const els = $$('.reveal');
-      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
-      els.forEach(e => io.observe(e));
+      // Tabs manage section visibility, so reveal-on-scroll is not needed; keep content visible.
+      $$('.reveal').forEach(e => e.classList.add('in'));
+    }
+
+    function initTabs() {
+      document.body.classList.add('has-tabs');
+      $$('[data-go]').forEach(el => el.addEventListener('click', (e) => {
+        e.preventDefault();
+        setTab(el.dataset.go);
+      }));
+    }
+    function setTab(name, opts) {
+      opts = opts || {};
+      if (TABS.indexOf(name) < 0) name = 'home';
+      state.tab = name;
+      $$('section[data-tab]').forEach(s => s.classList.toggle('show-tab', s.dataset.tab === name));
+      $$('.tabbtn').forEach(b => { const on = b.dataset.go === name; b.classList.toggle('active', on); b.setAttribute('aria-current', on ? 'page' : 'false'); });
+      writeHashState();
+      if (!opts.noScroll) window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
     function renderHeroStats() {
@@ -1514,6 +1542,7 @@
           + '<div class="month-list">' + (list.map(r => '<button type="button" data-ticker="' + r.ticker + '">' + escapeHTML(r.name) + '</button>').join('') || '<span class="muted small">해당 없음</span>') + '</div></div>';
       }).join('');
       $$('#calendarGrid [data-ticker]').forEach(btn => btn.addEventListener('click', () => {
+        setTab('find', { noScroll: true });
         selectReit(btn.dataset.ticker, false);
         $('#finder').scrollIntoView({behavior:'smooth', block:'start'});
       }));
@@ -1690,8 +1719,8 @@
     function renderGlossary() {
       const card = (g) => '<div class="term-card"><strong>' + escapeHTML(g.term) + '</strong><p>' + escapeHTML(g.plain) + '</p></div>';
       $('#glossaryGrid').innerHTML =
-        '<div class="gloss-group"><h3>재무 지표</h3><div class="glossary">' + GLOSSARY.map(card).join('') + '</div></div>'
-        + '<div class="gloss-group"><h3>이 화면에서 자주 보는 말</h3><div class="glossary">' + EXTRA_GLOSSARY.map(card).join('') + '</div></div>';
+        '<details class="faq"><summary>재무 지표 (' + GLOSSARY.length + '개)</summary><div class="glossary" style="margin:4px 0 14px;">' + GLOSSARY.map(card).join('') + '</div></details>'
+        + '<details class="faq"><summary>이 화면에서 자주 보는 말 (' + EXTRA_GLOSSARY.length + '개)</summary><div class="glossary" style="margin:4px 0 14px;">' + EXTRA_GLOSSARY.map(card).join('') + '</div></details>';
     }
 
     function renderSources() {
@@ -1716,7 +1745,7 @@
       $('#sortSelect').addEventListener('change', e => { state.sort = e.target.value; renderFinder(); });
       $('#clearCompare').addEventListener('click', clearCompare);
       $('#cbClear').addEventListener('click', clearCompare);
-      $('#cbGo').addEventListener('click', () => $('#compare').scrollIntoView({behavior:'smooth', block:'start'}));
+      $('#cbGo').addEventListener('click', () => { setTab('find', { noScroll: true }); $('#compare').scrollIntoView({behavior:'smooth', block:'start'}); });
       $('#viewCards').addEventListener('click', () => setView('cards'));
       $('#viewTable').addEventListener('click', () => setView('table'));
       $('#exportBtn').addEventListener('click', exportSeed);
