@@ -312,10 +312,15 @@
 
     .cards-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
     .reit-card {
-      border: 1px solid var(--line); background: var(--surface-strong); border-radius: 20px; padding: 17px;
-      min-height: 238px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; position: relative;
+      border: 1px solid var(--line); background: var(--surface-strong); border-radius: 18px; padding: 16px;
+      display: flex; flex-direction: column; gap: 10px; cursor: pointer; position: relative;
       transition: transform var(--t-micro) var(--ease), box-shadow var(--t-micro) var(--ease), border-color var(--t-micro) var(--ease);
     }
+    .card-mini { display:grid; gap:6px; }
+    .card-mini .row { display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:13px; }
+    .card-mini .row span { color:var(--muted); flex:0 0 auto; }
+    .card-mini .row strong { color:var(--text); font-weight:850; letter-spacing:-0.02em; text-align:right; }
+    .card-mini .row.hero strong { font-size:19px; font-weight:950; letter-spacing:-0.04em; }
     .reit-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(22,34,64,.10); border-color: var(--primary-tint-strong); }
     .reit-card.in-compare { border-color: var(--compare); box-shadow: 0 0 0 2px var(--compare-tint); }
     .reit-card[data-selected="true"] { border-color: var(--brand); box-shadow: 0 0 0 2px var(--primary-tint-strong); }
@@ -1487,25 +1492,17 @@
       const inCompare = state.compare.includes(r.ticker);
       const selected = state.selected === r.ticker;
       const nm = escapeHTML(r.name);
-      const d = diffLabel(r.difficulty);
-      return '<article class="reit-card ' + (inCompare ? 'in-compare' : '') + '" data-ticker="' + r.ticker + '" data-selected="' + selected + '">'
-        + '<div class="reit-top"><div><div class="reit-name">' + escapeHTML(r.name) + '</div><div class="ticker">' + escapeHTML(r.ticker) + ' · ' + escapeHTML(r.primary) + ' · <span class="pill-diff" data-d="' + r.difficulty + '">' + d + '</span></div></div>'
-        + '<button class="fav ' + (watched ? 'on' : '') + '" data-fav="' + r.ticker + '" aria-pressed="' + watched + '" aria-label="관심리츠 ' + (watched ? '해제' : '추가') + '">★</button>'
+      const annual = r.recentDiv ? (fmt.format(r.recentDiv * r.divMonths.length) + '원 /주') : '확인 필요';
+      return '<article class="reit-card ' + (inCompare ? 'in-compare' : '') + '" data-ticker="' + r.ticker + '" data-selected="' + selected + '" role="button" tabindex="0" aria-label="' + nm + ' 상세 보기">'
+        + '<div class="reit-top"><div><div class="reit-name">' + escapeHTML(r.name) + '</div><div class="ticker">' + escapeHTML(r.ticker) + ' · ' + escapeHTML(r.primary) + '</div></div>'
+        + '<button class="fav ' + (watched ? 'on' : '') + '" data-fav="' + r.ticker + '" aria-pressed="' + watched + '" aria-label="' + nm + ' 관심리츠 ' + (watched ? '해제' : '추가') + '">★</button>'
         + '</div>'
         + (r.price ? '<div class="card-live">현재가 <b>' + fmt.format(r.price) + '원</b>' + (r.yieldPriceBasis ? ' · 수익률 <b>' + r.yieldPriceBasis + '%</b>' : '') + '</div>' : '')
-        + '<div class="m-primary"><div class="pl">연 배당 <span class="muted">(단순 연환산·추정)</span></div>'
-        + '<div class="pv">' + (r.recentDiv ? (fmt.format(r.recentDiv * r.divMonths.length) + '원<small> /주</small>') : '확인 필요') + '</div>'
-        + '<div class="psub">' + (r.recentDiv ? ('최근 1회 ' + fmt.format(r.recentDiv) + '원 × ' + r.divMonths.length + '회') : '최근배당금 공시 확인 필요') + '</div></div>'
-        + '<div class="m-row">'
-        + '<div class="m-cell"><div class="cl">배당월 · 빈도</div><div class="cv">' + freqShort(r) + '</div></div>'
-        + '<div class="m-cell"><div class="cl">자산규모</div><div class="cv">' + escapeHTML(r.assetText) + '</div></div>'
+        + '<div class="card-mini">'
+        + '<div class="row hero"><span>연 배당(추정)</span><strong>' + annual + '</strong></div>'
+        + '<div class="row"><span>배당</span><strong>' + freqShort(r) + '</strong></div>'
+        + '<div class="row"><span>자산</span><strong>' + escapeHTML(r.assetText) + '</strong></div>'
         + '</div>'
-        + '<div class="card-actions">'
-        + '<button class="primary" type="button" data-detail="' + r.ticker + '" aria-label="' + nm + ' 상세 보기">상세 보기</button>'
-        + '<button type="button" data-calc="' + r.ticker + '" aria-label="' + nm + ' 배당 계산">배당 계산</button>'
-        + '<button class="' + (inCompare ? 'on' : '') + '" type="button" data-cmp="' + r.ticker + '" aria-pressed="' + inCompare + '" aria-label="' + nm + ' 비교 ' + (inCompare ? '빼기' : '담기') + '">' + (inCompare ? '담김' : '비교') + '</button>'
-        + '</div>'
-        + '<p class="card-cap">기준: 배당 KAREIT 2025.12 · 자산 2025년말 투자보고서 · 연환산은 향후 배당 보장 아님</p>'
         + '</article>';
     }
 
