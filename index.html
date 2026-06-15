@@ -1116,6 +1116,8 @@
     const GLOSSARY = seed.glossary;
     const SOURCES = seed.sources;
     const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+    // 백엔드(Cloudflare Worker) 주소. 비우면 내장 seed로 동작(정적). 배포 후 'https://reits-on-api.<계정>.workers.dev' 입력 → 자동으로 라이브 데이터 사용.
+    const API_BASE = '';
     const COMPARE_MAX = 3;
     const PALETTE = ['#3254ff', '#00a78e', '#c07a00', '#d22d32', '#7c5cff'];
     const DIFF_LABEL = { '쉬움': '입문', '보통': '중급', '상세확인': '심화' };
@@ -2032,8 +2034,33 @@
       setTimeout(() => location.reload(), 800);
     }
 
-    try { init(); }
-    catch (e) { console.error('리츠온 초기화 오류:', e); }
+    // 백엔드가 설정되어 있으면 라이브 데이터로 갱신(실패 시 조용히 seed 폴백)
+    async function hydrateFromApi() {
+      if (!API_BASE) return;
+      try {
+        const [mk, rl] = await Promise.all([
+          fetch(API_BASE + '/v1/market').then(r => r.ok ? r.json() : null).catch(() => null),
+          fetch(API_BASE + '/v1/reits').then(r => r.ok ? r.json() : null).catch(() => null),
+        ]);
+        if (mk) {
+          if (mk.asOfDate) MARKET.asOf = mk.asOfDate;
+          if (mk.listedMarketCapTn != null) MARKET.listedMarketCapTn = mk.listedMarketCapTn;
+          if (mk.listedDividendYieldPriceBasis != null) MARKET.listedDividendYieldPriceBasis = mk.listedDividendYieldPriceBasis;
+          if (mk.listedDividendYieldPaidInCapital != null) MARKET.listedDividendYieldPaidInCapital = mk.listedDividendYieldPaidInCapital;
+          MARKET._live = true;
+        }
+        if (rl && Array.isArray(rl.reits)) {
+          const byT = {}; rl.reits.forEach(x => { byT[x.ticker] = x; });
+          REITS.forEach(r => { const live = byT[r.ticker]; if (live) { r.price = live.price; r.priceAsOf = live.priceAsOf; r.yieldPriceBasis = live.yieldPriceBasis; r.marketCapLive = live.marketCap; } });
+        }
+      } catch (e) { /* seed 폴백 */ }
+    }
+
+    (async () => {
+      await hydrateFromApi();
+      try { init(); }
+      catch (e) { console.error('리츠온 초기화 오류:', e); }
+    })();
   })();
   </script>
 </body>
