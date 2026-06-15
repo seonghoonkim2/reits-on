@@ -1118,7 +1118,7 @@
     const SOURCES = seed.sources;
     const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
     // 백엔드(Cloudflare Worker) 주소. 비우면 내장 seed로 동작(정적). 배포 후 'https://reits-on-api.<계정>.workers.dev' 입력 → 자동으로 라이브 데이터 사용.
-    const API_BASE = '';
+    const API_BASE = 'https://reits-on-api.modelter.workers.dev';
     const COMPARE_MAX = 3;
     const PALETTE = ['#3254ff', '#00a78e', '#c07a00', '#d22d32', '#7c5cff'];
     const DIFF_LABEL = { '쉬움': '입문', '보통': '중급', '상세확인': '심화' };
@@ -1300,7 +1300,7 @@
       $('#listedReits').textContent = fmt.format(MARKET.listedReits) + '개';
       $('#listedCap').textContent = MARKET.listedMarketCapTn.toFixed(2) + '조';
       $('#listedYield').textContent = '납입자본 기준 ' + MARKET.listedDividendYieldPaidInCapital.toFixed(1) + '% · 현재가 기준 ' + MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%';
-      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + (MARKET._live ? ' · 시세는 최근 종가 기준 자동 갱신(장중 실시간 아님).' : ', 실시간 아님.') + ' 배당수익률은 산식·기준가에 따라 달라지며, 정확한 값은 증권사·각 리츠 공시에서 확인하세요. 이 화면은 학습·비교용이며 매수 추천이 아닙니다.';
+      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + (MARKET._livePrices ? ' · 시세는 최근 종가 기준 자동 갱신(장중 실시간 아님).' : MARKET._live ? ' · 시세 연동 대기(데이터 키 등록 시 표시).' : ', 실시간 아님.') + ' 배당수익률은 산식·기준가에 따라 달라지며, 정확한 값은 증권사·각 리츠 공시에서 확인하세요. 이 화면은 학습·비교용이며 매수 추천이 아닙니다.';
     }
 
     function renderKpis() {
@@ -1349,7 +1349,8 @@
       $('#sectorSelect').innerHTML = sectors.map(s => '<option value="' + escapeHTML(s) + '">' + escapeHTML(s) + '</option>').join('');
       $('#monthSelect').innerHTML = ['전체'].concat(MONTHS).map((m, i) => '<option value="' + (i === 0 ? '전체' : i) + '">' + m + '</option>').join('');
       $('#sortSelect').value = state.sort;
-      $('#freshness').innerHTML = '<span>📌 카드 자산·배당 기준: 2025년말 투자보고서</span><span>· 시장통계: ' + escapeHTML(MARKET.asOf) + '</span><span>· ' + (MARKET._live ? '시세 <b>최근 종가 자동 갱신</b>' : '<b>시세 실시간 아님</b>') + '</span>';
+      const freshSee = MARKET._livePrices ? '시세 <b>최근 종가 자동 갱신</b>' : (MARKET._live ? '시세 <b>연동 대기</b>(데이터 키 등록 시 표시)' : '<b>시세 실시간 아님</b>');
+      $('#freshness').innerHTML = '<span>📌 카드 자산·배당 기준: 2025년말 투자보고서</span><span>· 시장통계: ' + escapeHTML(MARKET.asOf) + '</span><span>· ' + freshSee + '</span>';
     }
 
     function renderQuickChips() {
@@ -2061,6 +2062,7 @@
         if (rl && Array.isArray(rl.reits)) {
           const byT = {}; rl.reits.forEach(x => { byT[x.ticker] = x; });
           REITS.forEach(r => { const live = byT[r.ticker]; if (live) { r.price = live.price; r.changePct = live.changePct; r.priceAsOf = live.priceAsOf; r.yieldPriceBasis = live.yieldPriceBasis; r.marketCapLive = live.marketCap; } });
+          MARKET._livePrices = rl.reits.some(x => x.price);
         }
       } catch (e) { /* seed 폴백 */ }
     }
