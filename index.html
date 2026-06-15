@@ -197,7 +197,7 @@
     .tabbtn:hover { background:var(--primary-tint); color:var(--text); }
     .tabbtn.active { background:var(--brand); color:#fff; }
     body.has-tabs section[data-tab] { display:none; }
-    body.has-tabs section[data-tab].show-tab { display:block; animation: tabIn .28s var(--ease) both; }
+    body.has-tabs section[data-tab].show-tab { display:block; animation: tabIn .28s var(--ease); }
     @media (prefers-reduced-motion: reduce) { body.has-tabs section[data-tab].show-tab { animation:none; } }
     @keyframes tabIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
 
@@ -321,6 +321,8 @@
     .card-mini .row span { color:var(--muted); flex:0 0 auto; }
     .card-mini .row strong { color:var(--text); font-weight:850; letter-spacing:-0.02em; text-align:right; }
     .card-mini .row.hero strong { font-size:19px; font-weight:950; letter-spacing:-0.04em; white-space:nowrap; }
+    .card-mini .hero-vals { text-align:right; }
+    .card-mini .hero-vals small { display:block; font-size:10.5px; margin-top:1px; font-weight:600; }
     .reit-card[data-difficulty="쉬움"] { border-left: 3px solid var(--success); }
     .reit-card[data-difficulty="보통"] { border-left: 3px solid var(--accent); }
     .reit-card[data-difficulty="상세확인"] { border-left: 3px solid var(--error); }
@@ -402,6 +404,10 @@
     .scroll-hint { display:none; }
 
     .detail-box { position: sticky; top: 88px; }
+    .detail-nav { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; }
+    .dn-btn { border:1px solid var(--line); background:var(--surface-strong); color:var(--text); border-radius:var(--radius-pill); padding:8px 12px; font-weight:800; font-size:13px; cursor:pointer; min-height:40px; transition: background var(--t-micro) var(--ease); }
+    .dn-btn:hover:not(:disabled) { background:var(--hover); }
+    .dn-btn:disabled { opacity:.4; cursor:default; }
     .detail-title { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
     .detail-list { margin: var(--space-2) 0 0; padding:0; list-style:none; display:grid; gap:9px; }
     .detail-list li { border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; background: var(--surface-strong); color: var(--muted); }
@@ -701,6 +707,18 @@
       </div>
     </section>
 
+    <section class="section reveal" data-tab="home" id="homewatch" hidden>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>내 관심리츠</h2>
+            <p>★로 저장한 리츠입니다. 눌러서 상세를 확인하세요.</p>
+          </div>
+        </div>
+        <div id="homeWatchList" class="chip-row"></div>
+      </div>
+    </section>
+
     <section class="section reveal" data-tab="home" id="thismonth">
       <div class="wrap">
         <div class="section-head">
@@ -902,6 +920,11 @@
         <aside class="panel detail-box" id="detailPanel">
           <div class="sheet-handle" aria-hidden="true"></div>
           <button class="sheet-close" type="button" aria-label="닫기">✕</button>
+          <div class="detail-nav">
+            <button class="dn-btn" type="button" data-detnav="-1" aria-label="이전 리츠">◀ 이전</button>
+            <span id="detPos" class="muted small"></span>
+            <button class="dn-btn" type="button" data-detnav="1" aria-label="다음 리츠">다음 ▶</button>
+          </div>
           <div class="detail-title">
             <div>
               <span class="eyebrow">90초 투자 메모</span>
@@ -1336,6 +1359,7 @@
       renderHeroStats();
       renderKpis();
       renderThisMonth();
+      renderHomeWatch();
       renderFilters();
       renderQuickChips();
       renderCharts();
@@ -1554,7 +1578,7 @@
         + '</div>'
         + (r.price ? '<div class="card-live">현재가 <b>' + fmt.format(r.price) + '원</b>' + (r.yieldPriceBasis ? ' · 수익률 <b>' + r.yieldPriceBasis + '%</b>' : '') + '</div>' : '')
         + '<div class="card-mini">'
-        + '<div class="row hero"><span>연 배당(추정)</span><strong>' + annual + '</strong></div>'
+        + '<div class="row hero"><span>연 배당(추정)</span><span class="hero-vals"><strong>' + annual + '</strong>' + (r.recentDiv ? '<small class="muted">월 ≈ ' + fmt.format(Math.round(r.recentDiv * r.divMonths.length / 12)) + '원 · 연환산÷12 추정</small>' : '') + '</span></div>'
         + '<div class="row"><span>배당</span><strong>' + freqShort(r) + '</strong></div>'
         + '<div class="row"><span>자산</span><strong>' + escapeHTML(r.assetText) + '</strong></div>'
         + '</div>'
@@ -1575,6 +1599,7 @@
       store.set('watch', Array.from(state.watch));
       renderFinder();
       renderQuickChips();
+      renderHomeWatch();
       if (state.selected === ticker) selectReit(ticker, false);
     }
 
@@ -1652,9 +1677,17 @@
           body += '<tr><th class="rowhead">' + escapeHTML(row[0]) + '</th>' + list.map(r => '<td>' + row[1](r) + '</td>').join('') + '</tr>';
         });
       });
+      const inSet = new Set(state.compare);
+      const primaries = new Set(list.map(r => r.primary));
+      const recs = REITS.filter(r => !inSet.has(r.ticker) && primaries.has(r.primary)).slice(0, 6);
+      const recBlock = (state.compare.length < COMPARE_MAX && recs.length)
+        ? '<div style="margin-top:16px;"><div class="strong small" style="margin-bottom:8px;">같은 자산군 더 비교하기</div><div class="chip-row" style="margin:0;">' + recs.map(r => '<button class="chip" type="button" data-add="' + r.ticker + '">+ ' + escapeHTML(r.name) + '</button>').join('') + '</div></div>'
+        : '';
       content.innerHTML = '<div class="compare-wrap"><table class="compare-table"><caption class="visually-hidden">선택한 리츠 비교 표</caption><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>'
+        + recBlock
         + '<p class="muted small" style="margin-top:12px;">※ 표의 수치는 학습·비교용입니다. ‘위험’ 항목은 의도적으로 빈칸이며, 각 리츠의 최신 투자보고서·공시·현재가에서 직접 확인하세요.</p>';
       $$('#compareContent [data-rm]').forEach(b => b.addEventListener('click', () => toggleCompare(b.dataset.rm)));
+      $$('#compareContent [data-add]').forEach(b => b.addEventListener('click', () => toggleCompare(b.dataset.add)));
     }
 
     function sectorQuestions(r) {
@@ -1705,6 +1738,7 @@
       $('#detailLinks [data-gotools]').addEventListener('click', () => { setTab('tools', { noScroll: true }); $('#scanner').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
       $('#detailPrice').value = r.price || '';
       updateDetailCalc();
+      updateDetailNav();
       writeHashState();
       if (scroll && isMobile()) openSheet();
     }
@@ -1740,6 +1774,25 @@
       else { sheetPushed = false; }
     }
 
+    function navDetail(dir) {
+      const rows = getFiltered();
+      const i = rows.findIndex(r => r.ticker === state.selected);
+      if (i < 0) return;
+      const n = i + dir;
+      if (n < 0 || n >= rows.length) return;
+      selectReit(rows[n].ticker, false);
+      const p = $('#detailPanel'); if (p) p.scrollTop = 0;
+    }
+    function updateDetailNav() {
+      const rows = getFiltered();
+      const i = rows.findIndex(r => r.ticker === state.selected);
+      const pos = $('#detPos'), prev = $('[data-detnav="-1"]'), next = $('[data-detnav="1"]');
+      if (i < 0) { if (pos) pos.textContent = ''; if (prev) prev.disabled = true; if (next) next.disabled = true; return; }
+      if (pos) pos.textContent = (i + 1) + ' / ' + rows.length;
+      if (prev) prev.disabled = i <= 0;
+      if (next) next.disabled = i >= rows.length - 1;
+    }
+
     function updateDetailCalc() {
       const r = byTicker(state.selected); if (!r) return;
       const out = $('#detailCalcOut'); if (!out) return;
@@ -1749,6 +1802,16 @@
       if (!price) { out.innerHTML = '연환산 추정 DPS <b>' + fmt.format(annual) + '원</b>. 현재가를 입력하면 단순 배당수익률을 계산합니다.'; return; }
       const y = annual / price * 100, t6 = annual / 0.06, t7 = annual / 0.07, upside = (t6 / price - 1) * 100;
       out.innerHTML = '단순 배당수익률 <b>' + y.toFixed(1) + '%</b><br>목표 6% 기준가 <b>' + fmt.format(Math.round(t6)) + '원</b> · 목표 7% 기준가 <b>' + fmt.format(Math.round(t7)) + '원</b><br>현재가 대비(6% 기준) <b>' + (upside >= 0 ? '+' : '') + upside.toFixed(1) + '%</b> ' + (upside >= 0 ? '여유' : '부담') + '<br><span class="muted">사용자가 직접 입력한 현재가 기준의 교육용 추정치입니다. 실시간 시세가 아니며, 실제 배당은 변동·삭감·중단될 수 있습니다.</span>';
+    }
+
+    function renderHomeWatch() {
+      const sec = $('#homewatch'), box = $('#homeWatchList');
+      if (!sec || !box) return;
+      const list = REITS.filter(r => state.watch.has(r.ticker));
+      if (!list.length) { sec.hidden = true; box.innerHTML = ''; return; }
+      sec.hidden = false;
+      box.innerHTML = list.map(r => '<button class="chip" type="button" data-ticker="' + r.ticker + '">' + escapeHTML(r.name) + (r.recentDiv ? ' <span class="muted">연 ' + fmt.format(r.recentDiv * r.divMonths.length) + '원/주</span>' : '') + '</button>').join('');
+      $$('#homeWatchList [data-ticker]').forEach(b => b.addEventListener('click', () => { setTab('find', { noScroll: true }); selectReit(b.dataset.ticker, true); $('#finder').scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
     }
 
     function renderThisMonth() {
@@ -2027,6 +2090,7 @@
         }
       });
       window.addEventListener('popstate', () => { if (sheetOpen) closeSheet(true); });
+      $$('[data-detnav]').forEach(b => b.addEventListener('click', () => navDetail(Number(b.dataset.detnav))));
       _wasMobile = isMobile();
       window.addEventListener('resize', () => { const m = isMobile(); if (_wasMobile && !m && sheetOpen) closeSheet(true); _wasMobile = m; }, { passive: true });
 
