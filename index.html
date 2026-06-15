@@ -477,10 +477,21 @@
     .helper { color: var(--muted); font-size: 12.5px; margin-top: 6px; line-height:1.5; }
 
     /* Portfolio */
-    .pf-add { display:grid; grid-template-columns: 1fr 150px auto; gap:10px; align-items:end; }
+    .pf-step { font-size:13px; font-weight:900; color:var(--brand); letter-spacing:-0.01em; }
+    .pf-budget { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:8px; }
+    .pf-add { display:grid; grid-template-columns: 1fr auto auto; gap:10px; align-items:end; margin-top:8px; }
     .pf-list { display:grid; gap:8px; margin-top: var(--space-2); }
-    .pf-row { display:grid; grid-template-columns: 1fr 140px auto; gap:10px; align-items:center; border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:var(--surface-strong); }
+    .pf-row { display:grid; grid-template-columns: 1.3fr 1fr 1fr auto; gap:10px; align-items:center; border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:var(--surface-strong); }
     .pf-row .dotc { width:11px; height:11px; border-radius:3px; display:inline-block; margin-right:8px; vertical-align:middle; }
+    .pf-row .pf-rl { font-size:11px; color:var(--muted); }
+    .pf-row .pf-est { font-size:12px; color:var(--muted); }
+    .pf-row .pf-est b { color:var(--text); }
+    .pf-cov { display:grid; grid-template-columns: repeat(12, 1fr); gap:6px; }
+    .pf-cell { border:1px solid var(--line); border-radius:10px; padding:8px 2px; text-align:center; background:var(--surface-2); }
+    .pf-cell.on { background:var(--success-tint); border-color:transparent; }
+    .pf-cell .pm { font-size:11px; color:var(--muted); }
+    .pf-cell .pmk { font-size:13px; font-weight:900; margin-top:2px; color:var(--muted); }
+    .pf-cell.on .pmk { color:var(--success); }
     .pf-chart { display:grid; grid-template-columns: repeat(12, 1fr); gap:6px; align-items:end; height:180px; margin-top: var(--space-2); }
     .pf-col { display:flex; flex-direction:column; justify-content:flex-end; height:100%; gap:2px; }
     .pf-seg { width:100%; border-radius:4px 4px 0 0; min-height:2px; }
@@ -634,7 +645,8 @@
       .kpi-grid, .cards-grid, .calendar, .grid-3, .calc-grid, .glossary, .source-grid, .filters, .intro-grid, .sector-grid, .pf-summary { grid-template-columns: 1fr; }
       .section-head { align-items:flex-start; flex-direction:column; }
       .bar-row { grid-template-columns: 72px 1fr 64px; }
-      .pf-add, .pf-row { grid-template-columns: 1fr; }
+      .pf-add, .pf-row, .pf-budget { grid-template-columns: 1fr; }
+      .pf-cov { grid-template-columns: repeat(6, 1fr); }
       .scroll-hint { display:block; font-size:12px; color:var(--muted); margin-bottom:8px; }
     }
     @media (max-width: 480px) {
@@ -657,7 +669,6 @@
         <button class="tabbtn" type="button" data-go="home">홈</button>
         <button class="tabbtn" type="button" data-go="find">리츠 찾기</button>
         <button class="tabbtn" type="button" data-go="income">배당·현금흐름</button>
-        <button class="tabbtn" type="button" data-go="tools">심화 도구</button>
         <button class="tabbtn" type="button" data-go="learn">배우기</button>
       </nav>
       <button id="textToggle" class="pill-btn" type="button" aria-label="글씨 크기 조절" title="글씨 크기">가</button>
@@ -683,8 +694,8 @@
           </form>
           <div class="hero-actions">
             <a href="#" data-go="find">리츠 검색하기</a>
-            <a href="#" data-go="income">배당 계산하기</a>
-            <a href="#" data-go="tools">공시·위험 점검</a>
+            <a href="#" data-go="income">월배당 만들기</a>
+            <a href="#" data-go="learn">리츠 배우기</a>
           </div>
           <div class="chip-row" id="heroQuick" aria-label="빠른 시작" style="margin-top:12px;">
             <span class="muted small" style="align-self:center; margin-right:2px;">바로 좁혀보기:</span>
@@ -986,32 +997,59 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2>포트폴리오 월별 현금흐름 (추정)</h2>
-            <p>관심 리츠와 보유 주식 수를 넣으면, 배당기준월에 맞춰 월별 배당 현금흐름을 그려봅니다.</p>
+            <h2>월배당 포트폴리오 만들기</h2>
+            <p>여러 리츠의 배당월을 조합해 <b>매달 배당이 들어오도록</b> 구성해 보세요. 투자금액과 종목을 넣으면 월별 현금흐름과 빈 달을 보여주고, 빈 달을 채울 리츠를 추천합니다.</p>
           </div>
         </div>
-        <div class="note-banner">⚠ 최근배당금은 <b>최근 1회 지급액 기준(연환산 아님)</b>이며 향후 변동·중단될 수 있습니다. 실제 지급일은 배당기준월 이후입니다. 아래는 <b>교육용 추정치</b>로, 실제 수령액·세금과 다릅니다.</div>
+        <div class="note-banner">⚠ 최근배당금(1회 기준)을 연환산한 <b>교육용 추정</b>입니다. 예상 주식 수는 현재가로 나눈 값이며(현재가 미연동 시 직접 입력), 실제 배당·지급일·세금과 다를 수 있습니다. 배당은 삭감·중단될 수 있습니다.</div>
+
+        <!-- 1단계: 투자금액 -->
         <div class="panel">
+          <div class="pf-step">STEP 1 · 투자금액과 세금</div>
+          <div class="pf-budget">
+            <label>총 투자금액(원)<br/><input id="pfBudget" class="input" type="number" min="0" step="1000000" value="10000000" /></label>
+            <label>세금 가정<br/><select id="pfTax" class="select">
+              <option value="0">세전</option>
+              <option value="0.154">일반 배당세 15.4%</option>
+              <option value="0.099" selected>상장리츠 분리과세 9.9%(가정)</option>
+            </select></label>
+          </div>
+
+          <div class="pf-step" style="margin-top:var(--space-3);">STEP 2 · 종목 담기 (배당월이 다른 리츠를 섞으세요)</div>
           <div class="pf-add">
             <label>리츠 선택<br/><select id="pfSelect" class="select" aria-label="포트폴리오에 추가할 리츠"></select></label>
-            <label>보유 주식 수<br/><input id="pfShares" class="input" type="number" min="0" step="1" value="100" aria-label="보유 주식 수" /></label>
-            <button id="pfAdd" class="primary-btn" type="button" style="height:46px;">추가</button>
+            <button id="pfAdd" class="primary-btn" type="button" style="height:46px;">담기</button>
+            <button id="pfEqual" class="ghost-btn" type="button" style="height:46px;">투자금 균등 분배</button>
           </div>
           <div class="pf-list" id="pfList"></div>
-          <div id="pfResult" class="hidden">
-            <h3 style="margin-top:var(--space-4);">월별 배당 추정 (1년)</h3>
-            <div class="pf-chart" id="pfChart" aria-hidden="true"></div>
+          <div id="pfEmpty" class="empty" style="margin-top:var(--space-2);">담은 리츠가 없습니다. 위에서 리츠를 담거나, ‘리츠 찾기’에서 <b>월배당에 넣기</b>를 눌러 추가하세요.</div>
+        </div>
+
+        <!-- 결과 -->
+        <div id="pfResult" class="hidden">
+          <div class="panel" style="margin-top:var(--space-2);">
+            <div class="pf-step">STEP 3 · 매달 받는지 확인하기 <span id="pfCoverNum" class="muted"></span></div>
+            <p class="muted small" style="margin:6px 0 10px;">배당기준월 기준입니다. 실제 입금은 보통 그 이후 약 2~3개월 시차가 있습니다.</p>
+            <div class="pf-cov" id="pfCoverage"></div>
+            <div id="pfGapWrap" style="margin-top:14px;">
+              <div class="strong small" id="pfGapTitle" style="margin-bottom:8px;"></div>
+              <div class="chip-row" id="pfGaps" style="margin:0;"></div>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top:var(--space-2);">
+            <div class="pf-step">STEP 4 · 월별 배당 추정 (1년)</div>
+            <div class="pf-chart" id="pfChart" aria-hidden="true" style="margin-top:12px;"></div>
             <div class="pf-mlabels" id="pfLabels"></div>
             <div class="legend" id="pfLegend"></div>
             <div class="pf-summary">
-              <div class="result-card"><div class="small">연간 배당 합계(추정)</div><div class="big" id="pfAnnual">-</div></div>
-              <div class="result-card"><div class="small">월평균(추정)</div><div class="big" id="pfMonthly">-</div></div>
-              <div class="result-card"><div class="small">최대 배당 월</div><div class="big" id="pfPeak">-</div></div>
+              <div class="result-card"><div class="small">연 배당(세후·추정)</div><div class="big" id="pfAnnual">-</div></div>
+              <div class="result-card"><div class="small">월평균(세후·추정)</div><div class="big" id="pfMonthly">-</div></div>
+              <div class="result-card"><div class="small">투자금 대비 수익률</div><div class="big" id="pfYield">-</div></div>
             </div>
-            <p class="helper" id="pfNullNote"></p>
+            <p class="helper" id="pfNote"></p>
             <div style="margin-top:12px;"><button class="ghost-btn" id="pfCsv" type="button">월별 현금흐름 CSV 내보내기</button></div>
           </div>
-          <div id="pfEmpty" class="empty">아직 담은 리츠가 없습니다. 위에서 리츠와 주식 수를 추가해 보세요.</div>
         </div>
       </div>
     </section>
@@ -1082,78 +1120,6 @@
             <div class="result-card"><div class="small">배당 커버리지(AFFO/DPS)</div><div class="big" id="affoCover">-</div><div class="small muted" id="affoCoverNote"></div></div>
             <div class="result-card"><div class="small">현재 배당수익률</div><div class="big" id="navYield">-</div><div class="small muted">DPS / 현재가</div></div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section reveal" id="scanner" data-tab="tools">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>공시 읽기 도우미</h2>
-            <p>투자보고서·공시 문장을 붙여넣으면 위험 키워드와 숫자를 짚어주고, IR에 물어볼 질문을 만들어 줍니다. 붙여넣은 글은 <b>브라우저 안에서만 처리</b>되며 어디에도 전송되지 않습니다.</p>
-          </div>
-        </div>
-        <div class="grid-2">
-          <div class="panel">
-            <label class="strong" for="disclosureText">공시 / 투자보고서 / IR 문구 붙여넣기</label>
-            <textarea id="disclosureText" class="input" style="margin-top:8px;">본 리츠는 차입금 만기 도래에 따라 리파이낸싱을 추진 중이며, 일부 변동금리 차입금의 이자비용이 증가할 수 있습니다. 주요 임차인의 계약 만기는 2027년이며, 매각차익에 따른 특별배당 가능성이 있습니다. 해외 자산 관련 환헤지 비용도 점검이 필요합니다.</textarea>
-            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;">
-              <button class="primary-btn" id="scanBtn" type="button">스캔하기</button>
-              <button class="ghost-btn" id="scanSample" type="button">샘플 불러오기</button>
-              <button class="ghost-btn" id="scanAd" type="button">과장광고 문구 검증</button>
-            </div>
-          </div>
-          <div class="panel">
-            <h3>스캔 결과</h3>
-            <div id="scanOutput"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section reveal" id="risk" data-tab="tools">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>리스크 레이더 (직접 입력)</h2>
-            <p>투자보고서에서 찾은 숫자를 넣으면 어떤 점을 더 따져봐야 하는지 알려줍니다. 값은 본인이 공시에서 확인해 입력하세요 — 이 화면은 수치를 만들어내지 않습니다.</p>
-          </div>
-        </div>
-        <div class="grid-2">
-          <div class="panel">
-            <div class="calc-grid">
-              <label>LTV(차입금 비율 %)<br/><input id="ltv" class="input" type="number" value="45" min="0" max="100" /></label>
-              <label>12개월 내 만기 차입 비중(%)<br/><input id="maturity12" class="input" type="number" value="25" min="0" max="100" /></label>
-              <label>임대율(%)<br/><input id="occupancy" class="input" type="number" value="96" min="0" max="100" /></label>
-              <label>WALE(잔여 임대차 년)<br/><input id="wale" class="input" type="number" value="4.2" min="0" step="0.1" /></label>
-              <label>변동금리 비중(%)<br/><input id="floating" class="input" type="number" value="35" min="0" max="100" /></label>
-              <label>해외자산 비중(%)<br/><input id="foreign" class="input" type="number" value="0" min="0" max="100" /></label>
-              <label>단일 임차인 비중(%)<br/><input id="singleTenant" class="input" type="number" value="35" min="0" max="100" /></label>
-              <label>특별배당 의존도<br/><select id="specialDiv" class="select"><option value="0">낮음</option><option value="15">일부 있음</option><option value="30">높음</option></select></label>
-              <label>개발/매각차익 의존도<br/><select id="development" class="select"><option value="0">낮음</option><option value="15">일부 있음</option><option value="30">높음</option></select></label>
-            </div>
-            <p class="helper">점수는 입력값을 단순 가중한 <b>교육용 지표</b>이며, 투자 적합성·안전성을 보장하지 않습니다.</p>
-          </div>
-          <div class="panel">
-            <div class="grid-2" style="align-items:center;">
-              <div><h3 style="text-align:center; margin-bottom:12px;">점검 강도</h3><div class="score-circle" id="riskScoreC" style="--score:70"><b>70</b></div></div>
-              <div id="riskSummary"></div>
-            </div>
-            <div id="riskBars" class="bar-list" style="margin-top:14px;"></div>
-            <div id="riskFlags" class="flag-list"></div>
-          </div>
-        </div>
-        <div class="panel" style="margin-top:var(--space-2);">
-          <h3>금리·리파이낸싱 시나리오</h3>
-          <p class="muted small">금리가 오를 때 이자비용이 배당을 얼마나 누르는지 감을 잡는 교육용 계산입니다.</p>
-          <div class="calc-grid">
-            <label>자산총계(억원)<br/><input id="scenarioAum" class="input" type="number" value="10000" min="0" step="100" /></label>
-            <label>LTV(%)<br/><input id="scenarioLtv" class="input" type="number" value="45" min="0" max="100" /></label>
-            <label>12개월 내 재조달 비중(%)<br/><input id="scenarioRefi" class="input" type="number" value="30" min="0" max="100" /></label>
-            <label>금리 변화(%p)<br/><input id="scenarioRate" class="input" type="number" value="1.0" step="0.1" /></label>
-          </div>
-          <div id="scenarioOutput" class="grid-3" style="margin-top:12px;"></div>
         </div>
       </div>
     </section>
@@ -1327,7 +1293,7 @@
       set(k, v) { try { localStorage.setItem('reiton_' + k, JSON.stringify(v)); } catch (e) {} }
     };
 
-    const TABS = ['home', 'find', 'income', 'tools', 'learn'];
+    const TABS = ['home', 'find', 'income', 'learn'];
     const state = {
       search:'', sector:'전체', month:'전체', sort:'name', tab:'home',
       selected: null, quick:null, view:'cards',
@@ -1376,9 +1342,6 @@
       renderCalendar();
       renderPortfolio();
       renderTools();
-      initRiskTools();
-      bindScanner();
-      scanDisclosure();
       renderSectorGuide();
       renderChecklist();
       renderFaq();
@@ -1730,8 +1693,7 @@
         + '<li class="muted small">‘읽기 쉬운 정도’는 학습 지표이며 투자 안전성·수익성과 무관합니다. 매수 전 공시 확인 필수.</li>';
       const inCompare = state.compare.includes(r.ticker);
       $('#detailLinks').innerHTML =
-          '<button class="primary-btn" type="button" data-goincome="1">배당 계산</button>'
-        + '<button class="pill-btn" type="button" data-gotools="1" style="border:1px solid var(--line);">공시 확인</button>'
+          '<button class="primary-btn" type="button" data-goincome="1">월배당에 넣기</button>'
         + '<button class="pill-btn" type="button" data-fav="' + r.ticker + '" style="border:1px solid var(--line);">' + (state.watch.has(r.ticker) ? '관심 해제' : '관심 추가') + '</button>'
         + '<button class="pill-btn" type="button" data-cmp="' + r.ticker + '" style="border:1px solid var(--line);">' + (inCompare ? '비교에서 빼기' : '비교에 담기') + '</button>'
         + '<button class="pill-btn" type="button" data-copyq="1" style="border:1px solid var(--line);">📋 확인 질문 복사</button>'
@@ -1742,8 +1704,7 @@
       $('#detailLinks [data-fav]').addEventListener('click', () => toggleWatch(r.ticker));
       $('#detailLinks [data-cmp]').addEventListener('click', () => toggleCompare(r.ticker));
       $('#detailLinks [data-copyq]').addEventListener('click', () => copyQuestions(r));
-      $('#detailLinks [data-goincome]').addEventListener('click', () => { setTab('income', { noScroll: true }); $('#tools').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-      $('#detailLinks [data-gotools]').addEventListener('click', () => { setTab('tools', { noScroll: true }); $('#scanner').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      $('#detailLinks [data-goincome]').addEventListener('click', () => { addToPortfolio(r.ticker); if (sheetOpen) closeSheet(); setTab('income', { noScroll: true }); $('#portfolio').scrollIntoView({ behavior: 'smooth', block: 'start' }); toast(r.name + ' 추가됨'); });
       $('#detailPrice').value = r.price || '';
       updateDetailCalc();
       updateDetailNav();
@@ -1894,30 +1855,50 @@
     }
 
     // ---- Portfolio ----
+    function addToPortfolio(ticker) {
+      if (!byTicker(ticker)) return;
+      if (!state.portfolio.some(h => h.ticker === ticker)) {
+        const r = byTicker(ticker);
+        state.portfolio.push({ ticker: ticker, amount: 0, price: r.price || 0 });
+        store.set('portfolio', state.portfolio);
+      }
+      renderPortfolio();
+    }
+    function pfEqualize() {
+      const budget = clampNum($('#pfBudget').value);
+      const n = state.portfolio.length;
+      if (!n) { toast('먼저 리츠를 담아주세요'); return; }
+      const each = Math.floor(budget / n / 10000) * 10000; // 만원 단위로
+      state.portfolio.forEach(h => h.amount = each);
+      store.set('portfolio', state.portfolio);
+      renderPortfolio();
+    }
+
     function renderPortfolio() {
       const owned = new Set(state.portfolio.map(h => h.ticker));
-      const opts = ['<option value="">+ 리츠 선택</option>'].concat(
+      $('#pfSelect').innerHTML = ['<option value="">+ 리츠 선택</option>'].concat(
         REITS.filter(r => !owned.has(r.ticker)).map(r => '<option value="' + r.ticker + '">' + escapeHTML(r.name) + '</option>')
       ).join('');
-      $('#pfSelect').innerHTML = opts;
 
-      const holdings = state.portfolio.map(h => Object.assign({}, h, { reit: byTicker(h.ticker) })).filter(h => h.reit);
-      $('#pfList').innerHTML = holdings.map((h, idx) => {
-        const color = PALETTE[idx % PALETTE.length];
-        return '<div class="pf-row"><div><span class="dotc" style="background:' + color + '"></span><strong>' + escapeHTML(h.reit.name) + '</strong> <span class="muted small">' + escapeHTML(h.reit.primary) + ' · ' + h.reit.divMonths.map(m=>m+'월').join('·') + '</span></div>'
-          + '<div><input class="input" type="number" min="0" step="1" value="' + Number(h.shares||0) + '" data-shares="' + h.reit.ticker + '" aria-label="' + escapeHTML(h.reit.name) + ' 보유 주식 수" /></div>'
-          + '<button class="ghost-btn" data-pfrm="' + h.reit.ticker + '">삭제</button></div>';
+      const holdings = state.portfolio.map((h, idx) => ({ h: h, reit: byTicker(h.ticker), color: PALETTE[idx % PALETTE.length] })).filter(x => x.reit);
+      $('#pfList').innerHTML = holdings.map(({ h, reit, color }) => {
+        const price = clampNum(h.price) || reit.price || 0;
+        const shares = price > 0 ? Math.floor(clampNum(h.amount) / price) : null;
+        const annual = (shares != null && reit.recentDiv) ? shares * reit.recentDiv * reit.divMonths.length : null;
+        const est = price > 0
+          ? ('약 <b>' + fmt.format(shares) + '주</b>' + (annual != null ? ' · 연 ' + fmt.format(annual) + '원' : ''))
+          : '<span class="needcheck">현재가 입력 필요</span>';
+        return '<div class="pf-row">'
+          + '<div><span class="dotc" style="background:' + color + '"></span><strong>' + escapeHTML(reit.name) + '</strong><div class="pf-rl">' + escapeHTML(reit.primary) + ' · ' + reit.divMonths.map(m => m + '월').join('·') + '</div></div>'
+          + '<div><div class="pf-rl">투자금액(원)</div><input class="input" type="number" min="0" step="100000" value="' + clampNum(h.amount) + '" data-pfamt="' + reit.ticker + '" aria-label="' + escapeHTML(reit.name) + ' 투자금액" /></div>'
+          + '<div><div class="pf-rl">현재가(원)' + (reit.price ? ' · 실시간' : '') + '</div><input class="input" type="number" min="0" step="10" value="' + (clampNum(h.price) || reit.price || '') + '" data-pfprice="' + reit.ticker + '" aria-label="' + escapeHTML(reit.name) + ' 현재가" /></div>'
+          + '<div style="text-align:right;"><div class="pf-est">' + est + '</div><button class="ghost-btn" data-pfrm="' + reit.ticker + '" style="margin-top:4px; padding:6px 10px; min-height:auto;">삭제</button></div>'
+          + '</div>';
       }).join('');
 
-      $$('#pfList [data-shares]').forEach(inp => inp.addEventListener('input', () => {
-        const h = state.portfolio.find(x => x.ticker === inp.dataset.shares);
-        if (h) { h.shares = clampNum(inp.value); store.set('portfolio', state.portfolio); computePortfolio(); }
-      }));
-      $$('#pfList [data-pfrm]').forEach(btn => btn.addEventListener('click', () => {
-        state.portfolio = state.portfolio.filter(x => x.ticker !== btn.dataset.pfrm);
-        store.set('portfolio', state.portfolio);
-        renderPortfolio();
-      }));
+      $$('#pfList [data-pfamt]').forEach(inp => inp.addEventListener('input', () => { const h = state.portfolio.find(x => x.ticker === inp.dataset.pfamt); if (h) { h.amount = clampNum(inp.value); store.set('portfolio', state.portfolio); computePortfolio(); refreshHoldingEst(); } }));
+      $$('#pfList [data-pfprice]').forEach(inp => inp.addEventListener('input', () => { const h = state.portfolio.find(x => x.ticker === inp.dataset.pfprice); if (h) { h.price = clampNum(inp.value); store.set('portfolio', state.portfolio); computePortfolio(); refreshHoldingEst(); } }));
+      $$('#pfList [data-pfrm]').forEach(b => b.addEventListener('click', () => { state.portfolio = state.portfolio.filter(x => x.ticker !== b.dataset.pfrm); store.set('portfolio', state.portfolio); renderPortfolio(); }));
 
       const has = holdings.length > 0;
       $('#pfEmpty').classList.toggle('hidden', has);
@@ -1925,29 +1906,72 @@
       if (has) computePortfolio();
     }
 
-    function computePortfolio() {
-      const holdings = state.portfolio.map((h, idx) => ({ reit: byTicker(h.ticker), shares: clampNum(h.shares), color: PALETTE[idx % PALETTE.length] })).filter(h => h.reit);
-      const monthly = Array.from({length:12}, () => []); // each: {amount,color}
-      const totals = Array(12).fill(0);
-      let annual = 0;
-      const nullNames = [];
-      holdings.forEach(h => {
-        if (!h.reit.recentDiv) { if (h.shares > 0) nullNames.push(h.reit.name); return; }
-        const pay = h.reit.recentDiv * h.shares;
-        h.reit.divMonths.forEach(m => { monthly[m-1].push({ amount: pay, color: h.color }); totals[m-1] += pay; annual += pay; });
+    function refreshHoldingEst() {
+      // 입력 중 포커스 잃지 않게 추정치만 갱신
+      $$('#pfList .pf-row').forEach(row => {
+        const t = (row.querySelector('[data-pfamt]') || {}).dataset && row.querySelector('[data-pfamt]').dataset.pfamt;
+        const h = state.portfolio.find(x => x.ticker === t); if (!h) return;
+        const reit = byTicker(t); const price = clampNum(h.price) || reit.price || 0;
+        const shares = price > 0 ? Math.floor(clampNum(h.amount) / price) : null;
+        const annual = (shares != null && reit.recentDiv) ? shares * reit.recentDiv * reit.divMonths.length : null;
+        const est = row.querySelector('.pf-est'); if (!est) return;
+        est.innerHTML = price > 0 ? ('약 <b>' + fmt.format(shares) + '주</b>' + (annual != null ? ' · 연 ' + fmt.format(annual) + '원' : '')) : '<span class="needcheck">현재가 입력 필요</span>';
       });
+    }
+
+    let pfLastTotals = Array(12).fill(0);
+    function computePortfolio() {
+      const budget = clampNum($('#pfBudget').value);
+      const taxRate = Number($('#pfTax').value || 0);
+      const holdings = state.portfolio.map((h, idx) => ({ h: h, reit: byTicker(h.ticker), color: PALETTE[idx % PALETTE.length] })).filter(x => x.reit);
+      const monthly = Array.from({ length: 12 }, () => []);
+      const totals = Array(12).fill(0);
+      const coverSet = new Set();
+      let annual = 0; const noPrice = [], noDps = [];
+      holdings.forEach(({ h, reit, color }) => {
+        if (!reit.recentDiv) { noDps.push(reit.name); return; }
+        reit.divMonths.forEach(m => coverSet.add(m)); // 커버리지는 가격 없이도 성립
+        const price = clampNum(h.price) || reit.price || 0;
+        if (price <= 0) { noPrice.push(reit.name); return; }
+        const shares = Math.floor(clampNum(h.amount) / price);
+        if (shares <= 0) return;
+        const pay = shares * reit.recentDiv;
+        reit.divMonths.forEach(m => { monthly[m - 1].push({ amount: pay, color: color }); totals[m - 1] += pay; annual += pay; });
+      });
+      pfLastTotals = totals;
       const maxM = Math.max.apply(null, totals.concat([1]));
       $('#pfChart').innerHTML = totals.map((t, i) => {
-        const segs = monthly[i].map(s => '<div class="pf-seg" style="height:' + ((s.amount/maxM)*100).toFixed(1) + '%;background:' + s.color + '" title="' + won(Math.round(s.amount)) + '"></div>').join('');
+        const segs = monthly[i].map(s => '<div class="pf-seg" style="height:' + ((s.amount / maxM) * 100).toFixed(1) + '%;background:' + s.color + '" title="' + won(Math.round(s.amount)) + '"></div>').join('');
         return '<div class="pf-col" title="' + MONTHS[i] + ' ' + won(Math.round(t)) + '">' + segs + '</div>';
       }).join('');
-      $('#pfLabels').innerHTML = MONTHS.map((m,i)=>'<div>' + (i+1) + '</div>').join('');
-      $('#pfLegend').innerHTML = holdings.filter(h=>h.reit.recentDiv).map(h => '<span><i class="sw" style="background:' + h.color + '"></i>' + escapeHTML(h.reit.name) + '</span>').join('');
-      const peakIdx = totals.indexOf(Math.max.apply(null, totals));
-      $('#pfAnnual').textContent = won(Math.round(annual));
-      $('#pfMonthly').textContent = won(Math.round(annual/12));
-      $('#pfPeak').textContent = annual > 0 ? (MONTHS[peakIdx] + ' · ' + won(Math.round(totals[peakIdx]))) : '-';
-      $('#pfNullNote').textContent = nullNames.length ? ('※ ' + nullNames.join(', ') + ' 은(는) 최근배당금이 공시 확인 필요 상태라 합계에서 제외했습니다.') : '※ 최근배당금(1회) × 보유 수 × 연간 배당 횟수로 추정한 교육용 수치입니다. 실제 배당은 변동·중단될 수 있고 세금·지급일이 반영되지 않았습니다.';
+      $('#pfLabels').innerHTML = MONTHS.map((m, i) => '<div>' + (i + 1) + '</div>').join('');
+      $('#pfLegend').innerHTML = holdings.filter(x => x.reit.recentDiv).map(x => '<span><i class="sw" style="background:' + x.color + '"></i>' + escapeHTML(x.reit.name) + '</span>').join('');
+
+      // 월 커버리지
+      $('#pfCoverage').innerHTML = MONTHS.map((_, i) => { const on = coverSet.has(i + 1); return '<div class="pf-cell ' + (on ? 'on' : '') + '"><div class="pm">' + (i + 1) + '월</div><div class="pmk">' + (on ? '✓' : '·') + '</div></div>'; }).join('');
+      $('#pfCoverNum').textContent = '(' + coverSet.size + '/12개월)';
+      const gaps = []; for (let m = 1; m <= 12; m++) if (!coverSet.has(m)) gaps.push(m);
+      const ownedSet = new Set(state.portfolio.map(x => x.ticker));
+      if (gaps.length) {
+        const recs = [], seen = new Set();
+        gaps.forEach(m => { const c = REITS.find(r => !ownedSet.has(r.ticker) && !seen.has(r.ticker) && r.recentDiv && r.divMonths.includes(m)); if (c) { seen.add(c.ticker); recs.push(c); } });
+        $('#pfGapTitle').textContent = '빈 달: ' + gaps.map(m => m + '월').join('·') + ' — 이 달을 채울 리츠 추천';
+        $('#pfGaps').innerHTML = recs.length ? recs.map(r => '<button class="chip" type="button" data-pfadd="' + r.ticker + '">+ ' + escapeHTML(r.name) + ' <span class="muted">' + r.divMonths.map(m => m + '월').join('·') + '</span></button>').join('') : '<span class="muted small">추천할 리츠가 없습니다.</span>';
+      } else {
+        $('#pfGapTitle').textContent = '🎉 12개월 모두 배당이 들어옵니다!';
+        $('#pfGaps').innerHTML = '';
+      }
+      $$('#pfGaps [data-pfadd]').forEach(b => b.addEventListener('click', () => addToPortfolio(b.dataset.pfadd)));
+
+      const net = annual * (1 - taxRate);
+      $('#pfAnnual').textContent = annual > 0 ? won(Math.round(net)) : '현재가 입력 필요';
+      $('#pfMonthly').textContent = annual > 0 ? won(Math.round(net / 12)) : '-';
+      const base = budget > 0 ? budget : holdings.reduce((s, x) => s + clampNum(x.h.amount), 0);
+      $('#pfYield').textContent = (annual > 0 && base > 0) ? ((net / base * 100).toFixed(1) + '%') : '-';
+      let note = '※ 최근배당금(1회)×예상주식수×배당횟수, 세후=배당×(1−세율)로 단순 추정. 실제 배당·지급일·세금과 다르며 배당은 변동·중단될 수 있습니다.';
+      if (noPrice.length) note += ' · 현재가 미입력으로 금액 제외: ' + noPrice.join(', ') + '.';
+      if (noDps.length) note += ' · 배당 미표기(제외): ' + noDps.join(', ') + '.';
+      $('#pfNote').textContent = note;
     }
 
     // ---- Tools ----
@@ -2169,115 +2193,14 @@
         const row = e.target.closest('tr'); if (row) selectReit(row.dataset.ticker, true);
       });
 
-      // portfolio add
-      $('#pfAdd').addEventListener('click', () => {
-        const t = $('#pfSelect').value;
-        if (!t || !byTicker(t)) return;
-        const shares = clampNum($('#pfShares').value);
-        if (state.portfolio.some(h => h.ticker === t)) return;
-        state.portfolio.push({ ticker: t, shares: shares });
-        store.set('portfolio', state.portfolio);
-        renderPortfolio();
-      });
+      // 월배당 포트폴리오 빌더
+      $('#pfAdd').addEventListener('click', () => { const t = $('#pfSelect').value; if (t) addToPortfolio(t); });
+      $('#pfEqual').addEventListener('click', pfEqualize);
+      $('#pfBudget').addEventListener('input', () => { if (state.portfolio.length) computePortfolio(); });
+      $('#pfTax').addEventListener('change', () => { if (state.portfolio.length) computePortfolio(); });
     }
 
-    // ---- Disclosure scanner ----
-    const KW = {
-      debt:['차입','만기','리파이낸싱','refinanc','금리','변동금리','담보','대출','사채'],
-      dividend:['배당','특별배당','매각차익','배당가능이익','분배금','dps'],
-      tenant:['임차인','공실','임대율','wale','재계약','계약만기','마스터리스','책임임대'],
-      equity:['유상증자','공모','신주','발행가','희석','자금조달'],
-      asset:['편입','매각','취득','감정평가','cap rate','noi'],
-      fx:['해외','환율','환헤지','fx','현지','달러','유로','외화'],
-      marketing:['확정','보장','원금보장','무위험','매월 확정','고수익','손실 없음','안전한 고배당']
-    };
-    const GLABEL = { debt:'차입/만기', dividend:'배당 원천', tenant:'임차인/공실', equity:'증자/희석', asset:'자산 편입/매각', fx:'해외/환율', marketing:'⚠ 과장광고 위험' };
-    function scanDisclosure() {
-      const text = $('#disclosureText').value || '';
-      const lower = text.toLowerCase();
-      const hits = [];
-      Object.keys(KW).forEach(g => { const found = KW[g].filter(w => lower.includes(w.toLowerCase())); if (found.length) hits.push([g, found]); });
-      const nums = (text.match(/(\d+(?:[.,]\d+)?)\s*(%p|%|년|개월|억원|조원|원|bp)/g) || []).slice(0, 14);
-      const has = (g) => hits.some(h => h[0] === g);
-      const qs = [];
-      if (has('debt')) qs.push('차입금 만기별 금액, 평균 금리, 고정/변동 비중은 어떻게 되나요?');
-      if (has('tenant')) qs.push('주요 임차인의 잔여 계약기간(WALE)과 재계약 가능성은?');
-      if (has('dividend')) qs.push('이번 배당은 반복 가능한 임대수익인가요, 일회성 매각차익·특별배당인가요?');
-      if (has('equity')) qs.push('유상증자 자금의 사용처와 기존 주주 희석을 상쇄할 근거는?');
-      if (has('fx')) qs.push('환헤지 비율·만기·비용과 미헤지 노출 규모는?');
-      if (has('asset')) qs.push('편입/매각 자산의 Cap Rate·감정평가·NOI 근거는?');
-      if (!qs.length) qs.push('투자보고서에서 배당 원천, 차입금, 임차인, 자산가치 변화를 추가로 확인하세요.');
-      const adHit = hits.find(h => h[0] === 'marketing');
-      $('#scanOutput').innerHTML =
-        (adHit ? '<div class="flag" style="border-left-color:var(--error);background:var(--error-tint);margin-bottom:12px;">⚠ 과장광고 위험 문구 감지: <b>' + adHit[1].map(escapeHTML).join(', ') + '</b><br>“확정·보장·무위험” 등은 리츠 배당의 변동성과 맞지 않을 수 있습니다. 원문과 법적 근거를 확인하세요.</div>' : '')
-        + '<div class="strong small">감지된 주제</div><div class="tool-pills">'
-        + (hits.length ? hits.map(h => '<span class="tpill ' + (h[0] === 'marketing' ? 'bad' : 'warn') + '">' + escapeHTML(GLABEL[h[0]]) + ': ' + h[1].map(escapeHTML).join(', ') + '</span>').join('') : '<span class="tpill good">핵심 위험 키워드가 적게 감지됨</span>')
-        + '</div>'
-        + '<div class="strong small" style="margin-top:14px;">감지된 숫자</div><div class="tool-pills">' + (nums.length ? nums.map(n => '<span class="tpill blue">' + escapeHTML(n) + '</span>').join('') : '<span class="tpill">숫자 표현 없음</span>') + '</div>'
-        + '<div class="strong small" style="margin-top:14px;">IR·공시에 물어볼 질문</div><ol class="muted" style="margin:8px 0 0; padding-left:18px;">' + qs.map(q => '<li>' + escapeHTML(q) + '</li>').join('') + '</ol>';
-    }
-    function bindScanner() {
-      $('#scanBtn').addEventListener('click', scanDisclosure);
-      $('#scanSample').addEventListener('click', () => {
-        $('#disclosureText').value = '주요 임차인의 계약 만기가 2027년 도래할 예정이며, 차입금 일부는 변동금리로 조달되어 금리 상승 시 이자비용이 증가할 수 있습니다. 신규 자산 편입을 위한 유상증자를 검토 중이며, 배당 재원에는 매각차익에 따른 특별배당이 포함될 수 있습니다. 해외 자산의 환헤지 비용도 점검이 필요합니다.';
-        scanDisclosure(); toast('샘플 문구를 넣었어요');
-      });
-      $('#scanAd').addEventListener('click', () => {
-        const lower = ($('#disclosureText').value || '').toLowerCase();
-        const found = KW.marketing.filter(w => lower.includes(w.toLowerCase()));
-        scanDisclosure();
-        if (!found.length) toast('명백한 보장성 광고 문구는 감지되지 않았습니다');
-      });
-    }
-
-    // ---- Risk radar ----
-    function initRiskTools() {
-      ['ltv','maturity12','occupancy','wale','floating','foreign','singleTenant'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', analyzeRisk); });
-      ['specialDiv','development'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('change', analyzeRisk); });
-      ['scenarioAum','scenarioLtv','scenarioRefi','scenarioRate'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', simulateRefi); });
-      analyzeRisk(); simulateRefi();
-    }
-    function analyzeRisk() {
-      const v = id => clampNum($('#'+id).value);
-      const ltv = v('ltv'), mat = v('maturity12'), occ = v('occupancy'), wale = v('wale'), fl = v('floating'), fo = v('foreign'), sg = v('singleTenant');
-      const sp = Number($('#specialDiv').value || 0), dev = Number($('#development').value || 0);
-      let risk = 0;
-      risk += Math.max(0, ltv - 40) * 0.8;
-      risk += mat * 0.45;
-      risk += Math.max(0, 95 - occ) * 2.2;
-      risk += Math.max(0, 4 - wale) * 6;
-      risk += fl * 0.28;
-      risk += fo * 0.22;
-      risk += Math.max(0, sg - 35) * 0.35;
-      risk += sp + dev;
-      const health = Math.max(5, Math.min(95, Math.round(100 - risk)));
-      $('#riskScoreC').style.setProperty('--score', health);
-      $('#riskScoreC b').textContent = health;
-      const flags = [];
-      if (ltv > 50) flags.push('LTV가 높아 추가 차입·리파이낸싱 부담을 확인하세요.');
-      if (mat > 30) flags.push('12개월 내 만기 비중이 높습니다. 만기별 차입금 표를 확인하세요.');
-      if (occ < 95) flags.push('임대율이 낮습니다. 공실 원인과 회복 가능성을 보세요.');
-      if (wale < 4) flags.push('WALE가 짧습니다. 주요 임차인 만기·재계약 가능성을 확인하세요.');
-      if (fl > 40) flags.push('변동금리 비중이 높아 금리 민감도가 큽니다.');
-      if (fo > 0) flags.push('해외자산은 환율·현지 금리·환헤지 비용을 확인하세요.');
-      if (sg > 50) flags.push('단일 임차인 의존도가 높습니다.');
-      if (sp || dev) flags.push('배당 원천이 반복 가능한 임대수익인지 별도 확인하세요.');
-      $('#riskSummary').innerHTML = '<h3 style="margin:0 0 6px;">' + (health >= 75 ? '상대적으로 양호' : health >= 55 ? '주의' : '집중 점검') + '</h3>'
-        + '<p class="muted" style="margin:0;">' + (flags.length ? escapeHTML(flags[0]) : '입력값 기준 큰 경고는 낮지만, 투자보고서 원문 확인은 필요합니다.') + '</p>';
-      const bars = [['LTV 부담', Math.min(100, ltv * 1.4), ltv + '%'], ['만기 집중', Math.min(100, mat), mat + '%'], ['임대율', Math.min(100, occ), occ + '%'], ['WALE', Math.min(100, wale / 8 * 100), wale + '년'], ['변동금리', Math.min(100, fl), fl + '%'], ['해외자산', Math.min(100, fo), fo + '%']];
-      $('#riskBars').innerHTML = bars.map(b => '<div class="bar-row"><strong>' + b[0] + '</strong><div class="bar-track"><div class="bar-fill" style="width:' + b[1] + '%"></div></div><div class="bar-value">' + b[2] + '</div></div>').join('');
-      $('#riskFlags').innerHTML = flags.length ? flags.map(f => '<div class="flag">⚠ ' + escapeHTML(f) + '</div>').join('') : '';
-    }
-    function simulateRefi() {
-      const aum = clampNum($('#scenarioAum').value), ltv = clampNum($('#scenarioLtv').value) / 100, refi = clampNum($('#scenarioRefi').value) / 100, delta = Number($('#scenarioRate').value || 0) / 100;
-      const debt = aum * ltv, refiDebt = debt * refi, impact = refiDebt * delta, equity = aum * (1 - ltv);
-      const eqImpact = equity ? impact / equity * 100 : 0;
-      const eok = (n) => fmt.format(Math.round(n)) + '억원';
-      $('#scenarioOutput').innerHTML =
-        '<div class="result-card"><div class="small">재조달 대상 차입금</div><div class="big">' + eok(refiDebt) + '</div><div class="small muted">자산×LTV×만기비중</div></div>'
-        + '<div class="result-card"><div class="small">연 이자비용 변화</div><div class="big">' + eok(impact) + '</div><div class="small muted">금리 ' + (delta * 100).toFixed(1) + '%p 가정</div></div>'
-        + '<div class="result-card"><div class="small">자기자본 수익률 영향</div><div class="big">' + (eqImpact >= 0 ? '+' : '') + eqImpact.toFixed(2) + '%p</div><div class="small muted">단순 교육용 추정</div></div>';
-    }
+    // (심화 도구 제거됨: 공시 스캐너·리스크 레이더·리파이낸싱 시나리오)
 
     // ---- Data quality + utilities ----
     function renderQuality() {
@@ -2350,11 +2273,9 @@
       } catch (e) { alert('내보내기에 실패했습니다.'); }
     }
     function pfExportCsv() {
-      const holdings = state.portfolio.map(h => ({ reit: byTicker(h.ticker), shares: clampNum(h.shares) })).filter(h => h.reit);
-      if (!holdings.length) { toast('먼저 포트폴리오에 리츠를 담아주세요'); return; }
-      const totals = Array(12).fill(0);
-      holdings.forEach(h => { if (!h.reit.recentDiv) return; const pay = h.reit.recentDiv * h.shares; h.reit.divMonths.forEach(m => totals[m - 1] += pay); });
-      let csv = '﻿월,추정 배당(원)\n';
+      if (!state.portfolio.length) { toast('먼저 포트폴리오에 리츠를 담아주세요'); return; }
+      const totals = pfLastTotals;
+      let csv = '﻿월,추정 배당(세전·원)\n';
       totals.forEach((t, i) => { csv += (i + 1) + '월,' + Math.round(t) + '\n'; });
       csv += '연간합계,' + Math.round(totals.reduce((a, b) => a + b, 0)) + '\n';
       downloadText('reiton_portfolio_cashflow.csv', csv, 'text/csv');
