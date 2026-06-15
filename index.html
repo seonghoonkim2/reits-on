@@ -1476,20 +1476,6 @@
       $('#reitTable').innerHTML = rows.map(renderTableRow).join('');
     }
 
-    function primaryCheckPoint(r) {
-      const has = (s) => r.sector.includes(s) || r.primary === s;
-      if (has('해외')) return '해외자산·환헤지 비용과 현지 금리 영향 확인';
-      if (has('호텔')) return '객실 수요·계절 변동과 공실 확인';
-      if (has('리테일')) return '임차인 매출·소비 경기 영향 확인';
-      if (has('물류')) return '임차인 만기·신규 공급·임대료 재계약 확인';
-      if (has('오피스')) return '공실률·WALE·주요 임차인 만기 확인';
-      if (has('주거')) return '임대율·임대료 규제·매각 계획 확인';
-      if (has('인프라')) return '장기 임대차 구조·업태 전환 확인';
-      if (has('복합')) return '자산별 임대차·차입금 만기 분리 확인';
-      return '배당 원천·차입금 만기 확인';
-    }
-
-    function sizeLabel(r) { return r.assetBn >= 1000 ? '대형' : r.assetBn >= 300 ? '중형' : '소형'; }
     function freqShort(r) {
       const n = r.divMonths.length;
       const f = n >= 4 ? '분기' : n === 2 ? '반기' : n === 1 ? '연 1회' : ('연 ' + n + '회');
@@ -1506,16 +1492,14 @@
         + '<div class="reit-top"><div><div class="reit-name">' + escapeHTML(r.name) + '</div><div class="ticker">' + escapeHTML(r.ticker) + ' · ' + escapeHTML(r.primary) + ' · <span class="pill-diff" data-d="' + r.difficulty + '">' + d + '</span></div></div>'
         + '<button class="fav ' + (watched ? 'on' : '') + '" data-fav="' + r.ticker + '" aria-pressed="' + watched + '" aria-label="관심리츠 ' + (watched ? '해제' : '추가') + '">★</button>'
         + '</div>'
-        + '<div class="tags">' + r.tags.slice(0,4).map(t => '<span class="tag">' + escapeHTML(t) + '</span>').join('') + '</div>'
         + (r.price ? '<div class="card-live">현재가 <b>' + fmt.format(r.price) + '원</b>' + (r.yieldPriceBasis ? ' · 수익률 <b>' + r.yieldPriceBasis + '%</b>' : '') + '</div>' : '')
         + '<div class="m-primary"><div class="pl">연 배당 <span class="muted">(단순 연환산·추정)</span></div>'
         + '<div class="pv">' + (r.recentDiv ? (fmt.format(r.recentDiv * r.divMonths.length) + '원<small> /주</small>') : '확인 필요') + '</div>'
         + '<div class="psub">' + (r.recentDiv ? ('최근 1회 ' + fmt.format(r.recentDiv) + '원 × ' + r.divMonths.length + '회') : '최근배당금 공시 확인 필요') + '</div></div>'
         + '<div class="m-row">'
         + '<div class="m-cell"><div class="cl">배당월 · 빈도</div><div class="cv">' + freqShort(r) + '</div></div>'
-        + '<div class="m-cell"><div class="cl">자산규모</div><div class="cv">' + escapeHTML(r.assetText) + ' <span class="size-chip" data-s="' + sizeLabel(r) + '">' + sizeLabel(r) + '</span></div></div>'
+        + '<div class="m-cell"><div class="cl">자산규모</div><div class="cv">' + escapeHTML(r.assetText) + '</div></div>'
         + '</div>'
-        + '<p class="card-checkpoint"><b>먼저 볼 점</b> ' + escapeHTML(primaryCheckPoint(r)) + '</p>'
         + '<div class="card-actions">'
         + '<button class="primary" type="button" data-detail="' + r.ticker + '" aria-label="' + nm + ' 상세 보기">상세 보기</button>'
         + '<button type="button" data-calc="' + r.ticker + '" aria-label="' + nm + ' 배당 계산">배당 계산</button>'
