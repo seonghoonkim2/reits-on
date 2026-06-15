@@ -763,6 +763,7 @@
               <option value="assetDesc">자산총계 큰 순</option>
               <option value="assetAsc">자산총계 작은 순</option>
               <option value="freq">결산 빈도 높은 순</option>
+              <option value="yieldDesc">현재가기준 수익률 높은 순 (시세 연동 시)</option>
               <option value="learning">이해 난이도 낮은 순 (학습용)</option>
               <option value="watch">관심리츠 먼저</option>
             </select>
@@ -1299,7 +1300,7 @@
       $('#listedReits').textContent = fmt.format(MARKET.listedReits) + '개';
       $('#listedCap').textContent = MARKET.listedMarketCapTn.toFixed(2) + '조';
       $('#listedYield').textContent = '납입자본 기준 ' + MARKET.listedDividendYieldPaidInCapital.toFixed(1) + '% · 현재가 기준 ' + MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%';
-      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + ', 실시간 아님. 배당수익률은 산식·기준가에 따라 달라지며, 현재 수익률은 증권사·각 리츠 공시에서 확인하세요. 이 화면은 학습·비교용이며 매수 추천이 아닙니다.';
+      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + (MARKET._live ? ' · 시세는 최근 종가 기준 자동 갱신(장중 실시간 아님).' : ', 실시간 아님.') + ' 배당수익률은 산식·기준가에 따라 달라지며, 정확한 값은 증권사·각 리츠 공시에서 확인하세요. 이 화면은 학습·비교용이며 매수 추천이 아닙니다.';
     }
 
     function renderKpis() {
@@ -1348,7 +1349,7 @@
       $('#sectorSelect').innerHTML = sectors.map(s => '<option value="' + escapeHTML(s) + '">' + escapeHTML(s) + '</option>').join('');
       $('#monthSelect').innerHTML = ['전체'].concat(MONTHS).map((m, i) => '<option value="' + (i === 0 ? '전체' : i) + '">' + m + '</option>').join('');
       $('#sortSelect').value = state.sort;
-      $('#freshness').innerHTML = '<span>📌 카드 수치 기준: 2025년말 투자보고서</span><span>· 시장통계 기준: ' + escapeHTML(MARKET.asOf) + '</span><span>· <b>실시간 아님</b></span>';
+      $('#freshness').innerHTML = '<span>📌 카드 자산·배당 기준: 2025년말 투자보고서</span><span>· 시장통계: ' + escapeHTML(MARKET.asOf) + '</span><span>· ' + (MARKET._live ? '시세 <b>최근 종가 자동 갱신</b>' : '<b>시세 실시간 아님</b>') + '</span>';
     }
 
     function renderQuickChips() {
@@ -1402,6 +1403,7 @@
         if (state.sort === 'assetAsc') return a.assetBn - b.assetBn;
         if (state.sort === 'name') return a.name.localeCompare(b.name, 'ko');
         if (state.sort === 'freq') return b.divMonths.length - a.divMonths.length || b.assetBn - a.assetBn;
+        if (state.sort === 'yieldDesc') return (b.yieldPriceBasis || 0) - (a.yieldPriceBasis || 0) || b.assetBn - a.assetBn;
         if (state.sort === 'watch') return Number(state.watch.has(b.ticker)) - Number(state.watch.has(a.ticker)) || b.assetBn - a.assetBn;
         if (state.sort === 'learning') return scoreLearning(b) - scoreLearning(a) || b.assetBn - a.assetBn;
         return a.name.localeCompare(b.name, 'ko');
@@ -1431,6 +1433,7 @@
         + '</div></div>'
         + '<div class="tags">' + r.tags.slice(0,4).map(t => '<span class="tag">' + escapeHTML(t) + '</span>').join('') + '</div>'
         + '<p class="reit-note">' + escapeHTML(r.note) + '</p>'
+        + (r.price ? '<div class="metric-line"><span>현재가</span><strong>' + fmt.format(r.price) + '원' + (r.yieldPriceBasis ? ' · 수익률 ' + r.yieldPriceBasis + '%' : '') + '</strong></div>' : '')
         + '<div class="metric-line"><span>배당기준월</span><strong>' + r.divMonths.map(m=>m+'월').join(' · ') + '</strong></div>'
         + '<div class="metric-line"><span>최근배당금</span><strong>' + recent + '</strong></div>'
         + '<div class="metric-line"><span>자산총계</span><strong>' + escapeHTML(r.assetText) + '</strong></div>'
@@ -1500,6 +1503,10 @@
           ['최근배당금', r => r.recentDiv ? (won(r.recentDiv) + ' <span class="muted small">(1회·기준일 공시 확인)</span>') : '<span class="needcheck">확인 필요</span>'],
           ['자산총계', r => escapeHTML(r.assetText)],
         ]},
+        { title: '시세 (현재가 기준)', rows: [
+          ['현재가', r => r.price ? (won(r.price) + (r.priceAsOf ? ' <span class="muted small">(' + escapeHTML(r.priceAsOf) + ')</span>' : '')) : '<span class="needcheck">시세 연동 시 표시</span>'],
+          ['현재가 기준 수익률', r => r.yieldPriceBasis ? (r.yieldPriceBasis + '%') : '<span class="needcheck">시세 연동 시 표시</span>'],
+        ]},
         { title: '위험 (직접 확인할 항목)', rows: [
           ['차입금 비율(LTV)', r => linkCheck(r)],
           ['공실률', r => linkCheck(r)],
@@ -1550,6 +1557,8 @@
       $('#detailList').innerHTML =
           '<li><strong>배당기준월 / 빈도</strong><br>' + r.divMonths.map(m=>m+'월').join(' · ') + ' · ' + freqLabel(r.divMonths.length) + '</li>'
         + '<li><strong>최근배당금</strong><br>' + recent + '</li>'
+        + (r.price ? '<li><strong>현재가' + (r.priceAsOf ? ' (' + escapeHTML(r.priceAsOf) + ' 종가)' : '') + '</strong><br>' + fmt.format(r.price) + '원' + (r.changePct != null ? ' <span class="muted small">(' + (r.changePct > 0 ? '+' : '') + r.changePct + '%)</span>' : '') + '</li>' : '')
+        + (r.yieldPriceBasis ? '<li><strong>현재가 기준 배당수익률</strong><br>' + r.yieldPriceBasis + '% <span class="muted small">(최근배당×횟수÷현재가, 추정)</span></li>' : '')
         + '<li><strong>연환산 추정 DPS</strong><br>' + (r.recentDiv ? (fmt.format(r.recentDiv * r.divMonths.length) + '원 <span class="muted small">(1회×' + r.divMonths.length + '회 단순 추정)</span>') : '확인 필요') + '</li>'
         + '<li><strong>예상 지급월(가정)</strong><br>' + r.divMonths.map(m=>payMonth(m)+'월').join(' · ') + ' <span class="muted small">(결산월+약3개월 가정·실제 리츠별 상이)</span></li>'
         + '<li><strong>자산총계</strong><br>' + escapeHTML(r.assetText) + '</li>'
@@ -2051,7 +2060,7 @@
         }
         if (rl && Array.isArray(rl.reits)) {
           const byT = {}; rl.reits.forEach(x => { byT[x.ticker] = x; });
-          REITS.forEach(r => { const live = byT[r.ticker]; if (live) { r.price = live.price; r.priceAsOf = live.priceAsOf; r.yieldPriceBasis = live.yieldPriceBasis; r.marketCapLive = live.marketCap; } });
+          REITS.forEach(r => { const live = byT[r.ticker]; if (live) { r.price = live.price; r.changePct = live.changePct; r.priceAsOf = live.priceAsOf; r.yieldPriceBasis = live.yieldPriceBasis; r.marketCapLive = live.marketCap; } });
         }
       } catch (e) { /* seed 폴백 */ }
     }
