@@ -855,6 +855,7 @@
           </div>
           <div class="freshness" id="freshness"></div>
           <div id="cards" class="cards-grid"></div>
+          <button id="loadMore" class="ghost-btn hidden" type="button" style="width:100%; margin-top:var(--space-2);">+ 더 보기</button>
           <div id="tableView" class="hidden">
             <p class="scroll-hint">← 좌우로 스크롤할 수 있어요</p>
             <div class="table-wrap">
@@ -1489,12 +1490,19 @@
 
     function renderFinder() {
       const rows = getFiltered();
+      const sig = [state.search, state.sector, state.month, state.sort, state.quick].join('|');
+      if (sig !== state._sig) { state.limit = 9; state._sig = sig; }   // 필터 바뀌면 처음 9개부터
+      if (!state.limit) state.limit = 9;
+      const shown = rows.slice(0, state.limit);
       $('#resultCount').textContent = rows.length;
       $('#emptyState').classList.toggle('hidden', rows.length > 0);
       const active = !!state.search || state.sector !== '전체' || state.month !== '전체' || !!state.quick;
       const rb = $('#resetFilters'); if (rb) rb.style.display = active ? '' : 'none';
-      $('#cards').innerHTML = rows.map(renderReitCard).join('');
-      $('#reitTable').innerHTML = rows.map(renderTableRow).join('');
+      $('#cards').innerHTML = shown.map(renderReitCard).join('');
+      $('#reitTable').innerHTML = rows.map(renderTableRow).join('');   // 표는 전체
+      const more = rows.length - shown.length;
+      const lm = $('#loadMore');
+      if (lm) { lm.classList.toggle('hidden', more <= 0 || state.view !== 'cards'); lm.textContent = '+ ' + more + '개 더 보기'; }
     }
 
     function freqShort(r) {
@@ -1921,6 +1929,7 @@
       $('#viewTable').classList.toggle('on', v === 'table');
       $('#viewCards').setAttribute('aria-pressed', String(v === 'cards'));
       $('#viewTable').setAttribute('aria-pressed', String(v === 'table'));
+      renderFinder(); // loadMore 표시 갱신(표 보기에선 숨김)
     }
 
     function bindEvents() {
@@ -1937,6 +1946,7 @@
       $('#exportBtn').addEventListener('click', exportSeed);
       $('#heroSearchForm').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#heroSearch').value; state.search = v; $('#searchInput').value = v; setTab('find', { noScroll: true }); renderFinder(); $('#searchInput').focus(); });
       $('#detailPrice').addEventListener('input', updateDetailCalc);
+      $('#loadMore').addEventListener('click', () => { state.limit = (state.limit || 9) + 9; renderFinder(); });
       $('#resetFilters').addEventListener('click', () => {
         state.search = ''; state.sector = '전체'; state.month = '전체'; state.quick = null;
         $('#searchInput').value = ''; $('#sectorSelect').value = '전체'; $('#monthSelect').value = '전체';
