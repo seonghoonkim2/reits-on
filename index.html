@@ -7,6 +7,14 @@
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#3254ff" />
   <title>리츠온 REITs ON · 상장리츠 정보 플랫폼</title>
+  <meta property="og:title" content="리츠온 REITs ON · 상장리츠 정보 플랫폼" />
+  <meta property="og:description" content="국내 상장리츠 25개를 쉽게 비교하고, 배당 캘린더·현금흐름·계산기·공시 도우미까지. 일반 투자자를 위한 학습·비교 도구." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://seonghoonkim2.github.io/reits-on/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="리츠온 REITs ON" />
+  <meta name="twitter:description" content="상장리츠를 쉽고 자세하게 — 검색·비교·배당·계산기·공시 도우미." />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"리츠온 REITs ON","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"ko","url":"https://seonghoonkim2.github.io/reits-on/","description":"국내 상장리츠 일반 투자자를 위한 검색·비교·배당·공시 학습 플랫폼(교육용, 투자 권유 아님)","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
   <style>
     /* =========================================================
        DESIGN TOKENS
@@ -128,6 +136,11 @@
 
     /* Focus + motion accessibility */
     :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 6px; }
+    .skip-link { position:absolute; left:-9999px; top:8px; z-index:999; background:var(--brand); color:#fff; padding:10px 14px; border-radius:10px; font-weight:800; }
+    .skip-link:focus { left:12px; }
+    .visually-hidden { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+    html.ts-1 main { zoom: 1.12; }
+    html.ts-2 main { zoom: 1.24; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition: none !important; animation: none !important; }
@@ -522,8 +535,9 @@
       .wrap { width: min(100% - var(--space-3), var(--max)); }
       .nav { height: auto; flex-wrap: wrap; padding: 8px 0; row-gap: 4px; }
       .brand { order: 1; }
-      #themeToggle { order: 2; margin-left: auto; }
-      .tabbar { order: 3; flex-basis: 100%; justify-content: flex-start; }
+      #textToggle { order: 2; margin-left: auto; }
+      #themeToggle { order: 3; }
+      .tabbar { order: 4; flex-basis: 100%; justify-content: flex-start; }
       .menu-toggle { display: none; }
       .navlinks {
         position: absolute; top: 60px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 4px;
@@ -548,6 +562,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#top">본문 바로가기</a>
   <header class="topbar">
     <div class="wrap nav">
       <a class="brand" href="#top" aria-label="리츠온 홈" data-go="home">
@@ -561,6 +576,7 @@
         <button class="tabbtn" type="button" data-go="tools">심화 도구</button>
         <button class="tabbtn" type="button" data-go="learn">배우기</button>
       </nav>
+      <button id="textToggle" class="pill-btn" type="button" aria-label="글씨 크기 조절" title="글씨 크기">가</button>
       <button id="themeToggle" class="pill-btn" type="button" aria-label="다크 모드 전환">🌙</button>
     </div>
   </header>
@@ -763,6 +779,7 @@
             <p class="scroll-hint">← 좌우로 스크롤할 수 있어요</p>
             <div class="table-wrap">
               <table>
+                <caption class="visually-hidden">상장리츠 목록 표 (현재 필터·정렬 적용)</caption>
                 <thead>
                   <tr><th>종목</th><th>티커</th><th>대표 섹터</th><th>배당기준월</th><th>최근배당금</th><th>자산총계</th><th>링크</th></tr>
                 </thead>
@@ -845,6 +862,7 @@
               <div class="result-card"><div class="small">최대 배당 월</div><div class="big" id="pfPeak">-</div></div>
             </div>
             <p class="helper" id="pfNullNote"></p>
+            <div style="margin-top:12px;"><button class="ghost-btn" id="pfCsv" type="button">월별 현금흐름 CSV 내보내기</button></div>
           </div>
           <div id="pfEmpty" class="empty">아직 담은 리츠가 없습니다. 위에서 리츠와 주식 수를 추가해 보세요.</div>
         </div>
@@ -900,6 +918,22 @@
               <div class="result-card"><div class="small">목표수익률 가격</div><div class="big" id="impliedPrice">-</div></div>
               <div class="result-card"><div class="small">안전마진 가격</div><div class="big" id="marginPrice">-</div></div>
             </div>
+          </div>
+        </div>
+        <div class="panel" style="margin-top:var(--space-2);">
+          <h3>NAV·배당 커버리지 점검</h3>
+          <p class="muted small">‘싸게 거래되는지(NAV 할인)’와 ‘배당이 이익으로 감당되는지(커버리지)’를 봅니다. 값은 각 리츠 투자보고서·공시에서 확인해 입력하세요.</p>
+          <div class="calc-grid">
+            <label>현재가(원)<br/><input id="navPrice" class="input" type="number" value="5000" min="0" step="10" /></label>
+            <label>주당 NAV(원)<br/><input id="navPerShare" class="input" type="number" value="6000" min="0" step="10" /></label>
+            <label>주당 연간 AFFO(원)<br/><input id="affoPs" class="input" type="number" value="400" min="0" step="1" /></label>
+            <label>주당 연간 배당 DPS(원)<br/><input id="dpsPs" class="input" type="number" value="350" min="0" step="1" /></label>
+          </div>
+          <p class="helper">커버리지(AFFO/DPS)가 1배 미만이면 이익보다 많이 배당하는 것일 수 있어 지속성 점검이 필요합니다(특별배당·자본 재원 여부 확인). NAV 할인은 단순 저평가일 수도, 위험 반영일 수도 있습니다.</p>
+          <div class="grid-3" style="margin-top:12px;" aria-live="polite" aria-atomic="true">
+            <div class="result-card"><div class="small">NAV 할인율</div><div class="big" id="navDisc">-</div><div class="small muted" id="navDiscNote"></div></div>
+            <div class="result-card"><div class="small">배당 커버리지(AFFO/DPS)</div><div class="big" id="affoCover">-</div><div class="small muted" id="affoCoverNote"></div></div>
+            <div class="result-card"><div class="small">현재 배당수익률</div><div class="big" id="navYield">-</div><div class="small muted">DPS / 현재가</div></div>
           </div>
         </div>
       </div>
@@ -1038,8 +1072,11 @@
           </div>
           <div class="panel">
             <h3>데이터 내보내기</h3>
-            <p class="muted small">이 화면이 사용하는 seed 데이터(시장 통계·25개 리츠·출처)를 JSON 파일로 저장할 수 있습니다.</p>
-            <button class="ghost-btn" id="exportBtn" type="button" style="margin-top:12px;">데이터 JSON 내보내기</button>
+            <p class="muted small">이 화면이 사용하는 seed 데이터(시장 통계·25개 리츠·출처)를 저장할 수 있습니다.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+              <button class="ghost-btn" id="exportBtn" type="button">데이터 JSON</button>
+              <button class="ghost-btn" id="coverageCsv" type="button">품질지표 CSV</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1063,6 +1100,7 @@
       <strong>리츠온 REITs ON</strong>
       <p class="small">본 화면은 일반 투자자 교육과 정보 접근성 개선을 위한 정보 플랫폼입니다. <b>특정 종목의 매수·매도·보유 추천이 아니며</b>, 모든 정렬·점수·난이도 표시는 학습 보조 지표일 뿐입니다. 리츠는 배당 삭감·중단 및 원금 손실이 가능하며, 투자 결정 전 공식 공시와 최신 가격을 반드시 확인해야 합니다.</p>
       <p class="small">데이터 기준: 시장 통계는 2026년 5월말 공개 통계, 개별 상장리츠 자산총계·최근배당금은 한국리츠협회 공개 표의 기준일(2025년말 투자보고서) 설명을 반영했습니다. 실시간 데이터가 아닙니다.</p>
+      <p class="small">🔒 개인정보: 관심리츠·비교·포트폴리오·체크리스트·설정은 <b>이 브라우저(localStorage)에만</b> 저장되며 서버로 전송되지 않습니다. 공시 스캐너에 붙여넣은 문구도 외부로 전송되지 않습니다. <button class="ghost-btn" id="clearDataBtn" type="button" style="margin-left:6px; padding:6px 12px; min-height:auto;">내 저장 데이터 삭제</button></p>
     </div>
   </footer>
 
@@ -1173,6 +1211,7 @@
       readHashState();
       if (!state.selected) state.selected = REITS[0].ticker;
       initTheme();
+      initTextSize();
       initNav();
       renderHeroStats();
       renderKpis();
@@ -1482,7 +1521,7 @@
           body += '<tr><th class="rowhead">' + escapeHTML(row[0]) + '</th>' + list.map(r => '<td>' + row[1](r) + '</td>').join('') + '</tr>';
         });
       });
-      content.innerHTML = '<div class="compare-wrap"><table class="compare-table"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>'
+      content.innerHTML = '<div class="compare-wrap"><table class="compare-table"><caption class="visually-hidden">선택한 리츠 비교 표</caption><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div>'
         + '<p class="muted small" style="margin-top:12px;">※ 표의 수치는 학습·비교용입니다. ‘위험’ 항목은 의도적으로 빈칸이며, 각 리츠의 최신 투자보고서·공시·현재가에서 직접 확인하세요.</p>';
       $$('#compareContent [data-rm]').forEach(b => b.addEventListener('click', () => toggleCompare(b.dataset.rm)));
     }
@@ -1641,7 +1680,22 @@
         $('#customTaxWrap').classList.toggle('hidden', $('#taxMode').value !== 'custom');
         updateCalcs(true);
       });
+      ['navPrice','navPerShare','affoPs','dpsPs'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', () => updateValuation(true)); });
       updateCalcs(false);
+      updateValuation(false);
+    }
+
+    function updateValuation(doFlash) {
+      const price = clampNum($('#navPrice').value), nav = clampNum($('#navPerShare').value), affo = clampNum($('#affoPs').value), dps = clampNum($('#dpsPs').value);
+      const disc = nav > 0 ? (price - nav) / nav * 100 : 0;
+      const cover = dps > 0 ? affo / dps : 0;
+      const yld = price > 0 ? dps / price * 100 : 0;
+      $('#navDisc').textContent = nav > 0 ? ((disc > 0 ? '+' : '') + disc.toFixed(1) + '%') : '-';
+      $('#navDiscNote').textContent = nav > 0 ? (disc < -0.5 ? 'NAV 대비 할인' : disc > 0.5 ? 'NAV 대비 프리미엄' : 'NAV와 비슷') : '주당 NAV 입력';
+      $('#affoCover').textContent = dps > 0 ? (cover.toFixed(2) + '배') : '-';
+      $('#affoCoverNote').textContent = dps > 0 ? (cover >= 1.1 ? '이익으로 충분히 감당' : cover >= 1 ? '빠듯하게 감당' : '배당>AFFO, 지속성 점검') : 'DPS 입력';
+      $('#navYield').textContent = yld.toFixed(2) + '%';
+      if (doFlash) ['navDisc','affoCover','navYield'].forEach(id => flash($('#'+id).closest('.result-card')));
     }
 
     function flash(el) {
@@ -1749,6 +1803,9 @@
       $('#viewCards').addEventListener('click', () => setView('cards'));
       $('#viewTable').addEventListener('click', () => setView('table'));
       $('#exportBtn').addEventListener('click', exportSeed);
+      $('#coverageCsv').addEventListener('click', coverageCsv);
+      $('#pfCsv').addEventListener('click', pfExportCsv);
+      $('#clearDataBtn').addEventListener('click', clearData);
 
       // delegated finder events (attached once)
       const cards = $('#cards');
@@ -1923,6 +1980,56 @@
       const t = $('#toast'); if (!t) return;
       t.textContent = msg; t.classList.add('show');
       clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1900);
+    }
+
+    // ---- text size, exports, privacy ----
+    function applyTextSize(lv) {
+      document.documentElement.classList.remove('ts-1', 'ts-2');
+      if (lv === 1) document.documentElement.classList.add('ts-1');
+      if (lv === 2) document.documentElement.classList.add('ts-2');
+    }
+    function initTextSize() {
+      applyTextSize(Number(store.get('textsize', 0)) || 0);
+      const btn = $('#textToggle');
+      if (btn) btn.addEventListener('click', () => {
+        const next = ((Number(store.get('textsize', 0)) || 0) + 1) % 3;
+        store.set('textsize', next); applyTextSize(next);
+        toast(['기본 글씨 크기', '크게', '더 크게'][next]);
+      });
+    }
+    function downloadText(filename, text, mime) {
+      try {
+        const blob = new Blob([text], { type: (mime || 'text/plain') + ';charset=utf-8' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+        toast('내려받았어요');
+      } catch (e) { alert('내보내기에 실패했습니다.'); }
+    }
+    function pfExportCsv() {
+      const holdings = state.portfolio.map(h => ({ reit: byTicker(h.ticker), shares: clampNum(h.shares) })).filter(h => h.reit);
+      if (!holdings.length) { toast('먼저 포트폴리오에 리츠를 담아주세요'); return; }
+      const totals = Array(12).fill(0);
+      holdings.forEach(h => { if (!h.reit.recentDiv) return; const pay = h.reit.recentDiv * h.shares; h.reit.divMonths.forEach(m => totals[m - 1] += pay); });
+      let csv = '﻿월,추정 배당(원)\n';
+      totals.forEach((t, i) => { csv += (i + 1) + '월,' + Math.round(t) + '\n'; });
+      csv += '연간합계,' + Math.round(totals.reduce((a, b) => a + b, 0)) + '\n';
+      downloadText('reiton_portfolio_cashflow.csv', csv, 'text/csv');
+    }
+    function coverageCsv() {
+      const nullDps = REITS.filter(r => !r.recentDiv).length;
+      let csv = '﻿지표,값\n';
+      csv += '상장리츠 수,' + REITS.length + '\n';
+      csv += '최근배당금 표기 종목,' + (REITS.length - nullDps) + '\n';
+      csv += '최근배당금 미표기(공시확인),' + nullDps + '\n';
+      csv += '홈페이지 링크 보유,' + REITS.filter(r => r.homepage).length + '\n';
+      csv += '출처 수,' + SOURCES.length + '\n';
+      csv += '자산총계 합계(조원·참고),' + (REITS.reduce((s, r) => s + r.assetBn, 0) / 1000).toFixed(2) + '\n';
+      downloadText('reiton_quality.csv', csv, 'text/csv');
+    }
+    function clearData() {
+      if (!confirm('이 브라우저에 저장된 관심리츠·비교·포트폴리오·체크리스트·설정을 모두 삭제할까요?')) return;
+      try { Object.keys(localStorage).filter(k => k.indexOf('reiton_') === 0).forEach(k => localStorage.removeItem(k)); } catch (e) {}
+      toast('저장 데이터를 삭제했어요. 새로고침합니다.');
+      setTimeout(() => location.reload(), 800);
     }
 
     try { init(); }
