@@ -612,17 +612,18 @@
         </div>
         <aside class="side-card" aria-label="시장 요약">
           <div>
-            <span class="eyebrow">Market snapshot · <span id="asOf"></span> · 실시간 아님</span>
-            <div class="pulse-row">
-              <div><div class="pulse-label">국내 운용리츠</div><div class="pulse-value" id="totalReits"></div></div>
-              <div class="right"><div class="pulse-label">총 AUM</div><div class="pulse-value" id="totalAum"></div></div>
-            </div>
+            <span class="eyebrow">상장리츠 스냅샷 · <span id="asOf"></span> · 실시간 아님</span>
             <div class="pulse-row">
               <div><div class="pulse-label">상장리츠</div><div class="pulse-value" id="listedReits"></div></div>
-              <div class="right"><div class="pulse-label">상장리츠 시가총액</div><div class="pulse-value" id="listedCap"></div></div>
+              <div class="right"><div class="pulse-label">시가총액</div><div class="pulse-value" id="listedCap"></div></div>
             </div>
             <div class="pulse-row">
-              <div><div class="pulse-label">상장리츠 평균 배당수익률</div><div class="pulse-value two" id="listedYield"></div></div>
+              <div><div class="pulse-label">상장리츠 AUM</div><div class="pulse-value" id="listedAum"></div></div>
+              <div class="right"><div class="pulse-label">평균 배당수익률</div><div class="pulse-value" id="listedYield"></div></div>
+            </div>
+            <div class="pulse-row">
+              <div><div class="pulse-label">분기배당</div><div class="pulse-value" id="snapQuarter"></div></div>
+              <div class="right"><div class="pulse-label">이번 달 배당기준월</div><div class="pulse-value" id="snapThisMonth"></div></div>
             </div>
           </div>
           <p class="mini-note" id="yieldNote"></p>
@@ -730,15 +731,12 @@
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2>시장 한눈에 보기</h2>
-            <p>리츠 시장 전체 규모와 상장리츠의 위치를 먼저 잡아두면, 개별 종목의 규모와 배당을 더 쉽게 비교할 수 있습니다.</p>
+            <h2>상장리츠 시장 한눈에 보기</h2>
+            <p>국내 증시에 상장된 리츠만 모아 규모·배당·자산군을 비교합니다.</p>
           </div>
         </div>
         <div class="kpi-grid" id="kpis"></div>
-        <div class="panel" style="margin-top:var(--space-2);">
-          <div class="section-head"><div><h3 style="margin:0;">리츠 시장 성장 (2002 → <span id="growthAsOf"></span>)</h3><p>국토부·협회 공개 통계 기준 AUM(조원)과 리츠 수 추이입니다.</p></div></div>
-          <div class="growth" id="growthChart"></div>
-        </div>
+        <p class="helper" id="marketContext" style="margin-top:10px;"></p>
       </div>
     </section>
 
@@ -747,8 +745,8 @@
         <div class="panel">
           <div class="section-head">
             <div>
-              <h2>전체 리츠 자산 섹터</h2>
-              <p>국내 전체 운용리츠 AUM 기준. 색상은 일반적 배당 안정성 성격을 나타냅니다(개별 리츠와 다를 수 있음).</p>
+              <h2>상장리츠 자산군 분포</h2>
+              <p>상장리츠 25개 seed data 기준(대표 자산군별 종목 수). 전체 운용리츠 시장 분포가 아닙니다. 색상은 일반적 배당 안정성 성격입니다.</p>
             </div>
           </div>
           <div id="sectorBars" class="bar-list"></div>
@@ -777,23 +775,25 @@
         <div class="panel">
           <div class="section-head">
             <div>
-              <h2>리츠 찾기 <details class="help" style="vertical-align:middle;"><summary aria-label="‘초보자가 읽기 쉬운 정도’ 설명">?</summary><div class="pop">‘초보자가 읽기 쉬운 정도’(구조 단순 · 확인 필요 · 공시 정독 필요)는 자산 규모·배당 빈도·섹터 단순성만 반영한 <strong>학습 지표</strong>입니다. 이 표시는 투자 안전성이 아니라, 공시와 자산 구조를 처음 읽는 사람이 이해하기 쉬운 정도를 뜻합니다. ‘구조 단순’도 배당 삭감·중단·원금 손실이 가능하며, 모든 등급에서 투자보고서 정독이 필수입니다.</div></details></h2>
-              <p>이름·티커·섹터·배당 월로 좁혀보세요. ★는 관심리츠, <b>비교</b>는 나란히 비교 목록에 담깁니다.</p>
+              <h2>상장리츠 25개 찾기 <details class="help" style="vertical-align:middle;"><summary aria-label="‘공시 읽기 난이도’ 설명">?</summary><div class="pop">‘공시 읽기 난이도’(구조 단순 · 확인 필요 · 공시 정독 필요)는 자산 구조·배당 빈도·섹터 단순성만 반영한 <strong>학습 보조 지표</strong>입니다. 투자 안전성·배당 안정성·수익성을 뜻하지 않으며, 모든 리츠는 배당 삭감·중단과 주가 손실이 가능합니다. 매수 전 투자보고서 정독이 필수입니다.</div></details></h2>
+              <p>배당월·자산군·규모로 먼저 좁혀보세요. 관심 종목을 고른 뒤 현재가를 직접 넣어 단순 배당수익률을 확인합니다.</p>
             </div>
             <span class="eyebrow"><span id="resultCount">0</span>개 표시</span>
           </div>
           <div class="freshness" id="freshness"></div>
           <div class="filters">
-            <input id="searchInput" class="input" type="search" placeholder="예: 오피스, SK, 395400" aria-label="리츠 검색 (이름·티커·섹터)" />
-            <select id="sectorSelect" class="select" aria-label="섹터 선택"></select>
+            <input id="searchInput" class="input" type="search" placeholder="종목명·티커·자산군 검색 (예: SK, 395400, 오피스, 물류)" aria-label="종목명·티커·자산군 검색" />
+            <select id="sectorSelect" class="select" aria-label="자산군 선택"></select>
             <select id="monthSelect" class="select" aria-label="배당기준월 선택"></select>
             <select id="sortSelect" class="select" aria-label="정렬 선택">
               <option value="name">이름순</option>
               <option value="assetDesc">자산총계 큰 순</option>
               <option value="assetAsc">자산총계 작은 순</option>
-              <option value="freq">결산 빈도 높은 순</option>
-              <option value="yieldDesc">현재가기준 수익률 높은 순 (시세 연동 시)</option>
-              <option value="learning">초보자가 읽기 쉬운 순 (학습용)</option>
+              <option value="dpsDesc">최근 1회 DPS 큰 순</option>
+              <option value="annualDpsDesc">단순 연환산 DPS 큰 순</option>
+              <option value="freq">배당 빈도 높은 순</option>
+              <option value="yieldDesc">직접 입력 현재가 기준 수익률순 (시세 연동 시)</option>
+              <option value="learning">공시 읽기 난이도 낮은 순 (학습용)</option>
               <option value="watch">관심리츠 먼저</option>
             </select>
           </div>
@@ -811,7 +811,7 @@
               <table>
                 <caption class="visually-hidden">상장리츠 목록 표 (현재 필터·정렬 적용)</caption>
                 <thead>
-                  <tr><th>종목</th><th>티커</th><th>대표 섹터</th><th>배당기준월</th><th>최근배당금</th><th>자산총계</th><th>링크</th></tr>
+                  <tr><th>종목</th><th>티커</th><th>대표 자산군</th><th>배당기준월</th><th>최근 1회 DPS</th><th>연환산 DPS</th><th>자산총계</th><th>상세</th></tr>
                 </thead>
                 <tbody id="reitTable"></tbody>
               </table>
@@ -823,12 +823,12 @@
         <aside class="panel detail-box" id="detailPanel">
           <div class="detail-title">
             <div>
-              <span class="eyebrow">선택 리츠</span>
+              <span class="eyebrow">90초 투자 메모</span>
               <h2 id="detailName" style="margin:10px 0 0;">리츠를 선택하세요</h2>
               <p id="detailTicker" class="muted"></p>
             </div>
           </div>
-          <p id="detailNote" class="muted">카드를 클릭하면 자산·배당·확인 포인트를 보여줍니다.</p>
+          <p id="detailNote" class="muted">왼쪽에서 리츠를 선택하면 배당월·단순 연환산 DPS·현재가 기준 수익률·먼저 확인할 공시 질문을 보여줍니다.</p>
           <div class="detail-month" id="detailMonths"></div>
           <ul class="detail-list" id="detailList"></ul>
           <div class="detail-calc">
@@ -1252,7 +1252,6 @@
       initNav();
       renderHeroStats();
       renderKpis();
-      renderGrowth();
       renderThisMonth();
       renderFilters();
       renderQuickChips();
@@ -1329,26 +1328,37 @@
     }
 
     function renderHeroStats() {
+      const m = new Date().getMonth() + 1;
+      const quarter = REITS.filter(r => r.divMonths.length >= 4).length;
+      const thisM = REITS.filter(r => r.divMonths.includes(m)).length;
       $('#asOf').textContent = MARKET.asOf;
-      $('#totalReits').textContent = fmt.format(MARKET.totalReits) + '개';
-      $('#totalAum').textContent = MARKET.totalAumTn.toFixed(1) + '조';
       $('#listedReits').textContent = fmt.format(MARKET.listedReits) + '개';
       $('#listedCap').textContent = MARKET.listedMarketCapTn.toFixed(2) + '조';
-      $('#listedYield').textContent = '납입자본 기준 ' + MARKET.listedDividendYieldPaidInCapital.toFixed(1) + '% · 현재가 기준 ' + MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%';
-      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + (MARKET._livePrices ? ' · 시세는 최근 종가 기준 자동 갱신(장중 실시간 아님).' : MARKET._live ? ' · 시세 연동 대기(데이터 키 등록 시 표시).' : ', 실시간 아님.') + ' 배당수익률은 산식·기준가에 따라 달라지며, 정확한 값은 증권사·각 리츠 공시에서 확인하세요. 이 화면은 학습·비교용이며 매수 추천이 아닙니다.';
+      $('#listedAum').textContent = MARKET.listedAumTn.toFixed(1) + '조';
+      $('#listedYield').textContent = MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%';
+      $('#snapQuarter').textContent = quarter + '개';
+      $('#snapThisMonth').textContent = thisM + '개';
+      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + (MARKET._livePrices ? ' · 시세는 최근 종가 기준 자동 갱신(장중 실시간 아님).' : MARKET._live ? ' · 시세 연동 대기(데이터 키 등록 시 표시).' : ', 실시간 아님.') + ' 평균 배당수익률은 현재가 기준(' + MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%)이며 납입자본 기준은 ' + MARKET.listedDividendYieldPaidInCapital.toFixed(1) + '%입니다. 정확한 값은 증권사·각 리츠 공시에서 확인하세요. 매수 추천이 아닙니다.';
     }
 
     function renderKpis() {
+      const m = new Date().getMonth() + 1;
+      const quarter = REITS.filter(r => r.divMonths.length >= 4).length;
+      const big = REITS.filter(r => r.assetBn >= 1000).length;
+      const overseas = REITS.filter(r => r.sector.includes('해외')).length;
+      const thisM = REITS.filter(r => r.divMonths.includes(m)).length;
       const kpis = [
-        ['국내 운용리츠', fmt.format(MARKET.totalReits) + '개', '전체 리츠 수'],
-        ['전체 AUM', MARKET.totalAumTn.toFixed(1) + '조원', '운용 중인 리츠 총자산'],
         ['상장리츠', MARKET.listedReits + '개', '국내 증시 상장'],
         ['상장리츠 시총', MARKET.listedMarketCapTn.toFixed(2) + '조원', '시장가격 기준'],
         ['상장리츠 AUM', MARKET.listedAumTn.toFixed(1) + '조원', 'AUM 연결기준'],
+        ['평균 배당수익률', MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%', '현재가 기준 ' + MARKET.asOf],
+        ['분기배당 리츠', quarter + '개', '연 4회 결산'],
       ];
       $('#kpis').innerHTML = kpis.map(k =>
         '<div class="kpi"><div class="label">' + escapeHTML(k[0]) + '</div><div class="value">' + escapeHTML(k[1]) + '</div><div class="sub">' + escapeHTML(k[2]) + '</div></div>'
       ).join('');
+      const ctx = $('#marketContext');
+      if (ctx) ctx.textContent = '자산 1조원+ ' + big + '개 · 해외자산 포함 ' + overseas + '개 · 이번 달(' + m + '월) 배당기준월 ' + thisM + '개. 참고: 국내 전체 운용리츠는 463개·약 123조원(사모 포함)이며, 이 사이트는 그중 상장리츠 25개만 다룹니다.';
     }
 
     function renderGrowth() {
@@ -1392,12 +1402,15 @@
     function renderQuickChips() {
       const chips = [
         {label:'전체', key:null},
-        {label:'분기 결산', key:'quarterly'},
+        {label:'분기배당', key:'quarterly'},
+        {label:'반기배당', key:'half'},
+        {label:'자산 1조+', key:'large'},
+        {label:'해외자산', key:'해외'},
         {label:'오피스', key:'오피스'},
         {label:'물류', key:'물류'},
         {label:'리테일', key:'리테일'},
-        {label:'해외', key:'해외'},
-        {label:'대형 1조+', key:'large'},
+        {label:'호텔', key:'호텔'},
+        {label:'복합', key:'복합'},
         {label:'관심리츠', key:'watch'},
       ];
       $('#quickChips').innerHTML = chips.map(c =>
@@ -1430,7 +1443,8 @@
         const monthOk = state.month === '전체' || r.divMonths.includes(Number(state.month));
         let quickOk = true;
         if (state.quick === 'quarterly') quickOk = r.divMonths.length >= 4;
-        if (['오피스','물류','리테일','해외'].includes(state.quick)) quickOk = r.sector.includes(state.quick);
+        if (state.quick === 'half') quickOk = r.divMonths.length === 2;
+        if (['오피스','물류','리테일','해외','호텔','복합'].includes(state.quick)) quickOk = r.sector.includes(state.quick);
         if (state.quick === 'large') quickOk = r.assetBn >= 1000;
         if (state.quick === 'watch') quickOk = state.watch.has(r.ticker);
         return searchOk && sectorOk && monthOk && quickOk;
@@ -1440,6 +1454,8 @@
         if (state.sort === 'assetAsc') return a.assetBn - b.assetBn;
         if (state.sort === 'name') return a.name.localeCompare(b.name, 'ko');
         if (state.sort === 'freq') return b.divMonths.length - a.divMonths.length || b.assetBn - a.assetBn;
+        if (state.sort === 'dpsDesc') return (b.recentDiv || 0) - (a.recentDiv || 0) || b.assetBn - a.assetBn;
+        if (state.sort === 'annualDpsDesc') return ((b.recentDiv || 0) * b.divMonths.length) - ((a.recentDiv || 0) * a.divMonths.length) || b.assetBn - a.assetBn;
         if (state.sort === 'yieldDesc') return (b.yieldPriceBasis || 0) - (a.yieldPriceBasis || 0) || b.assetBn - a.assetBn;
         if (state.sort === 'watch') return Number(state.watch.has(b.ticker)) - Number(state.watch.has(a.ticker)) || b.assetBn - a.assetBn;
         if (state.sort === 'learning') return scoreLearning(b) - scoreLearning(a) || b.assetBn - a.assetBn;
@@ -1460,7 +1476,8 @@
       const watched = state.watch.has(r.ticker);
       const inCompare = state.compare.includes(r.ticker);
       const selected = state.selected === r.ticker;
-      const recent = r.recentDiv ? (fmt.format(r.recentDiv) + '원 (기준일 공시 확인)') : '확인 필요';
+      const recentDps = r.recentDiv ? (fmt.format(r.recentDiv) + '원') : '확인 필요';
+      const annualDps = r.recentDiv ? (fmt.format(r.recentDiv * r.divMonths.length) + '원') : '확인 필요';
       const d = diffLabel(r.difficulty);
       return '<article class="reit-card ' + (inCompare ? 'in-compare' : '') + '" data-ticker="' + r.ticker + '" data-selected="' + selected + '" tabindex="0" role="button" aria-label="' + escapeHTML(r.name) + ' 상세 보기">'
         + '<div class="reit-top"><div><div class="reit-name">' + escapeHTML(r.name) + '</div><div class="ticker">' + escapeHTML(r.ticker) + ' · ' + escapeHTML(r.primary) + ' · <span class="pill-diff" data-d="' + r.difficulty + '">' + d + '</span></div></div>'
@@ -1471,18 +1488,22 @@
         + '<div class="tags">' + r.tags.slice(0,4).map(t => '<span class="tag">' + escapeHTML(t) + '</span>').join('') + '</div>'
         + '<p class="reit-note">' + escapeHTML(r.note) + '</p>'
         + (r.price ? '<div class="metric-line"><span>현재가</span><strong>' + fmt.format(r.price) + '원' + (r.yieldPriceBasis ? ' · 수익률 ' + r.yieldPriceBasis + '%' : '') + '</strong></div>' : '')
+        + '<div class="metric-line"><span>최근 1회 DPS <span class="data-badge">KAREIT 2025.12</span></span><strong>' + recentDps + '</strong></div>'
+        + '<div class="metric-line"><span>단순 연환산 DPS</span><strong>' + annualDps + '</strong></div>'
         + '<div class="metric-line"><span>배당기준월</span><strong>' + r.divMonths.map(m=>m+'월').join(' · ') + '</strong></div>'
-        + '<div class="metric-line"><span>최근배당금</span><strong>' + recent + '</strong></div>'
-        + '<div class="metric-line"><span>자산총계</span><strong>' + escapeHTML(r.assetText) + '</strong></div>'
+        + '<div class="metric-line"><span>예상 지급월</span><strong>' + r.divMonths.map(m=>payMonth(m)+'월').join(' · ') + '</strong></div>'
+        + '<div class="metric-line"><span>자산총계 <span class="data-badge">2025.12</span></span><strong>' + escapeHTML(r.assetText) + '</strong></div>'
+        + '<p class="muted" style="font-size:11px; margin:2px 0 0;">최근 DPS는 1회 기준 · 단순 연환산 DPS는 향후 배당 보장 아님</p>'
         + '</article>';
     }
 
     function renderTableRow(r) {
       const recent = r.recentDiv ? (fmt.format(r.recentDiv) + '원') : '확인 필요';
+      const annual = r.recentDiv ? (fmt.format(r.recentDiv * r.divMonths.length) + '원') : '확인 필요';
       return '<tr data-ticker="' + r.ticker + '" style="cursor:pointer">'
         + '<td><strong>' + escapeHTML(r.name) + '</strong></td><td>' + escapeHTML(r.ticker) + '</td><td>' + escapeHTML(r.primary) + '</td>'
-        + '<td>' + r.divMonths.map(m=>m+'월').join(', ') + '</td><td>' + recent + '</td><td>' + escapeHTML(r.assetText) + '</td>'
-        + '<td><a class="link" href="' + escapeHTML(r.homepage) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 공식 홈페이지">홈페이지</a></td></tr>';
+        + '<td>' + r.divMonths.map(m=>m+'월').join(', ') + '</td><td>' + recent + '</td><td>' + annual + '</td><td>' + escapeHTML(r.assetText) + '</td>'
+        + '<td><span class="link">상세 보기</span></td></tr>';
     }
 
     function toggleWatch(ticker) {
@@ -1604,14 +1625,20 @@
         + '<li class="muted small">‘읽기 쉬운 정도’는 학습 지표이며 투자 안전성·수익성과 무관합니다. 매수 전 공시 확인 필수.</li>';
       const inCompare = state.compare.includes(r.ticker);
       $('#detailLinks').innerHTML =
-          '<a href="' + escapeHTML(r.homepage) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 공식 홈페이지">공식 홈페이지</a>'
-        + '<a href="' + codeUrl(r.ticker) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 현재가 보기">현재가 보기</a>'
-        + '<button class="primary-btn" type="button" data-fav="' + r.ticker + '">' + (state.watch.has(r.ticker) ? '관심 해제' : '관심 추가') + '</button>'
+          '<button class="primary-btn" type="button" data-goincome="1">배당 계산</button>'
+        + '<button class="pill-btn" type="button" data-gotools="1" style="border:1px solid var(--line);">공시 확인</button>'
+        + '<button class="pill-btn" type="button" data-fav="' + r.ticker + '" style="border:1px solid var(--line);">' + (state.watch.has(r.ticker) ? '관심 해제' : '관심 추가') + '</button>'
         + '<button class="pill-btn" type="button" data-cmp="' + r.ticker + '" style="border:1px solid var(--line);">' + (inCompare ? '비교에서 빼기' : '비교에 담기') + '</button>'
-        + '<button class="pill-btn" type="button" data-copyq="1" style="border:1px solid var(--line);">📋 확인 질문 복사</button>';
+        + '<button class="pill-btn" type="button" data-copyq="1" style="border:1px solid var(--line);">📋 확인 질문 복사</button>'
+        + '<a href="' + escapeHTML(r.homepage) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 공식 홈페이지(IR)">IR 홈페이지</a>'
+        + '<a href="' + codeUrl(r.ticker) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 현재가 보기">주가 보기</a>'
+        + '<a href="https://dart.fss.or.kr/" target="_blank" rel="noreferrer">DART</a>'
+        + '<a href="https://kind.krx.co.kr/" target="_blank" rel="noreferrer">KIND</a>';
       $('#detailLinks [data-fav]').addEventListener('click', () => toggleWatch(r.ticker));
       $('#detailLinks [data-cmp]').addEventListener('click', () => toggleCompare(r.ticker));
       $('#detailLinks [data-copyq]').addEventListener('click', () => copyQuestions(r));
+      $('#detailLinks [data-goincome]').addEventListener('click', () => { setTab('income', { noScroll: true }); $('#tools').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      $('#detailLinks [data-gotools]').addEventListener('click', () => { setTab('tools', { noScroll: true }); $('#scanner').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
       $('#detailPrice').value = r.price || '';
       updateDetailCalc();
       writeHashState();
@@ -1625,8 +1652,8 @@
       if (!r.recentDiv) { out.textContent = '최근배당금이 공시 확인 필요 상태라 계산할 수 없습니다.'; return; }
       const annual = r.recentDiv * r.divMonths.length;
       if (!price) { out.innerHTML = '연환산 추정 DPS <b>' + fmt.format(annual) + '원</b>. 현재가를 입력하면 단순 배당수익률을 계산합니다.'; return; }
-      const y = annual / price * 100, target = annual / 0.06, upside = (target / price - 1) * 100;
-      out.innerHTML = '단순 배당수익률 <b>' + y.toFixed(1) + '%</b><br>목표 6% 기준가 <b>' + fmt.format(Math.round(target)) + '원</b> · 현재가 대비 <b>' + (upside >= 0 ? '+' : '') + upside.toFixed(1) + '%</b> ' + (upside >= 0 ? '여유' : '부담') + '<br><span class="muted">최근 DPS 단순 연환산 교육용 계산입니다. 실제 배당은 임대수익·이자비용·매각·증자·공시 변경에 따라 달라질 수 있습니다.</span>';
+      const y = annual / price * 100, t6 = annual / 0.06, t7 = annual / 0.07, upside = (t6 / price - 1) * 100;
+      out.innerHTML = '단순 배당수익률 <b>' + y.toFixed(1) + '%</b><br>목표 6% 기준가 <b>' + fmt.format(Math.round(t6)) + '원</b> · 목표 7% 기준가 <b>' + fmt.format(Math.round(t7)) + '원</b><br>현재가 대비(6% 기준) <b>' + (upside >= 0 ? '+' : '') + upside.toFixed(1) + '%</b> ' + (upside >= 0 ? '여유' : '부담') + '<br><span class="muted">사용자가 직접 입력한 현재가 기준의 교육용 추정치입니다. 실시간 시세가 아니며, 실제 배당은 변동·삭감·중단될 수 있습니다.</span>';
     }
 
     function renderThisMonth() {
@@ -1658,10 +1685,14 @@
     }
 
     function renderCharts() {
-      const maxPct = Math.max.apply(null, MARKET.sectorAum.map(s => s.pct));
-      $('#sectorBars').innerHTML = MARKET.sectorAum.map(s => {
-        const cls = STABILITY[s.name] || 'neutral';
-        return '<div class="bar-row"><strong>' + escapeHTML(s.name) + '</strong><div class="bar-track"><div class="bar-fill ' + cls + '" style="width:' + ((s.pct/maxPct)*100) + '%"></div></div><div class="bar-value">' + s.pct + '%</div></div>';
+      // 상장리츠 25개의 대표 자산군별 종목 수 분포(seed 파생, 전체 시장 아님)
+      const dist = {};
+      REITS.forEach(r => { dist[r.primary] = (dist[r.primary] || 0) + 1; });
+      const distArr = Object.keys(dist).map(k => ({ name: k, n: dist[k] })).sort((a, b) => b.n - a.n);
+      const maxN = Math.max.apply(null, distArr.map(d => d.n));
+      $('#sectorBars').innerHTML = distArr.map(d => {
+        const cls = STABILITY[d.name] || 'neutral';
+        return '<div class="bar-row"><strong>' + escapeHTML(d.name) + '</strong><div class="bar-track"><div class="bar-fill ' + cls + '" style="width:' + ((d.n / maxN) * 100) + '%"></div></div><div class="bar-value">' + d.n + '개</div></div>';
       }).join('');
 
       const sorted = REITS.slice().sort((a,b)=>b.assetBn-a.assetBn);
