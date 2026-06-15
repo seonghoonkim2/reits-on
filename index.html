@@ -527,6 +527,9 @@
     .q-badge.check { background:var(--warning-tint); color:var(--accent); }
     .toast { position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(40px); background:var(--surface-strong); border:1px solid var(--brand); color:var(--text); padding:12px 18px; border-radius:14px; box-shadow:var(--shadow); opacity:0; transition:opacity .2s ease, transform .2s ease; z-index:500; font-weight:800; pointer-events:none; max-width:calc(100% - 36px); }
     .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    .to-top { position:fixed; right:16px; bottom:calc(78px + env(safe-area-inset-bottom)); z-index:80; width:46px; height:46px; border-radius:50%; border:1px solid var(--line); background:var(--surface-strong); color:var(--text); box-shadow:var(--shadow); cursor:pointer; font-size:18px; font-weight:900; opacity:0; transform:translateY(10px); pointer-events:none; transition:opacity .2s ease, transform .2s ease; }
+    .to-top.show { opacity:1; transform:none; pointer-events:auto; }
+    .to-top:hover { background:var(--hover); }
 
     /* sticky compare bar */
     .compare-bar {
@@ -1155,6 +1158,7 @@
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <button id="toTop" class="to-top" type="button" aria-label="맨 위로 이동">↑</button>
 
   <footer class="footer">
     <div class="wrap panel">
@@ -1387,34 +1391,6 @@
       if (ctx) ctx.textContent = '자산 1조원+ ' + big + '개 · 해외자산 포함 ' + overseas + '개 · 이번 달(' + m + '월) 배당기준월 ' + thisM + '개. 참고: 국내 전체 운용리츠는 463개·약 123조원(사모 포함)이며, 이 사이트는 그중 상장리츠 25개만 다룹니다.';
     }
 
-    function renderGrowth() {
-      $('#growthAsOf').textContent = MARKET.asOf;
-      const g = MARKET.growth;
-      if (!g || !g.length) return;
-      const W = 680, H = 240, padL = 40, padR = 18, padT = 22, padB = 40;
-      const maxAum = Math.max.apply(null, g.map(d => d.aum));
-      const xs = (i) => padL + (W - padL - padR) * (i / (g.length - 1));
-      const ys = (v) => H - padB - (H - padT - padB) * (v / maxAum);
-      const pts = g.map((d, i) => [xs(i), ys(d.aum)]);
-      const poly = pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
-      const area = 'M ' + pts[0][0].toFixed(1) + ',' + (H - padB) + ' L ' + poly.split(' ').join(' L ') + ' L ' + pts[pts.length - 1][0].toFixed(1) + ',' + (H - padB) + ' Z';
-      let svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="리츠 시장 AUM 성장 추이">';
-      svg += '<defs><linearGradient id="gar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--brand)" stop-opacity="0.28"/><stop offset="100%" stop-color="var(--brand)" stop-opacity="0"/></linearGradient></defs>';
-      // baseline
-      svg += '<line x1="' + padL + '" y1="' + (H - padB) + '" x2="' + (W - padR) + '" y2="' + (H - padB) + '" stroke="var(--line)" />';
-      svg += '<path d="' + area + '" fill="url(#gar)" />';
-      svg += '<polyline points="' + poly + '" fill="none" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round" />';
-      g.forEach((d, i) => {
-        const x = pts[i][0], y = pts[i][1];
-        svg += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="3.5" fill="var(--brand)" />';
-        svg += '<text class="gv" x="' + x.toFixed(1) + '" y="' + (y - 9).toFixed(1) + '" text-anchor="middle">' + d.aum.toFixed(0) + '조</text>';
-        svg += '<text class="gx" x="' + x.toFixed(1) + '" y="' + (H - padB + 16) + '" text-anchor="middle">' + escapeHTML(d.year) + '</text>';
-        svg += '<text class="gx" x="' + x.toFixed(1) + '" y="' + (H - padB + 30) + '" text-anchor="middle">' + d.count + '개</text>';
-      });
-      svg += '</svg>';
-      $('#growthChart').innerHTML = svg;
-    }
-
     function renderFilters() {
       const sectors = ['전체'].concat(Array.from(new Set(REITS.flatMap(r => r.sector))).sort((a,b)=>a.localeCompare(b,'ko')));
       $('#sectorSelect').innerHTML = sectors.map(s => '<option value="' + escapeHTML(s) + '">' + escapeHTML(s) + '</option>').join('');
@@ -1524,8 +1500,7 @@
       const watched = state.watch.has(r.ticker);
       const inCompare = state.compare.includes(r.ticker);
       const selected = state.selected === r.ticker;
-      const recentDps = r.recentDiv ? (fmt.format(r.recentDiv) + '원') : '확인 필요';
-      const annualDps = r.recentDiv ? (fmt.format(r.recentDiv * r.divMonths.length) + '원') : '확인 필요';
+      const nm = escapeHTML(r.name);
       const d = diffLabel(r.difficulty);
       return '<article class="reit-card ' + (inCompare ? 'in-compare' : '') + '" data-ticker="' + r.ticker + '" data-selected="' + selected + '">'
         + '<div class="reit-top"><div><div class="reit-name">' + escapeHTML(r.name) + '</div><div class="ticker">' + escapeHTML(r.ticker) + ' · ' + escapeHTML(r.primary) + ' · <span class="pill-diff" data-d="' + r.difficulty + '">' + d + '</span></div></div>'
@@ -1542,9 +1517,9 @@
         + '</div>'
         + '<p class="card-checkpoint"><b>먼저 볼 점</b> ' + escapeHTML(primaryCheckPoint(r)) + '</p>'
         + '<div class="card-actions">'
-        + '<button class="primary" type="button" data-detail="' + r.ticker + '">상세 보기</button>'
-        + '<button type="button" data-calc="' + r.ticker + '">배당 계산</button>'
-        + '<button class="' + (inCompare ? 'on' : '') + '" type="button" data-cmp="' + r.ticker + '" aria-pressed="' + inCompare + '">' + (inCompare ? '담김' : '비교') + '</button>'
+        + '<button class="primary" type="button" data-detail="' + r.ticker + '" aria-label="' + nm + ' 상세 보기">상세 보기</button>'
+        + '<button type="button" data-calc="' + r.ticker + '" aria-label="' + nm + ' 배당 계산">배당 계산</button>'
+        + '<button class="' + (inCompare ? 'on' : '') + '" type="button" data-cmp="' + r.ticker + '" aria-pressed="' + inCompare + '" aria-label="' + nm + ' 비교 ' + (inCompare ? '빼기' : '담기') + '">' + (inCompare ? '담김' : '비교') + '</button>'
         + '</div>'
         + '<p class="card-cap">기준: 배당 KAREIT 2025.12 · 자산 2025년말 투자보고서 · 연환산은 향후 배당 보장 아님</p>'
         + '</article>';
@@ -1970,6 +1945,15 @@
         $('#searchInput').value = ''; $('#sectorSelect').value = '전체'; $('#monthSelect').value = '전체';
         renderQuickChips(); renderFinder();
       });
+      const toTop = $('#toTop');
+      if (toTop) {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+          if (ticking) return; ticking = true;
+          requestAnimationFrame(() => { toTop.classList.toggle('show', window.scrollY > 500); ticking = false; });
+        }, { passive: true });
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      }
       $('#coverageCsv').addEventListener('click', coverageCsv);
       $('#pfCsv').addEventListener('click', pfExportCsv);
       $('#clearDataBtn').addEventListener('click', clearData);
