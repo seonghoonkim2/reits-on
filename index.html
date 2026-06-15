@@ -408,6 +408,13 @@
     .dn-btn { border:1px solid var(--line); background:var(--surface-strong); color:var(--text); border-radius:var(--radius-pill); padding:8px 12px; font-weight:800; font-size:13px; cursor:pointer; min-height:40px; transition: background var(--t-micro) var(--ease); }
     .dn-btn:hover:not(:disabled) { background:var(--hover); }
     .dn-btn:disabled { opacity:.4; cursor:default; }
+    .fil-wrap { margin-top:14px; }
+    .fil-wrap h3 { font-size:14px; margin:0 0 8px; }
+    .fil { display:block; border:1px solid var(--line); border-radius:12px; padding:9px 11px; margin-bottom:6px; background:var(--surface-strong); transition: background var(--t-micro) var(--ease); }
+    .fil:hover { background:var(--hover); }
+    .fil .fd { font-size:11.5px; color:var(--muted); }
+    .fil .ft { display:block; font-size:13px; font-weight:700; color:var(--text); margin-top:2px; }
+    .fil .fcat { display:inline-block; font-size:10.5px; font-weight:800; color:var(--accent); background:var(--warning-tint); border-radius:999px; padding:1px 7px; margin-left:5px; }
     .detail-title { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
     .detail-list { margin: var(--space-2) 0 0; padding:0; list-style:none; display:grid; gap:9px; }
     .detail-list li { border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; background: var(--surface-strong); color: var(--muted); }
@@ -935,6 +942,7 @@
           <p id="detailNote" class="muted">왼쪽에서 리츠를 선택하면 배당월·단순 연환산 DPS·현재가 기준 수익률·먼저 확인할 공시 질문을 보여줍니다.</p>
           <div class="detail-month" id="detailMonths"></div>
           <ul class="detail-list" id="detailList"></ul>
+          <div id="detailFilings"></div>
           <div class="detail-calc">
             <label class="strong small" for="detailPrice">지금 가격으로 보면? (현재가 직접 입력)</label>
             <input id="detailPrice" class="input" type="number" min="0" step="10" placeholder="현재가(원)" aria-label="현재가 직접 입력" style="margin-top:6px;" />
@@ -1739,8 +1747,29 @@
       $('#detailPrice').value = r.price || '';
       updateDetailCalc();
       updateDetailNav();
+      loadFilings(r.ticker);
       writeHashState();
       if (scroll && isMobile()) openSheet();
+    }
+
+    const filingsCache = {};
+    function renderFilings(box, list) {
+      if (!list.length) { box.innerHTML = '<div class="fil-wrap"><h3>최근 공시</h3><p class="muted small">최근 수집된 공시가 없습니다. DART에서 직접 확인하세요.</p></div>'; return; }
+      box.innerHTML = '<div class="fil-wrap"><h3>최근 공시 <span class="muted small">(자동수집·DART)</span></h3>' + list.slice(0, 6).map(f => {
+        const cats = (f.category || []).map(c => '<span class="fcat">' + escapeHTML(c) + '</span>').join('');
+        return '<a class="fil" href="' + escapeHTML(f.url || '#') + '" target="_blank" rel="noreferrer"><span class="fd">' + escapeHTML(f.filed_at || '') + cats + '</span><span class="ft">' + escapeHTML(f.title || '') + '</span></a>';
+      }).join('') + '</div>';
+    }
+    function loadFilings(ticker) {
+      const box = $('#detailFilings'); if (!box) return;
+      if (!API_BASE) { box.innerHTML = ''; return; }
+      if (filingsCache[ticker]) { renderFilings(box, filingsCache[ticker]); return; }
+      box.innerHTML = '<div class="fil-wrap"><h3>최근 공시 <span class="muted small">불러오는 중…</span></h3></div>';
+      apiGet('/v1/reits/' + encodeURIComponent(ticker)).then(data => {
+        const list = (data && data.filings) || [];
+        filingsCache[ticker] = list;
+        if (state.selected === ticker) renderFilings(box, list);
+      }).catch(() => { box.innerHTML = ''; });
     }
 
     // ---- 모바일 상세 바텀시트 ----
