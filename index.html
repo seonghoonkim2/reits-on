@@ -495,6 +495,13 @@
     @keyframes flash { 0% { background: var(--primary-tint); } 100% { background: var(--surface-strong); } }
     .helper { color: var(--muted); font-size: 12.5px; margin-top: 6px; line-height:1.5; }
 
+    /* 광고 슬롯 (AdSense 등 디스플레이 광고용). 미설정 시 hidden 유지 → 빈 박스 안 보임 */
+    .ad-slot .ad-unit { border:1px solid var(--line); border-radius:18px; background:var(--surface-strong); padding:10px 12px 12px; text-align:center; }
+    .ad-slot .ad-tag { display:block; font-size:11px; color:var(--muted); letter-spacing:.06em; margin-bottom:8px; text-transform:uppercase; }
+    .ad-slot .ad-host { min-height: 90px; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .ad-slot .ad-host:empty::before { content:'광고 영역'; color:var(--muted); font-size:12px; }
+    .ad-slot .adsbygoogle { display:block; width:100%; }
+
     /* Portfolio */
     .pf-step { font-size:13px; font-weight:900; color:var(--brand); letter-spacing:-0.01em; }
     .pf-budget { display:grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap:10px; margin-top:8px; }
@@ -916,6 +923,10 @@
       </div>
     </section>
 
+    <section class="section ad-slot" data-tab="home" data-ad-slot="home" hidden aria-label="광고">
+      <div class="wrap"><div class="ad-unit"><span class="ad-tag">광고 · Sponsored</span><div class="ad-host" id="adHost-home"></div></div></div>
+    </section>
+
     <section class="section reveal" id="finder" data-tab="find">
       <div class="wrap finder-grid">
         <div class="panel">
@@ -1018,6 +1029,10 @@
           <div id="compareContent" class="hidden"></div>
         </div>
       </div>
+    </section>
+
+    <section class="section ad-slot" data-tab="find" data-ad-slot="find" hidden aria-label="광고">
+      <div class="wrap"><div class="ad-unit"><span class="ad-tag">광고 · Sponsored</span><div class="ad-host" id="adHost-find"></div></div></div>
     </section>
 
     <section class="section reveal" id="portfolio" data-tab="income">
@@ -1140,6 +1155,10 @@
       </div>
     </section>
 
+    <section class="section ad-slot" data-tab="income" data-ad-slot="income" hidden aria-label="광고">
+      <div class="wrap"><div class="ad-unit"><span class="ad-tag">광고 · Sponsored</span><div class="ad-host" id="adHost-income"></div></div></div>
+    </section>
+
     <section class="section reveal" id="sectors" data-tab="learn">
       <div class="wrap">
         <div class="section-head">
@@ -1210,6 +1229,9 @@
         </div>
       </div>
     </section>
+    <section class="section ad-slot" data-tab="learn" data-ad-slot="learn" hidden aria-label="광고">
+      <div class="wrap"><div class="ad-unit"><span class="ad-tag">광고 · Sponsored</span><div class="ad-host" id="adHost-learn"></div></div></div>
+    </section>
   </main>
 
   <div class="compare-bar" id="compareBar" aria-live="polite">
@@ -1232,6 +1254,7 @@
       <p class="small">본 화면은 일반 투자자 교육과 정보 접근성 개선을 위한 정보 플랫폼입니다. <b>특정 종목의 매수·매도·보유 추천이 아니며</b>, 모든 정렬·점수·난이도 표시는 학습 보조 지표일 뿐입니다. 리츠는 배당 삭감·중단 및 원금 손실이 가능하며, 투자 결정 전 공식 공시와 최신 가격을 반드시 확인해야 합니다.</p>
       <p class="small">데이터 기준: 시장 통계는 2026년 5월말 공개 통계, 개별 상장리츠 자산총계·최근배당금은 한국리츠협회 공개 표의 기준일(2025년말 투자보고서) 설명을 반영했습니다. 실시간 데이터가 아닙니다.</p>
       <p class="small">🔒 개인정보: 관심리츠·비교·포트폴리오·체크리스트·설정은 <b>이 브라우저(localStorage)에만</b> 저장되며 서버로 전송되지 않습니다. 공시 스캐너에 붙여넣은 문구도 외부로 전송되지 않습니다. <button class="ghost-btn" id="clearDataBtn" type="button" style="margin-left:6px; padding:6px 12px; min-height:auto;">내 저장 데이터 삭제</button></p>
+      <p class="small">📢 광고: 본 사이트는 <b>Google AdSense 등 제3자 광고</b>를 게재할 수 있습니다. 광고 제공업체는 쿠키를 사용해 사용자의 이전 방문 기록을 바탕으로 광고를 표시할 수 있으며, 사용자는 <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">Google 광고 설정</a>에서 맞춤 광고를 끄거나 <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>에서 제3자 쿠키를 거부할 수 있습니다. 광고 영역의 상품·서비스는 본 사이트의 추천이 아니며, 광고 클릭으로 발생하는 거래의 책임은 각 광고주에게 있습니다.</p>
     </div>
   </footer>
 
@@ -1249,6 +1272,47 @@
     const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
     // 백엔드(Cloudflare Worker) 주소. 비우면 내장 seed로 동작(정적). 배포 후 'https://reits-on-api.<계정>.workers.dev' 입력 → 자동으로 라이브 데이터 사용.
     const API_BASE = 'https://reits-on-api.modelter.workers.dev';
+
+    // ───────── 광고(수익화) 설정 ─────────
+    // AdSense 승인 후: enabled=true, client=본인 게시자ID(ca-pub-…), slots=각 광고단위 슬롯ID 로 교체.
+    // enabled=false면 광고 슬롯은 hidden 유지(빈 박스 안 보임).
+    const ADS = {
+      enabled: false,
+      client: 'ca-pub-XXXXXXXXXXXXXXXX',
+      slots: { home: '0000000000', find: '0000000000', income: '0000000000', learn: '0000000000' },
+    };
+    let _adsLoaderAdded = false; const _adsFilled = {};
+    function ensureAdsLoader() {
+      if (_adsLoaderAdded || !ADS.enabled || !/^ca-pub-\d+$/.test(ADS.client)) return;
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + ADS.client;
+      s.crossOrigin = 'anonymous';
+      document.head.appendChild(s);
+      _adsLoaderAdded = true;
+    }
+    function initAds() {
+      if (!ADS.enabled) return;                       // 비활성: 슬롯 숨김 유지
+      ensureAdsLoader();
+      $$('.ad-slot').forEach(sec => { sec.hidden = false; });
+      fillAd(state.tab);
+    }
+    function fillAd(tab) {
+      if (!ADS.enabled || _adsFilled[tab]) return;
+      const sec = document.querySelector('.ad-slot[data-ad-slot="' + tab + '"]');
+      const host = sec && sec.querySelector('.ad-host');
+      const slotId = ADS.slots[tab];
+      if (!host || !slotId || slotId === '0000000000') return;
+      const ins = document.createElement('ins');
+      ins.className = 'adsbygoogle';
+      ins.setAttribute('data-ad-client', ADS.client);
+      ins.setAttribute('data-ad-slot', slotId);
+      ins.setAttribute('data-ad-format', 'auto');
+      ins.setAttribute('data-full-width-responsive', 'true');
+      host.appendChild(ins);
+      try { (window.adsbygoogle = window.adsbygoogle || []).push({}); _adsFilled[tab] = true; } catch (e) { /* noop */ }
+    }
+
     const COMPARE_MAX = 4;
     const PALETTE = ['#3254ff', '#00a78e', '#c07a00', '#d22d32', '#7c5cff'];
     const DIFF_LABEL = { '쉬움': '구조 단순', '보통': '확인 필요', '상세확인': '공시 정독 필요' };
@@ -1369,6 +1433,7 @@
       selectReit(state.selected, false);
       initReveal();
       initTabs();
+      initAds();
       setTab(state.tab, { noScroll: true });
     }
 
@@ -1419,6 +1484,7 @@
       $$('section[data-tab]').forEach(s => s.classList.toggle('show-tab', s.dataset.tab === name));
       $$('.tabbtn').forEach(b => { const on = b.dataset.go === name; b.classList.toggle('active', on); b.setAttribute('aria-current', on ? 'page' : 'false'); });
       writeHashState();
+      fillAd(name);
       if (!opts.noScroll) window.scrollTo({ top: 0, behavior: 'auto' });
     }
 

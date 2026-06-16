@@ -1,0 +1,10 @@
+# ads.txt — AdSense 승인/수익 보호용 (Authorized Digital Sellers)
+# AdSense 승인 후 아래 한 줄의 pub-XXXX 를 본인 게시자 ID(앞의 'ca-' 제외)로 바꾸고 커밋하세요.
+# 예) google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0
+#
+# 주의: GitHub Pages 프로젝트 페이지(seonghoonkim2.github.io/reits-on/)에서는
+# 이 파일이 .../reits-on/ads.txt 로 제공됩니다. AdSense는 도메인 루트
+# (seonghoonkim2.github.io/ads.txt)의 ads.txt를 찾으므로, 커스텀 도메인 연결을
+# 권장합니다(커스텀 도메인 루트에 이 파일을 두면 정상 인식).
+
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
