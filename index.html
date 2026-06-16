@@ -415,6 +415,18 @@
     .fil .fd { font-size:11.5px; color:var(--muted); }
     .fil .ft { display:block; font-size:13px; font-weight:700; color:var(--text); margin-top:2px; }
     .fil .fcat { display:inline-block; font-size:10.5px; font-weight:800; color:var(--accent); background:var(--warning-tint); border-radius:999px; padding:1px 7px; margin-left:5px; }
+    .fil.imp { border-left:3px solid var(--accent); }
+    .impmark { display:inline-block; font-size:10.5px; font-weight:900; color:#fff; background:var(--accent); border-radius:6px; padding:1px 6px; margin-right:5px; }
+    /* 홈 최근 공시 피드 */
+    .filrow { display:grid; grid-template-columns: 82px 116px 1fr; gap:10px; align-items:baseline; padding:11px 13px; border:1px solid var(--line); border-radius:13px; background:var(--surface-strong); margin-bottom:7px; transition: background var(--t-micro) var(--ease); }
+    .filrow:hover { background:var(--hover); }
+    .filrow.imp { border-left:3px solid var(--accent); }
+    .filrow .fr-d { font-size:12px; color:var(--muted); white-space:nowrap; }
+    .filrow .fr-n { font-size:13px; font-weight:850; letter-spacing:-0.02em; }
+    .filrow .fr-t { font-size:13px; color:var(--text); }
+    @media (max-width:680px) {
+      .filrow { grid-template-columns: 1fr; gap:3px; }
+    }
     .detail-title { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
     .detail-list { margin: var(--space-2) 0 0; padding:0; list-style:none; display:grid; gap:9px; }
     .detail-list li { border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; background: var(--surface-strong); color: var(--muted); }
@@ -746,6 +758,19 @@
           </div>
         </div>
         <div id="thisMonthList" class="chip-row"></div>
+      </div>
+    </section>
+
+    <section class="section reveal" data-tab="home" id="homefilings" hidden>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>최근 공시</h2>
+            <p>상장리츠 25개의 최신 공시입니다(자동수집·DART). <b>주요</b> 표시는 유상증자·배당·차입·매각·회생 등 눈여겨볼 공시입니다.</p>
+          </div>
+          <span class="eyebrow" id="filAsOf"></span>
+        </div>
+        <div id="homeFilingsList"></div>
       </div>
     </section>
 
@@ -1334,6 +1359,7 @@
       renderKpis();
       renderThisMonth();
       renderHomeWatch();
+      renderHomeFilings();
       renderFilters();
       renderQuickChips();
       renderCharts();
@@ -1714,12 +1740,34 @@
     }
 
     const filingsCache = {};
+    const FIL_IMPORTANT = /유상증자|증자|감자|회생|파산|합병|분할|매각|처분|취득|편입|차입|사채|배당|특별|상장폐지|관리종목|영업정지/;
+    function filImportant(title) { return FIL_IMPORTANT.test(title || ''); }
     function renderFilings(box, list) {
       if (!list.length) { box.innerHTML = '<div class="fil-wrap"><h3>최근 공시</h3><p class="muted small">최근 수집된 공시가 없습니다. DART에서 직접 확인하세요.</p></div>'; return; }
-      box.innerHTML = '<div class="fil-wrap"><h3>최근 공시 <span class="muted small">(자동수집·DART)</span></h3>' + list.slice(0, 6).map(f => {
+      box.innerHTML = '<div class="fil-wrap"><h3>최근 공시 <span class="muted small">(자동수집·DART)</span></h3>' + list.slice(0, 8).map(f => {
         const cats = (f.category || []).map(c => '<span class="fcat">' + escapeHTML(c) + '</span>').join('');
-        return '<a class="fil" href="' + escapeHTML(f.url || '#') + '" target="_blank" rel="noreferrer"><span class="fd">' + escapeHTML(f.filed_at || '') + cats + '</span><span class="ft">' + escapeHTML(f.title || '') + '</span></a>';
+        const imp = filImportant(f.title);
+        return '<a class="fil ' + (imp ? 'imp' : '') + '" href="' + escapeHTML(f.url || '#') + '" target="_blank" rel="noreferrer"><span class="fd">' + escapeHTML(f.filed_at || '') + cats + '</span><span class="ft">' + (imp ? '<span class="impmark">주요</span>' : '') + escapeHTML(f.title || '') + '</span></a>';
       }).join('') + '</div>';
+    }
+    function renderHomeFilings() {
+      const sec = $('#homefilings'), box = $('#homeFilingsList');
+      if (!sec || !box || !API_BASE) return;
+      apiGet('/v1/filings').then(data => {
+        const list = (data && data.filings) || [];
+        if (!list.length) { sec.hidden = true; return; }
+        sec.hidden = false;
+        const af = $('#filAsOf'); if (af) af.textContent = (list[0].filed_at || '') + ' 기준';
+        box.innerHTML = list.slice(0, 12).map(f => {
+          const r = byTicker(f.ticker); const nm = r ? r.name : (f.ticker || '');
+          const imp = filImportant(f.title);
+          const cats = (f.category || []).map(c => '<span class="fcat">' + escapeHTML(c) + '</span>').join('');
+          return '<a class="filrow ' + (imp ? 'imp' : '') + '" href="' + escapeHTML(f.url || '#') + '" target="_blank" rel="noreferrer">'
+            + '<span class="fr-d">' + escapeHTML(f.filed_at || '') + '</span>'
+            + '<span class="fr-n">' + escapeHTML(nm) + '</span>'
+            + '<span class="fr-t">' + (imp ? '<span class="impmark">주요</span>' : '') + escapeHTML(f.title || '') + cats + '</span></a>';
+        }).join('');
+      }).catch(() => {});
     }
     function loadFilings(ticker) {
       const box = $('#detailFilings'); if (!box) return;
