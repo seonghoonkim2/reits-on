@@ -463,6 +463,7 @@
     .month-list { display:flex; flex-wrap:wrap; gap: 6px; margin-top: 12px; }
     .month-list button { border:1px solid var(--line); background:var(--surface); color:var(--text); border-radius:var(--radius-pill); padding:7px 10px; cursor:pointer; font-size: 12px; min-height:36px; transition: background var(--t-micro) var(--ease); }
     .month-list button:hover { background: var(--hover); }
+    .month-list button.owned { background: var(--success-tint); color: var(--success); border-color: transparent; cursor: default; opacity: .9; }
 
     /* Bars / charts */
     .bar-list { display:grid; gap: 12px; }
@@ -496,10 +497,10 @@
 
     /* Portfolio */
     .pf-step { font-size:13px; font-weight:900; color:var(--brand); letter-spacing:-0.01em; }
-    .pf-budget { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:8px; }
+    .pf-budget { display:grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap:10px; margin-top:8px; }
     .pf-add { display:grid; grid-template-columns: 1fr auto auto; gap:10px; align-items:end; margin-top:8px; }
     .pf-list { display:grid; gap:8px; margin-top: var(--space-2); }
-    .pf-row { display:grid; grid-template-columns: 1.3fr 1fr 1fr auto; gap:10px; align-items:center; border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:var(--surface-strong); }
+    .pf-row { display:grid; grid-template-columns: 1.5fr 1fr auto; gap:10px; align-items:center; border:1px solid var(--line); border-radius:14px; padding:10px 12px; background:var(--surface-strong); }
     .pf-row .dotc { width:11px; height:11px; border-radius:3px; display:inline-block; margin-right:8px; vertical-align:middle; }
     .pf-row .pf-rl { font-size:11px; color:var(--muted); }
     .pf-row .pf-est { font-size:12px; color:var(--muted); }
@@ -515,6 +516,14 @@
     .pf-seg { width:100%; border-radius:4px 4px 0 0; min-height:2px; }
     .pf-mlabels { display:grid; grid-template-columns: repeat(12, 1fr); gap:6px; margin-top:6px; font-size:11px; color:var(--muted); text-align:center; }
     .pf-summary { display:grid; grid-template-columns: repeat(3, 1fr); gap:var(--space-2); margin-top: var(--space-3); }
+    .pf-auto { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:10px; padding:12px 14px; border:1px dashed var(--brand); border-radius:14px; background:var(--primary-tint); }
+    .pf-auto .primary-btn { white-space:nowrap; }
+    .result-card.hero-result { background: var(--primary-tint); border-color: transparent; }
+    .result-card.hero-result .big { color: var(--brand); }
+    .qc-top { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    .qc-two { display:grid; grid-template-columns: 1fr 1fr; gap:var(--space-2); margin-top:var(--space-2); }
+    .qc-box { border:1px solid var(--line); border-radius:16px; padding:14px; background:var(--surface-2); }
+    .qc-il { font-size:14px; display:block; margin-top:8px; }
 
     /* Steps / checklist */
     .steps { counter-reset: step; display:grid; gap: 12px; }
@@ -663,7 +672,7 @@
       .kpi-grid, .cards-grid, .calendar, .grid-3, .calc-grid, .glossary, .source-grid, .filters, .intro-grid, .sector-grid, .pf-summary { grid-template-columns: 1fr; }
       .section-head { align-items:flex-start; flex-direction:column; }
       .bar-row { grid-template-columns: 72px 1fr 64px; }
-      .pf-add, .pf-row, .pf-budget { grid-template-columns: 1fr; }
+      .pf-add, .pf-row, .pf-budget, .qc-top, .qc-two { grid-template-columns: 1fr; }
       .pf-cov { grid-template-columns: repeat(6, 1fr); }
       .scroll-hint { display:block; font-size:12px; color:var(--muted); margin-bottom:8px; }
     }
@@ -1011,34 +1020,23 @@
       </div>
     </section>
 
-    <section class="section reveal" id="calendar" data-tab="income">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2>배당기준월 캘린더</h2>
-            <p>상장리츠는 결산월과 실제 지급일 사이에 시차가 있습니다. 여기서는 “배당기준월”을 기준으로 월별 분산을 보여줍니다.</p>
-          </div>
-        </div>
-        <div class="note-banner info" id="calendarNote"></div>
-        <div class="calendar" id="calendarGrid"></div>
-      </div>
-    </section>
-
     <section class="section reveal" id="portfolio" data-tab="income">
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2>월배당 포트폴리오 만들기</h2>
-            <p>여러 리츠의 배당월을 조합해 <b>매달 배당이 들어오도록</b> 구성해 보세요. 투자금액과 종목을 넣으면 월별 현금흐름과 빈 달을 보여주고, 빈 달을 채울 리츠를 추천합니다.</p>
+            <span class="eyebrow">배당·현금흐름</span>
+            <h2>매달 배당받는 포트폴리오 만들기</h2>
+            <p>상장리츠는 종목마다 <b>배당 주는 달</b>이 다릅니다. 배당월이 다른 리츠를 섞으면 <b>매달 배당이 들어오는</b> 구성을 만들 수 있어요. 내 투자금으로 직접 설계해 보세요.</p>
           </div>
         </div>
-        <div class="note-banner">⚠ 최근배당금(1회 기준)을 연환산한 <b>교육용 추정</b>입니다. 예상 주식 수는 현재가로 나눈 값이며(현재가 미연동 시 직접 입력), 실제 배당·지급일·세금과 다를 수 있습니다. 배당은 삭감·중단될 수 있습니다.</div>
+        <div class="note-banner">⚠ <b>가정 배당률 기반 교육용 추정</b>입니다. 투자금액에 가정 배당률을 곱해 각 리츠의 배당월에 나눠 배분한 값으로, 실제 배당·지급일·세금과 다를 수 있습니다. 배당은 삭감·중단될 수 있습니다.</div>
 
         <!-- 1단계: 투자금액 -->
         <div class="panel">
-          <div class="pf-step">STEP 1 · 투자금액과 세금</div>
+          <div class="pf-step">STEP 1 · 투자금액과 조건</div>
           <div class="pf-budget">
             <label>총 투자금액(원)<br/><input id="pfBudget" class="input" type="number" min="0" step="1000000" value="10000000" /></label>
+            <label>가정 연 배당률(%)<br/><input id="pfYield" class="input" type="number" min="0.1" max="100" step="0.1" value="7.0" /></label>
             <label>세금 가정<br/><select id="pfTax" class="select">
               <option value="0">세전</option>
               <option value="0.154">일반 배당세 15.4%</option>
@@ -1046,14 +1044,18 @@
             </select></label>
           </div>
 
-          <div class="pf-step" style="margin-top:var(--space-3);">STEP 2 · 종목 담기 (배당월이 다른 리츠를 섞으세요)</div>
+          <div class="pf-step" style="margin-top:var(--space-3);">STEP 2 · 종목 담기 <span class="muted small" style="font-weight:600;">(배당월이 다른 리츠를 섞으세요)</span></div>
+          <div class="pf-auto">
+            <button id="pfAuto" class="primary-btn" type="button">✨ 매달 받는 조합 자동 추천</button>
+            <span class="muted small">배당월이 겹치지 않게 리츠를 골라 12개월을 채우고 투자금을 균등 분배합니다.</span>
+          </div>
           <div class="pf-add">
-            <label>리츠 선택<br/><select id="pfSelect" class="select" aria-label="포트폴리오에 추가할 리츠"></select></label>
-            <button id="pfAdd" class="primary-btn" type="button" style="height:46px;">담기</button>
+            <label>직접 고르기<br/><select id="pfSelect" class="select" aria-label="포트폴리오에 추가할 리츠"></select></label>
+            <button id="pfAdd" class="ghost-btn" type="button" style="height:46px;">담기</button>
             <button id="pfEqual" class="ghost-btn" type="button" style="height:46px;">투자금 균등 분배</button>
           </div>
           <div class="pf-list" id="pfList"></div>
-          <div id="pfEmpty" class="empty" style="margin-top:var(--space-2);">담은 리츠가 없습니다. 위에서 리츠를 담거나, ‘리츠 찾기’에서 <b>월배당에 넣기</b>를 눌러 추가하세요.</div>
+          <div id="pfEmpty" class="empty" style="margin-top:var(--space-2);">담은 리츠가 없습니다. <b>자동 추천</b>을 누르거나, 직접 담거나, 아래 배당 캘린더·‘리츠 찾기’의 <b>월배당에 넣기</b>로 추가하세요.</div>
         </div>
 
         <!-- 결과 -->
@@ -1070,14 +1072,14 @@
 
           <div class="panel" style="margin-top:var(--space-2);">
             <div class="pf-step">STEP 4 · 월별 배당 추정 (1년)</div>
-            <div class="pf-chart" id="pfChart" aria-hidden="true" style="margin-top:12px;"></div>
+            <div class="pf-summary">
+              <div class="result-card hero-result"><div class="small">월평균(세후·추정)</div><div class="big" id="pfMonthly">-</div></div>
+              <div class="result-card"><div class="small">연 배당(세후·추정)</div><div class="big" id="pfAnnual">-</div></div>
+              <div class="result-card"><div class="small">투자금 대비 수익률</div><div class="big" id="pfRetYield">-</div></div>
+            </div>
+            <div class="pf-chart" id="pfChart" aria-hidden="true" style="margin-top:var(--space-3);"></div>
             <div class="pf-mlabels" id="pfLabels"></div>
             <div class="legend" id="pfLegend"></div>
-            <div class="pf-summary">
-              <div class="result-card"><div class="small">연 배당(세후·추정)</div><div class="big" id="pfAnnual">-</div></div>
-              <div class="result-card"><div class="small">월평균(세후·추정)</div><div class="big" id="pfMonthly">-</div></div>
-              <div class="result-card"><div class="small">투자금 대비 수익률</div><div class="big" id="pfYield">-</div></div>
-            </div>
             <p class="helper" id="pfNote"></p>
             <div style="margin-top:12px;"><button class="ghost-btn" id="pfCsv" type="button">월별 현금흐름 CSV 내보내기</button></div>
           </div>
@@ -1085,72 +1087,55 @@
       </div>
     </section>
 
+    <section class="section reveal" id="calendar" data-tab="income">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>배당 캘린더로 빈 달 채우기</h2>
+            <p>어느 달에 어떤 리츠가 배당하는지 한눈에 보고, 비어 있는 달의 리츠를 눌러 <b>위 포트폴리오에 바로 담아</b> 보세요.</p>
+          </div>
+        </div>
+        <div class="note-banner info" id="calendarNote"></div>
+        <div class="calendar" id="calendarGrid"></div>
+      </div>
+    </section>
+
     <section class="section reveal" id="tools" data-tab="income">
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2>배당·가격 계산기</h2>
-            <p>상장리츠의 첫 질문은 “얼마를 벌까?”보다 “이 배당이 반복 가능한가?”입니다. 계산기는 숫자의 감을 잡는 용도입니다.</p>
+            <h2>빠른 배당 계산기</h2>
+            <p>종목을 고르기 전, 가정한 배당률로 <b>얼마를 받는지</b> 또는 <b>목표 배당에 얼마가 필요한지</b> 감을 잡아 보세요.</p>
           </div>
         </div>
-        <div class="tool-grid">
-          <div class="panel">
-            <h3>배당 시나리오 계산기</h3>
-            <p class="muted small">투자금액과 가정한 연 배당률을 넣으면 세전·세후 현금흐름을 계산합니다.</p>
-            <div class="note-banner" style="margin:12px 0;">⚠ 가정 기반 시나리오입니다. 실제 배당은 공실·금리·임차인 신용도에 따라 삭감·중단될 수 있어 월급처럼 반복되지 않을 수 있습니다.</div>
-            <div class="chip-row" id="calcPresets"></div>
-            <div class="calc-grid">
-              <label>투자금액(원)<br/><input id="investAmount" class="input" type="number" value="50000000" min="0" step="1000000" /></label>
-              <label>가정 연 배당률(%)<br/><input id="yieldInput" class="input" type="number" value="7.0" min="0" max="100" step="0.1" /></label>
-              <label>세금 가정<br/><select id="taxMode" class="select">
-                <option value="normal">일반 배당세 15.4%</option>
-                <option value="reitSep">상장리츠 분리과세 9.9%</option>
-                <option value="isaGeneral">ISA 일반형 (200만 비과세 후 9.9%)</option>
-                <option value="isaLow">ISA 서민·농어민형 (400만 비과세 후 9.9%)</option>
-                <option value="custom">직접 입력</option>
-              </select></label>
-              <label id="customTaxWrap" class="hidden">직접 세율(%)<br/><input id="taxInput" class="input" type="number" value="15.4" min="0" max="100" step="0.1" /></label>
-            </div>
-            <p class="helper">일반 15.4%(소득세+지방세) 외에 요건을 갖춘 공모리츠는 분리과세(9.9%), ISA 등 절세 수단이 있습니다. 분리과세 9.9%는 <b>투자금액 5천만원 한도</b>까지만 적용(초과분은 15.4%)되며, <b>3년 이상 보유·증권사 신청</b> 등 요건이 있는 제도입니다. 이 계산기는 5천만원 한도만 단순 반영한 <b>교육용 추정치</b>입니다. 세율·요건은 변경될 수 있으니 국세청·증권사에서 최신 기준을 확인하세요.</p>
-            <div class="grid-3" style="margin-top:12px;" aria-live="polite" aria-atomic="true">
-              <div class="result-card"><div class="small">세전 연 배당</div><div class="big" id="grossAnnual">-</div></div>
-              <div class="result-card"><div class="small">세후 연 배당 (<span id="taxModeLabel">일반 15.4%</span>)</div><div class="big" id="netAnnual">-</div></div>
-              <div class="result-card"><div class="small">세후 월평균</div><div class="big" id="netMonthly">-</div></div>
-            </div>
+        <div class="panel">
+          <div class="qc-top">
+            <label>가정 연 배당률(%)<br/><input id="qcYield" class="input" type="number" value="7.0" min="0.1" max="100" step="0.1" /></label>
+            <label>세금 가정<br/><select id="qcTax" class="select">
+              <option value="0">세전</option>
+              <option value="0.154">일반 배당세 15.4%</option>
+              <option value="0.099" selected>상장리츠 분리과세 9.9%(가정)</option>
+            </select></label>
           </div>
-
-          <div class="panel">
-            <h3>배당수익률 역산</h3>
-            <p class="muted small">연간 주당 배당금과 현재가를 넣어 배당수익률, 목표수익률 기준 가격을 계산합니다.</p>
-            <div class="calc-grid">
-              <label>현재가(원)<br/><input id="priceInput" class="input" type="number" value="5000" min="0" step="10" /></label>
-              <label>연간 주당 배당금(원)<br/><input id="annualDpsInput" class="input" type="number" value="350" min="0" step="1" /></label>
-              <label>목표 배당수익률(%)<br/><input id="targetYieldInput" class="input" type="number" value="7.0" min="0.1" max="100" step="0.1" /></label>
-              <label>가격 안전마진(%)<br/><input id="marginInput" class="input" type="number" value="5" min="0" max="100" step="0.5" /></label>
+          <div class="qc-two">
+            <div class="qc-box">
+              <div class="pf-step">① 투자금으로 받는 배당</div>
+              <label class="qc-il">투자금액(원)<br/><input id="qcAmount" class="input" type="number" value="10000000" min="0" step="1000000" /></label>
+              <div class="grid-2" style="margin-top:12px;" aria-live="polite" aria-atomic="true">
+                <div class="result-card"><div class="small">세후 연 배당(추정)</div><div class="big" id="qcNetAnnual">-</div></div>
+                <div class="result-card hero-result"><div class="small">세후 월평균(추정)</div><div class="big" id="qcNetMonthly">-</div></div>
+              </div>
             </div>
-            <p class="helper">‘연간 주당 배당금’은 1년치 합계를 직접 넣어야 합니다(카드의 최근배당금은 1회 기준이라 그대로 쓰면 안 됩니다).</p>
-            <div class="grid-3" style="margin-top:12px;" aria-live="polite" aria-atomic="true">
-              <div class="result-card"><div class="small">현재 배당수익률</div><div class="big" id="calcYield">-</div></div>
-              <div class="result-card"><div class="small">목표수익률 가격</div><div class="big" id="impliedPrice">-</div></div>
-              <div class="result-card"><div class="small">안전마진 가격</div><div class="big" id="marginPrice">-</div></div>
+            <div class="qc-box">
+              <div class="pf-step">② 목표 월배당에 필요한 투자금</div>
+              <label class="qc-il">목표 월배당(세후·원)<br/><input id="qcTarget" class="input" type="number" value="500000" min="0" step="50000" /></label>
+              <div class="grid-2" style="margin-top:12px;" aria-live="polite" aria-atomic="true">
+                <div class="result-card hero-result"><div class="small">필요 투자금(추정)</div><div class="big" id="qcNeeded">-</div></div>
+                <div class="result-card"><div class="small">세후 연 배당</div><div class="big" id="qcNeededAnnual">-</div></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="panel" style="margin-top:var(--space-2);">
-          <h3>NAV·배당 커버리지 점검</h3>
-          <p class="muted small">‘싸게 거래되는지(NAV 할인)’와 ‘배당이 이익으로 감당되는지(커버리지)’를 봅니다. 값은 각 리츠 투자보고서·공시에서 확인해 입력하세요.</p>
-          <div class="calc-grid">
-            <label>현재가(원)<br/><input id="navPrice" class="input" type="number" value="5000" min="0" step="10" /></label>
-            <label>주당 NAV(원)<br/><input id="navPerShare" class="input" type="number" value="6000" min="0" step="10" /></label>
-            <label>주당 연간 AFFO(원)<br/><input id="affoPs" class="input" type="number" value="400" min="0" step="1" /></label>
-            <label>주당 연간 배당 DPS(원)<br/><input id="dpsPs" class="input" type="number" value="350" min="0" step="1" /></label>
-          </div>
-          <p class="helper">커버리지(AFFO/DPS)가 1배 미만이면 이익보다 많이 배당하는 것일 수 있어 지속성 점검이 필요합니다(특별배당·자본 재원 여부 확인). NAV 할인은 단순 저평가일 수도, 위험 반영일 수도 있습니다.</p>
-          <div class="grid-3" style="margin-top:12px;" aria-live="polite" aria-atomic="true">
-            <div class="result-card"><div class="small">NAV 할인율</div><div class="big" id="navDisc">-</div><div class="small muted" id="navDiscNote"></div></div>
-            <div class="result-card"><div class="small">배당 커버리지(AFFO/DPS)</div><div class="big" id="affoCover">-</div><div class="small muted" id="affoCoverNote"></div></div>
-            <div class="result-card"><div class="small">현재 배당수익률</div><div class="big" id="navYield">-</div><div class="small muted">DPS / 현재가</div></div>
-          </div>
+          <p class="helper">일반 15.4%(소득세+지방세) 외에 요건을 갖춘 공모리츠는 분리과세(9.9%)가 가능합니다(분리과세는 투자금 5천만원 한도·3년 이상 보유 등 요건이 있는 제도로, 여기서는 단순 적용한 교육용 추정치입니다). 가정 배당률은 예시일 뿐이며 실제 배당은 공실·금리·임차인 신용도에 따라 삭감·중단될 수 있습니다. 투자 권유가 아닙니다.</p>
         </div>
       </div>
     </section>
@@ -1876,18 +1861,20 @@
       const counts = MONTHS.map((_, i) => REITS.filter(r => r.divMonths.includes(i+1)).length);
       const maxC = Math.max.apply(null, counts) || 1;
       const peakMonths = counts.map((c,i)=>({c,i})).filter(o=>o.c===maxC).map(o=>MONTHS[o.i]).join('·');
-      $('#calendarNote').innerHTML = '배당기준월이 <b>' + peakMonths + '</b>에 몰리는 경향이 있어, "매달 균등" 현금흐름은 조합 구성으로 직접 확인해야 합니다. 아래 막대는 월별 종목 수 비중입니다.';
+      $('#calendarNote').innerHTML = '배당기준월이 <b>' + peakMonths + '</b>에 몰리는 경향이 있어, 한 종목만으로는 매달 배당받기 어렵습니다. 비어 있는 달의 리츠를 눌러 <b>위 포트폴리오에 바로 담아</b> 채워 보세요.';
+      const owned = new Set(state.portfolio.map(h => h.ticker));
       $('#calendarGrid').innerHTML = MONTHS.map((label, idx) => {
         const month = idx + 1;
         const list = REITS.filter(r => r.divMonths.includes(month));
         return '<div class="month-card"><h3>' + label + '<span class="count">' + list.length + '개</span></h3>'
           + '<div class="mc-bar"><i style="width:' + ((list.length/maxC)*100).toFixed(0) + '%"></i></div>'
-          + '<div class="month-list">' + (list.map(r => '<button type="button" data-ticker="' + r.ticker + '">' + escapeHTML(r.name) + '</button>').join('') || '<span class="muted small">해당 없음</span>') + '</div></div>';
+          + '<div class="month-list">' + (list.map(r => '<button type="button" data-ticker="' + r.ticker + '"' + (owned.has(r.ticker) ? ' class="owned" disabled' : '') + '>' + (owned.has(r.ticker) ? '✓ ' : '+ ') + escapeHTML(r.name) + '</button>').join('') || '<span class="muted small">해당 없음</span>') + '</div></div>';
       }).join('');
       $$('#calendarGrid [data-ticker]').forEach(btn => btn.addEventListener('click', () => {
-        setTab('find', { noScroll: true });
-        selectReit(btn.dataset.ticker, false);
-        $('#finder').scrollIntoView({behavior:'smooth', block:'start'});
+        const r = byTicker(btn.dataset.ticker);
+        addToPortfolio(btn.dataset.ticker);
+        if (r) toast(r.name + ' 담음 — 포트폴리오 확인');
+        $('#portfolio').scrollIntoView({behavior:'smooth', block:'start'});
       }));
     }
 
@@ -1932,6 +1919,31 @@
       store.set('portfolio', state.portfolio);
       renderPortfolio();
     }
+    // 배당월이 겹치지 않게 그리디로 12개월을 채우는 조합 자동 구성(빈 달만 보강)
+    function pfAutoRecommend() {
+      const covered = new Set();
+      state.portfolio.forEach(h => { const r = byTicker(h.ticker); if (r && r.recentDiv) r.divMonths.forEach(m => covered.add(m)); });
+      const owned = new Set(state.portfolio.map(h => h.ticker));
+      let added = 0;
+      for (let pass = 0; pass < 12 && covered.size < 12; pass++) {
+        let best = null, bestGain = 0;
+        REITS.forEach(r => {
+          if (owned.has(r.ticker) || !r.recentDiv) return;
+          const gain = r.divMonths.filter(m => !covered.has(m)).length;
+          if (gain > bestGain) { bestGain = gain; best = r; }
+        });
+        if (!best || bestGain === 0) break;
+        owned.add(best.ticker);
+        state.portfolio.push({ ticker: best.ticker, amount: 0, price: best.price || 0 });
+        best.divMonths.forEach(m => covered.add(m));
+        added++;
+      }
+      store.set('portfolio', state.portfolio);
+      const budget = clampNum($('#pfBudget').value), n = state.portfolio.length;
+      if (n) { const each = Math.floor(budget / n / 10000) * 10000; state.portfolio.forEach(h => h.amount = each); store.set('portfolio', state.portfolio); }
+      renderPortfolio();
+      toast(added ? (added + '개 리츠를 더해 ' + covered.size + '개월을 채웠어요') : (covered.size >= 12 ? '이미 12개월 모두 채워졌어요' : '추가할 리츠가 없어요'));
+    }
 
     function renderPortfolio() {
       const owned = new Set(state.portfolio.map(h => h.ticker));
@@ -1939,42 +1951,44 @@
         REITS.filter(r => !owned.has(r.ticker)).map(r => '<option value="' + r.ticker + '">' + escapeHTML(r.name) + '</option>')
       ).join('');
 
+      const y = clampNum($('#pfYield').value) / 100;
+      const freq = { 1:'연 1회', 2:'반기', 4:'분기', 12:'매월' };
       const holdings = state.portfolio.map((h, idx) => ({ h: h, reit: byTicker(h.ticker), color: PALETTE[idx % PALETTE.length] })).filter(x => x.reit);
       $('#pfList').innerHTML = holdings.map(({ h, reit, color }) => {
-        const price = clampNum(h.price) || reit.price || 0;
-        const shares = price > 0 ? Math.floor(clampNum(h.amount) / price) : null;
-        const annual = (shares != null && reit.recentDiv) ? shares * reit.recentDiv * reit.divMonths.length : null;
-        const est = price > 0
-          ? ('약 <b>' + fmt.format(shares) + '주</b>' + (annual != null ? ' · 연 ' + fmt.format(annual) + '원' : ''))
-          : '<span class="needcheck">현재가 입력 필요</span>';
+        const annual = reit.recentDiv ? clampNum(h.amount) * y : null;
+        const est = (annual != null && annual > 0)
+          ? ('연 약 <b>' + fmt.format(Math.round(annual)) + '원</b> · 월평균 ' + fmt.format(Math.round(annual / 12)) + '원')
+          : (reit.recentDiv ? '투자금액 입력' : '<span class="needcheck">배당 미표기</span>');
         return '<div class="pf-row">'
-          + '<div><span class="dotc" style="background:' + color + '"></span><strong>' + escapeHTML(reit.name) + '</strong><div class="pf-rl">' + escapeHTML(reit.primary) + ' · ' + reit.divMonths.map(m => m + '월').join('·') + '</div></div>'
+          + '<div><span class="dotc" style="background:' + color + '"></span><strong>' + escapeHTML(reit.name) + '</strong><div class="pf-rl">' + escapeHTML(reit.primary) + ' · ' + (freq[reit.divMonths.length] || (reit.divMonths.length + '회')) + ' · ' + reit.divMonths.map(m => m + '월').join('·') + '</div></div>'
           + '<div><div class="pf-rl">투자금액(원)</div><input class="input" type="number" min="0" step="100000" value="' + clampNum(h.amount) + '" data-pfamt="' + reit.ticker + '" aria-label="' + escapeHTML(reit.name) + ' 투자금액" /></div>'
-          + '<div><div class="pf-rl">현재가(원)' + (reit.price ? ' · 실시간' : '') + '</div><input class="input" type="number" min="0" step="10" value="' + (clampNum(h.price) || reit.price || '') + '" data-pfprice="' + reit.ticker + '" aria-label="' + escapeHTML(reit.name) + ' 현재가" /></div>'
           + '<div style="text-align:right;"><div class="pf-est">' + est + '</div><button class="ghost-btn" data-pfrm="' + reit.ticker + '" style="margin-top:4px; padding:6px 10px; min-height:auto;">삭제</button></div>'
           + '</div>';
       }).join('');
 
       $$('#pfList [data-pfamt]').forEach(inp => inp.addEventListener('input', () => { const h = state.portfolio.find(x => x.ticker === inp.dataset.pfamt); if (h) { h.amount = clampNum(inp.value); store.set('portfolio', state.portfolio); computePortfolio(); refreshHoldingEst(); } }));
-      $$('#pfList [data-pfprice]').forEach(inp => inp.addEventListener('input', () => { const h = state.portfolio.find(x => x.ticker === inp.dataset.pfprice); if (h) { h.price = clampNum(inp.value); store.set('portfolio', state.portfolio); computePortfolio(); refreshHoldingEst(); } }));
       $$('#pfList [data-pfrm]').forEach(b => b.addEventListener('click', () => { state.portfolio = state.portfolio.filter(x => x.ticker !== b.dataset.pfrm); store.set('portfolio', state.portfolio); renderPortfolio(); }));
 
       const has = holdings.length > 0;
       $('#pfEmpty').classList.toggle('hidden', has);
       $('#pfResult').classList.toggle('hidden', !has);
       if (has) computePortfolio();
+      if ($('#calendarGrid') && $('#calendarGrid').children.length) renderCalendar();
     }
 
     function refreshHoldingEst() {
       // 입력 중 포커스 잃지 않게 추정치만 갱신
+      const y = clampNum($('#pfYield').value) / 100;
       $$('#pfList .pf-row').forEach(row => {
-        const t = (row.querySelector('[data-pfamt]') || {}).dataset && row.querySelector('[data-pfamt]').dataset.pfamt;
+        const amtEl = row.querySelector('[data-pfamt]'); if (!amtEl) return;
+        const t = amtEl.dataset.pfamt;
         const h = state.portfolio.find(x => x.ticker === t); if (!h) return;
-        const reit = byTicker(t); const price = clampNum(h.price) || reit.price || 0;
-        const shares = price > 0 ? Math.floor(clampNum(h.amount) / price) : null;
-        const annual = (shares != null && reit.recentDiv) ? shares * reit.recentDiv * reit.divMonths.length : null;
+        const reit = byTicker(t); if (!reit) return;
+        const annual = reit.recentDiv ? clampNum(h.amount) * y : null;
         const est = row.querySelector('.pf-est'); if (!est) return;
-        est.innerHTML = price > 0 ? ('약 <b>' + fmt.format(shares) + '주</b>' + (annual != null ? ' · 연 ' + fmt.format(annual) + '원' : '')) : '<span class="needcheck">현재가 입력 필요</span>';
+        est.innerHTML = (annual != null && annual > 0)
+          ? ('연 약 <b>' + fmt.format(Math.round(annual)) + '원</b> · 월평균 ' + fmt.format(Math.round(annual / 12)) + '원')
+          : (reit.recentDiv ? '투자금액 입력' : '<span class="needcheck">배당 미표기</span>');
       });
     }
 
@@ -1982,20 +1996,19 @@
     function computePortfolio() {
       const budget = clampNum($('#pfBudget').value);
       const taxRate = Number($('#pfTax').value || 0);
+      const y = clampNum($('#pfYield').value) / 100;
       const holdings = state.portfolio.map((h, idx) => ({ h: h, reit: byTicker(h.ticker), color: PALETTE[idx % PALETTE.length] })).filter(x => x.reit);
       const monthly = Array.from({ length: 12 }, () => []);
       const totals = Array(12).fill(0);
       const coverSet = new Set();
-      let annual = 0; const noPrice = [], noDps = [];
+      let annual = 0; const noDps = [];
       holdings.forEach(({ h, reit, color }) => {
-        if (!reit.recentDiv) { noDps.push(reit.name); return; }
-        reit.divMonths.forEach(m => coverSet.add(m)); // 커버리지는 가격 없이도 성립
-        const price = clampNum(h.price) || reit.price || 0;
-        if (price <= 0) { noPrice.push(reit.name); return; }
-        const shares = Math.floor(clampNum(h.amount) / price);
-        if (shares <= 0) return;
-        const pay = shares * reit.recentDiv;
-        reit.divMonths.forEach(m => { monthly[m - 1].push({ amount: pay, color: color }); totals[m - 1] += pay; annual += pay; });
+        if (!reit.recentDiv) { noDps.push(reit.name); return; } // 배당 미표기 종목은 추정에서 제외
+        reit.divMonths.forEach(m => coverSet.add(m));
+        const yearly = clampNum(h.amount) * y;            // 투자금액 × 가정 배당률
+        if (yearly <= 0) return;
+        const per = yearly / reit.divMonths.length;        // 배당월에 균등 배분
+        reit.divMonths.forEach(m => { monthly[m - 1].push({ amount: per, color: color }); totals[m - 1] += per; annual += per; });
       });
       pfLastTotals = totals;
       const maxM = Math.max.apply(null, totals.concat([1]));
@@ -2023,93 +2036,42 @@
       $$('#pfGaps [data-pfadd]').forEach(b => b.addEventListener('click', () => addToPortfolio(b.dataset.pfadd)));
 
       const net = annual * (1 - taxRate);
-      $('#pfAnnual').textContent = annual > 0 ? won(Math.round(net)) : '현재가 입력 필요';
+      $('#pfAnnual').textContent = annual > 0 ? won(Math.round(net)) : '투자금액 입력';
       $('#pfMonthly').textContent = annual > 0 ? won(Math.round(net / 12)) : '-';
       const base = budget > 0 ? budget : holdings.reduce((s, x) => s + clampNum(x.h.amount), 0);
-      $('#pfYield').textContent = (annual > 0 && base > 0) ? ((net / base * 100).toFixed(1) + '%') : '-';
-      let note = '※ 최근배당금(1회)×예상주식수×배당횟수, 세후=배당×(1−세율)로 단순 추정. 실제 배당·지급일·세금과 다르며 배당은 변동·중단될 수 있습니다.';
-      if (noPrice.length) note += ' · 현재가 미입력으로 금액 제외: ' + noPrice.join(', ') + '.';
-      if (noDps.length) note += ' · 배당 미표기(제외): ' + noDps.join(', ') + '.';
+      $('#pfRetYield').textContent = (annual > 0 && base > 0) ? ((net / base * 100).toFixed(1) + '%') : '-';
+      let note = '※ 투자금액 × 가정 배당률(' + (y * 100).toFixed(1) + '%)을 각 리츠의 배당월에 균등 배분, 세후 = 배당 × (1−세율)로 단순 추정. 실제 배당·지급일·세율은 종목마다 다르며 배당은 변동·중단될 수 있습니다.';
+      if (noDps.length) note += ' · 배당 미표기로 제외: ' + noDps.join(', ') + '.';
       $('#pfNote').textContent = note;
     }
 
-    // ---- Tools ----
+    // ---- Quick dividend calculator (종목 없이 양방향 추정) ----
     function renderTools() {
-      const presets = [
-        {label:'소액 (₩500만·6%)', amount:5000000, y:6},
-        {label:'표준 (₩5,000만·7%)', amount:50000000, y:7},
-        {label:'대규모 (₩5억·7%)', amount:500000000, y:7},
-      ];
-      $('#calcPresets').innerHTML = presets.map((p,i)=>'<button class="chip" type="button" data-preset="' + i + '">' + escapeHTML(p.label) + '</button>').join('');
-      $$('#calcPresets [data-preset]').forEach(btn => btn.addEventListener('click', () => {
-        const p = presets[Number(btn.dataset.preset)];
-        $('#investAmount').value = p.amount; $('#yieldInput').value = p.y; updateCalcs(true);
-      }));
-      ['investAmount','yieldInput','taxInput','priceInput','annualDpsInput','targetYieldInput','marginInput']
-        .forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', () => updateCalcs(true)); });
-      $('#taxMode').addEventListener('change', () => {
-        $('#customTaxWrap').classList.toggle('hidden', $('#taxMode').value !== 'custom');
-        updateCalcs(true);
-      });
-      ['navPrice','navPerShare','affoPs','dpsPs'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', () => updateValuation(true)); });
-      updateCalcs(false);
-      updateValuation(false);
+      ['qcYield','qcAmount','qcTarget'].forEach(id => { const el = $('#'+id); if (el) el.addEventListener('input', () => updateQuickCalc(true)); });
+      const tx = $('#qcTax'); if (tx) tx.addEventListener('change', () => updateQuickCalc(true));
+      updateQuickCalc(false);
     }
 
-    function updateValuation(doFlash) {
-      const price = clampNum($('#navPrice').value), nav = clampNum($('#navPerShare').value), affo = clampNum($('#affoPs').value), dps = clampNum($('#dpsPs').value);
-      const disc = nav > 0 ? (price - nav) / nav * 100 : 0;
-      const cover = dps > 0 ? affo / dps : 0;
-      const yld = price > 0 ? dps / price * 100 : 0;
-      $('#navDisc').textContent = nav > 0 ? ((disc > 0 ? '+' : '') + disc.toFixed(1) + '%') : '-';
-      $('#navDiscNote').textContent = nav > 0 ? (disc < -0.5 ? 'NAV 대비 할인' : disc > 0.5 ? 'NAV 대비 프리미엄' : 'NAV와 비슷') : '주당 NAV 입력';
-      $('#affoCover').textContent = dps > 0 ? (cover.toFixed(2) + '배') : '-';
-      $('#affoCoverNote').textContent = dps > 0 ? (cover >= 1.1 ? '이익으로 충분히 감당' : cover >= 1 ? '빠듯하게 감당' : '배당>AFFO, 지속성 점검') : 'DPS 입력';
-      $('#navYield').textContent = yld.toFixed(2) + '%';
-      if (doFlash) ['navDisc','affoCover','navYield'].forEach(id => flash($('#'+id).closest('.result-card')));
+    function updateQuickCalc(doFlash) {
+      const y = clampNum($('#qcYield').value) / 100;
+      const tax = Number($('#qcTax').value || 0);
+      const net = 1 - tax;
+      // ① 투자금 → 배당
+      const amount = clampNum($('#qcAmount').value);
+      const netA = amount * y * net;
+      $('#qcNetAnnual').textContent = won(Math.round(netA));
+      $('#qcNetMonthly').textContent = won(Math.round(netA / 12));
+      // ② 목표 월배당 → 필요 투자금
+      const targetA = clampNum($('#qcTarget').value) * 12;     // 세후 연
+      const needed = (y > 0 && net > 0) ? (targetA / net) / y : 0; // 세전 연 ÷ 배당률
+      $('#qcNeeded').textContent = needed > 0 ? won(Math.round(needed)) : '-';
+      $('#qcNeededAnnual').textContent = won(Math.round(targetA));
+      if (doFlash) { $$('#tools .result-card').forEach(flash); }
     }
 
     function flash(el) {
       if (!el) return;
       el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
-    }
-
-    const TAXLABEL = { normal:'일반 15.4%', reitSep:'분리과세 9.9%', isaGeneral:'ISA 일반형', isaLow:'ISA 서민형', custom:'직접 입력' };
-    function afterTax(gross) {
-      const mode = $('#taxMode').value;
-      if (mode === 'reitSep') {
-        const amount = clampNum($('#investAmount').value);
-        if (amount <= 0) return gross * (1 - 0.099);
-        const eligR = Math.min(amount, 50000000) / amount; // 5천만원 한도까지만 9.9%, 초과분 15.4%
-        const tax = gross * eligR * 0.099 + gross * (1 - eligR) * 0.154;
-        return gross - tax;
-      }
-      if (mode === 'isaGeneral') { const f = 2000000; return Math.min(gross, f) + Math.max(0, gross - f) * (1 - 0.099); }
-      if (mode === 'isaLow') { const f = 4000000; return Math.min(gross, f) + Math.max(0, gross - f) * (1 - 0.099); }
-      if (mode === 'custom') return gross * (1 - clampNum($('#taxInput').value) / 100);
-      return gross * (1 - 0.154);
-    }
-
-    function updateCalcs(doFlash) {
-      const amount = clampNum($('#investAmount').value);
-      const y = clampNum($('#yieldInput').value) / 100;
-      const gross = amount * y;
-      const net = afterTax(gross);
-      $('#grossAnnual').textContent = won(Math.round(gross));
-      $('#netAnnual').textContent = won(Math.round(net));
-      $('#netMonthly').textContent = won(Math.round(net / 12));
-      $('#taxModeLabel').textContent = TAXLABEL[$('#taxMode').value] || '';
-
-      const price = clampNum($('#priceInput').value);
-      const dps = clampNum($('#annualDpsInput').value);
-      const target = clampNum($('#targetYieldInput').value) / 100;
-      const margin = clampNum($('#marginInput').value) / 100;
-      const currentYield = price > 0 ? dps / price * 100 : 0;
-      const implied = target > 0 ? dps / target : 0;
-      $('#calcYield').textContent = currentYield.toFixed(2) + '%';
-      $('#impliedPrice').textContent = won(Math.round(implied));
-      $('#marginPrice').textContent = won(Math.round(implied * (1 - margin)));
-      if (doFlash) { $$('#tools .result-card').forEach(flash); }
     }
 
     function renderSectorGuide() {
@@ -2253,9 +2215,11 @@
       });
 
       // 월배당 포트폴리오 빌더
+      $('#pfAuto').addEventListener('click', pfAutoRecommend);
       $('#pfAdd').addEventListener('click', () => { const t = $('#pfSelect').value; if (t) addToPortfolio(t); });
       $('#pfEqual').addEventListener('click', pfEqualize);
       $('#pfBudget').addEventListener('input', () => { if (state.portfolio.length) computePortfolio(); });
+      $('#pfYield').addEventListener('input', () => { if (state.portfolio.length) { computePortfolio(); refreshHoldingEst(); } });
       $('#pfTax').addEventListener('change', () => { if (state.portfolio.length) computePortfolio(); });
     }
 
