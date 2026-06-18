@@ -1291,10 +1291,13 @@
     // 백엔드(Cloudflare Worker) 주소. 비우면 내장 seed로 동작(정적). 배포 후 'https://reits-on-api.<계정>.workers.dev' 입력 → 자동으로 라이브 데이터 사용.
     const API_BASE = 'https://reits-on-api.modelter.workers.dev';
 
-    // ───────── 수익화 설정 (제휴 CTA 우선 → AdSense → 숨김) ─────────
-    // 각 .ad-slot 은 우선순위에 따라: ① 제휴(증권사 계좌개설 등) CTA → ② AdSense → ③ 숨김.
+    // ───────── 수익화 설정 ─────────
+    // 슬롯별 종류(SLOT_KIND): 'affiliate'(제휴 CTA) | 'ads'(AdSense) | 'auto'(제휴 우선, 없으면 AdSense).
+    //  권장 분배: 투자 의도가 높은 find·income = 제휴, 정보성 home·learn = AdSense.
+    //  (AdSense 미승인 시 'ads'·'auto'는 비어 자동 숨김 → 지금은 home·learn 을 'auto'로 둬 제휴를 노출)
+    const SLOT_KIND = { home: 'auto', find: 'affiliate', income: 'affiliate', learn: 'auto' };
 
-    // [제휴] 증권사 계좌개설 등 파트너 링크. 레퍼럴 URL이 생기면 url 채우기.
+    // [제휴] 증권사 계좌개설 등 파트너 링크. 레퍼럴 URL은 partners.json(같은 폴더)에서 관리(코드 수정 불필요).
     //  - url 이 빈 값이면 그 버튼은 표시되지 않고, 모든 url 이 비면 '시작 가이드'만 노출(정직한 폴백).
     //  - 공정위 추천·보증 심사지침에 따른 경제적 이해관계(제휴) 고지 포함.
     const AFFILIATE = {
@@ -1323,7 +1326,7 @@
       const live = affiliateBrokers();
       const steps = ['증권계좌 개설 — 앱에서 비대면 약 10분', '리츠 종목명·코드로 검색', '일반 주식처럼 매수 · 배당은 계좌로 입금'];
       const buttons = live.map(b =>
-        '<a class="cta-broker" href="' + escapeHTML(b.url) + '" target="_blank" rel="sponsored noopener noreferrer" data-cta="' + escapeHTML(b.name) + '">'
+        '<a class="cta-broker" href="' + escapeHTML(b.url) + '" target="_blank" rel="sponsored noopener noreferrer" data-cta="' + escapeHTML(b.name) + '" data-cta-tab="' + escapeHTML(tab) + '">'
         + escapeHTML(b.name) + ' 계좌 개설<span class="cb-tag">' + escapeHTML(b.tag) + '</span><span class="cb-arr">↗</span></a>'
       ).join('');
       return '<div class="cta-card">'
@@ -1335,6 +1338,41 @@
             ? ('<div class="cta-brokers">' + buttons + '</div><p class="cta-disc">' + escapeHTML(AFFILIATE.disclosure) + '</p>')
             : '<p class="cta-disc">리츠온은 특정 증권사를 추천하지 않습니다. 어떤 증권사든 비대면으로 계좌를 만든 뒤 리츠 종목을 검색해 매수할 수 있어요.</p>')
         + '</div>';
+    }
+
+    // (b) 제휴 링크를 partners.json(같은 폴더)에서 불러와 코드 수정 없이 갱신
+    function hydratePartners() {
+      return fetch('partners.json', { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : null)
+        .then(cfg => {
+          if (!cfg) return false;
+          let changed = false;
+          if (Array.isArray(cfg.brokers) && cfg.brokers.length) { AFFILIATE.brokers = cfg.brokers; changed = true; }
+          if (typeof cfg.disclosure === 'string' && cfg.disclosure) { AFFILIATE.disclosure = cfg.disclosure; changed = true; }
+          if (typeof cfg.enabled === 'boolean') { AFFILIATE.enabled = cfg.enabled; changed = true; }
+          return changed;
+        })
+        .catch(() => false);
+    }
+    function refreshAffiliateSlots() {
+      $$('.ad-slot').forEach(sec => {
+        const t = sec.dataset.adSlot;
+        const host = sec.querySelector('.ad-host');
+        if (host && host.classList.contains('aff')) { delete _slotFilled[t]; host.innerHTML = ''; }
+      });
+      $$('.ad-slot').forEach(sec => { sec.hidden = !(AFFILIATE.enabled || ADS.enabled); });
+      fillSlot(state.tab);
+    }
+
+    // (c) 제휴 클릭 집계: 브라우저 로컬 합계 + 백엔드 비콘(/v1/track). 엔드포인트 없으면 무해.
+    function trackCta(tab, broker) {
+      try { const o = store.get('ctaclicks', {}); const k = (tab || '?') + '/' + (broker || '?'); o[k] = (o[k] || 0) + 1; store.set('ctaclicks', o); } catch (e) { /* noop */ }
+      if (!API_BASE) return;
+      try {
+        const url = API_BASE + '/v1/track?ev=cta&tab=' + encodeURIComponent(tab || '') + '&broker=' + encodeURIComponent(broker || '');
+        if (navigator.sendBeacon) navigator.sendBeacon(url);
+        else fetch(url, { method: 'POST', mode: 'no-cors', keepalive: true }).catch(() => {});
+      } catch (e) { /* noop */ }
     }
 
     // [AdSense] 승인 후: enabled=true, client=게시자ID(ca-pub-…), slots=광고단위 슬롯ID 교체.
@@ -1366,20 +1404,26 @@
       const host = sec.querySelector('.ad-host');
       const tagEl = sec.querySelector('.ad-tag');
       if (!host) return;
-      // ① 제휴 CTA 우선
-      if (AFFILIATE.enabled) {
+      const kind = SLOT_KIND[tab] || 'auto';
+      const useAff = AFFILIATE.enabled && (kind === 'affiliate' || kind === 'auto');
+      const useAds = ADS.enabled && (kind === 'ads' || (kind === 'auto' && !AFFILIATE.enabled));
+      // ① 제휴 CTA
+      if (useAff) {
         sec.hidden = false;
         sec.classList.add('cta-slot');
         if (tagEl) tagEl.textContent = '파트너 · 제휴';
         host.classList.add('aff');
         host.innerHTML = renderAffiliateCard(tab);
+        host.querySelectorAll('[data-cta]').forEach(a => a.addEventListener('click', () => trackCta(a.dataset.ctaTab || tab, a.dataset.cta)));
         _slotFilled[tab] = true;
         return;
       }
       // ② AdSense
-      if (ADS.enabled) {
+      if (useAds) {
+        sec.classList.remove('cta-slot');
+        if (tagEl) tagEl.textContent = '광고 · Sponsored';
         const slotId = ADS.slots[tab];
-        if (!slotId || slotId === '0000000000') return;
+        if (!slotId || slotId === '0000000000') { sec.hidden = true; return; }
         sec.hidden = false;
         const ins = document.createElement('ins');
         ins.className = 'adsbygoogle';
@@ -1389,7 +1433,10 @@
         ins.setAttribute('data-full-width-responsive', 'true');
         host.appendChild(ins);
         try { (window.adsbygoogle = window.adsbygoogle || []).push({}); _slotFilled[tab] = true; } catch (e) { /* noop */ }
+        return;
       }
+      // ③ 표시할 것 없음 → 숨김
+      sec.hidden = true;
     }
 
     const COMPARE_MAX = 4;
@@ -2501,6 +2548,8 @@
       try { renderHeroStats(); renderKpis(); renderFilters(); renderFinder(); if (state.selected) selectReit(state.selected, false); }
       catch (e) { /* noop */ }
     }).catch(() => {});
+    // 제휴 링크(partners.json) 로드 후 슬롯 갱신
+    hydratePartners().then(changed => { if (changed) { try { refreshAffiliateSlots(); } catch (e) { /* noop */ } } }).catch(() => {});
   })();
   </script>
 </body>
