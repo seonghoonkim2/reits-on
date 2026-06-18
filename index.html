@@ -573,28 +573,30 @@
 
     /* Sector guide */
     .sector-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-2); }
-    .sector-card { border:1px solid var(--line); border-radius:18px; padding:16px; background:var(--surface-strong); }
-    .sector-card .stop { display:flex; align-items:center; gap:10px; }
-    .sector-card .sicon { width:40px; height:40px; border-radius:12px; display:grid; place-items:center; font-size:21px; background: var(--primary-tint); }
-    .sector-card h3 { margin:0; }
-    .sector-card p { color: var(--muted); margin: 10px 0 0; font-size: 14px; }
-    .sector-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top: 12px; }
-    .badge { font-size:12px; font-weight:800; border-radius:var(--radius-pill); padding:5px 10px; }
+    .sector-card { border:1px solid var(--line); border-radius:18px; padding:16px; background:var(--surface-strong); display:flex; flex-direction:column; gap:11px; }
+    .sc-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .sc-id { display:flex; align-items:center; gap:10px; min-width:0; }
+    .sector-card .sicon { width:38px; height:38px; border-radius:11px; display:grid; place-items:center; font-size:20px; background: var(--primary-tint); flex:0 0 auto; }
+    .sector-card h3 { margin:0; font-size:16px; }
+    .sc-sum { color: var(--muted); margin:0; font-size: 13px; line-height:1.55; }
+    .badge { font-size:11.5px; font-weight:800; border-radius:var(--radius-pill); padding:5px 10px; white-space:nowrap; flex:0 0 auto; }
     .badge.steady { background: var(--success-tint); color: var(--success); }
     .badge.cyclical { background: var(--warning-tint); color: var(--accent); }
     .badge.fx { background: var(--error-tint); color: var(--error); }
-    .sector-card .scount { background: var(--line-soft); color: var(--muted); }
-    .sector-card .watch, .sector-card .risk { color: var(--text); font-weight:700; font-size:13px; margin-top:10px; }
-    .sector-card .risk span, .sector-card .watch span { color: var(--muted); font-weight:500; }
+    .sc-kw { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+    .sc-kw .kwl { font-size:11px; font-weight:800; color: var(--muted); margin-right:2px; }
+    .sc-kw .kw { font-size:11.5px; font-weight:700; color: var(--text); background: var(--line-soft); border-radius:8px; padding:4px 8px; }
+    .sc-risk { font-size:12px; color: var(--muted); line-height:1.5; border-top:1px solid var(--line-soft); padding-top:10px; margin-top:auto; }
+    .sc-risk b { color: var(--error); font-weight:800; }
 
     /* FAQ */
-    .faq-list { display:grid; gap: 10px; }
-    .faq { border:1px solid var(--line); border-radius:16px; background: var(--surface-strong); padding: 4px 16px; }
-    .faq summary { cursor:pointer; font-weight:800; padding: 14px 0; list-style:none; display:flex; justify-content:space-between; gap:12px; align-items:center; }
+    .faq-list { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items:start; }
+    .faq { border:1px solid var(--line); border-radius:16px; background: var(--surface-strong); padding: 2px 16px; }
+    .faq summary { cursor:pointer; font-weight:800; font-size:14px; padding: 14px 0; list-style:none; display:flex; justify-content:space-between; gap:12px; align-items:center; }
     .faq summary::-webkit-details-marker { display:none; }
-    .faq summary::after { content:"+"; color: var(--brand); font-weight:900; font-size:20px; }
+    .faq summary::after { content:"+"; color: var(--brand); font-weight:900; font-size:20px; flex:0 0 auto; }
     .faq[open] summary::after { content:"\2212"; }
-    .faq p { color: var(--muted); margin: 0 0 16px; }
+    .faq p { color: var(--muted); margin: 0 0 16px; font-size:13.5px; line-height:1.6; }
 
     /* Glossary */
     .gloss-group { margin-top: var(--space-2); }
@@ -702,7 +704,7 @@
       .navlinks.closed { display: none; }
       .hero { padding-top: var(--space-4); }
       .hero-card, .side-card, .panel { border-radius: 22px; padding: 18px; }
-      .kpi-grid, .cards-grid, .calendar, .grid-3, .calc-grid, .glossary, .source-grid, .filters, .intro-grid, .sector-grid, .pf-summary { grid-template-columns: 1fr; }
+      .kpi-grid, .cards-grid, .calendar, .grid-3, .calc-grid, .glossary, .source-grid, .filters, .intro-grid, .sector-grid, .pf-summary, .faq-list { grid-template-columns: 1fr; }
       .section-head { align-items:flex-start; flex-direction:column; }
       .bar-row { grid-template-columns: 72px 1fr 64px; }
       .pf-add, .pf-row, .pf-budget, .qc-top, .qc-two, .pf-onestep, .pf-budget2 { grid-template-columns: 1fr; }
@@ -2243,12 +2245,14 @@
     function renderSectorGuide() {
       $('#sectorGuide').innerHTML = SECTOR_INFO.map(s => {
         const count = REITS.filter(r => r.sector.includes(s.key)).length;
-        return '<div class="sector-card"><div class="stop"><div class="sicon">' + s.icon + '</div>'
-          + '<div><h3>' + escapeHTML(s.key) + '</h3><div class="muted small">상장리츠 ' + count + '개 포함</div></div></div>'
-          + '<div class="sector-meta"><span class="badge ' + s.stability + '">' + escapeHTML(s.stabilityText) + '</span></div>'
-          + '<p>' + escapeHTML(s.summary) + '</p>'
-          + '<div class="watch">👀 확인 포인트: <span>' + escapeHTML(s.watch) + '</span></div>'
-          + '<div class="risk">⚠ 리스크: <span>' + escapeHTML(s.downside) + '</span></div></div>';
+        const kws = s.watch.split(',').map(w => '<span class="kw">' + escapeHTML(w.trim()) + '</span>').join('');
+        return '<div class="sector-card">'
+          + '<div class="sc-head"><div class="sc-id"><div class="sicon">' + s.icon + '</div>'
+          + '<div><h3>' + escapeHTML(s.key) + '</h3><div class="muted small">상장리츠 ' + count + '개</div></div></div>'
+          + '<span class="badge ' + s.stability + '">' + escapeHTML(s.stabilityText) + '</span></div>'
+          + '<p class="sc-sum">' + escapeHTML(s.summary) + '</p>'
+          + '<div class="sc-kw"><span class="kwl">확인 포인트</span>' + kws + '</div>'
+          + '<div class="sc-risk"><b>⚠ 리스크</b> ' + escapeHTML(s.downside) + '</div></div>';
       }).join('');
     }
 
