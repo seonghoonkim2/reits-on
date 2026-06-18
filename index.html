@@ -198,6 +198,7 @@
     .tabbtn.active { background:var(--brand); color:#fff; }
     body.has-tabs section[data-tab] { display:none; }
     body.has-tabs section[data-tab].show-tab { display:block; animation: tabIn .28s var(--ease); }
+    body.has-tabs section[data-tab].show-tab[hidden] { display:none; }   /* hidden 속성은 항상 우선(빈 섹션 숨김) */
     @media (prefers-reduced-motion: reduce) { body.has-tabs section[data-tab].show-tab { animation:none; } }
     @keyframes tabIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform:none; } }
 
@@ -748,14 +749,9 @@
             <li><b>3</b> 배당을 흔들 리스크는 무엇인가</li>
           </ul>
           <form class="hero-search" id="heroSearchForm" role="search">
-            <input id="heroSearch" class="input" type="search" placeholder="리츠명 또는 종목코드 검색 (예: SK리츠, 395400)" aria-label="리츠명 또는 종목코드 검색" />
+            <input id="heroSearch" class="input" type="search" placeholder="리츠 이름으로 검색 (예: SK리츠)" aria-label="리츠 이름으로 검색" />
             <button class="primary-btn" type="submit">검색</button>
           </form>
-          <div class="hero-actions">
-            <a href="#" data-go="find">리츠 검색하기</a>
-            <a href="#" data-go="income">월배당 만들기</a>
-            <a href="#" data-go="learn">리츠 배우기</a>
-          </div>
           <div class="chip-row" id="heroQuick" aria-label="빠른 시작" style="margin-top:12px;">
             <span class="muted small" style="align-self:center; margin-right:2px;">바로 좁혀보기:</span>
             <button class="chip" type="button" data-quick="thismonth">이번 달 배당</button>
@@ -905,20 +901,18 @@
       </div>
     </section>
 
-    <section class="section reveal" id="market" data-tab="home">
+    <section class="section reveal" data-tab="learn">
       <div class="wrap">
         <div class="section-head">
           <div>
-            <h2>상장리츠 시장 한눈에 보기</h2>
-            <p>국내 증시에 상장된 리츠만 모아 규모·배당·자산군을 비교합니다.</p>
+            <h2>상장리츠 시장 한눈에</h2>
+            <p>국내 상장리츠 25개의 자산군 분포와 규모를 봅니다. 전체 운용리츠(463개) 시장이 아니라 <b>상장된 25개</b> 기준입니다.</p>
           </div>
         </div>
-        <div class="kpi-grid" id="kpis"></div>
-        <p class="helper" id="marketContext" style="margin-top:10px;"></p>
       </div>
     </section>
 
-    <section class="section reveal" data-tab="home">
+    <section class="section reveal" data-tab="learn">
       <div class="wrap grid-2">
         <div class="panel">
           <div class="section-head">
@@ -1208,31 +1202,29 @@
         <div class="panel">
           <div class="section-head">
             <div>
-              <h2>데이터 출처와 실제 운영 구조</h2>
-              <p>이 화면은 정적 파일이라 실시간 주가를 직접 저장하지 않습니다. 실제 서비스에서는 아래 원천을 주기적으로 수집·검증하는 구조가 필요합니다.</p>
+              <h2>데이터 출처 · 직접 확인하기</h2>
+              <p>이 화면의 숫자는 아래 공식·공개 자료 기준입니다. 실시간 주가가 아니며, 투자 전 원문에서 직접 확인하세요.</p>
             </div>
           </div>
           <div class="source-grid" id="sourceGrid"></div>
-          <div class="grid-3" style="margin-top:var(--space-2);">
-            <div class="result-card"><strong>1. Seed data</strong><p class="muted small">상장리츠 명단, 티커, 배당기준월, 최근배당금, 자산총계는 한국리츠협회 공개 페이지 기준으로 입력.</p></div>
-            <div class="result-card"><strong>2. Live quote layer</strong><p class="muted small">운영 버전에서는 KRX·증권사 API 또는 라이선스 데이터로 현재가, 시가총액, 거래량을 갱신.</p></div>
-            <div class="result-card"><strong>3. Filing parser</strong><p class="muted small">리츠정보시스템·KIND·DART에서 투자보고서, 수시공시, 영업보고서를 수집해 변경점을 알림.</p></div>
-          </div>
-        </div>
-        <div class="grid-2" style="margin-top:var(--space-2);">
-          <div class="panel">
-            <h3>데이터 품질 자가 점검</h3>
-            <p class="muted small">이 화면이 쓰는 seed 데이터의 정합성을 스스로 점검한 결과입니다.</p>
-            <div id="qualityChecks" class="quality-list" style="margin-top:12px;"></div>
-          </div>
-          <div class="panel">
-            <h3>데이터 내보내기</h3>
-            <p class="muted small">이 화면이 사용하는 seed 데이터(시장 통계·25개 리츠·출처)를 저장할 수 있습니다.</p>
-            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
-              <button class="ghost-btn" id="exportBtn" type="button">데이터 JSON</button>
-              <button class="ghost-btn" id="coverageCsv" type="button">품질지표 CSV</button>
+          <details class="adv" style="margin-top:var(--space-2);">
+            <summary>데이터 점검·내보내기 (고급)</summary>
+            <div class="adv-body grid-2">
+              <div class="panel">
+                <h3>데이터 품질 자가 점검</h3>
+                <p class="muted small">이 화면이 쓰는 seed 데이터의 정합성을 스스로 점검한 결과입니다.</p>
+                <div id="qualityChecks" class="quality-list" style="margin-top:12px;"></div>
+              </div>
+              <div class="panel">
+                <h3>데이터 내보내기</h3>
+                <p class="muted small">이 화면이 사용하는 seed 데이터(시장 통계·25개 리츠·출처)를 저장할 수 있습니다.</p>
+                <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;">
+                  <button class="ghost-btn" id="exportBtn" type="button">데이터 JSON</button>
+                  <button class="ghost-btn" id="coverageCsv" type="button">품질지표 CSV</button>
+                </div>
+              </div>
             </div>
-          </div>
+          </details>
         </div>
       </div>
     </section>
@@ -1618,6 +1610,7 @@
     }
 
     function renderKpis() {
+      if (!$('#kpis')) return;   // 시장 KPI 섹션은 제거됨(히어로 스냅샷과 중복) — 안전 가드
       const m = new Date().getMonth() + 1;
       const quarter = REITS.filter(r => r.divMonths.length >= 4).length;
       const big = REITS.filter(r => r.assetBn >= 1000).length;
