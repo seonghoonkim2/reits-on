@@ -1,0 +1,77 @@
+{
+  "asOf": "2026년 5월말",
+  "retrievedAt": null,
+  "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+  "sourceId": "kareit-2025",
+  "totalReits": 463,
+  "totalAumTn": 123.4,
+  "listedReits": 25,
+  "listedMarketCapTn": 8.8103,
+  "listedAumTn": 29.3112,
+  "listedDividendYieldPaidInCapital": 5.8,
+  "listedDividendYieldPriceBasis": 7.7,
+  "sectorAum": [
+    {
+      "name": "주택",
+      "pct": 43.7,
+      "aum": 53927.7
+    },
+    {
+      "name": "오피스",
+      "pct": 35,
+      "aum": 43183.9
+    },
+    {
+      "name": "물류",
+      "pct": 6.7,
+      "aum": 8294.4
+    },
+    {
+      "name": "리테일",
+      "pct": 6.4,
+      "aum": 7932.3
+    },
+    {
+      "name": "복합",
+      "pct": 5,
+      "aum": 6219.4
+    },
+    {
+      "name": "기타",
+      "pct": 2.1,
+      "aum": 2568
+    },
+    {
+      "name": "호텔",
+      "pct": 1.1,
+      "aum": 1315.1
+    }
+  ],
+  "growth": [
+    {
+      "year": "2002",
+      "count": 4,
+      "aum": 0.5584
+    },
+    {
+      "year": "2010",
+      "count": 50,
+      "aum": 7.6312
+    },
+    {
+      "year": "2017",
+      "count": 193,
+      "aum": 34.8834
+    },
+    {
+      "year": "2024",
+      "count": 399,
+      "aum": 105.3367
+    },
+    {
+      "year": "2026.5",
+      "count": 463,
+      "aum": 123.4409
+    }
+  ]
+}

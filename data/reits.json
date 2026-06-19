@@ -1,0 +1,3127 @@
+{
+  "asOf": "2026-06-19",
+  "baselineNote": "개별 종목 자산총계·최근배당금은 한국리츠협회 공개표(2025.12 투자보고서 기준)에서 입력. 시세·정성팩트(LTV·WALE 등)는 status로 구분.",
+  "sourceDefault": {
+    "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+    "sourceId": "kareit-2025"
+  },
+  "reits": [
+    {
+      "name": "대신밸류리츠",
+      "ticker": "0030R0",
+      "sector": [
+        "오피스"
+      ],
+      "primary": "오피스",
+      "divMonths": [
+        2,
+        5,
+        8,
+        11
+      ],
+      "recentDiv": {
+        "value": 73,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "7,217억",
+      "assetBn": 721.7,
+      "homepage": "https://www.daishinvaluereit.com/",
+      "note": "서울 도심 오피스 ‘대신343’을 기초자산으로 출발한 스폰서형 리츠.",
+      "difficulty": "쉬움",
+      "tags": [
+        "분기결산",
+        "신규상장",
+        "스폰서형"
+      ],
+      "facts": {
+        "aum": {
+          "value": 721.7,
+          "unit": "억원",
+          "display": "7,217억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "신한글로벌액티브리츠",
+      "ticker": "481850",
+      "sector": [
+        "해외",
+        "재간접"
+      ],
+      "primary": "해외",
+      "divMonths": [
+        2,
+        8
+      ],
+      "recentDiv": {
+        "value": 127,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "1,157억",
+      "assetBn": 115.7,
+      "homepage": "https://shglobalreit.com/",
+      "note": "해외 부동산·리츠 노출도가 큰 재간접 성격의 리츠. 환율, 해외 금리, 현지 자산가치가 핵심 변수.",
+      "difficulty": "보통",
+      "tags": [
+        "해외",
+        "환율민감",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 115.7,
+          "unit": "억원",
+          "display": "1,157억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "삼성FN리츠",
+      "ticker": "448730",
+      "sector": [
+        "오피스"
+      ],
+      "primary": "오피스",
+      "divMonths": [
+        1,
+        4,
+        7,
+        10
+      ],
+      "recentDiv": {
+        "value": 69,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "8,681억",
+      "assetBn": 868.1,
+      "homepage": "https://www.samsungfnreit.com/",
+      "note": "국내 오피스 중심의 분기 결산 리츠. 임차인 안정성, 오피스 공실률, 금리 비용을 함께 확인.",
+      "difficulty": "쉬움",
+      "tags": [
+        "분기결산",
+        "오피스"
+      ],
+      "facts": {
+        "aum": {
+          "value": 868.1,
+          "unit": "억원",
+          "display": "8,681억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "한화리츠",
+      "ticker": "451800",
+      "sector": [
+        "오피스"
+      ],
+      "primary": "오피스",
+      "divMonths": [
+        4,
+        10
+      ],
+      "recentDiv": {
+        "value": 135,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "1조 5,559억",
+      "assetBn": 1555.9,
+      "homepage": "https://hanwhareit.com/",
+      "note": "한화그룹 계열 오피스 자산 중심. 스폰서 임차 구조와 계열 임대차 조건을 같이 본다.",
+      "difficulty": "쉬움",
+      "tags": [
+        "스폰서형",
+        "오피스",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 1555.9,
+          "unit": "억원",
+          "display": "1조 5,559억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "KB스타리츠",
+      "ticker": "432320",
+      "sector": [
+        "오피스",
+        "해외"
+      ],
+      "primary": "해외",
+      "divMonths": [
+        1,
+        7
+      ],
+      "recentDiv": {
+        "value": 170,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "1조 798억",
+      "assetBn": 1079.8,
+      "homepage": "https://kbstarreit.com/",
+      "note": "해외 오피스 노출이 있는 리츠. 현지 임대차와 환율, 해외 자산 리파이낸싱 조건 확인이 중요.",
+      "difficulty": "보통",
+      "tags": [
+        "해외",
+        "오피스",
+        "환율민감"
+      ],
+      "facts": {
+        "aum": {
+          "value": 1079.8,
+          "unit": "억원",
+          "display": "1조 798억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "마스턴프리미어리츠",
+      "ticker": "357430",
+      "sector": [
+        "물류",
+        "해외",
+        "복합"
+      ],
+      "primary": "물류",
+      "divMonths": [
+        3,
+        9
+      ],
+      "recentDiv": {
+        "value": 96,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "1,549억",
+      "assetBn": 154.9,
+      "homepage": "https://masternpremier.com/",
+      "note": "해외·국내 물류 관련 자산이 섞인 리츠. 임차인 신용도, 환율, 물류 임대료 사이클을 확인.",
+      "difficulty": "보통",
+      "tags": [
+        "물류",
+        "해외",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 154.9,
+          "unit": "억원",
+          "display": "1,549억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "코람코더원리츠",
+      "ticker": "417310",
+      "sector": [
+        "오피스"
+      ],
+      "primary": "오피스",
+      "divMonths": [
+        2,
+        5,
+        8,
+        11
+      ],
+      "recentDiv": {
+        "value": 94,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "5,097억",
+      "assetBn": 509.7,
+      "homepage": "https://koramcothe1.com/",
+      "note": "국내 핵심 오피스 중심의 분기 결산 리츠. 단일 또는 소수 자산 집중도를 함께 점검.",
+      "difficulty": "쉬움",
+      "tags": [
+        "분기결산",
+        "오피스"
+      ],
+      "facts": {
+        "aum": {
+          "value": 509.7,
+          "unit": "억원",
+          "display": "5,097억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "신한서부티엔디리츠",
+      "ticker": "404990",
+      "sector": [
+        "호텔",
+        "리테일",
+        "복합"
+      ],
+      "primary": "복합",
+      "divMonths": [
+        6,
+        12
+      ],
+      "recentDiv": {
+        "value": 130,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "1조 855억",
+      "assetBn": 1085.5,
+      "homepage": "https://www.shsbreit.com/",
+      "note": "호텔·리테일 성격이 섞인 복합 리츠. 객실 수요, 리테일 매출, 임대차 조건을 같이 본다.",
+      "difficulty": "보통",
+      "tags": [
+        "호텔",
+        "리테일",
+        "경기민감"
+      ],
+      "facts": {
+        "aum": {
+          "value": 1085.5,
+          "unit": "억원",
+          "display": "1조 855억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "미래에셋글로벌리츠",
+      "ticker": "396690",
+      "sector": [
+        "물류",
+        "해외"
+      ],
+      "primary": "해외",
+      "divMonths": [
+        3,
+        9
+      ],
+      "recentDiv": {
+        "value": 135,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "3,659억",
+      "assetBn": 365.9,
+      "homepage": "https://www.globalreit.miraeasset.com/",
+      "note": "해외 물류 자산 중심 리츠. 글로벌 전자상거래, 임차인 신용도, 환율을 함께 본다.",
+      "difficulty": "보통",
+      "tags": [
+        "해외",
+        "물류",
+        "환율민감"
+      ],
+      "facts": {
+        "aum": {
+          "value": 365.9,
+          "unit": "억원",
+          "display": "3,659억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "NH올원리츠",
+      "ticker": "400760",
+      "sector": [
+        "복합",
+        "오피스",
+        "물류"
+      ],
+      "primary": "복합",
+      "divMonths": [
+        6,
+        12
+      ],
+      "recentDiv": {
+        "value": 170,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "9,288억",
+      "assetBn": 928.8,
+      "homepage": "https://nhallonereit.com/",
+      "note": "복수 자산을 담은 복합형 리츠. 자산별 임대차 만기와 차입금 만기를 나눠 본다.",
+      "difficulty": "쉬움",
+      "tags": [
+        "복합",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 928.8,
+          "unit": "억원",
+          "display": "9,288억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "SK리츠",
+      "ticker": "395400",
+      "sector": [
+        "오피스",
+        "인프라",
+        "복합"
+      ],
+      "primary": "복합",
+      "divMonths": [
+        3,
+        6,
+        9,
+        12
+      ],
+      "recentDiv": {
+        "value": 66,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "5조 624억",
+      "assetBn": 5062.4,
+      "homepage": "https://skreit.co.kr/",
+      "note": "국내 최대권 상장리츠 중 하나. 오피스와 인프라성 자산이 섞여 있어 배당 안정성과 금리 비용을 같이 본다.",
+      "difficulty": "쉬움",
+      "tags": [
+        "분기결산",
+        "대형",
+        "스폰서형"
+      ],
+      "facts": {
+        "aum": {
+          "value": 5062.4,
+          "unit": "억원",
+          "display": "5조 624억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "디앤디플랫폼리츠",
+      "ticker": "377190",
+      "sector": [
+        "오피스",
+        "물류",
+        "복합"
+      ],
+      "primary": "복합",
+      "divMonths": [
+        3,
+        9
+      ],
+      "recentDiv": {
+        "value": 120,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "1조 423억",
+      "assetBn": 1042.3,
+      "homepage": "https://dndplatformreit.com/",
+      "note": "오피스·물류 등 플랫폼형 자산을 보유. 자산별 성과 편차와 리파이낸싱 일정을 체크.",
+      "difficulty": "보통",
+      "tags": [
+        "복합",
+        "물류",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 1042.3,
+          "unit": "억원",
+          "display": "1조 423억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "ESR켄달스퀘어리츠",
+      "ticker": "365550",
+      "sector": [
+        "물류"
+      ],
+      "primary": "물류",
+      "divMonths": [
+        5,
+        11
+      ],
+      "recentDiv": {
+        "value": 139,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "2조 6,270억",
+      "assetBn": 2627,
+      "homepage": "https://www.esrks-reit.com/",
+      "note": "국내 물류센터 포트폴리오에 특화. 임차인 분산도, 물류 공급량, 임대료 재계약 조건이 핵심.",
+      "difficulty": "쉬움",
+      "tags": [
+        "물류",
+        "대형",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 2627,
+          "unit": "억원",
+          "display": "2조 6,270억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "코람코라이프인프라리츠",
+      "ticker": "357120",
+      "sector": [
+        "리테일",
+        "인프라"
+      ],
+      "primary": "인프라",
+      "divMonths": [
+        5,
+        11
+      ],
+      "recentDiv": {
+        "value": 164,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "1조 2,730억",
+      "assetBn": 1273,
+      "homepage": "https://koramcolifeinfra.com/",
+      "note": "생활 인프라·리테일 성격의 자산을 담은 리츠. 업태 전환, 임차인 매출, 장기 임대차 구조를 본다.",
+      "difficulty": "쉬움",
+      "tags": [
+        "인프라",
+        "리테일",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 1273,
+          "unit": "억원",
+          "display": "1조 2,730억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "제이알글로벌리츠",
+      "ticker": "348950",
+      "sector": [
+        "오피스",
+        "해외"
+      ],
+      "primary": "해외",
+      "divMonths": [
+        6,
+        12
+      ],
+      "recentDiv": {
+        "value": 115,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "2조 7,760억",
+      "assetBn": 2776,
+      "homepage": "https://jrglobalreit.com/",
+      "note": "해외 오피스 자산 비중이 큰 리츠. 현지 임차인, 금리, 환율, 자산가치 변동을 함께 확인.",
+      "difficulty": "보통",
+      "tags": [
+        "해외",
+        "오피스",
+        "대형"
+      ],
+      "facts": {
+        "aum": {
+          "value": 2776,
+          "unit": "억원",
+          "display": "2조 7,760억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "미래에셋맵스리츠",
+      "ticker": "357250",
+      "sector": [
+        "리테일"
+      ],
+      "primary": "리테일",
+      "divMonths": [
+        5,
+        11
+      ],
+      "recentDiv": {
+        "value": 112,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "3,041억",
+      "assetBn": 304.1,
+      "homepage": "https://www.maps1reit.miraeasset.com/",
+      "note": "리테일 자산 성격이 강한 리츠. 핵심 임차인의 영업 안정성과 소비 경기 영향을 본다.",
+      "difficulty": "보통",
+      "tags": [
+        "리테일",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 304.1,
+          "unit": "억원",
+          "display": "3,041억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "이지스레지던스리츠",
+      "ticker": "350520",
+      "sector": [
+        "주거"
+      ],
+      "primary": "주거",
+      "divMonths": [
+        6,
+        12
+      ],
+      "recentDiv": {
+        "value": 150,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "4,155억",
+      "assetBn": 415.5,
+      "homepage": "https://igisresidencereit.com/",
+      "note": "주거·임대주택 성격의 리츠. 임대율, 주택 매매·전월세 시장, 자산 매각 계획을 함께 본다.",
+      "difficulty": "보통",
+      "tags": [
+        "주거",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 415.5,
+          "unit": "억원",
+          "display": "4,155억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "이지스밸류플러스리츠",
+      "ticker": "334890",
+      "sector": [
+        "오피스",
+        "복합"
+      ],
+      "primary": "오피스",
+      "divMonths": [
+        5,
+        11
+      ],
+      "recentDiv": {
+        "value": 172,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "5,970억",
+      "assetBn": 597,
+      "homepage": "https://www.igisvaluereit.com/",
+      "note": "오피스·복합형 자산을 중심으로 운용. 자산 편입·매각에 따른 특별배당 가능성도 체크.",
+      "difficulty": "보통",
+      "tags": [
+        "오피스",
+        "복합",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 597,
+          "unit": "억원",
+          "display": "5,970억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "NH프라임리츠",
+      "ticker": "338100",
+      "sector": [
+        "오피스"
+      ],
+      "primary": "오피스",
+      "divMonths": [
+        5,
+        11
+      ],
+      "recentDiv": {
+        "value": 625,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "1,078억",
+      "assetBn": 107.8,
+      "homepage": "https://www.nhprimereit.com/",
+      "note": "소형 오피스 지분·수익증권형 성격을 가진 리츠. 자산 구조와 배당 원천을 세부적으로 확인.",
+      "difficulty": "보통",
+      "tags": [
+        "오피스",
+        "소형"
+      ],
+      "facts": {
+        "aum": {
+          "value": 107.8,
+          "unit": "억원",
+          "display": "1,078억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "롯데리츠",
+      "ticker": "330590",
+      "sector": [
+        "리테일",
+        "물류"
+      ],
+      "primary": "리테일",
+      "divMonths": [
+        6,
+        12
+      ],
+      "recentDiv": {
+        "value": 117,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "2조 6,155억",
+      "assetBn": 2615.5,
+      "homepage": "https://www.lottereit.co.kr/",
+      "note": "롯데 계열 리테일·물류 자산 중심. 리테일 업황, 임차인 신용도, 장기 임대차 구조를 본다.",
+      "difficulty": "쉬움",
+      "tags": [
+        "대형",
+        "리테일",
+        "스폰서형"
+      ],
+      "facts": {
+        "aum": {
+          "value": 2615.5,
+          "unit": "억원",
+          "display": "2조 6,155억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "신한알파리츠",
+      "ticker": "293940",
+      "sector": [
+        "오피스"
+      ],
+      "primary": "오피스",
+      "divMonths": [
+        3,
+        9
+      ],
+      "recentDiv": {
+        "value": 179,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "3조 1,449억",
+      "assetBn": 3144.9,
+      "homepage": "https://www.shalphareit.com/",
+      "note": "국내 오피스 중심의 대표 상장리츠. 공실률, 임대료 상승률, 차입금 금리 변화를 중점 확인.",
+      "difficulty": "쉬움",
+      "tags": [
+        "대형",
+        "오피스",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 3144.9,
+          "unit": "억원",
+          "display": "3조 1,449억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "이리츠코크렙",
+      "ticker": "088260",
+      "sector": [
+        "리테일"
+      ],
+      "primary": "리테일",
+      "divMonths": [
+        6,
+        12
+      ],
+      "recentDiv": {
+        "value": 174,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "6,658억",
+      "assetBn": 665.8,
+      "homepage": "https://www.ereits.co.kr/",
+      "note": "리테일 자산 중심. 소비 경기와 임차인 매출 안정성, 자산 매각 가능성을 점검.",
+      "difficulty": "보통",
+      "tags": [
+        "리테일",
+        "반기결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 665.8,
+          "unit": "억원",
+          "display": "6,658억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "케이탑리츠",
+      "ticker": "145270",
+      "sector": [
+        "복합",
+        "오피스"
+      ],
+      "primary": "복합",
+      "divMonths": [
+        12
+      ],
+      "recentDiv": {
+        "value": 68,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "actual",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "2,078억",
+      "assetBn": 207.8,
+      "homepage": "https://www.ktopreits.co.kr/",
+      "note": "자기관리 성격의 오래된 상장리츠. 보유 자산별 임대수익과 매각손익 변동을 함께 본다.",
+      "difficulty": "상세확인",
+      "tags": [
+        "연결산",
+        "자기관리",
+        "소형"
+      ],
+      "facts": {
+        "aum": {
+          "value": 207.8,
+          "unit": "억원",
+          "display": "2,078억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "스타에스엠리츠",
+      "ticker": "204210",
+      "sector": [
+        "호텔"
+      ],
+      "primary": "호텔",
+      "divMonths": [
+        12
+      ],
+      "recentDiv": {
+        "value": null,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "unavailable",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "668억",
+      "assetBn": 66.8,
+      "homepage": "https://www.modetourreit.com/",
+      "note": "호텔 자산 성격이 강한 소형 리츠. 객실 수요, 임대차 구조, 배당 재개 여부를 별도 확인.",
+      "difficulty": "상세확인",
+      "tags": [
+        "호텔",
+        "소형",
+        "연결산"
+      ],
+      "facts": {
+        "aum": {
+          "value": 66.8,
+          "unit": "억원",
+          "display": "668억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    },
+    {
+      "name": "에이리츠",
+      "ticker": "140910",
+      "sector": [
+        "주거",
+        "개발"
+      ],
+      "primary": "주거",
+      "divMonths": [
+        12
+      ],
+      "recentDiv": {
+        "value": null,
+        "unit": "원",
+        "display": null,
+        "asOf": "2025-12-31",
+        "status": "unavailable",
+        "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+        "sourceId": "kareit-2025",
+        "note": "최근 1회 주당배당금(공시 확인 필요)"
+      },
+      "payMonths": {
+        "value": null,
+        "unit": null,
+        "display": null,
+        "asOf": null,
+        "status": "unavailable",
+        "sourceUrl": null,
+        "sourceId": null,
+        "note": "실제 지급월 이력 — 데이터 미확보(배당기준월과 다름)"
+      },
+      "assetText": "811억",
+      "assetBn": 81.1,
+      "homepage": "https://www.areit.co.kr/",
+      "note": "주거·개발 성격을 함께 보는 소형 리츠. 프로젝트 진행률, 매각손익, 배당 변동성을 확인.",
+      "difficulty": "상세확인",
+      "tags": [
+        "주거",
+        "개발",
+        "소형"
+      ],
+      "facts": {
+        "aum": {
+          "value": 81.1,
+          "unit": "억원",
+          "display": "811억",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.kareit.or.kr/invest/page2.php",
+          "sourceId": "kareit-2025",
+          "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
+        },
+        "ltv": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "투자보고서/공시에서 확인 후 입력"
+        },
+        "wale": {
+          "value": null,
+          "unit": "년",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+        },
+        "occupancy": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+        },
+        "debtFixedRatio": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "고정금리 비중"
+        },
+        "debtMaturity12m": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "향후 12개월 내 만기 비중"
+        },
+        "topTenant": {
+          "value": null,
+          "unit": null,
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "주요 임차인"
+        },
+        "tenantConcentration": {
+          "value": null,
+          "unit": "%",
+          "display": null,
+          "asOf": null,
+          "status": "unavailable",
+          "sourceUrl": null,
+          "sourceId": null,
+          "note": "상위 임차인 집중도"
+        }
+      }
+    }
+  ]
+}

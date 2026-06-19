@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://seonghoonkim2.github.io/reits-on/schema/reit.schema.json",
+  "title": "리츠온 reits.json",
+  "type": "object",
+  "required": ["asOf", "reits"],
+  "properties": {
+    "asOf": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "baselineNote": { "type": "string" },
+    "reits": { "type": "array", "items": { "$ref": "#/definitions/reit" } }
+  },
+  "definitions": {
+    "provenance": {
+      "type": "object",
+      "required": ["value", "status"],
+      "properties": {
+        "value": { "type": ["number", "string", "null"] },
+        "unit": { "type": ["string", "null"] },
+        "display": { "type": ["string", "null"] },
+        "asOf": { "type": ["string", "null"], "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "status": { "enum": ["actual", "estimated", "annualized", "user_input", "stale", "unavailable"] },
+        "sourceUrl": { "type": ["string", "null"] },
+        "sourceId": { "type": ["string", "null"] },
+        "note": { "type": ["string", "null"] }
+      }
+    },
+    "reit": {
+      "type": "object",
+      "required": ["name", "ticker", "sector", "primary", "divMonths", "recentDiv", "facts"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "ticker": { "type": "string", "pattern": "^[0-9A-Z]{6}$" },
+        "sector": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "primary": { "type": "string" },
+        "divMonths": { "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 12 } },
+        "recentDiv": { "$ref": "#/definitions/provenance" },
+        "assetBn": { "type": ["number", "null"] },
+        "difficulty": { "enum": ["쉬움", "보통", "상세확인"] },
+        "facts": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/provenance" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "sources": [
+    {
+      "label": "한국리츠협회 · 쉽게 보는 통계",
+      "url": "https://www.kareit.or.kr/reference/page1.php"
+    },
+    {
+      "label": "한국리츠협회 · 상장리츠 시장 현황",
+      "url": "https://www.kareit.or.kr/invest/page2.php"
+    },
+    {
+      "label": "한국리츠협회 · 리츠란 무엇인가",
+      "url": "https://www.kareit.or.kr/invest/page1.php"
+    },
+    {
+      "label": "국토교통부 리츠정보시스템",
+      "url": "https://reits.molit.go.kr/pub/main/mainPage"
+    },
+    {
+      "label": "KIND 한국거래소 공시",
+      "url": "https://kind.krx.co.kr/"
+    },
+    {
+      "label": "DART 전자공시",
+      "url": "https://dart.fss.or.kr/"
+    },
+    {
+      "label": "국세청 (배당소득 세제 확인)",
+      "url": "https://www.nts.go.kr/"
+    }
+  ]
+}
