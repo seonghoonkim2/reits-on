@@ -1908,7 +1908,8 @@
         + '<a href="' + escapeHTML(r.homepage) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 공식 홈페이지(IR)">IR 홈페이지</a>'
         + '<a href="' + codeUrl(r.ticker) + '" target="_blank" rel="noreferrer" aria-label="' + escapeHTML(r.name) + ' 현재가 보기">주가 보기</a>'
         + '<a href="https://dart.fss.or.kr/" target="_blank" rel="noreferrer">DART</a>'
-        + '<a href="https://kind.krx.co.kr/" target="_blank" rel="noreferrer">KIND</a>';
+        + '<a href="https://kind.krx.co.kr/" target="_blank" rel="noreferrer">KIND</a>'
+        + '<a href="r/' + encodeURIComponent(r.ticker) + '/" target="_blank" rel="noopener">📄 종목 페이지</a>';
       const cc = $('#detailTicker [data-copycode]');
       if (cc) cc.addEventListener('click', () => {
         const code = cc.dataset.copycode;

@@ -1,0 +1,38 @@
+name: Build REIT pages (SSG)
+
+on:
+  schedule:
+    - cron: '20 21 * * *'   # 매일 06:20 KST (21:20 UTC)
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['index.html', 'scripts/build-pages.mjs']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Generate per-REIT pages + sitemap
+        run: node scripts/build-pages.mjs
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "변경 없음 — 커밋 스킵"
+          else
+            git commit -m "chore: 종목 페이지·sitemap 재생성 (SSG cron)"
+            git push
+          fi
