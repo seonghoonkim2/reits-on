@@ -21,9 +21,13 @@ const REITS = seed.reits;
 
 // ---- 핵심 팩트(provenance): data/reits.json이 단일 진실원천. 임베드 seed엔 facts가 없어 직접 읽음 ----
 const FACTS_BY_TICKER = {};
+const IR_BY_TICKER = {};
 try {
   const reitsDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8'));
-  for (const x of reitsDoc.reits) if (x.facts) FACTS_BY_TICKER[x.ticker] = x.facts;
+  for (const x of reitsDoc.reits) {
+    if (x.facts) FACTS_BY_TICKER[x.ticker] = x.facts;
+    if (x.irResources) IR_BY_TICKER[x.ticker] = x.irResources;
+  }
 } catch { /* data 없으면 팩트 섹션 생략 */ }
 const STATUS_LABEL = { actual:'실측', estimated:'추정', annualized:'연환산', user_input:'입력', stale:'갱신지연', unavailable:'미확보' };
 const FACT_ROWS = [
@@ -57,6 +61,31 @@ function factsCard(r) {
 
 const freqLabel = (n) => n >= 4 ? '분기 배당(연 4회)' : n === 2 ? '반기 배당(연 2회)' : n === 1 ? '연 1회 배당' : ('연 ' + n + '회 배당');
 const naver = (t) => /^\d{6}$/.test(t) ? ('https://finance.naver.com/item/main.naver?code=' + t) : null;
+// DART 공시통합검색을 회사명으로 미리 채워 여는 딥링크(없으면 일반 DART)
+const dartByName = (name) => 'https://dart.fss.or.kr/dsab007/main.do?textCrpNm=' + encodeURIComponent(name);
+
+// IR 자료 한눈에: 공식 IR 자료실 + 최신 투자보고서 + 공시/시세 바로가기
+function irCard(r, naverUrl) {
+  const ir = IR_BY_TICKER[r.ticker] || {};
+  const lr = ir.latestReport;
+  const irPage = ir.irPage || r.homepage;
+  const latest = lr && lr.url
+    ? `<p class="ir-latest">📄 최신 자료: <a href="${esc(lr.url)}" target="_blank" rel="noopener">${esc(lr.title || '투자보고서')}</a>${lr.date ? ` <span class="sub">(${esc(lr.date)} 기준)</span>` : ''}</p>`
+    : '';
+  return `
+  <div class="card">
+    <h2 style="margin:0 0 8px;font-size:18px">IR 자료 한눈에</h2>
+    ${latest}
+    <div class="links">
+      ${irPage ? `<a href="${esc(irPage)}" target="_blank" rel="noopener">📑 IR 자료실</a>` : ''}
+      ${r.homepage ? `<a href="${esc(r.homepage)}" target="_blank" rel="noopener">IR 홈페이지</a>` : ''}
+      <a href="${esc(dartByName(r.name))}" target="_blank" rel="noopener">DART 공시(이 종목)</a>
+      ${naverUrl ? `<a href="${naverUrl}" target="_blank" rel="noopener">현재가(네이버 금융)</a>` : ''}
+      <a href="https://kind.krx.co.kr/" target="_blank" rel="noopener">KIND</a>
+    </div>
+    <p style="margin:14px 0 0"><a class="cta" href="../../">앱에서 배당 캘린더·월배당 포트폴리오 보기 →</a></p>
+  </div>`;
+}
 
 function sectorQuestions(r) {
   const q = ['최근 배당의 재원이 임대수익인지, 매각차익·특별배당인지 확인'];
@@ -118,6 +147,8 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 .mc.on{background:var(--brand);color:#fff}
 .rows{display:grid;gap:0}.row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--soft);font-size:15px}.row:last-child{border-bottom:0}.row span{color:var(--muted)}.row b{font-weight:800;text-align:right}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
+.ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
+.ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
 .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .links a{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 14px;text-decoration:none;color:var(--text);font-weight:700;font-size:14px}
 .cta{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:12px 18px;text-decoration:none;font-weight:800;margin-top:6px}
@@ -175,16 +206,7 @@ ${factsCard(r)}
     <ul class="q">${sectorQuestions(r).map(q=>`<li>${esc(q)}</li>`).join('')}</ul>
   </div>
 
-  <div class="card">
-    <h2 style="margin:0 0 8px;font-size:18px">공시·시세 직접 확인</h2>
-    <div class="links">
-      ${r.homepage ? `<a href="${esc(r.homepage)}" target="_blank" rel="noopener">IR 홈페이지</a>` : ''}
-      ${naverUrl ? `<a href="${naverUrl}" target="_blank" rel="noopener">현재가(네이버 금융)</a>` : ''}
-      <a href="https://dart.fss.or.kr/" target="_blank" rel="noopener">DART 공시</a>
-      <a href="https://kind.krx.co.kr/" target="_blank" rel="noopener">KIND</a>
-    </div>
-    <p style="margin:14px 0 0"><a class="cta" href="../../">앱에서 배당 캘린더·월배당 포트폴리오 보기 →</a></p>
-  </div>
+${irCard(r, naverUrl)}
 
   <p class="note">⚠ 본 페이지는 일반 투자자 교육·정보 제공용이며 <b>특정 종목의 매수·매도 추천이 아닙니다.</b> 배당금·연환산 수치는 공개자료(한국리츠협회 등) 기반의 <b>교육용 추정</b>으로 실제와 다를 수 있고, 리츠는 배당 삭감·중단 및 원금 손실이 가능합니다. 투자 전 DART·KIND·투자보고서 원문과 최신 시세를 반드시 확인하세요. 데이터 기준일은 변동될 수 있습니다.</p>
   <p class="note"><a class="more" href="../../">← 리츠온 홈으로</a></p>
