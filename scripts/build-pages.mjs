@@ -19,6 +19,42 @@ if (!m) { console.error('seed-data를 찾지 못했습니다.'); process.exit(1)
 const seed = JSON.parse(m[1]);
 const REITS = seed.reits;
 
+// ---- 핵심 팩트(provenance): data/reits.json이 단일 진실원천. 임베드 seed엔 facts가 없어 직접 읽음 ----
+const FACTS_BY_TICKER = {};
+try {
+  const reitsDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8'));
+  for (const x of reitsDoc.reits) if (x.facts) FACTS_BY_TICKER[x.ticker] = x.facts;
+} catch { /* data 없으면 팩트 섹션 생략 */ }
+const STATUS_LABEL = { actual:'실측', estimated:'추정', annualized:'연환산', user_input:'입력', stale:'갱신지연', unavailable:'미확보' };
+const FACT_ROWS = [
+  ['aum','AUM(자산총계)'], ['ltv','LTV(차입비율)'], ['wale','WALE(임대차잔존)'], ['occupancy','임대율/공실'],
+  ['debtFixedRatio','고정금리 비중'], ['debtMaturity12m','12개월내 만기'], ['topTenant','주요 임차인'], ['tenantConcentration','임차인 집중도'],
+];
+function factVal(p) {
+  if (!p || p.status === 'unavailable' || p.value == null) return null;
+  if (p.display) return esc(p.display);
+  if (typeof p.value === 'number') return esc(fmt(p.value) + (p.unit ? (' ' + p.unit) : ''));
+  return esc(String(p.value) + (p.unit ? (' ' + p.unit) : ''));
+}
+function factsCard(r) {
+  const facts = FACTS_BY_TICKER[r.ticker];
+  if (!facts) return '';
+  const cells = FACT_ROWS.map(([k, label]) => {
+    const p = facts[k]; const val = factVal(p);
+    const st = (p && p.status) || 'unavailable';
+    const stPill = `<span class="st st-${st}">${esc(STATUS_LABEL[st] || st)}</span>`;
+    const meta = val
+      ? ((p.asOf ? esc(p.asOf) + ' · ' : '') + (p.sourceUrl ? `<a href="${esc(p.sourceUrl)}" target="_blank" rel="noopener">출처</a> · ` : '') + stPill)
+      : stPill;
+    return `<div class="fact"><div class="fl">${esc(label)}</div><div class="fv${val ? '' : ' na'}">${val || '자료 확인 필요'}</div><div class="fm">${meta}</div></div>`;
+  }).join('');
+  return `
+  <div class="card">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">핵심 팩트</h2><span class="fh-as">출처·기준일 표시 · 미확보는 “자료 확인 필요”</span></div>
+    <div class="facts-grid">${cells}</div>
+  </div>`;
+}
+
 const freqLabel = (n) => n >= 4 ? '분기 배당(연 4회)' : n === 2 ? '반기 배당(연 2회)' : n === 1 ? '연 1회 배당' : ('연 ' + n + '회 배당');
 const naver = (t) => /^\d{6}$/.test(t) ? ('https://finance.naver.com/item/main.naver?code=' + t) : null;
 
@@ -88,6 +124,21 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .note{font-size:12.5px;color:var(--muted);margin-top:18px;line-height:1.6}
 .badge{font-size:12px;font-weight:800;border-radius:999px;padding:4px 10px;background:var(--okt);color:var(--ok)}
 a.more{color:var(--brand);font-weight:800;text-decoration:none}
+.facts-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 0 10px}
+.facts-head .fh-as{font-size:11px;color:var(--muted)}
+.facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:380px){.facts-grid{grid-template-columns:1fr}}
+.fact{border:1px solid var(--line);border-radius:13px;padding:10px 11px;background:var(--soft)}
+.fact .fl{font-size:11.5px;color:var(--muted);font-weight:700}
+.fact .fv{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;color:var(--text)}
+.fact .fv.na{font-size:13px;font-weight:700;color:var(--muted)}
+.fact .fm{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.4}
+.fact .fm a{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
+.st{display:inline-block;font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px}
+.st-actual{background:var(--okt);color:var(--ok)}
+.st-estimated,.st-annualized{background:var(--tint);color:var(--brand)}
+.st-stale{background:#fff3d6;color:#9a6b00}
+.st-unavailable,.st-user_input{background:var(--soft);color:var(--muted)}
 </style>
 </head>
 <body>
@@ -113,7 +164,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
       <div class="row"><span>특징</span><b>${esc(r.tags.join(', '))}</b></div>
     </div>
   </div>
-
+${factsCard(r)}
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">${esc(r.note)}</p>
