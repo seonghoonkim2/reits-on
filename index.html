@@ -1254,6 +1254,7 @@
   <footer class="footer">
     <div class="wrap panel">
       <strong>리츠온 REITs ON</strong>
+      <p class="small" style="margin-top:8px;"><button id="pushBtn" class="ghost-btn" type="button" hidden style="padding:8px 14px; min-height:auto;">🔔 주요 공시·배당 알림 받기</button></p>
       <p class="small">본 화면은 일반 투자자 교육과 정보 접근성 개선을 위한 정보 플랫폼입니다. <b>특정 종목의 매수·매도·보유 추천이 아니며</b>, 모든 정렬·점수·난이도 표시는 학습 보조 지표일 뿐입니다. 리츠는 배당 삭감·중단 및 원금 손실이 가능하며, 투자 결정 전 공식 공시와 최신 가격을 반드시 확인해야 합니다.</p>
       <p class="small">데이터 기준: 시장 통계는 2026년 5월말 공개 통계, 개별 상장리츠 자산총계·최근배당금은 한국리츠협회 공개 표의 기준일(2025년말 투자보고서) 설명을 반영했습니다. 실시간 데이터가 아닙니다.</p>
       <p class="small">🔒 개인정보: 관심리츠·비교·포트폴리오·체크리스트·설정은 <b>이 브라우저(localStorage)에만</b> 저장되며 서버로 전송되지 않습니다. 공시 스캐너에 붙여넣은 문구도 외부로 전송되지 않습니다. <button class="ghost-btn" id="clearDataBtn" type="button" style="margin-left:6px; padding:6px 12px; min-height:auto;">내 저장 데이터 삭제</button></p>
@@ -1378,6 +1379,41 @@
       window.gtag = function () { window.dataLayer.push(arguments); };
       window.gtag('js', new Date());
       window.gtag('config', ANALYTICS.ga4);
+    }
+
+    // ───────── 웹 푸시 알림 ─────────
+    // 백엔드(/v1/push/subscribe·cron) 배포 + Worker 시크릿 VAPID_PRIVATE_KEY 설정 후 enabled=true 로.
+    // (vapidPublic 은 백엔드 push.ts 의 VAPID_PUBLIC 과 동일해야 함)
+    const PUSH = {
+      enabled: false,
+      vapidPublic: 'BEpt_ghugX3gqW6z2SgCclHj7Dk9c2Qjdn9eTimlSmg07RwW5qAcXdE34y0WFHRHaC-WG9ZuNeJ4qHrx2fiFKGY',
+    };
+    function urlB64ToUint8(b64) {
+      const pad = '='.repeat((4 - (b64.length % 4)) % 4);
+      const s = (b64 + pad).replace(/-/g, '+').replace(/_/g, '/');
+      const raw = atob(s); const u = new Uint8Array(raw.length);
+      for (let i = 0; i < raw.length; i++) u[i] = raw.charCodeAt(i);
+      return u;
+    }
+    async function initPush() {
+      const btn = $('#pushBtn'); if (!btn) return;
+      if (!(PUSH.enabled && API_BASE && 'serviceWorker' in navigator && 'PushManager' in window && location.protocol === 'https:')) return;
+      btn.hidden = false;
+      try { const reg = await navigator.serviceWorker.ready; if (await reg.pushManager.getSubscription()) btn.textContent = '🔔 공시 알림 구독 중'; } catch (e) { /* noop */ }
+      btn.addEventListener('click', async () => {
+        try {
+          if (Notification.permission !== 'granted') {
+            const perm = await Notification.requestPermission();
+            if (perm !== 'granted') { toast('브라우저 알림 권한이 필요해요'); return; }
+          }
+          const reg = await navigator.serviceWorker.ready;
+          let sub = await reg.pushManager.getSubscription();
+          if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlB64ToUint8(PUSH.vapidPublic) });
+          const res = await fetch(API_BASE + '/v1/push/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(sub) });
+          if (res.ok) { btn.textContent = '🔔 공시 알림 구독 완료'; toast('주요 공시·배당 알림을 받습니다'); }
+          else toast('구독 등록에 실패했어요');
+        } catch (e) { toast('알림 구독에 실패했어요'); }
+      });
     }
 
     // [AdSense] 승인 후: enabled=true, client=게시자ID(ca-pub-…), slots=광고단위 슬롯ID 교체.
@@ -1566,6 +1602,7 @@
       initTabs();
       initSlots();
       ensureGa4();
+      initPush();
       setTab(state.tab, { noScroll: true });
     }
 
