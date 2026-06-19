@@ -40,6 +40,21 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .note{font-size:12.5px;color:var(--muted);margin-top:18px;line-height:1.6}
 .badge{font-size:12px;font-weight:800;border-radius:999px;padding:4px 10px;background:var(--okt);color:var(--ok)}
 a.more{color:var(--brand);font-weight:800;text-decoration:none}
+.facts-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 0 10px}
+.facts-head .fh-as{font-size:11px;color:var(--muted)}
+.facts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:380px){.facts-grid{grid-template-columns:1fr}}
+.fact{border:1px solid var(--line);border-radius:13px;padding:10px 11px;background:var(--soft)}
+.fact .fl{font-size:11.5px;color:var(--muted);font-weight:700}
+.fact .fv{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;color:var(--text)}
+.fact .fv.na{font-size:13px;font-weight:700;color:var(--muted)}
+.fact .fm{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.4}
+.fact .fm a{color:var(--brand);text-decoration:underline;text-underline-offset:2px}
+.st{display:inline-block;font-size:10px;font-weight:800;border-radius:6px;padding:1px 6px}
+.st-actual{background:var(--okt);color:var(--ok)}
+.st-estimated,.st-annualized{background:var(--tint);color:var(--brand)}
+.st-stale{background:#fff3d6;color:#9a6b00}
+.st-unavailable,.st-user_input{background:var(--soft);color:var(--muted)}
 </style>
 </head>
 <body>
@@ -66,6 +81,10 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     </div>
   </div>
 
+  <div class="card">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">핵심 팩트</h2><span class="fh-as">출처·기준일 표시 · 미확보는 “자료 확인 필요”</span></div>
+    <div class="facts-grid"><div class="fact"><div class="fl">AUM(자산총계)</div><div class="fv">3,041억</div><div class="fm">2025-12-31 · <a href="https://www.kareit.or.kr/invest/page2.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">LTV(차입비율)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">WALE(임대차잔존)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">임대율/공실</div><div class="fv">100%</div><div class="fm">2025-08-31 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015000117" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">고정금리 비중</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">12개월내 만기</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">주요 임차인</div><div class="fv">GS리테일(전차인 롯데쇼핑㈜)</div><div class="fm">2025-08-31 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015000117" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임차인 집중도</div><div class="fv">100%</div><div class="fm">2025-08-31 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015000117" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div></div>
+  </div>
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">리테일 자산 성격이 강한 리츠. 핵심 임차인의 영업 안정성과 소비 경기 영향을 본다.</p>
