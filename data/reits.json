@@ -81,54 +81,54 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.daishinvaluereit.com/disclosure/notice/144",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "대신밸류리츠사모제1호 투자보고서(기초자산 대신343) 임대율 100%"
         },
         "debtFixedRatio": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.daishinvaluereit.com/disclosure/notice/144",
           "sourceId": null,
-          "note": "고정금리 비중"
+          "note": "유일 차입금(새마을금고중앙회 외) 전액 고정금리"
         },
         "debtMaturity12m": {
-          "value": null,
+          "value": 0,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "0%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.daishinvaluereit.com/disclosure/notice/144",
           "sourceId": null,
-          "note": "향후 12개월 내 만기 비중"
+          "note": "차입금 만기 2027.03.27 — 12개월 내 만기 도래분 없음"
         },
         "topTenant": {
-          "value": null,
+          "value": "대신프라퍼티㈜ (대신파이낸셜그룹 계열 마스터리스)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.daishinvaluereit.com/portfolio/daishin343",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "자산 전체를 100% 마스터리스(Triple Net) 형태로 임차"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.daishinvaluereit.com/portfolio/daishin343",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "단일 마스터리스 임차인 구조"
         }
       }
     },
@@ -186,14 +186,14 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 30.4,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "30.4%",
+          "asOf": "2024-09-30",
+          "status": "actual",
+          "sourceUrl": "https://shglobalreit.com/company/about.php",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "리츠 가중평균 LTV('24년 3분기 기준, IR 안내). 재간접리츠"
         },
         "wale": {
           "value": null,
@@ -236,14 +236,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "미국 연방·주정부 기관 (USGB 펀드 편입 오피스 임차인)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2024-12-31",
+          "status": "actual",
+          "sourceUrl": "https://shglobalreit.com/company/about.php",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "재간접(펀드오브펀드) 구조 — 기초 미국 펀드 자산의 임차인"
         },
         "tenantConcentration": {
           "value": null,
@@ -311,44 +311,44 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 55.1,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "55.1%",
+          "asOf": "2025-09-19",
+          "status": "actual",
+          "sourceUrl": "https://seoulpi.io/reitsfocus/article/00507308531386974208",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "차입금 4,300억 기준 LTV (서울파이 IR 재해석 기사, 2차 출처)"
         },
         "wale": {
-          "value": null,
+          "value": 4,
           "unit": "년",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "4년",
+          "asOf": "2025-01-22",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2025/01/52362_samsung_0122.pdf",
           "sourceId": null,
-          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+          "note": "대신증권 리포트(2024년 자산 기준, 2차 출처)"
         },
         "occupancy": {
-          "value": null,
+          "value": 96.7,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "96.7%",
+          "asOf": "2025-01-22",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2025/01/52362_samsung_0122.pdf",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "평균 임대율(대신증권 리포트, 2차 출처)"
         },
         "debtFixedRatio": {
-          "value": null,
+          "value": 0,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "0%",
+          "asOf": "2025-01-22",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2025/01/52362_samsung_0122.pdf",
           "sourceId": null,
-          "note": "고정금리 비중"
+          "note": "차입금 전액 변동금리 → 고정금리 비중 0%"
         },
         "debtMaturity12m": {
           "value": null,
@@ -361,24 +361,24 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "삼성생명(대치타워 64.8% 임차); 에스원(에스원빌딩 100%)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-01-22",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2025/01/52362_samsung_0122.pdf",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "스폰서 임차 구조(대신증권 리포트)"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 64.8,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "64.8%",
+          "asOf": "2025-01-22",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2025/01/52362_samsung_0122.pdf",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "대치타워 기준 최대 임차인 삼성생명 면적 비중"
         }
       }
     },
@@ -435,14 +435,14 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 54,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "54%",
+          "asOf": "2025-09-30",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2026/01/56284_K-REITs_1Q26_f.pdf",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "대신증권 K-REITs Guide Book(한화리츠 IR 인용, 25.09 기준). DART엔 단일 LTV 미기재"
         },
         "wale": {
           "value": null,
@@ -455,14 +455,14 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 98.77,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "98.77%",
+          "asOf": "2025-09-30",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2026/01/56284_K-REITs_1Q26_f.pdf",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "공실률 1.23%에서 환산(대신증권 Guide Book)"
         },
         "debtFixedRatio": {
           "value": null,
@@ -485,24 +485,24 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "한화그룹 계열사(㈜한화·한화생명·한화손해보험 등); 최대 단일 임차인 한화손해보험",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2026-01-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260317000640",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "DART 반기보고서 사업내용 + 매출현황(한화손해보험 임대료 10.67% 최대)"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 78,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "78%",
+          "asOf": "2025-09-30",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2026/01/56284_K-REITs_1Q26_f.pdf",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "전체 임대면적 기준 한화 계열사 임차 비중(대신증권 Guide Book)"
         }
       }
     },
@@ -560,44 +560,44 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 51.49,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "51.49%",
+          "asOf": "2026-01-31",
+          "status": "actual",
+          "sourceUrl": "https://kbstarreit.com/board/download.php?bbsid=irdata&file_name=d2_tuja_1778221460pxet5iianm.pdf",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "제8기말 투자보고서 '레버리지'(이자부담부채÷자산총계) 지표"
         },
         "wale": {
-          "value": null,
+          "value": 4.9,
           "unit": "년",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "4.9년",
+          "asOf": "2026-01-31",
+          "status": "actual",
+          "sourceUrl": "https://kbstarreit.com/",
           "sourceId": null,
-          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+          "note": "제8기말 IR 대시보드 잔여 임대차기간"
         },
         "occupancy": {
-          "value": null,
+          "value": 99.06,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "99.06%",
+          "asOf": "2026-01-31",
+          "status": "actual",
+          "sourceUrl": "https://kbstarreit.com/",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "공실률 0.94%에서 환산(제8기말)"
         },
         "debtFixedRatio": {
-          "value": null,
+          "value": 100.5,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100.5%",
+          "asOf": "2026-01-31",
+          "status": "actual",
+          "sourceUrl": "https://kbstarreit.com/board/download.php?bbsid=irdata&file_name=d2_tuja_1778221460pxet5iianm.pdf",
           "sourceId": null,
-          "note": "고정금리 비중"
+          "note": "제8기말 투자보고서 '고정금리 비중' 100.5%(헤지 포함, 사실상 전액 고정)"
         },
         "debtMaturity12m": {
           "value": null,
@@ -610,14 +610,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "벨기에 재무부(연방정부)·삼성전자 (해외 오피스 장기임차)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2026-01-31",
+          "status": "actual",
+          "sourceUrl": "https://kbstarreit.com/board/download.php?bbsid=irdata&file_name=d2_tuja_1778221460pxet5iianm.pdf",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "투자보고서 투자전략 서술"
         },
         "tenantConcentration": {
           "value": null,
@@ -706,14 +706,14 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2025-06-30",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250814004271",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "제11기 반기보고서 — 4개 자산 모두 임대율 100%"
         },
         "debtFixedRatio": {
           "value": null,
@@ -736,14 +736,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "PwC·IFF·Estée Lauder(佛 Crystal Park), 아마존(佛 물류), 쿠팡(인천 항동)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-06-30",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250814004271",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "제11기 반기보고서 임차인 현황"
         },
         "tenantConcentration": {
           "value": null,
@@ -831,54 +831,54 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 98.85,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "98.85%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260521000683",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "공실률 1.15%에서 환산(제29기 사업보고서)"
         },
         "debtFixedRatio": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260521000683",
           "sourceId": null,
-          "note": "고정금리 비중"
+          "note": "전 차입금 고정금리(만기일시상환)"
         },
         "debtMaturity12m": {
-          "value": null,
+          "value": 0,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "0%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260521000683",
           "sourceId": null,
-          "note": "향후 12개월 내 만기 비중"
+          "note": "유동성장기차입금 0 — 12개월 내 만기 차입금 없음"
         },
         "topTenant": {
-          "value": null,
+          "value": "하나증권㈜(연간 임대료 약 61.9%)·한국쓰리엠㈜",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260521000683",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "제29기 사업보고서 임차인 현황"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 70.1,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "70.1%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260521000683",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "하나증권+한국쓰리엠 총면적 약 70.1%"
         }
       }
     },
@@ -957,14 +957,14 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2026-03-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260515001057",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "반기보고서 — 주요자산 임대율 100%(광화문 G타워 98.18% 예외)"
         },
         "debtFixedRatio": {
           "value": null,
@@ -987,14 +987,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "서부티엔디(스퀘어원·용산 그랜드머큐어 호텔), 홈플러스 등",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2026-03-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260515001057",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "반기보고서 임차인 구성"
         },
         "tenantConcentration": {
           "value": null,
@@ -1082,14 +1082,14 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260213000992",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "제9기 반기보고서 — 4개 자산 임대율 100% Triple Net"
         },
         "debtFixedRatio": {
           "value": null,
@@ -1102,24 +1102,24 @@
           "note": "고정금리 비중"
         },
         "debtMaturity12m": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260213000992",
           "sourceId": null,
-          "note": "향후 12개월 내 만기 비중"
+          "note": "전 장기차입금 1년 이내 만기(KB NY 2026-06, SC 2026-10)"
         },
         "topTenant": {
-          "value": null,
+          "value": "FedEx·Amazon·Academy (미국 물류, Triple Net)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260213000992",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "제9기 반기보고서 임차인 현황"
         },
         "tenantConcentration": {
           "value": null,
@@ -1187,34 +1187,34 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 63.6,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "63.6%",
+          "asOf": "2025-09-30",
+          "status": "actual",
+          "sourceUrl": "https://nhallonereit.com/",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "2025 3분기 보고서(주식담보·전환사채 포함; 제외 시 56.1%)"
         },
         "wale": {
-          "value": null,
+          "value": 4.92,
           "unit": "년",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "4.92년",
+          "asOf": "2025-09-30",
+          "status": "actual",
+          "sourceUrl": "https://nhallonereit.com/",
           "sourceId": null,
-          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+          "note": "2025 3분기 보고서 포트폴리오 WALE"
         },
         "occupancy": {
-          "value": null,
+          "value": 98.2,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "98.2%",
+          "asOf": "2025-09-30",
+          "status": "actual",
+          "sourceUrl": "https://nhallonereit.com/",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "2025 3분기 보고서 임대율"
         },
         "debtFixedRatio": {
           "value": null,
@@ -1237,14 +1237,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "라인플러스 (핵심자산 분당스퀘어 주요 임차인)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-09-30",
+          "status": "actual",
+          "sourceUrl": "https://nhallonereit.com/",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "2025 3분기 보고서"
         },
         "tenantConcentration": {
           "value": null,
@@ -1315,14 +1315,14 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 65.7,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "65.7%",
+          "asOf": "2025-03-31",
+          "status": "actual",
+          "sourceUrl": "https://www.thebell.co.kr/front/newsview.asp?key=202505021330154160109639",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "thebell 보도(2025-03-31 기준). 자산재평가 후 약 59% 예상(2차 출처)"
         },
         "wale": {
           "value": null,
@@ -1335,14 +1335,14 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2025-06-30",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250922000291",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "공실률 0%에서 환산(SK서린·U타워 등 SK그룹 책임임차)"
         },
         "debtFixedRatio": {
           "value": null,
@@ -1365,14 +1365,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "SK㈜(SK서린빌딩 100% 책임임차); SK하이닉스·SK에너지 등 SK그룹",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-06-30",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250922000291",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "사업보고서 — 전 자산 SK그룹 책임임차"
         },
         "tenantConcentration": {
           "value": null,
@@ -1441,44 +1441,44 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 58,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "58%",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://dndplatformreit.com/module/board/imgview.php?mode=img_view&boardid=irreport&b_idx=60&idx=674",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "4Q2025 투자보고서 LTV 58%"
         },
         "wale": {
-          "value": null,
+          "value": 4.5,
           "unit": "년",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "4.5년",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://dndplatformreit.com/module/board/imgview.php?mode=img_view&boardid=irreport&b_idx=60&idx=674",
           "sourceId": null,
-          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+          "note": "4Q2025 투자보고서 가중평균 WALE 4.5년"
         },
         "occupancy": {
-          "value": null,
+          "value": 99.8,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "99.8%",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://dndplatformreit.com/module/board/imgview.php?mode=img_view&boardid=irreport&b_idx=60&idx=674",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "4Q2025 투자보고서 임대율 99.8%"
         },
         "debtFixedRatio": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://dndplatformreit.com/module/board/imgview.php?mode=img_view&boardid=irreport&b_idx=60&idx=674",
           "sourceId": null,
-          "note": "고정금리 비중"
+          "note": "4Q2025 투자보고서 고정금리 비중 100%"
         },
         "debtMaturity12m": {
           "value": null,
@@ -1491,14 +1491,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "서비스에이스(SK텔레콤 자회사), 한국씨티은행, 삼성화재",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://dndplatformreit.com/module/board/imgview.php?mode=img_view&boardid=irreport&b_idx=60&idx=674",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "4Q2025 투자보고서 주요 임차인"
         },
         "tenantConcentration": {
           "value": null,
@@ -1585,14 +1585,14 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 97,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "97%",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://seoulpi.io/reitsfocus/article/00504770452319404032",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "서울파이 H2 2025 IR 재해석 기사(임대율 99%→97%, 2차 출처)"
         },
         "debtFixedRatio": {
           "value": null,
@@ -1615,24 +1615,24 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "쿠팡 (임차인 구성 비중 54%)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://seoulpi.io/reitsfocus/article/00504770452319404032",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "서울파이 IR 재해석 기사(2차 출처)"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 54,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "54%",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://seoulpi.io/reitsfocus/article/00504770452319404032",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "임차인 구성 비중 쿠팡 54%(2차 출처)"
         }
       }
     },
@@ -1740,24 +1740,24 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "에이치디현대오일뱅크 (연간 임대료 약 49%)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-08-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015000341",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "제11기 반기보고서 주요 임차인"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 49,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "49%",
+          "asOf": "2025-08-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015000341",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "HD현대오일뱅크 연간 예상 임대료 약 49% 비중"
         }
       }
     },
@@ -1815,14 +1815,14 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 61,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "61%",
+          "asOf": "2025-12-31",
+          "status": "actual",
+          "sourceUrl": "https://www.sisajournal-e.com/news/articleView.html?idxno=420509",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "핵심자산 파이낸스타워(브뤼셀) 기준 LTV 61%(2025년말 평가, 약정 LTV 초과 이슈). 2차 출처"
         },
         "wale": {
           "value": null,
@@ -1865,14 +1865,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "벨기에 건물관리청(연방정부 Régie des Bâtiments) — 파이낸스타워 전층 임차(2034년말까지)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-09-30",
+          "status": "actual",
+          "sourceUrl": "https://jrglobalreit.com/sub/sub04_02.php?boardid=ir&mode=view&idx=224",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "단일 임차인 정부기관 전층 임차(공실률 0%). 뉴욕 자산은 별도 임차인"
         },
         "tenantConcentration": {
           "value": null,
@@ -1958,14 +1958,14 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2025-08-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015000117",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "반기보고서 — 롯데쇼핑 책임임차 임대율 100%"
         },
         "debtFixedRatio": {
           "value": null,
@@ -1988,24 +1988,24 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "GS리테일(전차인 롯데쇼핑㈜)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-08-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015000117",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "반기보고서 주요 임차인"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2025-08-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251015000117",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "단일 임차인 임대수익 100%"
         }
       }
     },
@@ -2061,14 +2061,14 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 56.3,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "56.3%",
+          "asOf": "2025-10-31",
+          "status": "actual",
+          "sourceUrl": "https://www.igisresidencereit.com/",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "2025.11 한국리츠협회 투자간담회 IR(작성기준일 25.10말) 포트폴리오 가중 LTV"
         },
         "wale": {
           "value": null,
@@ -2081,24 +2081,24 @@
           "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
         },
         "occupancy": {
-          "value": null,
+          "value": 99,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "99%",
+          "asOf": "2025-10-31",
+          "status": "actual",
+          "sourceUrl": "https://www.igisresidencereit.com/",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "최대자산 더샵부평 임대율 99%(자산별 95~99.7% 유지)"
         },
         "debtFixedRatio": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2025-10-31",
+          "status": "actual",
+          "sourceUrl": "https://www.igisresidencereit.com/",
           "sourceId": null,
-          "note": "고정금리 비중"
+          "note": "차입금 100% 고정금리(평균금리 3.03%)"
         },
         "debtMaturity12m": {
           "value": null,
@@ -2186,34 +2186,34 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 60.2,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "60.2%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.igisvaluereit.com/",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "2026 상반기 IR(삼성증권 콥데이) 순차입 기준 LTV 60.2%"
         },
         "wale": {
-          "value": null,
+          "value": 3.7,
           "unit": "년",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "3.7년",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.igisvaluereit.com/",
           "sourceId": null,
-          "note": "가중평균 잔여임대차기간 — 투자보고서 확인 후 입력"
+          "note": "IR자료 잔여 임대기간(WALE) 3.7년"
         },
         "occupancy": {
-          "value": null,
+          "value": 100,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "100%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.igisvaluereit.com/",
           "sourceId": null,
-          "note": "공실률/임대율 — 투자보고서 확인 후 입력"
+          "note": "포트폴리오 임대율 100%(상장 후 평균 98.2%)"
         },
         "debtFixedRatio": {
           "value": null,
@@ -2236,24 +2236,24 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "삼성생명(태평로빌딩) 등 삼성·SK그룹·공공기관",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.igisvaluereit.com/",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "IR자료 — 공공기관·Top2 대기업 임차 구조"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 52.1,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "52.1%",
+          "asOf": "2026-02-28",
+          "status": "actual",
+          "sourceUrl": "https://www.igisvaluereit.com/",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "공공기관 및 Top2 대기업(삼성·SK) 비중 52.1%"
         }
       }
     },
@@ -2309,14 +2309,14 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 0,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "0%",
+          "asOf": "2026-06-17",
+          "status": "actual",
+          "sourceUrl": "https://www.newspim.com/news/view/20260617000225",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "재간접리츠 — 리츠 자체 직접 차입금 없어 LTV 0%(차입은 기초자산 SPC 레벨). 2차 출처"
         },
         "wale": {
           "value": null,
@@ -2359,14 +2359,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "금호석유화학·LVMH·코리안리(시그니쳐타워); 김앤장(센터포인트 광화문)",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2026-01-14",
+          "status": "actual",
+          "sourceUrl": "http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2026/01/56284_K-REITs_1Q26_f.pdf",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "대신증권 K-REITs Guide Book(2차 출처)"
         },
         "tenantConcentration": {
           "value": null,
@@ -2434,14 +2434,14 @@
           "note": "한국리츠협회 공개표 기준 자산총계(연결 AUM과 다를 수 있음)"
         },
         "ltv": {
-          "value": null,
+          "value": 39.3,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "39.3%",
+          "asOf": "2025-08-06",
+          "status": "actual",
+          "sourceUrl": "https://kind.krx.co.kr/external/2025/08/06/000030/20250806000048/10601.htm",
           "sourceId": null,
-          "note": "투자보고서/공시에서 확인 후 입력"
+          "note": "제6-3회 담보부사채 투자설명서 — 2,400억 담보군 기준 동순위 LTV(회사 전체와 다를 수 있음)"
         },
         "wale": {
           "value": null,
@@ -2484,24 +2484,24 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "롯데쇼핑㈜ (임대료 83.5%); 롯데글로벌로지스·L7강남타워",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2025-08-06",
+          "status": "actual",
+          "sourceUrl": "https://kind.krx.co.kr/external/2025/08/06/000030/20250806000048/10601.htm",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "투자설명서 임차인별 임대료(2025년 1분기 기준)"
         },
         "tenantConcentration": {
-          "value": null,
+          "value": 83.5,
           "unit": "%",
-          "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "display": "83.5%",
+          "asOf": "2025-08-06",
+          "status": "actual",
+          "sourceUrl": "https://kind.krx.co.kr/external/2025/08/06/000030/20250806000048/10601.htm",
           "sourceId": null,
-          "note": "상위 임차인 집중도"
+          "note": "2025년 1분기 임대료 기준 롯데쇼핑 비중(면적 아닌 임대료 기준)"
         }
       }
     },
@@ -2855,14 +2855,14 @@
           "note": "향후 12개월 내 만기 비중"
         },
         "topTenant": {
-          "value": null,
+          "value": "국민은행, 손해보험·생명보험사 등 법인 임차인",
           "unit": null,
           "display": null,
-          "asOf": null,
-          "status": "unavailable",
-          "sourceUrl": null,
+          "asOf": "2026-03-31",
+          "status": "actual",
+          "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260513000530",
           "sourceId": null,
-          "note": "주요 임차인"
+          "note": "분기보고서 임차인 구성"
         },
         "tenantConcentration": {
           "value": null,
