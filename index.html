@@ -418,6 +418,7 @@
     .fil .fd { font-size:11.5px; color:var(--muted); }
     .fil .ft { display:block; font-size:13px; font-weight:700; color:var(--text); margin-top:2px; }
     .fil .fcat { display:inline-block; font-size:10.5px; font-weight:800; color:var(--accent); background:var(--warning-tint); border-radius:999px; padding:1px 7px; margin-left:5px; }
+    .fil .fsum { display:block; font-size:12px; font-weight:500; color:var(--muted); line-height:1.5; margin-top:4px; }
     .fil.imp { border-left:3px solid var(--accent); }
     .impmark { display:inline-block; font-size:10.5px; font-weight:900; color:#fff; background:var(--accent); border-radius:6px; padding:1px 6px; margin-right:5px; }
     /* 홈 최근 공시 피드 */
@@ -427,6 +428,7 @@
     .filrow .fr-d { font-size:12px; color:var(--muted); white-space:nowrap; }
     .filrow .fr-n { font-size:13px; font-weight:850; letter-spacing:-0.02em; }
     .filrow .fr-t { font-size:13px; color:var(--text); }
+    .filrow .fr-s { display:block; font-size:12px; color:var(--muted); line-height:1.5; margin-top:3px; }
     /* 표 배당기준월 미니 스트립 */
     @media (max-width:680px) {
       .filrow { grid-template-columns: 1fr; gap:3px; }
@@ -1274,7 +1276,7 @@
     // 슬롯별 종류(SLOT_KIND): 'affiliate'(제휴 CTA) | 'ads'(AdSense) | 'auto'(제휴 우선, 없으면 AdSense).
     //  권장 분배: 투자 의도가 높은 find·income = 제휴, 정보성 home·learn = AdSense.
     //  (AdSense 미승인 시 'ads'·'auto'는 비어 자동 숨김 → 지금은 home·learn 을 'auto'로 둬 제휴를 노출)
-    const SLOT_KIND = { home: 'auto', find: 'affiliate', income: 'affiliate', learn: 'auto' };
+    const SLOT_KIND = { home: 'ads', find: 'affiliate', income: 'affiliate', learn: 'auto' };  // home은 제휴 CTA 비노출(AdSense 켜면 광고)
 
     // [제휴] 증권사 계좌개설 등 파트너 링크. 레퍼럴 URL은 partners.json(같은 폴더)에서 관리(코드 수정 불필요).
     //  - url 이 빈 값이면 그 버튼은 표시되지 않고, 모든 url 이 비면 '시작 가이드'만 노출(정직한 폴백).
@@ -1924,12 +1926,36 @@
     const filingsCache = {};
     const FIL_IMPORTANT = /유상증자|증자|감자|회생|파산|합병|분할|매각|처분|취득|편입|차입|사채|배당|특별|상장폐지|관리종목|영업정지/;
     function filImportant(title) { return FIL_IMPORTANT.test(title || ''); }
+    // 공시 제목을 키워드로 분류해 '쉬운 설명 + 투자자가 볼 포인트'를 보여줌(원문 요약이 아니라 공시 유형 해설 — 날조 방지).
+    const FILING_RULES = [
+      [/(관리종목|상장폐지|거래정지)/, '⚠ 상장 유지에 영향을 주는 중대한 공시예요. 사유와 후속 공시를 반드시 확인하세요.'],
+      [/(회생|파산|부도)/, '⚠ 재무 위기 관련 중대 공시예요. 원문을 반드시 확인하세요.'],
+      [/유상증자/, '자금을 마련하려고 새 주식을 발행하는 공시예요. 주식 수가 늘어 주당 배당이 희석될 수 있으니 발행 규모·목적을 확인하세요.'],
+      [/무상증자/, '기존 주주에게 주식을 추가로 나눠주는 공시예요. 주당 가치·배당 기준이 조정될 수 있어요.'],
+      [/감자/, '자본금을 줄이는(감자) 공시예요. 재무구조 개선 목적일 수 있으나 사유를 확인하세요.'],
+      [/(배당|분배금)/, '배당(분배금) 관련 공시예요. 1주당 금액·기준일·지급일과 재원(임대수익인지 매각이익인지)을 확인하세요.'],
+      [/(매각|처분|양도)/, '보유 자산을 파는 공시예요. 매각차익은 일회성 특별배당일 수 있어 반복 배당과 구분해야 해요.'],
+      [/(양수|취득|편입|매입)/, '새 부동산을 사들이거나 편입하는 공시예요. 성장 요인이지만 자금 조달 방식(증자·차입)을 함께 보세요.'],
+      [/(차입|대출|사채|차환|리파이낸싱)/, '돈을 빌리거나 갈아타는(차입·사채) 공시예요. 금리·만기에 따라 이자비용이 늘어 배당을 압박할 수 있어요.'],
+      [/(임대차|임차|책임임대|마스터리스)/, '임차인·임대차 계약 관련 공시예요. 주요 임차인 신용도와 임대료·계약 기간을 확인하세요.'],
+      [/(합병|분할)/, '회사 구조를 합치거나 나누는 공시예요. 주주 가치·배당 구조에 큰 영향을 줄 수 있어요.'],
+      [/(영업보고서|사업보고서|분기보고서|반기보고서)/, '정기 실적 보고서예요. 임대수익·차입금·배당 재원의 추세를 확인할 수 있어요.'],
+      [/(증권신고서|투자설명서|일괄신고)/, '주식·사채 발행을 위한 신고 서류예요. 발행 조건·자금 사용처를 확인하세요.'],
+      [/(감사보고서|검토보고서)/, '외부 회계감사 결과 보고서예요. 감사의견(적정 여부)을 확인하세요.'],
+      [/(주주총회|주총|의결권)/, '주주총회 소집·안건 관련 공시예요. 배당·임원·정관 변경 등 안건을 확인하세요.'],
+      [/(신용등급|신용평가)/, '신용등급 관련 공시예요. 등급은 차입 비용에 영향을 줘 배당 여력과 연결돼요.'],
+    ];
+    function filingExplain(title) {
+      const t = title || '';
+      for (let i = 0; i < FILING_RULES.length; i++) if (FILING_RULES[i][0].test(t)) return FILING_RULES[i][1];
+      return '제목을 누르면 DART 원문에서 자세한 내용을 볼 수 있어요.';
+    }
     function renderFilings(box, list) {
       if (!list.length) { box.innerHTML = '<div class="fil-wrap"><h3>최근 공시</h3><p class="muted small">최근 수집된 공시가 없습니다. DART에서 직접 확인하세요.</p></div>'; return; }
       box.innerHTML = '<div class="fil-wrap"><h3>최근 공시 <span class="muted small">(자동수집·DART)</span></h3>' + list.slice(0, 8).map(f => {
         const cats = (f.category || []).map(c => '<span class="fcat">' + escapeHTML(c) + '</span>').join('');
         const imp = filImportant(f.title);
-        return '<a class="fil ' + (imp ? 'imp' : '') + '" href="' + escapeHTML(f.url || '#') + '" target="_blank" rel="noreferrer"><span class="fd">' + escapeHTML(f.filed_at || '') + cats + '</span><span class="ft">' + (imp ? '<span class="impmark">주요</span>' : '') + escapeHTML(f.title || '') + '</span></a>';
+        return '<a class="fil ' + (imp ? 'imp' : '') + '" href="' + escapeHTML(f.url || '#') + '" target="_blank" rel="noreferrer"><span class="fd">' + escapeHTML(f.filed_at || '') + cats + '</span><span class="ft">' + (imp ? '<span class="impmark">주요</span>' : '') + escapeHTML(f.title || '') + '</span><span class="fsum">' + escapeHTML(filingExplain(f.title)) + '</span></a>';
       }).join('') + '</div>';
     }
     function renderHomeFilings() {
@@ -1947,7 +1973,7 @@
           return '<a class="filrow ' + (imp ? 'imp' : '') + '" href="' + escapeHTML(f.url || '#') + '" target="_blank" rel="noreferrer">'
             + '<span class="fr-d">' + escapeHTML(f.filed_at || '') + '</span>'
             + '<span class="fr-n">' + escapeHTML(nm) + '</span>'
-            + '<span class="fr-t">' + (imp ? '<span class="impmark">주요</span>' : '') + escapeHTML(f.title || '') + cats + '</span></a>';
+            + '<span class="fr-t">' + (imp ? '<span class="impmark">주요</span>' : '') + escapeHTML(f.title || '') + cats + '<span class="fr-s">' + escapeHTML(filingExplain(f.title)) + '</span></span></a>';
         }).join('');
       }).catch(() => {});
     }
