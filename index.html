@@ -7,13 +7,26 @@
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#3254ff" />
   <title>리츠온 REITs ON · 상장리츠 정보 플랫폼</title>
+  <link rel="canonical" href="https://seonghoonkim2.github.io/reits-on/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://reits-on-api.modelter.workers.dev" crossorigin />
+  <link rel="dns-prefetch" href="https://reits-on-api.modelter.workers.dev" />
   <meta property="og:title" content="리츠온 REITs ON · 상장리츠 정보 플랫폼" />
   <meta property="og:description" content="국내 상장리츠 25개를 쉽게 비교하고, 배당 캘린더·현금흐름·계산기·공시 도우미까지. 일반 투자자를 위한 학습·비교 도구." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://seonghoonkim2.github.io/reits-on/" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:site_name" content="리츠온 REITs ON" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:image" content="https://seonghoonkim2.github.io/reits-on/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="리츠온 REITs ON — 상장리츠, 사기 전에 3가지만 확인하세요" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="리츠온 REITs ON" />
   <meta name="twitter:description" content="상장리츠를 쉽고 자세하게 — 검색·비교·배당·계산기·공시 도우미." />
+  <meta name="twitter:image" content="https://seonghoonkim2.github.io/reits-on/og.png" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"리츠온 REITs ON","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"ko","url":"https://seonghoonkim2.github.io/reits-on/","description":"국내 상장리츠 일반 투자자를 위한 검색·비교·배당·공시 학습 플랫폼(교육용, 투자 권유 아님)","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"}}</script>
   <style>
     /* =========================================================
@@ -307,9 +320,6 @@
     .chip:hover { background: var(--hover); color: var(--text); }
     .chip.active { color: #fff; background: var(--brand); border-color: var(--brand); }
 
-    .seg { display:inline-flex; border:1px solid var(--line); border-radius:var(--radius-pill); padding:3px; background:var(--surface-strong); gap:3px; }
-    .seg button { border:0; background:transparent; color:var(--muted); border-radius:var(--radius-pill); padding:8px 14px; cursor:pointer; font-weight:800; font-size:13px; min-height:36px; }
-    .seg button.on { background:var(--brand); color:#fff; }
 
     .cards-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
     .reit-card {
@@ -331,7 +341,6 @@
     @media (max-width:980px){ .finder-grid { grid-template-columns:1fr; } }
     .filters2 { display:grid; grid-template-columns: 1fr 180px; gap:10px; margin-bottom: var(--space-2); }
     @media (max-width:680px){ .filters2 { grid-template-columns:1fr; } }
-    .finder-subbar { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom: var(--space-2); flex-wrap:wrap; }
     .adv > summary { list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:800; color:var(--muted); border:1px solid var(--line); border-radius:var(--radius-pill); padding:8px 13px; background:var(--surface-strong); min-height:40px; }
     .adv > summary::-webkit-details-marker { display:none; }
     .adv > summary::after { content:"▾"; font-size:11px; }
@@ -395,14 +404,7 @@
     .metric-line strong { color: var(--text); }
     .reit-note { color: var(--muted); font-size: 14px; margin: 0; flex: 1; }
 
-    .table-wrap { overflow:auto; border-radius: 18px; border:1px solid var(--line); position:relative; }
-    table { border-collapse: collapse; width: 100%; min-width: 880px; background: var(--surface-strong); }
-    th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
-    th { color: var(--muted); font-size: 13px; background: var(--primary-tint); position: sticky; top: 0; }
-    td { font-size: 14px; }
-    tr:hover td { background: var(--hover); }
     .link { color: var(--brand); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
-    .scroll-hint { display:none; }
 
     .detail-box { position: sticky; top: 88px; }
     .detail-nav { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; }
@@ -426,11 +428,6 @@
     .filrow .fr-n { font-size:13px; font-weight:850; letter-spacing:-0.02em; }
     .filrow .fr-t { font-size:13px; color:var(--text); }
     /* 표 배당기준월 미니 스트립 */
-    .tmonths-wrap { display:flex; align-items:center; gap:8px; }
-    .tmf { font-size:11px; font-weight:800; color:var(--muted); flex:0 0 auto; }
-    .tmonths { display:inline-grid; grid-template-columns: repeat(12, 16px); gap:2px; }
-    .tm { font-size:9px; line-height:17px; height:17px; text-align:center; border-radius:4px; color:var(--muted); background:var(--line-soft); }
-    .tm.on { background:var(--brand); color:#fff; font-weight:800; }
     @media (max-width:680px) {
       .filrow { grid-template-columns: 1fr; gap:3px; }
     }
@@ -709,7 +706,6 @@
       .bar-row { grid-template-columns: 72px 1fr 64px; }
       .pf-add, .pf-row, .pf-budget, .qc-top, .qc-two, .pf-onestep, .pf-budget2 { grid-template-columns: 1fr; }
       .pf-cov { grid-template-columns: repeat(6, 1fr); }
-      .scroll-hint { display:block; font-size:12px; color:var(--muted); margin-bottom:8px; }
     }
     @media (max-width: 480px) {
       .compare-bar .inner { flex-direction: column; align-items: stretch; }
@@ -1325,6 +1321,7 @@
 
     // (b) 제휴 링크를 partners.json(같은 폴더)에서 불러와 코드 수정 없이 갱신
     function hydratePartners() {
+      if (!/^https?:$/.test(location.protocol)) return Promise.resolve(false); // file:// 등에선 스킵(콘솔 에러 방지)
       return fetch('partners.json', { cache: 'no-store' })
         .then(r => r.ok ? r.json() : null)
         .then(cfg => {
@@ -1347,15 +1344,34 @@
       fillSlot(state.tab);
     }
 
-    // (c) 제휴 클릭 집계: 브라우저 로컬 합계 + 백엔드 비콘(/v1/track). 엔드포인트 없으면 무해.
-    function trackCta(tab, broker) {
-      try { const o = store.get('ctaclicks', {}); const k = (tab || '?') + '/' + (broker || '?'); o[k] = (o[k] || 0) + 1; store.set('ctaclicks', o); } catch (e) { /* noop */ }
+    // ───────── 분석/집계 ─────────
+    // 1st-party 집계: 쿠키 없이 /v1/track 으로 페이지·탭·제휴클릭 비콘(엔드포인트 없으면 무해).
+    // GA4도 쓰려면 ANALYTICS.ga4 = 'G-XXXX' 채우면 자동 로드(미설정 시 미로드 → 동의배너 부담 없음).
+    const ANALYTICS = { firstParty: true, ga4: '' };
+    function beacon(params) {
       if (!API_BASE) return;
       try {
-        const url = API_BASE + '/v1/track?ev=cta&tab=' + encodeURIComponent(tab || '') + '&broker=' + encodeURIComponent(broker || '');
+        const url = API_BASE + '/v1/track?' + params;
         if (navigator.sendBeacon) navigator.sendBeacon(url);
         else fetch(url, { method: 'POST', mode: 'no-cors', keepalive: true }).catch(() => {});
       } catch (e) { /* noop */ }
+    }
+    function trackView(tab) { if (ANALYTICS.firstParty) beacon('ev=view&tab=' + encodeURIComponent(tab || '')); }
+    function trackCta(tab, broker) {
+      try { const o = store.get('ctaclicks', {}); const k = (tab || '?') + '/' + (broker || '?'); o[k] = (o[k] || 0) + 1; store.set('ctaclicks', o); } catch (e) { /* noop */ }
+      beacon('ev=cta&tab=' + encodeURIComponent(tab || '') + '&broker=' + encodeURIComponent(broker || ''));
+    }
+    let _ga4Added = false;
+    function ensureGa4() {
+      if (_ga4Added || !/^G-[\w]+$/.test(ANALYTICS.ga4)) return;
+      _ga4Added = true;
+      const s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ANALYTICS.ga4;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', ANALYTICS.ga4);
     }
 
     // [AdSense] 승인 후: enabled=true, client=게시자ID(ca-pub-…), slots=광고단위 슬롯ID 교체.
@@ -1543,6 +1559,7 @@
       initReveal();
       initTabs();
       initSlots();
+      ensureGa4();
       setTab(state.tab, { noScroll: true });
     }
 
@@ -1594,6 +1611,7 @@
       $$('.tabbtn').forEach(b => { const on = b.dataset.go === name; b.classList.toggle('active', on); b.setAttribute('aria-current', on ? 'page' : 'false'); });
       writeHashState();
       fillSlot(name);
+      trackView(name);
       if (!opts.noScroll) window.scrollTo({ top: 0, behavior: 'auto' });
     }
 

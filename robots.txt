@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://seonghoonkim2.github.io/reits-on/sitemap.xml
