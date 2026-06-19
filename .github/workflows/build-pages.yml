@@ -23,10 +23,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Finance unit tests
+        run: node --test tests/finance.test.mjs
       - name: Validate data (provenance·도메인 규칙)
         run: node scripts/validate.mjs
       - name: Embed seed (data/*.json → index.html)
         run: node scripts/embed-seed.mjs
+      - name: Inject finance module (finance.mjs → index.html)
+        run: node scripts/build-app.mjs
       - name: Generate per-REIT pages + sitemap
         run: node scripts/build-pages.mjs
       - name: Commit if changed
