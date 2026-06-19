@@ -746,10 +746,10 @@
         <div class="hero-card">
           <span class="eyebrow"><span class="dot"></span> 상장리츠 투자 전 점검 도구 · 매수 추천 아님</span>
           <h1>상장리츠,<br />사기 전에<br />3가지만 확인하세요.</h1>
-          <p class="lead">배당월 · 현재가 기준 수익률 · 공시 리스크를 한 화면에서 점검합니다.</p>
+          <p class="lead">배당월 · 입력가 기준 예상 수익률 · 공시 리스크를 한 화면에서 점검합니다.</p>
           <ul class="hero-points">
             <li><b>1</b> 배당은 언제 들어오나</li>
-            <li><b>2</b> 현재가 기준 수익률은 얼마인가</li>
+            <li><b>2</b> 내가 입력한 가격 기준 예상 수익률은</li>
             <li><b>3</b> 배당을 흔들 리스크는 무엇인가</li>
           </ul>
           <form class="hero-search" id="heroSearchForm" role="search">
@@ -772,7 +772,7 @@
             </div>
             <div class="pulse-row">
               <div><div class="pulse-label">상장리츠 AUM</div><div class="pulse-value" id="listedAum"></div></div>
-              <div class="right"><div class="pulse-label">평균 배당수익률</div><div class="pulse-value" id="listedYield"></div></div>
+              <div class="right"><div class="pulse-label">평균 배당수익률(현재가)</div><div class="pulse-value" id="listedYield"></div></div>
             </div>
             <div class="pulse-row">
               <div><div class="pulse-label">분기배당</div><div class="pulse-value" id="snapQuarter"></div></div>
@@ -813,7 +813,7 @@
         <div class="section-head">
           <div>
             <h2>최근 공시</h2>
-            <p>상장리츠 25개의 최신 공시입니다(자동수집·DART). <b>주요</b> 표시는 유상증자·배당·차입·매각·회생 등 눈여겨볼 공시입니다.</p>
+            <p>상장리츠 25개의 최신 공시입니다(자동수집·DART). <b>주요</b> 표시는 유상증자·배당·차입·매각·회생 등 키워드로 <b>제목을 자동 분류</b>한 결과이며, 중요도 판단이 아닙니다. 원문을 함께 확인하세요.</p>
           </div>
           <span class="eyebrow" id="filAsOf"></span>
         </div>
@@ -922,14 +922,14 @@
           <div class="section-head">
             <div>
               <h2>상장리츠 자산군 분포</h2>
-              <p>상장리츠 25개 seed data 기준(대표 자산군별 종목 수). 전체 운용리츠 시장 분포가 아닙니다. 색상은 일반적 배당 안정성 성격입니다.</p>
+              <p>상장리츠 25개 seed data 기준(대표 자산군별 종목 수). 전체 운용리츠 시장 분포가 아닙니다. 색상은 자산군의 <b>일반적 성격 분류(정량 등급·안전성 평가 아님)</b>입니다.</p>
             </div>
           </div>
           <div id="sectorBars" class="bar-list"></div>
           <div class="legend">
-            <span><i class="sw" style="background:var(--success)"></i>안정 편</span>
-            <span><i class="sw" style="background:var(--warning)"></i>경기 민감</span>
-            <span><i class="sw" style="background:var(--error)"></i>환율/변동 큼</span>
+            <span><i class="sw" style="background:var(--success)"></i>장기 임대형</span>
+            <span><i class="sw" style="background:var(--warning)"></i>경기 연동형</span>
+            <span><i class="sw" style="background:var(--error)"></i>환율 노출형</span>
             <span><i class="sw" style="background:#8893ad"></i>기타</span>
           </div>
         </div>
@@ -967,7 +967,7 @@
             <input id="searchInput" class="input" type="search" placeholder="이름·자산군으로 검색 (예: SK, 오피스)" aria-label="리츠 검색" />
             <select id="sortSelect" class="select" aria-label="정렬">
               <option value="name">이름순</option>
-              <option value="annualDpsDesc">배당 많은 순</option>
+              <option value="annualDpsDesc">연환산 DPS 순(추정)</option>
               <option value="assetDesc">규모 큰 순</option>
               <option value="freq">자주 주는 순</option>
               <option value="watch">관심 먼저</option>
@@ -1002,7 +1002,7 @@
               <p id="detailTicker" class="muted"></p>
             </div>
           </div>
-          <p id="detailNote" class="muted">왼쪽에서 리츠를 선택하면 배당월·단순 연환산 DPS·현재가 기준 수익률·먼저 확인할 공시 질문을 보여줍니다.</p>
+          <p id="detailNote" class="muted">왼쪽에서 리츠를 선택하면 배당기준월·단순 연환산 DPS·입력가 기준 예상 수익률·먼저 확인할 공시 질문을 보여줍니다.</p>
           <div class="detail-month" id="detailMonths"></div>
           <ul class="detail-list" id="detailList"></ul>
           <div id="detailFilings"></div>
@@ -1041,8 +1041,8 @@
         <div class="section-head">
           <div>
             <span class="eyebrow">배당·현금흐름</span>
-            <h2>매달 배당받는 포트폴리오 만들기</h2>
-            <p>상장리츠는 종목마다 <b>배당 주는 달</b>이 다릅니다. 배당월이 다른 리츠를 섞으면 <b>매달 배당이 들어오는</b> 구성을 만들 수 있어요. 내 투자금으로 직접 설계해 보세요.</p>
+            <h2>배당기준월 분산 포트폴리오 만들기</h2>
+            <p>상장리츠는 종목마다 <b>배당기준월</b>이 다릅니다. 배당기준월이 다른 리츠를 섞으면 <b>배당기준월을 매달로 분산</b>한 구성을 만들 수 있어요(실제 입금은 결산 뒤 약 2~3개월 시차). 내 투자금으로 직접 설계해 보세요.</p>
           </div>
         </div>
         <div class="note-banner">⚠ <b>가정 배당률 기반 교육용 추정</b>입니다. 투자금액에 가정 배당률을 곱해 각 리츠의 배당월에 나눠 배분한 값으로, 실제 배당·지급일·세금과 다를 수 있습니다. 배당은 삭감·중단될 수 있습니다.</div>
@@ -1051,9 +1051,9 @@
         <div class="panel">
           <div class="pf-onestep">
             <label class="pf-budget-main">투자할 금액<br/><input id="pfBudget" class="input" type="number" min="0" step="1000000" value="10000000" inputmode="numeric" /></label>
-            <button id="pfAuto" class="primary-btn" type="button">✨ 매달 받는 조합 자동 추천</button>
+            <button id="pfAuto" class="primary-btn" type="button">✨ 배당월 채우는 조합 예시 만들기</button>
           </div>
-          <p class="muted small" style="margin-top:8px;">버튼을 누르면 배당월이 겹치지 않는 리츠를 골라 <b>12개월을 채우고</b> 투자금을 나눠 담아 드려요.</p>
+          <p class="muted small" style="margin-top:8px;">조건(배당월이 겹치지 않게, 투자금 균등 분배)에 따라 <b>비어 있는 배당기준월을 채우는 조합 예시</b>를 기계적으로 만들어 드려요. 특정 종목 추천이 아니며, 다른 조건을 넣으면 결과가 달라집니다.</p>
 
           <details class="adv" style="margin-top:var(--space-2);">
             <summary>직접 고르기 · 배당률·세금 설정</summary>
@@ -1075,14 +1075,14 @@
           </details>
 
           <div class="pf-list" id="pfList"></div>
-          <div id="pfEmpty" class="empty" style="margin-top:var(--space-2);"><b>자동 추천</b>을 눌러 시작해 보세요. 아래 배당 캘린더나 ‘리츠 찾기’의 <b>월배당에 넣기</b>로도 담을 수 있어요.</div>
+          <div id="pfEmpty" class="empty" style="margin-top:var(--space-2);"><b>조합 예시 만들기</b>로 시작해 보세요. 아래 배당 캘린더나 ‘리츠 찾기’의 <b>월배당에 넣기</b>로도 담을 수 있어요.</div>
         </div>
 
         <!-- 결과 -->
         <div id="pfResult" class="hidden">
           <div class="panel" style="margin-top:var(--space-2);">
-            <div class="pf-step">① 매달 받는지 확인 <span id="pfCoverNum" class="muted"></span></div>
-            <p class="muted small" style="margin:6px 0 10px;">배당기준월 기준입니다. 실제 입금은 보통 그 이후 약 2~3개월 시차가 있습니다.</p>
+            <div class="pf-step">① 배당기준월 커버 확인 <span id="pfCoverNum" class="muted"></span></div>
+            <p class="muted small" style="margin:6px 0 10px;"><b>배당기준월(결산월) 기준</b>입니다. 실제 지급(입금)은 보통 그 이후 약 2~3개월 시차가 있어, 매달 균등 입금을 보장하지 않습니다.</p>
             <div class="pf-cov" id="pfCoverage"></div>
             <div id="pfGapWrap" style="margin-top:14px;">
               <div class="strong small" id="pfGapTitle" style="margin-bottom:8px;"></div>
@@ -1091,7 +1091,7 @@
           </div>
 
           <div class="panel" style="margin-top:var(--space-2);">
-            <div class="pf-step">② 월별 배당 추정 (1년)</div>
+            <div class="pf-step">② 배당기준월별 배당 추정 (1년·가정 배당률 기준)</div>
             <div class="pf-summary">
               <div class="result-card hero-result"><div class="small">월평균(세후·추정)</div><div class="big" id="pfMonthly">-</div></div>
               <div class="result-card"><div class="small">연 배당(세후·추정)</div><div class="big" id="pfAnnual">-</div></div>
@@ -1489,13 +1489,13 @@
     const STABILITY = { '오피스':'steady','물류':'steady','복합':'steady','인프라':'steady','주거':'steady','리테일':'cyclical','호텔':'cyclical','해외':'fx','주택':'steady','기타':'neutral' };
 
     const SECTOR_INFO = [
-      {key:'오피스', icon:'🏢', stability:'steady', stabilityText:'안정 편', summary:'서울 도심·강남·여의도 등 핵심권역 빌딩이 주력. 우량 임차인의 장기 임대차가 많아 배당이 비교적 꾸준한 편입니다.', watch:'공실률, 임대료 상승률, 차입금 금리', downside:'경기 둔화·재택근무 확산 시 공실 증가, 금리 상승 시 이자비용으로 배당 압박.'},
+      {key:'오피스', icon:'🏢', stability:'steady', stabilityText:'장기 임대 중심', summary:'서울 도심·강남·여의도 등 핵심권역 빌딩이 주력. 우량 임차인의 장기 임대차가 많아 배당이 비교적 꾸준한 편입니다.', watch:'공실률, 임대료 상승률, 차입금 금리', downside:'경기 둔화·재택근무 확산 시 공실 증가, 금리 상승 시 이자비용으로 배당 압박.'},
       {key:'물류', icon:'📦', stability:'steady', stabilityText:'구조적 수요', summary:'전자상거래 성장과 맞물린 물류센터 중심. 임차인 분산도와 신규 공급(과잉 여부)이 임대료를 좌우합니다.', watch:'임차인 분산, 신규 공급량, 재계약 임대료', downside:'특정 지역 공급 과잉 시 임대료 하락, 핵심 임차인 신용도 악화 시 공실·연체.'},
       {key:'리테일', icon:'🛍️', stability:'cyclical', stabilityText:'경기 민감', summary:'백화점·마트·복합쇼핑몰 등. 소비 경기와 핵심 임차인 매출에 영향을 받지만, 장기 책임임대차면 방어력이 있습니다.', watch:'소비 경기, 임차인 매출, 임대차 잔여기간', downside:'소비 위축·온라인 전환 시 매출 연동 임대료 하락, 핵심 임차인 부실 시 타격.'},
-      {key:'주거', icon:'🏠', stability:'steady', stabilityText:'수요 안정', summary:'임대주택 중심. 주거는 수요가 안정적이지만, 임대료 규제·주택시장·자산 매각 계획을 함께 봐야 합니다.', watch:'임대율, 전월세 시장, 매각 계획', downside:'임대료 규제·전세 시장 변동, 개발·매각 지연 시 배당 변동성 확대.'},
+      {key:'주거', icon:'🏠', stability:'steady', stabilityText:'주거 임대 기반', summary:'임대주택 중심. 주거는 수요가 안정적이지만, 임대료 규제·주택시장·자산 매각 계획을 함께 봐야 합니다.', watch:'임대율, 전월세 시장, 매각 계획', downside:'임대료 규제·전세 시장 변동, 개발·매각 지연 시 배당 변동성 확대.'},
       {key:'호텔', icon:'🏨', stability:'cyclical', stabilityText:'변동성 큼', summary:'관광·출장 수요에 크게 좌우됩니다. 객실 가동률·객단가 변동이 커서 배당 변동성도 상대적으로 큰 편입니다.', watch:'객실 가동률, 관광 수요, 임대차 구조', downside:'경기·감염병·여행 수요 급변에 직접 노출, 고정비 부담으로 적자·배당 중단 가능.'},
       {key:'해외', icon:'🌏', stability:'fx', stabilityText:'환율 민감', summary:'해외 오피스·물류 등에 투자. 현지 자산가치·금리뿐 아니라 환율 변동이 배당과 평가액에 직접 영향을 줍니다.', watch:'환율, 현지 금리, 해외 리파이낸싱', downside:'원화 강세 시 배당·평가액 감소, 현지 금리 급등·리파이낸싱 실패 시 큰 손실.'},
-      {key:'복합', icon:'🧩', stability:'steady', stabilityText:'분산 효과', summary:'오피스·물류·리테일 등 여러 유형을 한 리츠에 담아 분산 효과를 노립니다. 대신 자산별 성과 편차를 나눠 봐야 합니다.', watch:'자산별 임대차·차입금 만기, 성과 편차', downside:'한 자산의 부실이 전체 배당을 끌어내릴 수 있고, 구조가 복잡해 분석 난도 높음.'},
+      {key:'복합', icon:'🧩', stability:'steady', stabilityText:'자산 혼합형', summary:'오피스·물류·리테일 등 여러 유형을 한 리츠에 담아 분산 효과를 노립니다. 대신 자산별 성과 편차를 나눠 봐야 합니다.', watch:'자산별 임대차·차입금 만기, 성과 편차', downside:'한 자산의 부실이 전체 배당을 끌어내릴 수 있고, 구조가 복잡해 분석 난도 높음.'},
       {key:'인프라', icon:'🛣️', stability:'steady', stabilityText:'장기 계약', summary:'생활 인프라·장기 임대 자산 중심. 장기 계약으로 현금흐름이 안정적이지만, 업태 전환 위험을 점검해야 합니다.', watch:'장기 임대차 구조, 업태 전환, 임차인 매출', downside:'임차 업종 구조 변화·핵심 임차인 부실 시 장기 계약도 재협상 위험.'},
     ];
     const sectorInfoOf = (key) => SECTOR_INFO.find(s => s.key === key);
@@ -1669,7 +1669,7 @@
       $('#listedYield').textContent = MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%';
       $('#snapQuarter').textContent = quarter + '개';
       $('#snapThisMonth').textContent = thisM + '개';
-      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + (MARKET._livePrices ? ' · 시세는 최근 종가 기준 자동 갱신(장중 실시간 아님).' : MARKET._live ? ' · 시세 연동 대기(데이터 키 등록 시 표시).' : ', 실시간 아님.') + ' 평균 배당수익률은 현재가 기준(' + MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%)이며 납입자본 기준은 ' + MARKET.listedDividendYieldPaidInCapital.toFixed(1) + '%입니다. 정확한 값은 증권사·각 리츠 공시에서 확인하세요. 매수 추천이 아닙니다.';
+      $('#yieldNote').textContent = '기준일 ' + MARKET.asOf + (MARKET._livePrices ? ' · 시세는 최근 종가 기준 자동 갱신(장중 실시간 아님).' : MARKET._live ? ' · 시세 연동 대기(데이터 키 등록 시 표시).' : ', 실시간 아님.') + ' 평균 배당수익률은 현재가 기준(' + MARKET.listedDividendYieldPriceBasis.toFixed(1) + '%)이며 납입자본 기준은 ' + MARKET.listedDividendYieldPaidInCapital.toFixed(1) + '%입니다. 한국리츠협회 상장리츠 집계 기준(개별 종목 단순평균 아님)이며 특별배당 포함 여부·DPS 기간은 종목별로 다릅니다. 정확한 값은 증권사·각 리츠 공시에서 확인하세요. 매수 추천이 아닙니다.';
     }
 
     function renderKpis() {
