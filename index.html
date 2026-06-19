@@ -11,6 +11,10 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="리츠온" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="preconnect" href="https://reits-on-api.modelter.workers.dev" crossorigin />
   <link rel="dns-prefetch" href="https://reits-on-api.modelter.workers.dev" />
   <meta property="og:title" content="리츠온 REITs ON · 상장리츠 정보 플랫폼" />
@@ -41,7 +45,7 @@
       --surface-2: #fbfcff;
       --surface-strong: #ffffff;
       --text: #172033;
-      --muted: #5b657c;
+      --muted: #515b72;
       --line: #e5e9f2;
       --line-soft: #eef1f7;
 
@@ -2559,6 +2563,11 @@
     }).catch(() => {});
     // 제휴 링크(partners.json) 로드 후 슬롯 갱신
     hydratePartners().then(changed => { if (changed) { try { refreshAffiliateSlots(); } catch (e) { /* noop */ } } }).catch(() => {});
+
+    // PWA: 서비스워커 등록(https에서만, 네트워크 우선 → 오프라인 폴백)
+    if ('serviceWorker' in navigator && location.protocol === 'https:') {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+    }
   })();
   </script>
 </body>
