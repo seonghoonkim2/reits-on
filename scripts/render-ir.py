@@ -29,7 +29,14 @@ def render(entry):
     for old in out_dir.glob("*.jpg"):
         old.unlink()
     pdf_path = out_dir / "_src.pdf"
-    download(entry["url"], pdf_path)
+    try:
+        download(entry["url"], pdf_path)
+    except Exception:
+        if pdf_path.exists():
+            pdf_path.unlink()
+        if not any(out_dir.iterdir()):
+            out_dir.rmdir()
+        raise
     pdf = fitz.open(pdf_path)
     total = pdf.page_count
     cap = entry.get("pages") or total
