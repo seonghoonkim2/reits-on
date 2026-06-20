@@ -1,0 +1,65 @@
+name: Data freshness checklist
+
+on:
+  schedule:
+    - cron: '30 21 1 * *'   # 매월 1일 06:30 KST (21:30 UTC)
+  workflow_dispatch:
+    inputs:
+      stale_days:
+        description: 'stale 판정 기준일(일)'
+        required: false
+        default: '200'
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: data-freshness
+  cancel-in-progress: false
+
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate freshness report
+        env:
+          STALE_DAYS: ${{ github.event.inputs.stale_days || '200' }}
+        run: node scripts/freshness.mjs > /dev/null
+
+      - name: Commit report if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data-freshness.md
+          if git diff --cached --quiet; then
+            echo "리포트 변경 없음 — 커밋 스킵"
+          else
+            git commit -m "chore: 데이터 보강 체크리스트 갱신 (CI)"
+            git push
+          fi
+
+      - name: Upsert checklist issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('docs/data-freshness.md', 'utf8');
+            const title = '📊 리츠 데이터 보강 체크리스트';
+            const { owner, repo } = context.repo;
+            const existing = await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', per_page: 100,
+            });
+            const found = existing.data.find((i) => i.title === title && !i.pull_request);
+            if (found) {
+              await github.rest.issues.update({ owner, repo, issue_number: found.number, body });
+              core.info(`이슈 #${found.number} 업데이트`);
+            } else {
+              const created = await github.rest.issues.create({ owner, repo, title, body });
+              core.info(`이슈 #${created.data.number} 생성`);
+            }
