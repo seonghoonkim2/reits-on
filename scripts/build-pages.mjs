@@ -22,11 +22,13 @@ const REITS = seed.reits;
 // ---- 핵심 팩트(provenance): data/reits.json이 단일 진실원천. 임베드 seed엔 facts가 없어 직접 읽음 ----
 const FACTS_BY_TICKER = {};
 const IR_BY_TICKER = {};
+const REPORT_BY_TICKER = {};
 try {
   const reitsDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8'));
   for (const x of reitsDoc.reits) {
     if (x.facts) FACTS_BY_TICKER[x.ticker] = x.facts;
     if (x.irResources) IR_BY_TICKER[x.ticker] = x.irResources;
+    if (x.reportSummary) REPORT_BY_TICKER[x.ticker] = x.reportSummary;
   }
 } catch { /* data 없으면 팩트 섹션 생략 */ }
 const STATUS_LABEL = { actual:'실측', estimated:'추정', annualized:'연환산', user_input:'입력', stale:'갱신지연', unavailable:'미확보' };
@@ -56,6 +58,32 @@ function factsCard(r) {
   <div class="card">
     <div class="facts-head"><h2 style="margin:0;font-size:18px">핵심 팩트</h2><span class="fh-as">출처·기준일 표시 · 미확보는 “자료 확인 필요”</span></div>
     <div class="facts-grid">${cells}</div>
+  </div>`;
+}
+
+// 투자보고서 핵심 요약: 보유 자산(포트폴리오) + 핵심 수치 하이라이트(원문 인용 기반)
+function reportCard(r) {
+  const s = REPORT_BY_TICKER[r.ticker];
+  if (!s || ((!s.portfolio || !s.portfolio.length) && (!s.highlights || !s.highlights.length))) return '';
+  const head = (s.reportTitle ? esc(s.reportTitle) : '투자보고서')
+    + (s.asOf ? ` · ${esc(s.asOf)} 기준` : '')
+    + (s.sourceUrl ? ` · <a href="${esc(s.sourceUrl)}" target="_blank" rel="noopener">출처</a>` : '');
+  const hi = (s.highlights && s.highlights.length)
+    ? `<div class="rs-grid">${s.highlights.map((h) =>
+        `<div class="rs-item"><div class="rs-l">${esc(h.label)}</div><div class="rs-v">${esc(h.value)}</div></div>`).join('')}</div>`
+    : '';
+  const pf = (s.portfolio && s.portfolio.length)
+    ? `<div class="rs-pf"><div class="rs-pfh">보유 자산 (${s.portfolio.length})</div><div class="rs-chips">${s.portfolio.map((a) => {
+        const sub = [a.type, a.location].filter(Boolean).map(esc).join(' · ');
+        return `<span class="rs-chip">${esc(a.name)}${sub ? `<i>${sub}</i>` : ''}</span>`;
+      }).join('')}</div></div>`
+    : '';
+  return `
+  <div class="card">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 핵심 요약</h2></div>
+    <p class="sub" style="margin:0 0 10px">${head}</p>
+    ${hi}
+    ${pf}
   </div>`;
 }
 
@@ -166,6 +194,15 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
+.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+@media (max-width:380px){.rs-grid{grid-template-columns:1fr}}
+.rs-item{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.rs-l{font-size:12px;color:var(--muted);font-weight:700}
+.rs-v{font-size:16px;font-weight:800;margin-top:2px}
+.rs-pfh{font-size:13px;color:var(--muted);font-weight:800;margin:2px 0 6px}
+.rs-chips{display:flex;flex-wrap:wrap;gap:6px}
+.rs-chip{display:inline-flex;flex-direction:column;border:1px solid var(--line);background:var(--soft);border-radius:9px;padding:6px 10px;font-size:13px;font-weight:700}
+.rs-chip i{font-style:normal;font-weight:600;color:var(--muted);font-size:11px;margin-top:1px}
 .ir-viewer{margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--soft);padding:10px 12px}
 .ir-viewer>summary{cursor:pointer;font-weight:800;font-size:15px;list-style:none}
 .ir-viewer>summary::-webkit-details-marker{display:none}
@@ -219,6 +256,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     </div>
   </div>
 ${factsCard(r)}
+${reportCard(r)}
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">${esc(r.note)}</p>
