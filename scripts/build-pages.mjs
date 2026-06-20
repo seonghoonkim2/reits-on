@@ -61,25 +61,42 @@ function factsCard(r) {
 
 const freqLabel = (n) => n >= 4 ? '분기 배당(연 4회)' : n === 2 ? '반기 배당(연 2회)' : n === 1 ? '연 1회 배당' : ('연 ' + n + '회 배당');
 const naver = (t) => /^\d{6}$/.test(t) ? ('https://finance.naver.com/item/main.naver?code=' + t) : null;
-// DART 공시통합검색을 회사명으로 미리 채워 여는 딥링크(없으면 일반 DART)
-const dartByName = (name) => 'https://dart.fss.or.kr/dsab007/main.do?textCrpNm=' + encodeURIComponent(name);
 
-// IR 자료 한눈에: 공식 IR 자료실 + 최신 투자보고서 + 공시/시세 바로가기
+// IR 원문 인라인 뷰어: 렌더링된 페이지 이미지를 펼쳐보기로 노출(클릭 이탈 없이 본문 확인)
+function irViewer(ir) {
+  const v = ir.viewer;
+  if (!v || !Array.isArray(v.images) || !v.images.length) return '';
+  const lr = ir.latestReport || {};
+  const capped = v.totalPages && v.shownPages && v.shownPages < v.totalPages;
+  const date = lr.date ? ` · ${esc(lr.date)} 기준` : '';
+  const meta = `${esc(v.kind || 'IR 자료')} · ${v.shownPages}${capped ? '/' + v.totalPages : ''}p${date}`;
+  const imgs = v.images.map((src, i) =>
+    `<img loading="lazy" src="../../${esc(src)}" alt="IR ${i + 1}페이지" />`).join('');
+  return `
+    <details class="ir-viewer" open>
+      <summary>📑 IR 자료 바로보기 <span class="sub">(${meta})</span></summary>
+      <div class="ir-pages">${imgs}</div>
+      ${capped ? `<p class="sub" style="margin:8px 2px">※ 전체 ${v.totalPages}페이지 중 앞 ${v.shownPages}페이지 미리보기 — 전체는 아래 ‘원본 PDF’</p>` : ''}
+      ${v.pdfUrl ? `<p style="margin:6px 2px"><a class="more" href="${esc(v.pdfUrl)}" target="_blank" rel="noopener">원본 PDF 새 탭에서 열기 ↗</a></p>` : ''}
+    </details>`;
+}
+
+// IR 자료 한눈에: 인라인 뷰어(있으면) + 공식 IR 자료실/시세 바로가기
 function irCard(r, naverUrl) {
   const ir = IR_BY_TICKER[r.ticker] || {};
   const lr = ir.latestReport;
   const irPage = ir.irPage || r.homepage;
-  const latest = lr && lr.url
+  const viewer = irViewer(ir);
+  const latest = (!viewer && lr && lr.url)
     ? `<p class="ir-latest">📄 최신 자료: <a href="${esc(lr.url)}" target="_blank" rel="noopener">${esc(lr.title || '투자보고서')}</a>${lr.date ? ` <span class="sub">(${esc(lr.date)} 기준)</span>` : ''}</p>`
     : '';
   return `
   <div class="card">
     <h2 style="margin:0 0 8px;font-size:18px">IR 자료 한눈에</h2>
-    ${latest}
+    ${viewer || latest}
     <div class="links">
       ${irPage ? `<a href="${esc(irPage)}" target="_blank" rel="noopener">📑 IR 자료실</a>` : ''}
       ${r.homepage ? `<a href="${esc(r.homepage)}" target="_blank" rel="noopener">IR 홈페이지</a>` : ''}
-      <a href="${esc(dartByName(r.name))}" target="_blank" rel="noopener">DART 공시(이 종목)</a>
       ${naverUrl ? `<a href="${naverUrl}" target="_blank" rel="noopener">현재가(네이버 금융)</a>` : ''}
       <a href="https://kind.krx.co.kr/" target="_blank" rel="noopener">KIND</a>
     </div>
@@ -149,6 +166,12 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
+.ir-viewer{margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--soft);padding:10px 12px}
+.ir-viewer>summary{cursor:pointer;font-weight:800;font-size:15px;list-style:none}
+.ir-viewer>summary::-webkit-details-marker{display:none}
+.ir-viewer>summary:hover{color:var(--brand)}
+.ir-pages{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.ir-pages img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block}
 .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .links a{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 14px;text-decoration:none;color:var(--text);font-weight:700;font-size:14px}
 .cta{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:12px 18px;text-decoration:none;font-weight:800;margin-top:6px}

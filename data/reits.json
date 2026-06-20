@@ -673,7 +673,29 @@
           "date": "2026-01-31",
           "url": "https://kbstarreit.com/board/download.php?bbsid=irdata&file_name=d2_tuja_1778221460pxet5iianm.pdf"
         },
-        "asOf": "2026-06-19"
+        "asOf": "2026-06-19",
+        "viewer": {
+          "kind": "투자보고서",
+          "images": [
+            "assets/ir/432320/01.jpg",
+            "assets/ir/432320/02.jpg",
+            "assets/ir/432320/03.jpg",
+            "assets/ir/432320/04.jpg",
+            "assets/ir/432320/05.jpg",
+            "assets/ir/432320/06.jpg",
+            "assets/ir/432320/07.jpg",
+            "assets/ir/432320/08.jpg",
+            "assets/ir/432320/09.jpg",
+            "assets/ir/432320/10.jpg",
+            "assets/ir/432320/11.jpg",
+            "assets/ir/432320/12.jpg",
+            "assets/ir/432320/13.jpg",
+            "assets/ir/432320/14.jpg"
+          ],
+          "shownPages": 14,
+          "totalPages": 84,
+          "pdfUrl": "https://kbstarreit.com/board/download.php?bbsid=irdata&file_name=d2_tuja_1778221460pxet5iianm.pdf"
+        }
       }
     },
     {
@@ -942,7 +964,29 @@
           "date": "2026-05-29",
           "url": "https://koramcothe1.com/media/download.do?fileName=5d0207a7-9bf5-465a-ad34-4fa10f27dedd.pdf"
         },
-        "asOf": "2026-06-19"
+        "asOf": "2026-06-19",
+        "viewer": {
+          "kind": "투자보고서",
+          "images": [
+            "assets/ir/417310/01.jpg",
+            "assets/ir/417310/02.jpg",
+            "assets/ir/417310/03.jpg",
+            "assets/ir/417310/04.jpg",
+            "assets/ir/417310/05.jpg",
+            "assets/ir/417310/06.jpg",
+            "assets/ir/417310/07.jpg",
+            "assets/ir/417310/08.jpg",
+            "assets/ir/417310/09.jpg",
+            "assets/ir/417310/10.jpg",
+            "assets/ir/417310/11.jpg",
+            "assets/ir/417310/12.jpg",
+            "assets/ir/417310/13.jpg",
+            "assets/ir/417310/14.jpg"
+          ],
+          "shownPages": 14,
+          "totalPages": 83,
+          "pdfUrl": "https://koramcothe1.com/media/download.do?fileName=5d0207a7-9bf5-465a-ad34-4fa10f27dedd.pdf"
+        }
       }
     },
     {
@@ -1345,7 +1389,17 @@
           "date": "2026-06-20",
           "url": "https://www.nhallonereit.com/admin/bbs/down.php?code=news&idx=559&no=1"
         },
-        "asOf": "2026-06-19"
+        "asOf": "2026-06-19",
+        "viewer": {
+          "kind": "IR 자료",
+          "images": [
+            "assets/ir/400760/01.jpg",
+            "assets/ir/400760/02.jpg"
+          ],
+          "shownPages": 2,
+          "totalPages": 2,
+          "pdfUrl": "https://www.nhallonereit.com/admin/bbs/down.php?code=news&idx=559&no=1"
+        }
       }
     },
     {
@@ -2270,7 +2324,54 @@
           "date": "2026-04-01",
           "url": "https://www.igisresidencereit.com/board/notice/board_list.php"
         },
-        "asOf": "2026-06-19"
+        "asOf": "2026-06-19",
+        "viewer": {
+          "kind": "IR 자료",
+          "images": [
+            "assets/ir/350520/01.jpg",
+            "assets/ir/350520/02.jpg",
+            "assets/ir/350520/03.jpg",
+            "assets/ir/350520/04.jpg",
+            "assets/ir/350520/05.jpg",
+            "assets/ir/350520/06.jpg",
+            "assets/ir/350520/07.jpg",
+            "assets/ir/350520/08.jpg",
+            "assets/ir/350520/09.jpg",
+            "assets/ir/350520/10.jpg",
+            "assets/ir/350520/11.jpg",
+            "assets/ir/350520/12.jpg",
+            "assets/ir/350520/13.jpg",
+            "assets/ir/350520/14.jpg",
+            "assets/ir/350520/15.jpg",
+            "assets/ir/350520/16.jpg",
+            "assets/ir/350520/17.jpg",
+            "assets/ir/350520/18.jpg",
+            "assets/ir/350520/19.jpg",
+            "assets/ir/350520/20.jpg",
+            "assets/ir/350520/21.jpg",
+            "assets/ir/350520/22.jpg",
+            "assets/ir/350520/23.jpg",
+            "assets/ir/350520/24.jpg",
+            "assets/ir/350520/25.jpg",
+            "assets/ir/350520/26.jpg",
+            "assets/ir/350520/27.jpg",
+            "assets/ir/350520/28.jpg",
+            "assets/ir/350520/29.jpg",
+            "assets/ir/350520/30.jpg",
+            "assets/ir/350520/31.jpg",
+            "assets/ir/350520/32.jpg",
+            "assets/ir/350520/33.jpg",
+            "assets/ir/350520/34.jpg",
+            "assets/ir/350520/35.jpg",
+            "assets/ir/350520/36.jpg",
+            "assets/ir/350520/37.jpg",
+            "assets/ir/350520/38.jpg",
+            "assets/ir/350520/39.jpg"
+          ],
+          "shownPages": 39,
+          "totalPages": 39,
+          "pdfUrl": "https://www.igisresidencereit.com/common/php/download.php?file=/board/NOTICE/o_1jl3k9opdkp9ocmmoq1fi31v7ca.pdf&num=377"
+        }
       }
     },
     {
@@ -2404,7 +2505,39 @@
           "date": "2026-04-01",
           "url": "https://www.igisvaluereit.com/board/notice/board_list.php"
         },
-        "asOf": "2026-06-19"
+        "asOf": "2026-06-19",
+        "viewer": {
+          "kind": "IR 자료",
+          "images": [
+            "assets/ir/334890/01.jpg",
+            "assets/ir/334890/02.jpg",
+            "assets/ir/334890/03.jpg",
+            "assets/ir/334890/04.jpg",
+            "assets/ir/334890/05.jpg",
+            "assets/ir/334890/06.jpg",
+            "assets/ir/334890/07.jpg",
+            "assets/ir/334890/08.jpg",
+            "assets/ir/334890/09.jpg",
+            "assets/ir/334890/10.jpg",
+            "assets/ir/334890/11.jpg",
+            "assets/ir/334890/12.jpg",
+            "assets/ir/334890/13.jpg",
+            "assets/ir/334890/14.jpg",
+            "assets/ir/334890/15.jpg",
+            "assets/ir/334890/16.jpg",
+            "assets/ir/334890/17.jpg",
+            "assets/ir/334890/18.jpg",
+            "assets/ir/334890/19.jpg",
+            "assets/ir/334890/20.jpg",
+            "assets/ir/334890/21.jpg",
+            "assets/ir/334890/22.jpg",
+            "assets/ir/334890/23.jpg",
+            "assets/ir/334890/24.jpg"
+          ],
+          "shownPages": 24,
+          "totalPages": 24,
+          "pdfUrl": "https://www.igisvaluereit.com/common/php/download.php?file=/board/NOTICE/o_1jl3ljhfqb0sc231mkpds5r73a.pdf&num=495"
+        }
       }
     },
     {
@@ -2536,7 +2669,29 @@
           "date": "2026-04-14",
           "url": "http://nhprimereit.com/module/board/download.php?boardid=declared&b_idx=154&idx=374"
         },
-        "asOf": "2026-06-19"
+        "asOf": "2026-06-19",
+        "viewer": {
+          "kind": "투자보고서",
+          "images": [
+            "assets/ir/338100/01.jpg",
+            "assets/ir/338100/02.jpg",
+            "assets/ir/338100/03.jpg",
+            "assets/ir/338100/04.jpg",
+            "assets/ir/338100/05.jpg",
+            "assets/ir/338100/06.jpg",
+            "assets/ir/338100/07.jpg",
+            "assets/ir/338100/08.jpg",
+            "assets/ir/338100/09.jpg",
+            "assets/ir/338100/10.jpg",
+            "assets/ir/338100/11.jpg",
+            "assets/ir/338100/12.jpg",
+            "assets/ir/338100/13.jpg",
+            "assets/ir/338100/14.jpg"
+          ],
+          "shownPages": 14,
+          "totalPages": 59,
+          "pdfUrl": "http://nhprimereit.com/module/board/download.php?boardid=declared&b_idx=154&idx=374"
+        }
       }
     },
     {

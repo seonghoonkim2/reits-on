@@ -36,6 +36,12 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
+.ir-viewer{margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--soft);padding:10px 12px}
+.ir-viewer>summary{cursor:pointer;font-weight:800;font-size:15px;list-style:none}
+.ir-viewer>summary::-webkit-details-marker{display:none}
+.ir-viewer>summary:hover{color:var(--brand)}
+.ir-pages{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.ir-pages img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fff;display:block}
 .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .links a{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 14px;text-decoration:none;color:var(--text);font-weight:700;font-size:14px}
 .cta{display:inline-block;background:var(--brand);color:#fff;border-radius:999px;padding:12px 18px;text-decoration:none;font-weight:800;margin-top:6px}
@@ -100,11 +106,16 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 
   <div class="card">
     <h2 style="margin:0 0 8px;font-size:18px">IR 자료 한눈에</h2>
-    <p class="ir-latest">📄 최신 자료: <a href="https://koramcothe1.com/media/download.do?fileName=5d0207a7-9bf5-465a-ad34-4fa10f27dedd.pdf" target="_blank" rel="noopener">제29기 결산기 투자보고서</a> <span class="sub">(2026-05-29 기준)</span></p>
+    
+    <details class="ir-viewer" open>
+      <summary>📑 IR 자료 바로보기 <span class="sub">(투자보고서 · 14/83p · 2026-05-29 기준)</span></summary>
+      <div class="ir-pages"><img loading="lazy" src="../../assets/ir/417310/01.jpg" alt="IR 1페이지" /><img loading="lazy" src="../../assets/ir/417310/02.jpg" alt="IR 2페이지" /><img loading="lazy" src="../../assets/ir/417310/03.jpg" alt="IR 3페이지" /><img loading="lazy" src="../../assets/ir/417310/04.jpg" alt="IR 4페이지" /><img loading="lazy" src="../../assets/ir/417310/05.jpg" alt="IR 5페이지" /><img loading="lazy" src="../../assets/ir/417310/06.jpg" alt="IR 6페이지" /><img loading="lazy" src="../../assets/ir/417310/07.jpg" alt="IR 7페이지" /><img loading="lazy" src="../../assets/ir/417310/08.jpg" alt="IR 8페이지" /><img loading="lazy" src="../../assets/ir/417310/09.jpg" alt="IR 9페이지" /><img loading="lazy" src="../../assets/ir/417310/10.jpg" alt="IR 10페이지" /><img loading="lazy" src="../../assets/ir/417310/11.jpg" alt="IR 11페이지" /><img loading="lazy" src="../../assets/ir/417310/12.jpg" alt="IR 12페이지" /><img loading="lazy" src="../../assets/ir/417310/13.jpg" alt="IR 13페이지" /><img loading="lazy" src="../../assets/ir/417310/14.jpg" alt="IR 14페이지" /></div>
+      <p class="sub" style="margin:8px 2px">※ 전체 83페이지 중 앞 14페이지 미리보기 — 전체는 아래 ‘원본 PDF’</p>
+      <p style="margin:6px 2px"><a class="more" href="https://koramcothe1.com/media/download.do?fileName=5d0207a7-9bf5-465a-ad34-4fa10f27dedd.pdf" target="_blank" rel="noopener">원본 PDF 새 탭에서 열기 ↗</a></p>
+    </details>
     <div class="links">
       <a href="https://koramcothe1.com/information/ir_list.do" target="_blank" rel="noopener">📑 IR 자료실</a>
       <a href="https://koramcothe1.com/" target="_blank" rel="noopener">IR 홈페이지</a>
-      <a href="https://dart.fss.or.kr/dsab007/main.do?textCrpNm=%EC%BD%94%EB%9E%8C%EC%BD%94%EB%8D%94%EC%9B%90%EB%A6%AC%EC%B8%A0" target="_blank" rel="noopener">DART 공시(이 종목)</a>
       <a href="https://finance.naver.com/item/main.naver?code=417310" target="_blank" rel="noopener">현재가(네이버 금융)</a>
       <a href="https://kind.krx.co.kr/" target="_blank" rel="noopener">KIND</a>
     </div>

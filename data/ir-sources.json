@@ -1,0 +1,12 @@
+{
+  "_note": "종목별 IR 원문(투자보고서/IR 자료) 직접 다운로드 URL. scripts/render-ir.py가 받아서 assets/ir/<ticker>/ 에 페이지 이미지로 렌더링하고 data/reits.json의 irResources.viewer를 갱신한다. pages=렌더링 최대 페이지(0=전체).",
+  "sources": [
+    { "ticker": "417310", "name": "코람코더원리츠", "kind": "투자보고서", "pages": 14, "url": "https://koramcothe1.com/media/download.do?fileName=5d0207a7-9bf5-465a-ad34-4fa10f27dedd.pdf" },
+    { "ticker": "432320", "name": "KB스타리츠", "kind": "투자보고서", "pages": 14, "url": "https://kbstarreit.com/board/download.php?bbsid=irdata&file_name=d2_tuja_1778221460pxet5iianm.pdf" },
+    { "ticker": "334890", "name": "이지스밸류플러스리츠", "kind": "IR 자료", "pages": 0, "url": "https://www.igisvaluereit.com/common/php/download.php?file=/board/NOTICE/o_1jl3ljhfqb0sc231mkpds5r73a.pdf&num=495" },
+    { "ticker": "350520", "name": "이지스레지던스리츠", "kind": "IR 자료", "pages": 0, "url": "https://www.igisresidencereit.com/common/php/download.php?file=/board/NOTICE/o_1jl3k9opdkp9ocmmoq1fi31v7ca.pdf&num=377" },
+    { "ticker": "330590", "name": "롯데리츠", "kind": "투자보고서", "pages": 14, "url": "http://www.lottereit.co.kr/file/%EA%B3%B5%EA%B3%A0/251113/%5B%EB%A1%AF%EB%8D%B0%EB%A6%AC%EC%B8%A0%5D%20%EC%A0%9C14%EA%B8%B0%20%EB%B0%98%EA%B8%B0%20%ED%88%AC%EC%9E%90%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf" },
+    { "ticker": "400760", "name": "NH올원리츠", "kind": "IR 자료", "pages": 0, "url": "https://www.nhallonereit.com/admin/bbs/down.php?code=news&idx=559&no=1" },
+    { "ticker": "338100", "name": "NH프라임리츠", "kind": "투자보고서", "pages": 14, "url": "http://nhprimereit.com/module/board/download.php?boardid=declared&b_idx=154&idx=374" }
+  ]
+}
