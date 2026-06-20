@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const STALE_DAYS = Number(process.env.STALE_DAYS || 200); // 반기 공시 주기 고려 기본값
+const STALE_DAYS = Number(process.env.STALE_DAYS || 270); // 반기 공시 주기(≈183일) 1주기 경과+버퍼
 
 const doc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8'));
 const LABELS = {
