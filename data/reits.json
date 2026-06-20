@@ -1987,6 +1987,82 @@
         "irPage": "https://skreit.co.kr/ir/report.php",
         "latestReport": null,
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "사업보고서 (2026.03)",
+        "asOf": "2026-03-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260610000569",
+        "portfolio": [
+          {
+            "name": "SK서린빌딩",
+            "type": "오피스",
+            "location": "서울 종로구"
+          },
+          {
+            "name": "SK U-타워",
+            "type": "오피스",
+            "location": "경기 성남 분당"
+          },
+          {
+            "name": "SK에너지 주유소 104개소",
+            "type": "주유소",
+            "location": "전국"
+          },
+          {
+            "name": "종로타워",
+            "type": "오피스",
+            "location": "서울 종로구"
+          },
+          {
+            "name": "SK하이닉스 수처리센터",
+            "type": "인프라",
+            "location": "경기 이천"
+          },
+          {
+            "name": "SK-C타워",
+            "type": "오피스",
+            "location": "서울 CBD"
+          },
+          {
+            "name": "SK-P타워",
+            "type": "오피스",
+            "location": "경기 성남 분당"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "자산총계(연결)",
+            "value": "약 5조 4,089억원",
+            "quote": "자산총계 5,408,832,248,718"
+          },
+          {
+            "label": "순자산(자본총계)",
+            "value": "약 2조 258억원",
+            "quote": "자본총계 2,025,843,564,077"
+          },
+          {
+            "label": "주당배당금(분기)",
+            "value": "68원",
+            "quote": "주당 현금배당금(원) 보통주 68"
+          },
+          {
+            "label": "분기 배당수익률",
+            "value": "1.19%",
+            "quote": "현금배당수익률(%) 보통주 1.19"
+          },
+          {
+            "label": "장기차입금(연결)",
+            "value": "약 1조 4,512억원",
+            "quote": "장기차입금 1,451,238,083,598"
+          },
+          {
+            "label": "신용등급",
+            "value": "AA-/안정적",
+            "quote": "제1회 무보증사채 AA-/안정적"
+          }
+        ],
+        "note": "연 4회 결산배당으로 주당배당금은 분기 기준. 클린에너지·토털밸류제1호·클린인더스트리얼리츠 등 연결.",
+        "status": "actual"
       }
     },
     {
@@ -2122,6 +2198,77 @@
           "url": "https://dndplatformreit.com/module/board/download.php?boardid=irreport&b_idx=60&idx=674"
         },
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "사업보고서 (2026.03)",
+        "asOf": "2026-03-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260602000529",
+        "portfolio": [
+          {
+            "name": "세미콜론 문래",
+            "type": "오피스",
+            "location": "서울 영등포 문래"
+          },
+          {
+            "name": "세미콜론 명동",
+            "type": "오피스",
+            "location": "서울 명동"
+          },
+          {
+            "name": "세미콜론 수송",
+            "type": "오피스",
+            "location": "서울 종로 수송동"
+          },
+          {
+            "name": "FASSTO 용인1센터",
+            "type": "물류",
+            "location": "경기 용인"
+          },
+          {
+            "name": "FASSTO 용인2센터",
+            "type": "물류",
+            "location": "경기 용인"
+          },
+          {
+            "name": "아마존재팬 허브 물류센터",
+            "type": "물류·해외",
+            "location": "일본"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "자산총계(연결)",
+            "value": "약 1조 624억원",
+            "quote": "자산총계 1,062,440,519,156"
+          },
+          {
+            "label": "순자산(자본총계)",
+            "value": "약 3,594억원",
+            "quote": "자본총계 359,434,909,055"
+          },
+          {
+            "label": "주당배당금",
+            "value": "120원",
+            "quote": "주당 현금배당금(원) 보통주 120"
+          },
+          {
+            "label": "배당수익률",
+            "value": "5.49%",
+            "quote": "현금배당수익률(%) 보통주 5.49"
+          },
+          {
+            "label": "유동성장기차입금",
+            "value": "약 2,195억원",
+            "quote": "유동성장기차입금 219,538,361,333"
+          },
+          {
+            "label": "신용등급",
+            "value": "A-(Stable)",
+            "quote": "기업신용등급 A-(Stable)"
+          }
+        ],
+        "note": "재간접 구조(자리츠 지분·펀드 수익증권, 투자금액 4,675억). 위 자산은 기초 보유부동산.",
+        "status": "actual"
       }
     },
     {
@@ -2255,6 +2402,52 @@
           "url": "https://www.esrks-reit.com/NXFUNCTION/download?url=/uploads/media/ESR_KS_REIT_2025Annual_Report_KOR.pdf&name=ESR_KS_REIT_2025Annual_Report_KOR.pdf"
         },
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "반기보고서 (2026.02)",
+        "asOf": "2026-02-28",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260414001470",
+        "portfolio": [
+          {
+            "name": "전국 물류센터 다수 (켄달스퀘어 자리츠 보유)",
+            "type": "물류",
+            "location": "부천·고양·용인·김해·이천·안성·천안 등"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "자산총계(연결)",
+            "value": "약 2조 8,171억원",
+            "quote": "자산총계 2,817,078,860,607"
+          },
+          {
+            "label": "순자산(자본총계)",
+            "value": "약 1조 1,365억원",
+            "quote": "자본총계 1,136,465,239,100"
+          },
+          {
+            "label": "주당배당금(제12기)",
+            "value": "139원",
+            "quote": "주당 현금배당금(원) 보통주 139"
+          },
+          {
+            "label": "배당수익률(제12기)",
+            "value": "3.1%",
+            "quote": "현금배당수익률(%) 보통주 3.1"
+          },
+          {
+            "label": "장기차입금(연결)",
+            "value": "약 9,383억원",
+            "quote": "장기차입금 938,333,828,451"
+          },
+          {
+            "label": "차입금 기준금리",
+            "value": "변동 CD+1.03% 등",
+            "quote": "이자율은 변동금리로 \"CD+1.03%"
+          }
+        ],
+        "note": "재간접 구조(켄달스퀘어 자리츠 1·2·3호 등). 당반기(제13기) 배당 미확정으로 직전기(제12기) 표기. 주요임차인 쿠팡.",
+        "status": "actual"
       }
     },
     {
@@ -2385,6 +2578,82 @@
         "irPage": "https://koramcolifeinfra.com/media/notice.do?board_id=17",
         "latestReport": null,
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "반기보고서 (2026.02)",
+        "asOf": "2026-02-28",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260414001835",
+        "portfolio": [
+          {
+            "name": "주유소 151개소 (현대오일뱅크·SK네트웍스 책임임차)",
+            "type": "주유소",
+            "location": "전국"
+          },
+          {
+            "name": "죽전 물류센터",
+            "type": "물류",
+            "location": "경기"
+          },
+          {
+            "name": "남청라 물류센터",
+            "type": "물류",
+            "location": "인천 청라"
+          },
+          {
+            "name": "아늑호텔 홍대점",
+            "type": "호텔",
+            "location": "서울 홍대"
+          },
+          {
+            "name": "아늑호텔 신림점",
+            "type": "호텔",
+            "location": "서울 신림"
+          },
+          {
+            "name": "아늑호텔 인천구월점",
+            "type": "호텔",
+            "location": "인천 구월"
+          },
+          {
+            "name": "라포르테블랑서현 제2주차장",
+            "type": "주차장",
+            "location": "경기 성남 서현"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "자산총계",
+            "value": "약 1조 3,116억원",
+            "quote": "자산규모는 2026년 02월말 기준 약 13,116억원"
+          },
+          {
+            "label": "순자산(자본총계)",
+            "value": "약 4,687억원",
+            "quote": "자본총계 468,695,815,219"
+          },
+          {
+            "label": "주당배당금(제11기)",
+            "value": "164원",
+            "quote": "주당 현금배당금(원) 보통주식 164"
+          },
+          {
+            "label": "배당수익률(제11기)",
+            "value": "3.58%",
+            "quote": "현금배당수익률(%) 보통주식 3.58"
+          },
+          {
+            "label": "장기차입금",
+            "value": "약 6,790억원",
+            "quote": "장기차입금 679,046,953,998"
+          },
+          {
+            "label": "신용등급",
+            "value": "A-(한국기업평가)",
+            "quote": "기업신용평가 A- 한국기업평가"
+          }
+        ],
+        "note": "직접보유(주유소 151·물류 2·호텔 3·주차장 1). 주요임차인 현대오일뱅크·SK네트웍스·쿠팡. 당반기(제12기) 배당 미확정으로 직전기(제11기) 표기.",
+        "status": "actual"
       }
     },
     {
@@ -2515,6 +2784,52 @@
         "irPage": "https://jrglobalreit.com/sub/sub04_02.php",
         "latestReport": null,
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "반기보고서 (2026.03)",
+        "asOf": "2026-03-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260515003003",
+        "portfolio": [
+          {
+            "name": "파이낸스 타워 (Finance Tower Complex)",
+            "type": "오피스·해외",
+            "location": "벨기에 브뤼셀 CBD"
+          },
+          {
+            "name": "498 Seventh Avenue",
+            "type": "오피스·해외",
+            "location": "미국 뉴욕 맨해튼"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "⚠ 계속기업 리스크",
+            "value": "회생절차 개시 신청(2026.4.27)",
+            "quote": "회생절차 개시 신청서를 제출"
+          },
+          {
+            "label": "자산총계(연결)",
+            "value": "약 2조 8,779억원",
+            "quote": "자산총계 2,877,869,006,741"
+          },
+          {
+            "label": "순자산(자본총계)",
+            "value": "약 1조 1,830억원",
+            "quote": "자본총계 1,182,966,001,988"
+          },
+          {
+            "label": "주당배당금(제13기)",
+            "value": "115원",
+            "quote": "주당 현금배당금(원) 보통주 115"
+          },
+          {
+            "label": "배당수익률(제13기)",
+            "value": "3.55%",
+            "quote": "현금배당수익률(%) 보통주 3.55"
+          }
+        ],
+        "note": "⚠ 전자단기사채 400억 미상환으로 2026.4.27 서울회생법원에 회생절차 신청, 사채·차입금 EOD, 신용등급 D 강등, 반기검토 '의견거절'. 당반기(제14기) 배당 미확정으로 직전기(제13기) 표기. 해외자산(벨기에·미국).",
+        "status": "actual"
       }
     },
     {
@@ -3742,6 +4057,102 @@
           "url": "https://www.shalphareit.com/kr/sub/disclosure/disclosure.php"
         },
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "제8기 사업보고서 (2026.03)",
+        "asOf": "2026-03-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260528000669",
+        "portfolio": [
+          {
+            "name": "그레이츠 판교",
+            "type": "오피스",
+            "location": "경기 성남 분당"
+          },
+          {
+            "name": "그레이츠 청계",
+            "type": "오피스",
+            "location": "서울 중구 남대문로"
+          },
+          {
+            "name": "트윈시티 남산",
+            "type": "오피스",
+            "location": "서울 용산"
+          },
+          {
+            "name": "신한L타워",
+            "type": "오피스",
+            "location": "서울 중구 삼일대로"
+          },
+          {
+            "name": "삼성화재 역삼빌딩",
+            "type": "오피스",
+            "location": "서울 강남 테헤란로"
+          },
+          {
+            "name": "그레이츠 숭례",
+            "type": "오피스",
+            "location": "서울 중구 세종대로"
+          },
+          {
+            "name": "캠브리지빌딩",
+            "type": "오피스",
+            "location": "서울 강남 테헤란로"
+          },
+          {
+            "name": "용산 아스테리움",
+            "type": "오피스",
+            "location": "서울 용산"
+          },
+          {
+            "name": "HSBC빌딩",
+            "type": "오피스",
+            "location": "서울 중구 칠패로"
+          },
+          {
+            "name": "GS서초타워",
+            "type": "오피스",
+            "location": "서울 서초 남부순환로"
+          },
+          {
+            "name": "씨티스퀘어",
+            "type": "오피스",
+            "location": "서울 중구 서소문동"
+          },
+          {
+            "name": "BNK강남",
+            "type": "오피스",
+            "location": "서울 서초 서초대로"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "자산총계(연결)",
+            "value": "약 3.13조원",
+            "quote": "자산총계 3,131,675,302,293"
+          },
+          {
+            "label": "주당배당금(보통주)",
+            "value": "182원",
+            "quote": "주당 현금배당금(원) 보통주 182"
+          },
+          {
+            "label": "배당수익률(보통주)",
+            "value": "3.32%",
+            "quote": "현금배당수익률(%) 보통주 3.32"
+          },
+          {
+            "label": "총차입금(사채 포함)",
+            "value": "약 2조 640억원",
+            "quote": "차입금명칭 합계 2,064,000,000"
+          },
+          {
+            "label": "신용등급",
+            "value": "A-/안정적",
+            "quote": "기업신용등급(ICR) A-/안정적"
+          }
+        ],
+        "note": "오피스 12개 자산. 대출별 금리 약 2.7~5.5%(단일 가중평균 미명시).",
+        "status": "actual"
       }
     },
     {
@@ -3874,6 +4285,72 @@
           "url": "http://www.ereits.co.kr/information/ir_view.do?post_id=1041&board_id=14"
         },
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "제40기 사업보고서 (2025.12)",
+        "asOf": "2025-12-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260608000343",
+        "portfolio": [
+          {
+            "name": "뉴코아 야탑점",
+            "type": "리테일(책임임대차)",
+            "location": "경기 성남 분당"
+          },
+          {
+            "name": "뉴코아 일산점",
+            "type": "리테일(책임임대차)",
+            "location": "경기 고양"
+          },
+          {
+            "name": "뉴코아 평촌점",
+            "type": "리테일(책임임대차)",
+            "location": "경기 안양"
+          },
+          {
+            "name": "2001아울렛 분당점",
+            "type": "리테일(책임임대차)",
+            "location": "경기 성남 분당"
+          },
+          {
+            "name": "2001아울렛 중계점",
+            "type": "리테일(책임임대차)",
+            "location": "서울 노원 중계동"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "자산총계(연결)",
+            "value": "약 6,695억원",
+            "quote": "자산총계 669,541,231,979"
+          },
+          {
+            "label": "주당배당금(보통주)",
+            "value": "176원",
+            "quote": "주당 현금배당금(원) 보통주 176"
+          },
+          {
+            "label": "배당수익률(보통주)",
+            "value": "3.8%",
+            "quote": "현금배당수익률(%) 보통주 3.8"
+          },
+          {
+            "label": "총차입금(사채 포함)",
+            "value": "약 4,273억원",
+            "quote": "차입금(사채 포함) 427,264,408,251"
+          },
+          {
+            "label": "차입금리",
+            "value": "5.50% (CD 91일+1.7%)",
+            "quote": "기준이자율 CD 91일물"
+          },
+          {
+            "label": "신용등급",
+            "value": "BBB+/안정적",
+            "quote": "ICR(기업신용평가) BBB+/안정적"
+          }
+        ],
+        "note": "이랜드리테일 책임임대차(뉴코아/2001아울렛).",
+        "status": "actual"
       }
     },
     {
@@ -4007,6 +4484,77 @@
           "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260513000530"
         },
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "사업보고서 (2025.12)",
+        "asOf": "2025-12-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260312001183",
+        "portfolio": [
+          {
+            "name": "완정빌딩",
+            "type": "상가/오피스",
+            "location": "인천 서구"
+          },
+          {
+            "name": "화정빌딩",
+            "type": "상가/오피스",
+            "location": "경기 고양 덕양"
+          },
+          {
+            "name": "미원빌딩(구분소유)",
+            "type": "오피스",
+            "location": "서울 영등포 여의도"
+          },
+          {
+            "name": "서초빌딩",
+            "type": "오피스",
+            "location": "서울 서초"
+          },
+          {
+            "name": "김포빌딩",
+            "type": "상가/오피스",
+            "location": "경기 김포"
+          },
+          {
+            "name": "신원빌딩",
+            "type": "오피스",
+            "location": "서울 송파 방이동"
+          },
+          {
+            "name": "LG팰리스빌딩(일부 호실)",
+            "type": "상가/오피스",
+            "location": "서울 마포 동교동"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "자산총계",
+            "value": "약 2,158억원",
+            "quote": "자산총계 215,780,635,690"
+          },
+          {
+            "label": "주당배당금(보통주)",
+            "value": "50원",
+            "quote": "주당 현금배당금(원) 보통주 50"
+          },
+          {
+            "label": "배당수익률(보통주)",
+            "value": "5.2%",
+            "quote": "현금배당수익률(%) 보통주 5.2"
+          },
+          {
+            "label": "차입금(유동+비유동)",
+            "value": "587억 + 236억원",
+            "quote": "유동 차입금(사채 포함) 58,663,000,000"
+          },
+          {
+            "label": "차입금리",
+            "value": "변동 3.27~3.92%",
+            "quote": "차입금, 이자율 0.0376"
+          }
+        ],
+        "note": "신용등급 미평가. 다수 중소형 오피스/상가 직접보유.",
+        "status": "actual"
       }
     },
     {
@@ -4135,6 +4683,47 @@
         "irPage": "https://dart.fss.or.kr/dsab007/main.do?textCrpNm=%EC%A0%9C%EC%9D%B4%EC%BC%80%EC%9D%B4%EB%A6%AC%EB%B2%84%EC%8A%A4%ED%86%A4",
         "latestReport": null,
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "제12기 사업보고서 (2025.12)",
+        "asOf": "2025-12-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260323001430",
+        "portfolio": [
+          {
+            "name": "MD Hotel 동탄점",
+            "type": "호텔",
+            "location": "경기 화성 석우동"
+          },
+          {
+            "name": "MD Hotel 독산점",
+            "type": "호텔",
+            "location": "서울 금천 시흥대로"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "⚠ 손익",
+            "value": "주당 -501원(적자, 배당 없음)",
+            "quote": "계속영업 기본 및 희석주당이익(손실) (501)"
+          },
+          {
+            "label": "자산총계(연결)",
+            "value": "약 630억원",
+            "quote": "자산총계 63,038,139,647"
+          },
+          {
+            "label": "단기차입금",
+            "value": "약 279억원",
+            "quote": "단기차입금 27,925,000"
+          },
+          {
+            "label": "누적결손금",
+            "value": "약 -103억원",
+            "quote": "[이익잉여금(결손금)] (10,298,424,817)"
+          }
+        ],
+        "note": "⚠ 자기관리리츠(호텔 2개). 누적결손·순손실 지속, 무배당. JK리버스톤리츠로 사명변경 추진(보고서 본문엔 미반영). 신용등급 미공시.",
+        "status": "actual"
       }
     },
     {
@@ -4268,6 +4857,47 @@
           "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260515000489"
         },
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "사업보고서 (2025.12)",
+        "asOf": "2025-12-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260323000749",
+        "portfolio": [
+          {
+            "name": "이편한세상문래 에듀플라츠",
+            "type": "임대주택·근생",
+            "location": "서울 영등포 문래동"
+          },
+          {
+            "name": "대구 동인동 시니어레지던스(개발중)",
+            "type": "개발사업",
+            "location": "대구 중구 동인동"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "⚠ 손익",
+            "value": "주당 -722원(적자, 배당 없음)",
+            "quote": "(연결)주당순이익(원) -722"
+          },
+          {
+            "label": "자산총계",
+            "value": "약 787억원",
+            "quote": "자산총계 78,718,593,286"
+          },
+          {
+            "label": "단기차입금",
+            "value": "약 316억원",
+            "quote": "단기차입금 31,560,000,000"
+          },
+          {
+            "label": "차입금리",
+            "value": "연 6.50% 고정",
+            "quote": "연이자율"
+          }
+        ],
+        "note": "⚠ 자기관리리츠(임대주택+개발). 대구 동인동 브릿지론 연장 중, 무배당. 신용등급 미공시.",
+        "status": "actual"
       }
     }
   ]
