@@ -36,6 +36,15 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
+.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+@media (max-width:380px){.rs-grid{grid-template-columns:1fr}}
+.rs-item{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
+.rs-l{font-size:12px;color:var(--muted);font-weight:700}
+.rs-v{font-size:16px;font-weight:800;margin-top:2px}
+.rs-pfh{font-size:13px;color:var(--muted);font-weight:800;margin:2px 0 6px}
+.rs-chips{display:flex;flex-wrap:wrap;gap:6px}
+.rs-chip{display:inline-flex;flex-direction:column;border:1px solid var(--line);background:var(--soft);border-radius:9px;padding:6px 10px;font-size:13px;font-weight:700}
+.rs-chip i{font-style:normal;font-weight:600;color:var(--muted);font-size:11px;margin-top:1px}
 .ir-viewer{margin:0 0 12px;border:1px solid var(--line);border-radius:12px;background:var(--soft);padding:10px 12px}
 .ir-viewer>summary{cursor:pointer;font-weight:800;font-size:15px;list-style:none}
 .ir-viewer>summary::-webkit-details-marker{display:none}
@@ -93,6 +102,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <div class="facts-head"><h2 style="margin:0;font-size:18px">핵심 팩트</h2><span class="fh-as">출처·기준일 표시 · 미확보는 “자료 확인 필요”</span></div>
     <div class="facts-grid"><div class="fact"><div class="fl">AUM(자산총계)</div><div class="fv">6,658억</div><div class="fm">2025-12-31 · <a href="https://www.kareit.or.kr/invest/page2.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">LTV(차입비율)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">WALE(임대차잔존)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">임대율/공실</div><div class="fv">100%</div><div class="fm">2025-06-30 · <a href="http://www.ereits.co.kr/information/ir_view.do?post_id=1041&amp;board_id=14" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">고정금리 비중</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">12개월내 만기</div><div class="fv">0%</div><div class="fm">2025-12-31 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260608000343" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">주요 임차인</div><div class="fv">㈜이랜드리테일</div><div class="fm">2025-06-30 · <a href="http://www.ereits.co.kr/information/ir_view.do?post_id=1041&amp;board_id=14" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임차인 집중도</div><div class="fv">100%</div><div class="fm">2025-06-30 · <a href="http://www.ereits.co.kr/information/ir_view.do?post_id=1041&amp;board_id=14" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div></div>
   </div>
+
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">리테일 자산 중심. 소비 경기와 임차인 매출 안정성, 자산 매각 가능성을 점검.</p>
