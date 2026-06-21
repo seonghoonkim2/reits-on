@@ -126,11 +126,15 @@ function reportDetail(r) {
     const rows = dl([
       { label: '소재지', value: a.location }, { label: '용도', value: a.use },
       { label: '연면적', value: a.grossFloorArea }, { label: '대지면적', value: a.landArea },
+      { label: '규모', value: a.scale }, { label: '준공', value: a.completion },
       { label: '취득가액', value: a.acquisitionPrice }, { label: '감정평가액', value: a.appraisalValue },
       { label: '임대율', value: a.occupancy }, { label: '주요 임차인', value: a.mainTenant },
     ]);
-    return `<div class="rd-asset"><div class="rd-asset-h"><span class="rd-an">${esc(a.name)}</span>${a.use ? `<span class="rd-tag">${esc(a.use)}</span>` : ''}</div>${rows}${a.note ? `<p class="rd-anote">${esc(a.note)}</p>` : ''}</div>`;
+    return `<div class="rd-asset"><div class="rd-asset-h"><span class="rd-an">${esc(a.name)}</span></div>${rows}${a.note ? `<p class="rd-anote">${esc(a.note)}</p>` : ''}</div>`;
   }).join('')}</div>` : '';
+
+  // 자산 가치(감정평가)
+  const valuation = dl(d.valuation);
 
   // 임대 현황
   let lease = '';
@@ -152,23 +156,19 @@ function reportDetail(r) {
   if (d.dividends) {
     const meta = dl([{ label: '배당 정책', value: d.dividends.policy }, { label: '배당수익률', value: d.dividends.yield }]);
     const hist = (d.dividends.history && d.dividends.history.length)
-      ? `<div class="rd-scroll"><table class="rd-table"><thead><tr><th>기수</th><th class="num">주당배당금</th></tr></thead><tbody>${d.dividends.history.map((h) =>
-          `<tr><td>${esc(h.period)}</td><td class="num">${esc(h.perShare)}</td></tr>`).join('')}</tbody></table></div>` : '';
+      ? `<div class="rd-scroll"><table class="rd-table"><thead><tr><th>기수</th><th class="num">주당배당금</th><th>비고</th></tr></thead><tbody>${d.dividends.history.map((h) =>
+          `<tr><td>${esc(h.period)}</td><td class="num">${esc(h.perShare || '-')}</td><td>${esc(h.note || '-')}</td></tr>`).join('')}</tbody></table></div>` : '';
     div = meta + hist;
   }
 
   // 차입 구조
   let debt = '';
   if (d.debt) {
-    const meta = dl([
-      { label: 'LTV(담보인정비율)', value: d.debt.ltv }, { label: '총차입금', value: d.debt.total },
-      { label: '평균 차입금리', value: d.debt.avgRate }, { label: '고정금리 비중', value: d.debt.fixedRatio },
-      { label: '신용등급', value: d.debt.creditRating },
-    ]);
+    const meta = dl(d.debt.summary);
     const items = (d.debt.items && d.debt.items.length)
-      ? `<div class="rd-scroll"><table class="rd-table"><thead><tr><th>차입처</th><th class="num">금액</th><th class="num">금리</th><th>유형</th><th>만기</th></tr></thead><tbody>${d.debt.items.map((it) =>
-          `<tr><td>${esc(it.lender)}</td><td class="num">${esc(it.amount || '-')}</td><td class="num">${esc(it.rate || '-')}</td><td>${esc(it.type || '-')}</td><td>${esc(it.maturity || '-')}</td></tr>`).join('')}</tbody></table></div>` : '';
-    debt = meta + items;
+      ? `<div class="rd-scroll"><table class="rd-table"><thead><tr><th>구분</th><th>차입처</th><th class="num">금액</th><th class="num">금리</th><th>만기</th></tr></thead><tbody>${d.debt.items.map((it) =>
+          `<tr><td>${esc(it.type || '-')}</td><td>${esc(it.lender || '-')}</td><td class="num">${esc(it.amount || '-')}</td><td class="num">${esc(it.rate || it.rateType || '-')}</td><td>${esc(it.maturity || '-')}</td></tr>`).join('')}</tbody></table></div>` : '';
+    debt = meta + items + (d.debt.note ? `<p class="rd-anote">${esc(d.debt.note)}</p>` : '');
   }
 
   const risks = (d.risks && d.risks.length)
@@ -182,6 +182,7 @@ function reportDetail(r) {
     <p class="rd-src">${head}</p>
     ${sec('📌 개요', overview)}
     ${sec(`🏢 보유 자산${d.assets && d.assets.length ? ` (${d.assets.length})` : ''}`, assets)}
+    ${sec('🧾 자산 가치(감정평가)', valuation)}
     ${sec('🔑 임대 현황', lease)}
     ${sec('💰 재무 현황', fin)}
     ${sec('📈 배당', div)}
