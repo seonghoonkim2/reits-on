@@ -51,9 +51,7 @@ function factVal(p) {
   if (typeof p.value === 'number') return esc(fmt(p.value) + (p.unit ? (' ' + p.unit) : ''));
   return esc(String(p.value) + (p.unit ? (' ' + p.unit) : ''));
 }
-function factsCard(r) {
-  const facts = FACTS_BY_TICKER[r.ticker];
-  if (!facts) return '';
+function factsGrid(facts) {
   const cells = FACT_ROWS.map(([k, label]) => {
     const p = facts[k]; const val = factVal(p);
     const st = (p && p.status) || 'unavailable';
@@ -63,36 +61,40 @@ function factsCard(r) {
       : stPill;
     return `<div class="fact"><div class="fl">${esc(label)}</div><div class="fv${val ? '' : ' na'}">${val || '자료 확인 필요'}</div><div class="fm">${meta}</div></div>`;
   }).join('');
-  return `
-  <div class="card">
-    <div class="facts-head"><h2 style="margin:0;font-size:18px">핵심 팩트</h2><span class="fh-as">출처·기준일 표시 · 미확보는 “자료 확인 필요”</span></div>
-    <div class="facts-grid">${cells}</div>
-  </div>`;
+  return `<div class="facts-grid">${cells}</div>`;
 }
 
-// 투자보고서 핵심 요약: 보유 자산(포트폴리오) + 핵심 수치 하이라이트(원문 인용 기반)
-function reportCard(r) {
+// 투자보고서 정리: 개요 + 보유 자산 + 보고서 핵심 수치 + 운영 지표(provenance) + 특이사항 을 한 구역으로 체계화
+function reportSection(r) {
+  const facts = FACTS_BY_TICKER[r.ticker];
   const s = REPORT_BY_TICKER[r.ticker];
-  if (!s || ((!s.portfolio || !s.portfolio.length) && (!s.highlights || !s.highlights.length))) return '';
-  const head = (s.reportTitle ? esc(s.reportTitle) : '투자보고서')
+  if (!facts && !s) return '';
+  const meta = s ? ((s.reportTitle ? esc(s.reportTitle) : '투자보고서')
     + (s.asOf ? ` · ${esc(s.asOf)} 기준` : '')
-    + (s.sourceUrl ? ` · <a href="${esc(s.sourceUrl)}" target="_blank" rel="noopener">출처</a>` : '');
-  const hi = (s.highlights && s.highlights.length)
-    ? `<div class="rs-grid">${s.highlights.map((h) =>
-        `<div class="rs-item"><div class="rs-l">${esc(h.label)}</div><div class="rs-v">${esc(h.value)}</div></div>`).join('')}</div>`
-    : '';
-  const pf = (s.portfolio && s.portfolio.length)
-    ? `<div class="rs-pf"><div class="rs-pfh">보유 자산 (${s.portfolio.length})</div><div class="rs-chips">${s.portfolio.map((a) => {
+    + (s.sourceUrl ? ` · <a href="${esc(s.sourceUrl)}" target="_blank" rel="noopener">출처</a>` : '')) : '출처·기준일 표시';
+
+  const block = (title, inner) => inner ? `<div class="rs-block"><h3 class="rs-h">${title}</h3>${inner}</div>` : '';
+
+  const pf = (s && s.portfolio && s.portfolio.length)
+    ? `<div class="rs-chips">${s.portfolio.map((a) => {
         const sub = [a.type, a.location].filter(Boolean).map(esc).join(' · ');
         return `<span class="rs-chip">${esc(a.name)}${sub ? `<i>${sub}</i>` : ''}</span>`;
-      }).join('')}</div></div>`
-    : '';
+      }).join('')}</div>` : '';
+
+  const hi = (s && s.highlights && s.highlights.length)
+    ? `<div class="rs-grid">${s.highlights.map((h) =>
+        `<div class="rs-item"${h.quote ? ` title="원문: ${esc(h.quote)}"` : ''}><div class="rs-l">${esc(h.label)}</div><div class="rs-v">${esc(h.value)}</div></div>`).join('')}</div>` : '';
+
+  const ops = facts ? factsGrid(facts) : '';
+  const note = (s && s.note) ? `<div class="rs-note">📝 ${esc(s.note)}</div>` : '';
+
   return `
   <div class="card">
-    <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 핵심 요약</h2></div>
-    <p class="sub" style="margin:0 0 10px">${head}</p>
-    ${hi}
-    ${pf}
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 정리</h2><span class="fh-as">${meta}</span></div>
+    ${block(`보유 자산${s && s.portfolio && s.portfolio.length ? ` (${s.portfolio.length})` : ''}`, pf)}
+    ${block('보고서 핵심 수치', hi)}
+    ${block('운영 지표 <span class="rs-hint">(출처·기준일 · 미확보는 “자료 확인 필요”)</span>', ops)}
+    ${note}
   </div>`;
 }
 
@@ -207,7 +209,12 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
-.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.rs-block{margin:0 0 16px}
+.rs-block:last-child{margin-bottom:0}
+.rs-h{font-size:13px;font-weight:800;color:var(--text);margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--soft)}
+.rs-hint{font-weight:600;font-size:11px;color:var(--muted)}
+.rs-note{font-size:13px;color:var(--muted);background:var(--soft);border-radius:10px;padding:10px 12px;line-height:1.55}
+.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0}
 @media (max-width:380px){.rs-grid{grid-template-columns:1fr}}
 .rs-item{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
 .rs-l{font-size:12px;color:var(--muted);font-weight:700}
@@ -269,8 +276,7 @@ ${riskBanner(r)}
       <div class="row"><span>특징</span><b>${esc(r.tags.join(', '))}</b></div>
     </div>
   </div>
-${factsCard(r)}
-${reportCard(r)}
+${reportSection(r)}
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">${esc(r.note)}</p>

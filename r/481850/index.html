@@ -40,7 +40,12 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
-.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.rs-block{margin:0 0 16px}
+.rs-block:last-child{margin-bottom:0}
+.rs-h{font-size:13px;font-weight:800;color:var(--text);margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--soft)}
+.rs-hint{font-weight:600;font-size:11px;color:var(--muted)}
+.rs-note{font-size:13px;color:var(--muted);background:var(--soft);border-radius:10px;padding:10px 12px;line-height:1.55}
+.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0}
 @media (max-width:380px){.rs-grid{grid-template-columns:1fr}}
 .rs-item{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
 .rs-l{font-size:12px;color:var(--muted);font-weight:700}
@@ -104,15 +109,11 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   </div>
 
   <div class="card">
-    <div class="facts-head"><h2 style="margin:0;font-size:18px">핵심 팩트</h2><span class="fh-as">출처·기준일 표시 · 미확보는 “자료 확인 필요”</span></div>
-    <div class="facts-grid"><div class="fact"><div class="fl">AUM(자산총계)</div><div class="fv">1,157억</div><div class="fm">2025-12-31 · <a href="https://www.kareit.or.kr/invest/page2.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">LTV(차입비율)</div><div class="fv">30.4%</div><div class="fm">2024-09-30 · <a href="https://shglobalreit.com/company/about.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">WALE(임대차잔존)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">임대율/공실</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">고정금리 비중</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">12개월내 만기</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">주요 임차인</div><div class="fv">미국 연방·주정부 기관 (USGB 펀드 편입 오피스 임차인)</div><div class="fm">2024-12-31 · <a href="https://shglobalreit.com/company/about.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임차인 집중도</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div></div>
-  </div>
-
-  <div class="card">
-    <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 핵심 요약</h2></div>
-    <p class="sub" style="margin:0 0 10px">사업보고서 (제7기) · 2026-02-28 기준 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260513000783" target="_blank" rel="noopener">출처</a></p>
-    <div class="rs-grid"><div class="rs-item"><div class="rs-l">자산총계</div><div class="rs-v">1,094억원</div></div><div class="rs-item"><div class="rs-l">순자산(자본총계)</div><div class="rs-v">909억원</div></div><div class="rs-item"><div class="rs-l">주당배당금</div><div class="rs-v">130원</div></div><div class="rs-item"><div class="rs-l">현금배당수익률</div><div class="rs-v">10.0%</div></div></div>
-    <div class="rs-pf"><div class="rs-pfh">보유 자산 (3)</div><div class="rs-chips"><span class="rs-chip">U.S. Government Building Open-end Feeder, LP<i>해외 부동산펀드 · 미국</i></span><span class="rs-chip">PRISA LP<i>해외 부동산펀드 · 미국</i></span><span class="rs-chip">CBRE U.S. Core Partners, LP<i>해외 부동산펀드 · 미국</i></span></div></div>
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 정리</h2><span class="fh-as">사업보고서 (제7기) · 2026-02-28 기준 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260513000783" target="_blank" rel="noopener">출처</a></span></div>
+    <div class="rs-block"><h3 class="rs-h">보유 자산 (3)</h3><div class="rs-chips"><span class="rs-chip">U.S. Government Building Open-end Feeder, LP<i>해외 부동산펀드 · 미국</i></span><span class="rs-chip">PRISA LP<i>해외 부동산펀드 · 미국</i></span><span class="rs-chip">CBRE U.S. Core Partners, LP<i>해외 부동산펀드 · 미국</i></span></div></div>
+    <div class="rs-block"><h3 class="rs-h">보고서 핵심 수치</h3><div class="rs-grid"><div class="rs-item" title="원문: 자산총계 109,414,523,702"><div class="rs-l">자산총계</div><div class="rs-v">1,094억원</div></div><div class="rs-item" title="원문: 자본총계 90,905,434,607"><div class="rs-l">순자산(자본총계)</div><div class="rs-v">909억원</div></div><div class="rs-item" title="원문: 주당 현금배당금(원) 보통주 130"><div class="rs-l">주당배당금</div><div class="rs-v">130원</div></div><div class="rs-item" title="원문: 현금배당수익률(%) 보통주 10.0"><div class="rs-l">현금배당수익률</div><div class="rs-v">10.0%</div></div></div></div>
+    <div class="rs-block"><h3 class="rs-h">운영 지표 <span class="rs-hint">(출처·기준일 · 미확보는 “자료 확인 필요”)</span></h3><div class="facts-grid"><div class="fact"><div class="fl">AUM(자산총계)</div><div class="fv">1,157억</div><div class="fm">2025-12-31 · <a href="https://www.kareit.or.kr/invest/page2.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">LTV(차입비율)</div><div class="fv">30.4%</div><div class="fm">2024-09-30 · <a href="https://shglobalreit.com/company/about.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">WALE(임대차잔존)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">임대율/공실</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">고정금리 비중</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">12개월내 만기</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">주요 임차인</div><div class="fv">미국 연방·주정부 기관 (USGB 펀드 편입 오피스 임차인)</div><div class="fm">2024-12-31 · <a href="https://shglobalreit.com/company/about.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임차인 집중도</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div></div></div>
+    <div class="rs-note">📝 재간접/펀드형: 신한글로벌제1호리츠(100%) 통해 미국 부동산펀드 3종 투자. 직접 보유부동산 없음.</div>
   </div>
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>

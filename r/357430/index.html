@@ -40,7 +40,12 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
-.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.rs-block{margin:0 0 16px}
+.rs-block:last-child{margin-bottom:0}
+.rs-h{font-size:13px;font-weight:800;color:var(--text);margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--soft)}
+.rs-hint{font-weight:600;font-size:11px;color:var(--muted)}
+.rs-note{font-size:13px;color:var(--muted);background:var(--soft);border-radius:10px;padding:10px 12px;line-height:1.55}
+.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0}
 @media (max-width:380px){.rs-grid{grid-template-columns:1fr}}
 .rs-item{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--surface)}
 .rs-l{font-size:12px;color:var(--muted);font-weight:700}
@@ -104,15 +109,11 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   </div>
 
   <div class="card">
-    <div class="facts-head"><h2 style="margin:0;font-size:18px">핵심 팩트</h2><span class="fh-as">출처·기준일 표시 · 미확보는 “자료 확인 필요”</span></div>
-    <div class="facts-grid"><div class="fact"><div class="fl">AUM(자산총계)</div><div class="fv">1,549억</div><div class="fm">2025-12-31 · <a href="https://www.kareit.or.kr/invest/page2.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">LTV(차입비율)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">WALE(임대차잔존)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">임대율/공실</div><div class="fv">100%</div><div class="fm">2025-06-30 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250814004271" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">고정금리 비중</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">12개월내 만기</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">주요 임차인</div><div class="fv">PwC·IFF·Estée Lauder(佛 Crystal Park), 아마존(佛 물류), 쿠팡(인천 항동)</div><div class="fm">2025-06-30 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250814004271" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임차인 집중도</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div></div>
-  </div>
-
-  <div class="card">
-    <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 핵심 요약</h2></div>
-    <p class="sub" style="margin:0 0 10px">2026년 5월 월간보고서 · 2026-05-31 기준 · <a href="http://masternpremier.com/disclosure/ir/index.jsp" target="_blank" rel="noopener">출처</a></p>
-    <div class="rs-grid"><div class="rs-item"><div class="rs-l">최근 주당배당금(제11기)</div><div class="rs-v">96원</div></div><div class="rs-item"><div class="rs-l">차입금리(인천 물류센터)</div><div class="rs-v">변동 CD+1.48%</div></div><div class="rs-item"><div class="rs-l">차입금리(Crystal Park)</div><div class="rs-v">고정 연4.99%</div></div></div>
-    <div class="rs-pf"><div class="rs-pfh">보유 자산 (4)</div><div class="rs-chips"><span class="rs-chip">인천 항동 스마트 물류센터<i>물류 · 인천 중구</i></span><span class="rs-chip">Crystal Park 오피스<i>오피스·해외 · Neuilly-sur-Seine, France</i></span><span class="rs-chip">노르망디 아마존 물류센터<i>물류·해외 · Moult, France</i></span><span class="rs-chip">남프랑스 아마존 물류센터<i>물류·해외 · Rivesaltes, France</i></span></div></div>
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 정리</h2><span class="fh-as">2026년 5월 월간보고서 · 2026-05-31 기준 · <a href="http://masternpremier.com/disclosure/ir/index.jsp" target="_blank" rel="noopener">출처</a></span></div>
+    <div class="rs-block"><h3 class="rs-h">보유 자산 (4)</h3><div class="rs-chips"><span class="rs-chip">인천 항동 스마트 물류센터<i>물류 · 인천 중구</i></span><span class="rs-chip">Crystal Park 오피스<i>오피스·해외 · Neuilly-sur-Seine, France</i></span><span class="rs-chip">노르망디 아마존 물류센터<i>물류·해외 · Moult, France</i></span><span class="rs-chip">남프랑스 아마존 물류센터<i>물류·해외 · Rivesaltes, France</i></span></div></div>
+    <div class="rs-block"><h3 class="rs-h">보고서 핵심 수치</h3><div class="rs-grid"><div class="rs-item" title="원문: 86 44 61 96"><div class="rs-l">최근 주당배당금(제11기)</div><div class="rs-v">96원</div></div><div class="rs-item" title="원문: 1600억원: 변동금리(CD+1.48%)"><div class="rs-l">차입금리(인천 물류센터)</div><div class="rs-v">변동 CD+1.48%</div></div><div class="rs-item" title="원문: 고정금리: 연4.99%"><div class="rs-l">차입금리(Crystal Park)</div><div class="rs-v">고정 연4.99%</div></div></div></div>
+    <div class="rs-block"><h3 class="rs-h">운영 지표 <span class="rs-hint">(출처·기준일 · 미확보는 “자료 확인 필요”)</span></h3><div class="facts-grid"><div class="fact"><div class="fl">AUM(자산총계)</div><div class="fv">1,549억</div><div class="fm">2025-12-31 · <a href="https://www.kareit.or.kr/invest/page2.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">LTV(차입비율)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">WALE(임대차잔존)</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">임대율/공실</div><div class="fv">100%</div><div class="fm">2025-06-30 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250814004271" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">고정금리 비중</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">12개월내 만기</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">주요 임차인</div><div class="fv">PwC·IFF·Estée Lauder(佛 Crystal Park), 아마존(佛 물류), 쿠팡(인천 항동)</div><div class="fm">2025-06-30 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250814004271" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임차인 집중도</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div></div></div>
+    <div class="rs-note">📝 월간보고서. 코크렙제52호·마스턴유럽9호펀드 등 통한 재간접 보유(기초자산 기재). 자산총계·NAV·신용등급 미기재.</div>
   </div>
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
