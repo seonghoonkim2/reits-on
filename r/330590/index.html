@@ -74,6 +74,37 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pro-ladder .lbar{height:14px;background:var(--soft);border-radius:6px;overflow:hidden}
 .pro-ladder .lbar i{display:block;height:100%;background:linear-gradient(90deg,#3254ff,#7d93ff);border-radius:6px}
 .pro-ladder .lv{font-weight:800;white-space:nowrap}
+.sticky-kpi{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.2) blur(6px);border:1px solid var(--line);border-radius:12px;padding:7px 11px;margin:6px 0 2px;box-shadow:0 4px 14px rgba(22,34,64,.06)}
+.sticky-kpi .sk-nm{font-weight:900;font-size:13px;letter-spacing:-.02em}
+.sticky-kpi .sk-chips{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.sticky-kpi .sk-chips span{font-size:11.5px;font-weight:800;color:var(--text);background:var(--soft);border-radius:999px;padding:2px 9px}
+.sticky-kpi .sk-home{font-size:11.5px;font-weight:800;color:var(--brand);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.pro-health{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin-top:12px;padding:9px 12px;border-radius:10px;font-size:13px}
+.pro-health .hh b{font-weight:900}.pro-health .hr{color:inherit;opacity:.92;font-weight:700}
+.pro-health .hn{margin-left:auto;font-size:10.5px;opacity:.7;font-weight:600}
+.pro-health.h-ok{background:var(--okt);color:#0c7a54}
+.pro-health.h-warn{background:#fdf6e3;color:#9a6700}
+.pro-health.h-risk{background:#fdecea;color:#b42318}
+.pro-stack{display:flex;height:16px;border-radius:6px;overflow:hidden;background:var(--soft)}
+.pro-stack i{display:block;height:100%}
+.pro-legend{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:8px;font-size:11.5px;color:var(--muted);font-weight:700}
+.pro-legend .lg{display:inline-flex;align-items:center;gap:4px}
+.pro-legend .lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.pc-wide{margin-top:14px}
+.pchead{display:grid;grid-template-columns:1fr 90px 48px;gap:8px;font-size:11px;color:var(--muted);font-weight:800;padding:0 2px 4px}
+.pchead .pco,.pchead .pcl{text-align:right}
+.pcrow{display:grid;grid-template-columns:1fr 90px 48px;gap:8px;align-items:center;font-size:12.5px;padding:4px 2px;border-top:1px solid var(--soft)}
+.pcrow.me{background:var(--tint);border-radius:8px}
+.pcrow .pcn{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcrow .pcn em{color:var(--brand);font-style:normal;font-weight:800;font-size:11px}
+.pcrow .pcbar{height:10px;background:var(--soft);border-radius:5px;overflow:hidden}
+.pcrow .pcbar i{display:block;height:100%;background:linear-gradient(90deg,#3254ff,#7d93ff);border-radius:5px}
+.pcrow.me .pcbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
+.pcrow .pcv,.pcrow .pco{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.pcrow .pcv.na{color:var(--muted)}
+.pcrow .pcbar{grid-column:auto}
+.pcrow{grid-template-columns:1fr 64px 46px 46px}
+.pchead{grid-template-columns:1fr 64px 46px 46px}
 .rd-full{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
 .rd-full>summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--brand);list-style:none}
 .rd-full>summary::-webkit-details-marker{display:none}
@@ -142,6 +173,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 <body>
 <div class="wrap">
   <div class="top"><a class="logo" href="../../">R</a><a class="brand" href="../../">리츠온 REITs ON</a></div>
+  <div class="sticky-kpi"><span class="sk-nm">🟢 롯데리츠</span><span class="sk-chips"><span>배당 2.79%</span><span>LTV 39.3%</span><span>임대 100%</span></span><a class="sk-home" href="../../">홈</a></div>
   <span class="eyebrow">상장리츠 · 리테일</span>
   <h1>롯데리츠</h1>
   <div class="tk">종목코드 330590 · 리테일, 물류</div>
@@ -165,11 +197,17 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   </div>
 
   <div class="card pro">
-    <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">대표 종목 강화 뷰</span></div>
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">핵심 지표 요약</span></div>
     
+    <div class="pro-health h-ok"><span class="hh">🟢 건강 신호: <b>안정</b></span><span class="hr">레버리지 안정</span><span class="hn">규칙기반 요약 · 투자권유 아님</span></div>
     <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">2.79%</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">123원</div></div><div class="pro-kpi"><div class="pk-k">LTV</div><div class="pk-v">39.3%</div></div><div class="pro-kpi"><div class="pk-k">임대율</div><div class="pk-v">100%</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">AA-</div></div></div>
     <div class="pro-gauges"><div class="pg"><div class="pg-top"><span>임대율</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div><div class="pg"><div class="pg-top"><span>LTV</span><b>39.3%</b></div><div class="pg-bar"><i class="g-warn" style="width:39.3%"></i></div></div></div>
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">112</span><i style="height:91.05691056910568%"></i><span class="bl">제12기</span></div><div class="bar"><span class="bv">117</span><i style="height:95.1219512195122%"></i><span class="bl">제13기</span></div><div class="bar"><span class="bv">123</span><i style="height:100%"></i><span class="bl">제14기</span></div></div></div><div class="pro-block"><div class="pro-h">차입 만기 사다리</div><div class="pro-ladder"><div class="lr"><span class="ly">2026</span><div class="lbar"><i style="width:85.24871355060034%"></i></div><span class="lv">4,970억원</span></div><div class="lr"><span class="ly">2027</span><div class="lbar"><i style="width:100%"></i></div><span class="lv">5,830억원</span></div><div class="lr"><span class="ly">2028</span><div class="lbar"><i style="width:54.71698113207547%"></i></div><span class="lv">3,190억원</span></div><div class="lr"><span class="ly">2029</span><div class="lbar"><i style="width:22.29845626072041%"></i></div><span class="lv">1,300억원</span></div></div><p class="pro-cap">만기 명시된 차입·사채 기준 합산(억원)</p></div></div>
+    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (12개)</div><div class="pro-stack"><i style="width:75.0%;background:#e0892b" title="리테일 9"></i><i style="width:16.7%;background:#a855f7" title="호텔 2"></i><i style="width:8.3%;background:#0c9b69" title="물류 1"></i></div><div class="pro-legend"><span class="lg"><i style="background:#e0892b"></i>리테일 9</span><span class="lg"><i style="background:#a855f7"></i>호텔 2</span><span class="lg"><i style="background:#0c9b69"></i>물류 1</span></div></div><div class="pro-block"><div class="pro-h">임차인 집중도</div><div class="pro-stack"><i style="width:76.5%;background:#3254ff" title="롯데쇼핑㈜ 76.5%"></i><i style="width:16.0%;background:#0c9b69" title="㈜호텔롯데 16.0%"></i><i style="width:3.2%;background:#e0892b" title="롯데글로벌로지스㈜ 3.2%"></i><i style="width:4.3%;background:#cbd5e1" title="기타 4.3%"></i></div><div class="pro-legend"><span class="lg"><i style="background:#3254ff"></i>롯데쇼핑㈜ 76.5%</span><span class="lg"><i style="background:#0c9b69"></i>㈜호텔롯데 16.0%</span><span class="lg"><i style="background:#e0892b"></i>롯데글로벌로지스㈜ 3.2%</span></div></div></div>
+    <div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · 리테일 (3종)</div>
+    <div class="pchead"><span class="pcn"></span><span></span><span class="pcl">LTV</span><span class="pco">임대율</span></div>
+    <div class="pcrow me"><span class="pcn">롯데리츠 <em>(이 종목)</em></span><div class="pcbar"><i style="width:100%"></i></div><span class="pcv">39.3%</span><span class="pco">100%</span></div><div class="pcrow"><span class="pcn">미래에셋맵스리츠</span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco">100%</span></div><div class="pcrow"><span class="pcn">이리츠코크렙</span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco">100%</span></div>
+    <p class="pro-cap">공시·실측 기준 비교(정의·기준일 상이 가능). 임대율은 일부 단일자산 기준.</p></div>
   </div>
 <details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>
   <div class="card rd">
