@@ -484,6 +484,62 @@
           "url": "http://www.samsungfnreit.com/disclosure/ir/read.jsp?no=169"
         },
         "asOf": "2026-06-19"
+      },
+      "reportSummary": {
+        "reportTitle": "제13기 사업보고서",
+        "asOf": "2026-01-31",
+        "sourceUrl": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260409001553",
+        "portfolio": [
+          {
+            "name": "에프엔타워 대치(대치타워)",
+            "type": "오피스",
+            "location": "서울 강남"
+          },
+          {
+            "name": "에프엔타워 순화(에스원빌딩)",
+            "type": "오피스",
+            "location": "서울 중구"
+          },
+          {
+            "name": "에프엔타워 판교",
+            "type": "오피스",
+            "location": "경기 성남 판교"
+          }
+        ],
+        "highlights": [
+          {
+            "label": "자산총계",
+            "value": "약 8,662억원",
+            "quote": "자 산 총 계 866,212,098,508"
+          },
+          {
+            "label": "순자산(자본총계)",
+            "value": "약 4,046억원",
+            "quote": "자 본 총 계 404,608,695,472"
+          },
+          {
+            "label": "주당배당금(제13기)",
+            "value": "69원",
+            "quote": "주당 현금배당금(원) 보통주 69"
+          },
+          {
+            "label": "현금배당수익률(제13기)",
+            "value": "1.41%",
+            "quote": "현금배당수익률(%) 보통주 1.41"
+          },
+          {
+            "label": "총차입금",
+            "value": "4,300억원(만기 2026-09-24)",
+            "quote": "장기차입금 ... 430,000,000"
+          },
+          {
+            "label": "차입금리",
+            "value": "91일 CD+1.1%p (CD 2.73%)",
+            "quote": "차입금, 기준이자율 91일 CD금리"
+          }
+        ],
+        "note": "DART 사업보고서(제13기). 오피스 3개 직접보유(대치타워·에스원빌딩·판교).",
+        "status": "actual"
       }
     },
     {
