@@ -40,6 +40,43 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
+.pro{background:linear-gradient(180deg,#fbfcff,#fff)}
+.pro-tag{font-size:11px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:3px 10px}
+.pro-risk{margin:10px 0 0;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5}
+.pro-risk b{font-weight:900}.pro-risk span{opacity:.9}
+.pro-risk.risk-high{background:#fdecea;border:1px solid #f3c0ba;color:#b42318}
+.pro-risk.risk-caution{background:#fdf6e3;border:1px solid #f2e0a8;color:#9a6700}
+.pro-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+@media(max-width:380px){.pro-kpis{grid-template-columns:repeat(2,1fr)}}
+.pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+.pk-k{font-size:11px;color:var(--muted);font-weight:700}
+.pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
+.pro-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+@media(max-width:520px){.pro-gauges{grid-template-columns:1fr}}
+.pg-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}.pg-top b{font-weight:900}
+.pg-bar{height:9px;border-radius:999px;background:var(--soft);overflow:hidden}
+.pg-bar i{display:block;height:100%;border-radius:999px}
+.pg-bar i.g-ok{background:linear-gradient(90deg,#0c9b69,#33c08a)}
+.pg-bar i.g-warn{background:linear-gradient(90deg,#e0892b,#f0b24b)}
+.pro-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:560px){.pro-grid2{grid-template-columns:1fr}}
+.pro-block{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.pro-h{font-size:13px;font-weight:800;margin-bottom:10px}
+.pro-cap{font-size:10.5px;color:var(--muted);margin:8px 0 0}
+.pro-bars{display:flex;align-items:flex-end;gap:8px;height:120px}
+.pro-bars .bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px}
+.pro-bars .bar i{display:block;width:70%;max-width:34px;background:linear-gradient(180deg,#3254ff,#6f86ff);border-radius:6px 6px 0 0;min-height:8px}
+.pro-bars .bv{font-size:11px;font-weight:800}
+.pro-bars .bl{font-size:10px;color:var(--muted);text-align:center;line-height:1.2}
+.pro-ladder{display:flex;flex-direction:column;gap:7px}
+.pro-ladder .lr{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:8px;font-size:12px}
+.pro-ladder .ly{color:var(--muted);font-weight:700}
+.pro-ladder .lbar{height:14px;background:var(--soft);border-radius:6px;overflow:hidden}
+.pro-ladder .lbar i{display:block;height:100%;background:linear-gradient(90deg,#3254ff,#7d93ff);border-radius:6px}
+.pro-ladder .lv{font-weight:800;white-space:nowrap}
+.rd-full{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+.rd-full>summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--brand);list-style:none}
+.rd-full>summary::-webkit-details-marker{display:none}
 .rd-src{font-size:12.5px;color:var(--muted);margin:0 0 6px}
 .rd .rd-h{font-size:15px;font-weight:850;margin:20px 0 10px;padding-bottom:7px;border-bottom:2px solid var(--tint)}
 .rd-dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;font-size:14px;align-items:baseline}
@@ -127,6 +164,14 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     </div>
   </div>
 
+  <div class="card pro">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">대표 종목 강화 뷰</span></div>
+    
+    <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">1.19% (분기)</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">68원</div></div><div class="pro-kpi"><div class="pk-k">LTV</div><div class="pk-v">65.7%</div></div><div class="pro-kpi"><div class="pk-k">임대율</div><div class="pk-v">100%</div></div><div class="pro-kpi"><div class="pk-k">WALE</div><div class="pk-v">5.1년</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">AA-</div></div></div>
+    <div class="pro-gauges"><div class="pg"><div class="pg-top"><span>임대율</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div><div class="pg"><div class="pg-top"><span>LTV</span><b>65.7%</b></div><div class="pg-bar"><i class="g-warn" style="width:65.7%"></i></div></div></div>
+    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">66</span><i style="height:97.05882352941177%"></i><span class="bl">제18기</span></div><div class="bar"><span class="bv">66</span><i style="height:97.05882352941177%"></i><span class="bl">제19기</span></div><div class="bar"><span class="bv">68</span><i style="height:100%"></i><span class="bl">제20기</span></div></div></div><div class="pro-block"><div class="pro-h">차입 만기 사다리</div><div class="pro-ladder"><div class="lr"><span class="ly">2026</span><div class="lbar"><i style="width:100%"></i></div><span class="lv">1.1조원</span></div><div class="lr"><span class="ly">2027</span><div class="lbar"><i style="width:85.45437316402918%"></i></div><span class="lv">9,018억원</span></div><div class="lr"><span class="ly">2028</span><div class="lbar"><i style="width:66.82459963991282%"></i></div><span class="lv">7,052억원</span></div></div><p class="pro-cap">만기 명시된 차입·사채 기준 합산(억원)</p></div></div>
+  </div>
+<details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>
   <div class="card rd">
     <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 상세</h2></div>
     <p class="rd-src">제20기 사업보고서 · 2026.01.01~2026.03.31 · 2026-03-31 기준 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260610000569" target="_blank" rel="noopener">DART 원문</a></p>
@@ -139,7 +184,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <h3 class="rd-h">🏦 차입 구조</h3><div class="rd-dl"><div class="rd-k">사채 발행잔액(연결)</div><div class="rd-v">약 9,850억원</div><div class="rd-k">차입금 잔액(연결)</div><div class="rd-v">약 2조 1,314억원</div><div class="rd-k">총 사채+차입금</div><div class="rd-v">약 3조 1,164억원</div><div class="rd-k">신용등급</div><div class="rd-v">회사채/ICR AA- · 전단채 A1</div><div class="rd-k">금리 구조</div><div class="rd-v">고정·변동(CD 연동) 혼합. 회사채 2.99~4.00%, 차입금 3.54~5.49% (단일 평균·LTV·고정비중 미기재)</div></div><div class="rd-scroll"><table class="rd-table"><thead><tr><th>구분</th><th>차입처</th><th class="num">금액</th><th class="num">금리</th><th>만기</th></tr></thead><tbody><tr><td>전자단기사채</td><td>증권사 5곳</td><td class="num">1,500억</td><td class="num">3.26%</td><td>2026-05-22</td></tr><tr><td>전자단기사채</td><td>증권사 5곳</td><td class="num">1,000억</td><td class="num">3.26%</td><td>2026-06-09</td></tr><tr><td>공모회사채</td><td>공모</td><td class="num">950억</td><td class="num">3.999%</td><td>2026-05-22</td></tr><tr><td>공모회사채</td><td>공모</td><td class="num">900억</td><td class="num">3.432%</td><td>2026-10-02</td></tr><tr><td>공모회사채</td><td>공모</td><td class="num">1,300억</td><td class="num">3.318%</td><td>2027-02-19</td></tr><tr><td>공모회사채</td><td>공모</td><td class="num">1,400억</td><td class="num">3.372%</td><td>2027-02-18</td></tr><tr><td>공모회사채</td><td>공모</td><td class="num">600억</td><td class="num">3.514%</td><td>2027-10-01</td></tr><tr><td>공모회사채</td><td>공모</td><td class="num">1,200억</td><td class="num">2.993%</td><td>2027-05-20</td></tr><tr><td>공모회사채</td><td>공모</td><td class="num">900억</td><td class="num">3.063%</td><td>2028-05-19</td></tr><tr><td>사모회사채</td><td>삼성증권</td><td class="num">100억</td><td class="num">4.329%</td><td>2027-02-26</td></tr><tr><td>차입금(트랜치)</td><td>SC·국민·미즈호 등</td><td class="num">약 4,418억</td><td class="num">3.56%</td><td>2027-07-05</td></tr><tr><td>차입금(트랜치)</td><td>SC·국민·미쓰이 등</td><td class="num">약 1,540억</td><td class="num">3.62%</td><td>2028-06-30</td></tr><tr><td>차입금(트랜치)</td><td>SC·미쓰이·국민</td><td class="num">약 2,164억</td><td class="num">3.71%</td><td>2028-11-28</td></tr><tr><td>차입금(트랜치)</td><td>미쓰이·SC·중국은행 등</td><td class="num">약 2,448억</td><td class="num">3.54%</td><td>2028-10-13</td></tr><tr><td>차입금(트랜치)</td><td>기업·국민·보험사 등</td><td class="num">약 2,800억</td><td class="num">5.49%</td><td>2026-09-23</td></tr><tr><td>차입금(트랜치)</td><td>SC·미쓰이·우리 등</td><td class="num">약 3,403억</td><td class="num">4.21%</td><td>2026-09-23</td></tr></tbody></table></div><p class="rd-anote">사채 전액 만기일시상환. 차입처에 유동화기구(클린에너지원큐제이차 등)·국내외 은행·보험사 포함. 금액은 동일 만기·금리 트랜치 합산.</p>
     <h3 class="rd-h">⚠ 리스크 요인</h3><ul class="rd-ul"><li>임차인 집중·계열 의존: 주요 자산이 SK㈜·SK하이닉스·SK에너지 등 단일 계열 책임임차 구조로 임차인 신용도에 직접 연동.</li><li>금리·차환: 사채 9,850억·차입 2조 1,314억으로 차입의존도 높고 2026.5~9월 만기 다수 → 리파이낸싱·금리 상승 위험.</li><li>주유소 매각 변동: 매각 계획 47개소 중 일부만 이전 완료, 잔여 매각 시장환경에 따라 변동 가능.</li><li>부동산 평가: 감정가 매입가 대비 상승했으나 경기·금리 변동 시 평가손익·자산가치 하락 가능.</li><li>임대차 재계약: 오피스 5+5년 구조로 1차 만기 도래 시 임대료 협상 결과에 따른 수익 변동.</li><li>규제: 부동산투자회사법상 배당가능이익 90%↑ 배당 등 요건 충족 의존.</li></ul>
     <h3 class="rd-h">🔎 운영 지표 <span class="rs-hint">(출처·기준일·status)</span></h3><div class="rd-ops"><div class="facts-grid"><div class="fact"><div class="fl">AUM(자산총계)</div><div class="fv">5조 624억</div><div class="fm">2025-12-31 · <a href="https://www.kareit.or.kr/invest/page2.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">LTV(차입비율)</div><div class="fv">65.7%</div><div class="fm">2025-03-31 · <a href="https://www.thebell.co.kr/front/newsview.asp?key=202505021330154160109639" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">WALE(임대차잔존)</div><div class="fv">5.1년</div><div class="fm">2025-03-31 · <a href="http://money2.daishin.com/PDF/Out/intranet_data/Product/ResearchCenter/Report/2025/07/54126_SK_Reits_init.pdf" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임대율/공실</div><div class="fv">100%</div><div class="fm">2025-06-30 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250922000291" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">고정금리 비중</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">12개월내 만기</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">주요 임차인</div><div class="fv">SK㈜(SK서린빌딩 100% 책임임차); SK하이닉스·SK에너지 등 SK그룹</div><div class="fm">2025-06-30 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20250922000291" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임차인 집중도</div><div class="fv">43.15%</div><div class="fm">2026-03-31 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260610000569" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div></div></div>
-  </div>
+  </div></details>
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">국내 최대권 상장리츠 중 하나. 오피스와 인프라성 자산이 섞여 있어 배당 안정성과 금리 비용을 같이 본다.</p>

@@ -103,6 +103,75 @@ function reportSection(r) {
 const freqLabel = (n) => n >= 4 ? '분기 배당(연 4회)' : n === 2 ? '반기 배당(연 2회)' : n === 1 ? '연 1회 배당' : ('연 ' + n + '회 배당');
 const naver = (t) => /^\d{6}$/.test(t) ? ('https://finance.naver.com/item/main.naver?code=' + t) : null;
 
+// === '한눈에 보기' 강화 뷰(대표 3종 쇼케이스): reportDetail 데이터를 파싱해 시각화 ===
+const PRO_TICKERS = new Set(['395400', '330590', '348950']);
+const _num = (s) => { const m = String(s ?? '').replace(/,/g, '').match(/-?\d+(?:\.\d+)?/); return m ? parseFloat(m[0]) : null; };
+const _pct = (s) => { const m = String(s ?? '').replace(/,/g, '').match(/(-?\d+(?:\.\d+)?)\s*%/); return m ? parseFloat(m[1]) : null; };
+const _eok = (s) => { s = String(s ?? '').replace(/,/g, ''); let t = 0, ok = false; const jo = s.match(/(\d+(?:\.\d+)?)\s*조/); if (jo) { t += parseFloat(jo[1]) * 10000; ok = true; } const e = s.match(/(\d+(?:\.\d+)?)\s*억/); if (e) { t += parseFloat(e[1]); ok = true; } return ok ? t : null; };
+const _year = (s) => { const m = String(s ?? '').match(/20\d{2}/); return m ? +m[0] : null; };
+const _findVal = (arr, kw) => { if (!Array.isArray(arr)) return null; const re = new RegExp(kw); const it = arr.find((x) => x && re.test(x.label || '')); return it ? it.value : null; };
+const fmtEok = (v) => v >= 10000 ? (v / 10000).toFixed(v % 10000 ? 1 : 0) + '조원' : Math.round(v).toLocaleString('ko-KR') + '억원';
+
+function proDashboard(r) {
+  const d = DETAIL_BY_TICKER[r.ticker];
+  if (!d) return '';
+  const facts = FACTS_BY_TICKER[r.ticker] || {};
+  const risk = RISK_BY_TICKER[r.ticker];
+  const ds = (d.debt && d.debt.summary) || [];
+  const pick = (...cands) => cands.find((x) => x != null && x !== '');
+
+  const ltvStr = pick(_findVal(ds, 'LTV|레버리지'), facts.ltv && facts.ltv.display);
+  const occStr = pick([d.lease && d.lease.occupancy, facts.occupancy && facts.occupancy.display].find((x) => _pct(x) != null), facts.occupancy && facts.occupancy.display);
+  const waleStr = pick([d.lease && d.lease.wale, facts.wale && facts.wale.display].find((x) => _num(x) != null));
+  const rating = pick(_findVal(ds, '신용등급'), _findVal(d.overview, '신용등급'));
+  const fixedStr = pick(_findVal(ds, '고정금리'), facts.debtFixedRatio && facts.debtFixedRatio.display);
+  const yieldStr = d.dividends && d.dividends.yield;
+  const lastDiv = d.dividends && d.dividends.history && (d.dividends.history.find((h) => _num(h.perShare) != null) || {}).perShare;
+
+  const yPct = _pct(yieldStr), oPct = _pct(occStr), lPct = _pct(ltvStr);
+  const waleVal = (facts.wale && facts.wale.display) || (() => { const m = String(waleStr || '').match(/(\d+(?:\.\d+)?)\s*년/); return m ? m[1] + '년' : null; })();
+  const rGrade = (() => { const m = String(rating || '').match(/(AAA|AA[+-]?|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?|CCC[+-]?|CC|D)/); return m ? m[0] : rating; })();
+  const kpis = [
+    yPct != null && { k: '배당수익률', v: yPct + '%' + (/분기/.test(yieldStr) ? ' (분기)' : '') },
+    lastDiv && { k: '최근 주당배당', v: lastDiv },
+    (lPct != null ? { k: 'LTV', v: lPct + '%' } : (ltvStr && { k: 'LTV', v: ltvStr })),
+    oPct != null && { k: '임대율', v: oPct + '%' },
+    waleVal && { k: 'WALE', v: waleVal },
+    rating && { k: '신용등급', v: rGrade },
+  ].filter(Boolean).slice(0, 6);
+  const kpiHtml = kpis.length ? `<div class="pro-kpis">${kpis.map((x) => `<div class="pro-kpi"><div class="pk-k">${esc(x.k)}</div><div class="pk-v">${esc(x.v)}</div></div>`).join('')}</div>` : '';
+
+  const gauges = [
+    { k: '임대율', val: _pct(occStr), cls: 'g-ok' },
+    { k: 'LTV', val: _pct(ltvStr), cls: 'g-warn' },
+    { k: '고정금리 비중', val: _pct(fixedStr), cls: 'g-ok' },
+  ].filter((g) => g.val != null);
+  const gaugeHtml = gauges.length ? `<div class="pro-gauges">${gauges.map((g) => `<div class="pg"><div class="pg-top"><span>${esc(g.k)}</span><b>${g.val}%</b></div><div class="pg-bar"><i class="${g.cls}" style="width:${Math.max(2, Math.min(100, g.val))}%"></i></div></div>`).join('')}</div>` : '';
+
+  const hist = ((d.dividends && d.dividends.history) || []).map((h) => ({ p: h.period, v: _num(h.perShare) })).filter((x) => x.v != null).reverse();
+  const maxDiv = Math.max(...hist.map((x) => x.v), 1);
+  const divHtml = hist.length >= 2 ? `<div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars">${hist.map((x) => `<div class="bar"><span class="bv">${x.v.toLocaleString('ko-KR')}</span><i style="height:${Math.max(8, x.v / maxDiv * 100)}%"></i><span class="bl">${esc(x.p.replace(/\s*\(.*?\)/g, '').trim().slice(0, 7))}</span></div>`).join('')}</div></div>` : '';
+
+  const items = (d.debt && d.debt.items) || [];
+  const byYear = {};
+  items.forEach((it) => { const y = _year(it.maturity); const a = _eok(it.amount); if (y && a) byYear[y] = (byYear[y] || 0) + a; });
+  const years = Object.keys(byYear).map(Number).sort();
+  const maxY = Math.max(...years.map((y) => byYear[y]), 1);
+  const ladderHtml = years.length >= 2 ? `<div class="pro-block"><div class="pro-h">차입 만기 사다리</div><div class="pro-ladder">${years.map((y) => `<div class="lr"><span class="ly">${y}</span><div class="lbar"><i style="width:${Math.max(4, byYear[y] / maxY * 100)}%"></i></div><span class="lv">${esc(fmtEok(byYear[y]))}</span></div>`).join('')}</div><p class="pro-cap">만기 명시된 차입·사채 기준 합산(억원)</p></div>` : '';
+
+  const riskBadge = risk ? `<div class="pro-risk risk-${esc(risk.level)}"><b>⚠ ${esc(risk.label)}</b>${risk.note ? ` <span>${esc(risk.note)}</span>` : ''}</div>` : '';
+
+  if (!kpiHtml && !gaugeHtml && !divHtml && !ladderHtml) return '';
+  return `
+  <div class="card pro">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">대표 종목 강화 뷰</span></div>
+    ${riskBadge}
+    ${kpiHtml}
+    ${gaugeHtml}
+    <div class="pro-grid2">${divHtml}${ladderHtml}</div>
+  </div>`;
+}
+
 // 투자보고서 상세(쇼케이스): 개요·보유자산·임대·재무·배당·차입을 가독성 높게 구성. reportDetail 보유 종목만.
 function dl(rows) {
   const items = (rows || []).filter((x) => x && x.value != null && x.value !== '');
@@ -300,6 +369,43 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
+.pro{background:linear-gradient(180deg,#fbfcff,#fff)}
+.pro-tag{font-size:11px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:3px 10px}
+.pro-risk{margin:10px 0 0;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5}
+.pro-risk b{font-weight:900}.pro-risk span{opacity:.9}
+.pro-risk.risk-high{background:#fdecea;border:1px solid #f3c0ba;color:#b42318}
+.pro-risk.risk-caution{background:#fdf6e3;border:1px solid #f2e0a8;color:#9a6700}
+.pro-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+@media(max-width:380px){.pro-kpis{grid-template-columns:repeat(2,1fr)}}
+.pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+.pk-k{font-size:11px;color:var(--muted);font-weight:700}
+.pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
+.pro-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+@media(max-width:520px){.pro-gauges{grid-template-columns:1fr}}
+.pg-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}.pg-top b{font-weight:900}
+.pg-bar{height:9px;border-radius:999px;background:var(--soft);overflow:hidden}
+.pg-bar i{display:block;height:100%;border-radius:999px}
+.pg-bar i.g-ok{background:linear-gradient(90deg,#0c9b69,#33c08a)}
+.pg-bar i.g-warn{background:linear-gradient(90deg,#e0892b,#f0b24b)}
+.pro-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:560px){.pro-grid2{grid-template-columns:1fr}}
+.pro-block{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.pro-h{font-size:13px;font-weight:800;margin-bottom:10px}
+.pro-cap{font-size:10.5px;color:var(--muted);margin:8px 0 0}
+.pro-bars{display:flex;align-items:flex-end;gap:8px;height:120px}
+.pro-bars .bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px}
+.pro-bars .bar i{display:block;width:70%;max-width:34px;background:linear-gradient(180deg,#3254ff,#6f86ff);border-radius:6px 6px 0 0;min-height:8px}
+.pro-bars .bv{font-size:11px;font-weight:800}
+.pro-bars .bl{font-size:10px;color:var(--muted);text-align:center;line-height:1.2}
+.pro-ladder{display:flex;flex-direction:column;gap:7px}
+.pro-ladder .lr{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:8px;font-size:12px}
+.pro-ladder .ly{color:var(--muted);font-weight:700}
+.pro-ladder .lbar{height:14px;background:var(--soft);border-radius:6px;overflow:hidden}
+.pro-ladder .lbar i{display:block;height:100%;background:linear-gradient(90deg,#3254ff,#7d93ff);border-radius:6px}
+.pro-ladder .lv{font-weight:800;white-space:nowrap}
+.rd-full{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+.rd-full>summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--brand);list-style:none}
+.rd-full>summary::-webkit-details-marker{display:none}
 .rd-src{font-size:12.5px;color:var(--muted);margin:0 0 6px}
 .rd .rd-h{font-size:15px;font-weight:850;margin:20px 0 10px;padding-bottom:7px;border-bottom:2px solid var(--tint)}
 .rd-dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;font-size:14px;align-items:baseline}
@@ -386,7 +492,10 @@ ${riskBanner(r)}
       <div class="row"><span>특징</span><b>${esc(r.tags.join(', '))}</b></div>
     </div>
   </div>
-${reportDetail(r) || reportSection(r)}
+${PRO_TICKERS.has(r.ticker) ? proDashboard(r) : ''}
+${PRO_TICKERS.has(r.ticker)
+    ? `<details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>${reportDetail(r)}</details>`
+    : (reportDetail(r) || reportSection(r))}
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">${esc(r.note)}</p>
