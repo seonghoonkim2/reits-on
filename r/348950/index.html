@@ -40,6 +40,43 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
+.pro{background:linear-gradient(180deg,#fbfcff,#fff)}
+.pro-tag{font-size:11px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:3px 10px}
+.pro-risk{margin:10px 0 0;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5}
+.pro-risk b{font-weight:900}.pro-risk span{opacity:.9}
+.pro-risk.risk-high{background:#fdecea;border:1px solid #f3c0ba;color:#b42318}
+.pro-risk.risk-caution{background:#fdf6e3;border:1px solid #f2e0a8;color:#9a6700}
+.pro-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+@media(max-width:380px){.pro-kpis{grid-template-columns:repeat(2,1fr)}}
+.pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+.pk-k{font-size:11px;color:var(--muted);font-weight:700}
+.pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
+.pro-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+@media(max-width:520px){.pro-gauges{grid-template-columns:1fr}}
+.pg-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}.pg-top b{font-weight:900}
+.pg-bar{height:9px;border-radius:999px;background:var(--soft);overflow:hidden}
+.pg-bar i{display:block;height:100%;border-radius:999px}
+.pg-bar i.g-ok{background:linear-gradient(90deg,#0c9b69,#33c08a)}
+.pg-bar i.g-warn{background:linear-gradient(90deg,#e0892b,#f0b24b)}
+.pro-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:560px){.pro-grid2{grid-template-columns:1fr}}
+.pro-block{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.pro-h{font-size:13px;font-weight:800;margin-bottom:10px}
+.pro-cap{font-size:10.5px;color:var(--muted);margin:8px 0 0}
+.pro-bars{display:flex;align-items:flex-end;gap:8px;height:120px}
+.pro-bars .bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px}
+.pro-bars .bar i{display:block;width:70%;max-width:34px;background:linear-gradient(180deg,#3254ff,#6f86ff);border-radius:6px 6px 0 0;min-height:8px}
+.pro-bars .bv{font-size:11px;font-weight:800}
+.pro-bars .bl{font-size:10px;color:var(--muted);text-align:center;line-height:1.2}
+.pro-ladder{display:flex;flex-direction:column;gap:7px}
+.pro-ladder .lr{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:8px;font-size:12px}
+.pro-ladder .ly{color:var(--muted);font-weight:700}
+.pro-ladder .lbar{height:14px;background:var(--soft);border-radius:6px;overflow:hidden}
+.pro-ladder .lbar i{display:block;height:100%;background:linear-gradient(90deg,#3254ff,#7d93ff);border-radius:6px}
+.pro-ladder .lv{font-weight:800;white-space:nowrap}
+.rd-full{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
+.rd-full>summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--brand);list-style:none}
+.rd-full>summary::-webkit-details-marker{display:none}
 .rd-src{font-size:12.5px;color:var(--muted);margin:0 0 6px}
 .rd .rd-h{font-size:15px;font-weight:850;margin:20px 0 10px;padding-bottom:7px;border-bottom:2px solid var(--tint)}
 .rd-dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;font-size:14px;align-items:baseline}
@@ -127,6 +164,14 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     </div>
   </div>
 
+  <div class="card pro">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">대표 종목 강화 뷰</span></div>
+    <div class="pro-risk risk-high"><b>⚠ 회생절차</b> <span>전자단기사채 미상환→회생절차 개시 신청(2026.4.27)·신용등급 D·반기검토 의견거절</span></div>
+    <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">3.55%</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">115원</div></div><div class="pro-kpi"><div class="pk-k">LTV</div><div class="pk-v">61.02%</div></div><div class="pro-kpi"><div class="pk-k">임대율</div><div class="pk-v">100%</div></div><div class="pro-kpi"><div class="pk-k">WALE</div><div class="pk-v">10년</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">D</div></div></div>
+    <div class="pro-gauges"><div class="pg"><div class="pg-top"><span>임대율</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div><div class="pg"><div class="pg-top"><span>LTV</span><b>61.02%</b></div><div class="pg-bar"><i class="g-warn" style="width:61.02%"></i></div></div><div class="pg"><div class="pg-top"><span>고정금리 비중</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div></div>
+    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">115</span><i style="height:100%"></i><span class="bl">제12기</span></div><div class="bar"><span class="bv">115</span><i style="height:100%"></i><span class="bl">제13기</span></div></div></div><div class="pro-block"><div class="pro-h">차입 만기 사다리</div><div class="pro-ladder"><div class="lr"><span class="ly">2026</span><div class="lbar"><i style="width:15.29961750956226%"></i></div><span class="lv">1,800억원</span></div><div class="lr"><span class="ly">2027</span><div class="lbar"><i style="width:100%"></i></div><span class="lv">1.2조원</span></div><div class="lr"><span class="ly">2029</span><div class="lbar"><i style="width:4.674883127921802%"></i></div><span class="lv">550억원</span></div></div><p class="pro-cap">만기 명시된 차입·사채 기준 합산(억원)</p></div></div>
+  </div>
+<details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>
   <div class="card rd">
     <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 상세</h2></div>
     <p class="rd-src">제14기 반기보고서 · 2026.01.01~2026.03.31 · 2026-03-31 기준 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260515003003" target="_blank" rel="noopener">DART 원문</a></p>
@@ -139,7 +184,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <h3 class="rd-h">🏦 차입 구조</h3><div class="rd-dl"><div class="rd-k">LTV (대주단 통보)</div><div class="rd-v">61.02% (기준 52.5% 초과 → Cash Trap)</div><div class="rd-k">선순위 장기차입(파이낸스타워)</div><div class="rd-v">EUR 5.66억 / 약 9,805억원</div><div class="rd-k">공모·사모사채 합계</div><div class="rd-v">약 3,360억원 (전액 EOD)</div><div class="rd-k">전자단기사채</div><div class="rd-v">400억원 미상환 채무불이행</div><div class="rd-k">신용등급</div><div class="rd-v">D (종전 A-/A2-)</div></div><div class="rd-scroll"><table class="rd-table"><thead><tr><th>구분</th><th>차입처</th><th class="num">금액</th><th class="num">금리</th><th>만기</th></tr></thead><tbody><tr><td>선순위 장기차입(파이낸스타워)</td><td>Allianz 계열 외 4개사</td><td class="num">약 9,805억</td><td class="num">4.40%</td><td>2027-12-13 (Cash Trap)</td></tr><tr><td>장기차입금</td><td>미즈호은행</td><td class="num">550억</td><td class="num">CD+3.50%</td><td>2029-03-12 (EOD)</td></tr><tr><td>공모사채(3-1회)</td><td>공모</td><td class="num">600억</td><td class="num">6.40%</td><td>2026-04-30 (EOD)</td></tr><tr><td>공모사채(3-2회)</td><td>공모</td><td class="num">800억</td><td class="num">6.60%</td><td>2026-10-30 (EOD)</td></tr><tr><td>공모사채(4회)</td><td>공모</td><td class="num">1,200억</td><td class="num">6.50%</td><td>2027-02-26 (EOD)</td></tr><tr><td>공모사채(6회)</td><td>공모</td><td class="num">600억</td><td class="num">6.30%</td><td>2027-07-30 (EOD)</td></tr><tr><td>사모사채(8회)</td><td>사모</td><td class="num">160억</td><td class="num">6.00%</td><td>2027-08-13 (EOD)</td></tr><tr><td>전자단기사채</td><td>전단채</td><td class="num">400억</td><td class="num">5.80%</td><td>2026-04-27 미상환(채무불이행)</td></tr></tbody></table></div><p class="rd-anote">2026.04.27 전자단기사채 400억 미상환으로 EOD → 같은 날 회생절차 신청. 회생신청으로 사채·차입금 전부 EOD 사유 발생. 파이낸스타워 선순위대출은 LTV 61.02%로 Cash Trap(현금유보) 발생.</p>
     <h3 class="rd-h">⚠ 리스크 요인</h3><ul class="rd-ul"><li>⚠ 회생절차: 2026.04.27 서울회생법원 회생절차 개시 신청(ARS 병행), 04.28부터 주권 거래정지. 계속기업 존속능력에 유의적 의문.</li><li>EOD: 전자단기사채 400억 미상환 채무불이행 → 공모·사모사채(약 3,360억)·장기차입금 전부 EOD.</li><li>의견거절: 제14기 반기검토에서 계속기업 불확실성으로 &#39;의견거절&#39;.</li><li>신용등급 D: 종전 A-/A2-에서 2026.04.27 ISSUER·회사채·전단채 모두 D 강등.</li><li>Cash Trap: 파이낸스타워 선순위대출 LTV 61.02%(기준 52.5% 초과)로 현금유보, 가용현금 외부유출 제한.</li><li>환율·해외자산: 자산(벨기에·미국)·차입(EUR)이 외화표시로 환율 노출, 대주단 감정평가 적정성 분쟁 소송 중.</li></ul>
     <h3 class="rd-h">🔎 운영 지표 <span class="rs-hint">(출처·기준일·status)</span></h3><div class="rd-ops"><div class="facts-grid"><div class="fact"><div class="fl">AUM(자산총계)</div><div class="fv">2조 7,760억</div><div class="fm">2025-12-31 · <a href="https://www.kareit.or.kr/invest/page2.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">LTV(차입비율)</div><div class="fv">61%</div><div class="fm">2025-12-31 · <a href="https://www.sisajournal-e.com/news/articleView.html?idxno=420509" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">WALE(임대차잔존)</div><div class="fv">10년</div><div class="fm">2025-12-31 · <a href="https://jrglobalreit.com/sub/sub02_01.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임대율/공실</div><div class="fv">100%</div><div class="fm">2025-12-31 · <a href="https://jrglobalreit.com/sub/sub02_01.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">고정금리 비중</div><div class="fv">100%</div><div class="fm">2025-12-31 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260323001319" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">12개월내 만기</div><div class="fv na">자료 확인 필요</div><div class="fm"><span class="st st-unavailable">미확보</span></div></div><div class="fact"><div class="fl">주요 임차인</div><div class="fv">벨기에 건물관리청(연방정부 Régie des Bâtiments) — 파이낸스타워 전층 임차(2034년말까지)</div><div class="fm">2025-09-30 · <a href="https://jrglobalreit.com/sub/sub04_02.php?boardid=ir&amp;mode=view&amp;idx=224" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div><div class="fact"><div class="fl">임차인 집중도</div><div class="fv">100%</div><div class="fm">2025-12-31 · <a href="https://jrglobalreit.com/sub/sub02_01.php" target="_blank" rel="noopener">출처</a> · <span class="st st-actual">실측</span></div></div></div></div>
-  </div>
+  </div></details>
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">해외 오피스 자산 비중이 큰 리츠. 현지 임차인, 금리, 환율, 자산가치 변동을 함께 확인.</p>
