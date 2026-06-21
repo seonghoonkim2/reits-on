@@ -24,6 +24,7 @@ const FACTS_BY_TICKER = {};
 const IR_BY_TICKER = {};
 const REPORT_BY_TICKER = {};
 const RISK_BY_TICKER = {};
+const DETAIL_BY_TICKER = {};
 try {
   const reitsDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8'));
   for (const x of reitsDoc.reits) {
@@ -31,6 +32,7 @@ try {
     if (x.irResources) IR_BY_TICKER[x.ticker] = x.irResources;
     if (x.reportSummary) REPORT_BY_TICKER[x.ticker] = x.reportSummary;
     if (x.risk) RISK_BY_TICKER[x.ticker] = x.risk;
+    if (x.reportDetail) DETAIL_BY_TICKER[x.ticker] = x.reportDetail;
   }
 } catch { /* data 없으면 팩트 섹션 생략 */ }
 
@@ -100,6 +102,95 @@ function reportSection(r) {
 
 const freqLabel = (n) => n >= 4 ? '분기 배당(연 4회)' : n === 2 ? '반기 배당(연 2회)' : n === 1 ? '연 1회 배당' : ('연 ' + n + '회 배당');
 const naver = (t) => /^\d{6}$/.test(t) ? ('https://finance.naver.com/item/main.naver?code=' + t) : null;
+
+// 투자보고서 상세(쇼케이스): 개요·보유자산·임대·재무·배당·차입을 가독성 높게 구성. reportDetail 보유 종목만.
+function dl(rows) {
+  const items = (rows || []).filter((x) => x && x.value != null && x.value !== '');
+  if (!items.length) return '';
+  return `<div class="rd-dl">${items.map((x) =>
+    `<div class="rd-k">${esc(x.label)}</div><div class="rd-v">${esc(x.value)}</div>`).join('')}</div>`;
+}
+function reportDetail(r) {
+  const d = DETAIL_BY_TICKER[r.ticker];
+  if (!d) return '';
+  const facts = FACTS_BY_TICKER[r.ticker];
+  const head = [d.reportTitle, d.fiscalPeriod, d.asOf ? d.asOf + ' 기준' : null].filter(Boolean).map(esc).join(' · ')
+    + (d.sourceUrl ? ` · <a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener">DART 원문</a>` : '');
+  const sec = (title, inner) => inner ? `<h3 class="rd-h">${title}</h3>${inner}` : '';
+
+  // 개요
+  const overview = dl(d.overview);
+
+  // 보유 자산
+  const assets = (d.assets && d.assets.length) ? `<div class="rd-assets">${d.assets.map((a) => {
+    const rows = dl([
+      { label: '소재지', value: a.location }, { label: '용도', value: a.use },
+      { label: '연면적', value: a.grossFloorArea }, { label: '대지면적', value: a.landArea },
+      { label: '규모', value: a.scale }, { label: '준공', value: a.completion },
+      { label: '취득가액', value: a.acquisitionPrice }, { label: '감정평가액', value: a.appraisalValue },
+      { label: '임대율', value: a.occupancy }, { label: '주요 임차인', value: a.mainTenant },
+    ]);
+    return `<div class="rd-asset"><div class="rd-asset-h"><span class="rd-an">${esc(a.name)}</span></div>${rows}${a.note ? `<p class="rd-anote">${esc(a.note)}</p>` : ''}</div>`;
+  }).join('')}</div>` : '';
+
+  // 자산 가치(감정평가)
+  const valuation = dl(d.valuation);
+
+  // 임대 현황
+  let lease = '';
+  if (d.lease) {
+    const ld = dl([{ label: '임대율', value: d.lease.occupancy }, { label: 'WALE(가중평균 잔여임대차)', value: d.lease.wale }]);
+    const tenants = (d.lease.tenants && d.lease.tenants.length)
+      ? `<div class="rd-scroll"><table class="rd-table"><thead><tr><th>임차인</th><th class="num">비중</th><th>만기</th></tr></thead><tbody>${d.lease.tenants.map((t) =>
+          `<tr><td>${esc(t.name)}</td><td class="num">${esc(t.share || '-')}</td><td>${esc(t.expiry || '-')}</td></tr>`).join('')}</tbody></table></div>` : '';
+    lease = (ld || tenants || d.lease.note) ? (ld + tenants + (d.lease.note ? `<p class="rd-anote">${esc(d.lease.note)}</p>` : '')) : '';
+  }
+
+  // 재무
+  const fin = (d.financials && d.financials.length)
+    ? `<div class="rd-scroll"><table class="rd-table"><tbody>${d.financials.map((f) =>
+        `<tr><td>${esc(f.label)}</td><td class="num">${esc(f.value)}</td></tr>`).join('')}</tbody></table></div>` : '';
+
+  // 배당
+  let div = '';
+  if (d.dividends) {
+    const meta = dl([{ label: '배당 정책', value: d.dividends.policy }, { label: '배당수익률', value: d.dividends.yield }]);
+    const hist = (d.dividends.history && d.dividends.history.length)
+      ? `<div class="rd-scroll"><table class="rd-table"><thead><tr><th>기수</th><th class="num">주당배당금</th><th>비고</th></tr></thead><tbody>${d.dividends.history.map((h) =>
+          `<tr><td>${esc(h.period)}</td><td class="num">${esc(h.perShare || '-')}</td><td>${esc(h.note || '-')}</td></tr>`).join('')}</tbody></table></div>` : '';
+    div = meta + hist;
+  }
+
+  // 차입 구조
+  let debt = '';
+  if (d.debt) {
+    const meta = dl(d.debt.summary);
+    const items = (d.debt.items && d.debt.items.length)
+      ? `<div class="rd-scroll"><table class="rd-table"><thead><tr><th>구분</th><th>차입처</th><th class="num">금액</th><th class="num">금리</th><th>만기</th></tr></thead><tbody>${d.debt.items.map((it) =>
+          `<tr><td>${esc(it.type || '-')}</td><td>${esc(it.lender || '-')}</td><td class="num">${esc(it.amount || '-')}</td><td class="num">${esc(it.rate || it.rateType || '-')}</td><td>${esc(it.maturity || '-')}</td></tr>`).join('')}</tbody></table></div>` : '';
+    debt = meta + items + (d.debt.note ? `<p class="rd-anote">${esc(d.debt.note)}</p>` : '');
+  }
+
+  const risks = (d.risks && d.risks.length)
+    ? `<ul class="rd-ul">${d.risks.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '';
+
+  const ops = facts ? `<div class="rd-ops">${factsGrid(facts)}</div>` : '';
+
+  return `
+  <div class="card rd">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">투자보고서 상세</h2></div>
+    <p class="rd-src">${head}</p>
+    ${sec('📌 개요', overview)}
+    ${sec(`🏢 보유 자산${d.assets && d.assets.length ? ` (${d.assets.length})` : ''}`, assets)}
+    ${sec('🧾 자산 가치(감정평가)', valuation)}
+    ${sec('🔑 임대 현황', lease)}
+    ${sec('💰 재무 현황', fin)}
+    ${sec('📈 배당', div)}
+    ${sec('🏦 차입 구조', debt)}
+    ${sec('⚠ 리스크 요인', risks)}
+    ${sec('🔎 운영 지표 <span class="rs-hint">(출처·기준일·status)</span>', ops)}
+  </div>`;
+}
 
 // IR 원문 인라인 뷰어: 렌더링된 페이지 이미지를 펼쳐보기로 노출(클릭 이탈 없이 본문 확인)
 function irViewer(ir) {
@@ -209,6 +300,25 @@ h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .ir-latest{margin:0 0 10px;font-size:14px;background:var(--tint);border-radius:10px;padding:10px 12px}
 .ir-latest a{color:var(--brand);font-weight:800;text-decoration:none}
+.rd-src{font-size:12.5px;color:var(--muted);margin:0 0 6px}
+.rd .rd-h{font-size:15px;font-weight:850;margin:20px 0 10px;padding-bottom:7px;border-bottom:2px solid var(--tint)}
+.rd-dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;font-size:14px;align-items:baseline}
+.rd-k{color:var(--muted);font-weight:700;white-space:nowrap}
+.rd-v{font-weight:650}
+.rd-assets{display:grid;gap:10px}
+.rd-asset{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface)}
+.rd-asset-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:8px}
+.rd-an{font-weight:850;font-size:15px;letter-spacing:-.02em}
+.rd-tag{flex:0 0 auto;font-size:11px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:2px 9px}
+.rd-anote{margin:8px 0 0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.rd-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2px 0}
+.rd-table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:280px}
+.rd-table th,.rd-table td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--soft);white-space:nowrap}
+.rd-table th{color:var(--muted);font-weight:800;background:var(--soft)}
+.rd-table td.num,.rd-table th.num{text-align:right;font-variant-numeric:tabular-nums}
+.rd-ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--muted)}
+.rd-ul li{margin:5px 0;line-height:1.5}
+.rd-ops{margin-top:4px}
 .rs-block{margin:0 0 16px}
 .rs-block:last-child{margin-bottom:0}
 .rs-h{font-size:13px;font-weight:800;color:var(--text);margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--soft)}
@@ -276,7 +386,7 @@ ${riskBanner(r)}
       <div class="row"><span>특징</span><b>${esc(r.tags.join(', '))}</b></div>
     </div>
   </div>
-${reportSection(r)}
+${reportDetail(r) || reportSection(r)}
   <div class="card">
     <h2 style="margin:0 0 6px;font-size:18px">한 줄 메모</h2>
     <p style="margin:0;color:var(--muted)">${esc(r.note)}</p>
