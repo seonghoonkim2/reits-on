@@ -23,14 +23,23 @@ const REITS = seed.reits;
 const FACTS_BY_TICKER = {};
 const IR_BY_TICKER = {};
 const REPORT_BY_TICKER = {};
+const RISK_BY_TICKER = {};
 try {
   const reitsDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8'));
   for (const x of reitsDoc.reits) {
     if (x.facts) FACTS_BY_TICKER[x.ticker] = x.facts;
     if (x.irResources) IR_BY_TICKER[x.ticker] = x.irResources;
     if (x.reportSummary) REPORT_BY_TICKER[x.ticker] = x.reportSummary;
+    if (x.risk) RISK_BY_TICKER[x.ticker] = x.risk;
   }
 } catch { /* data 없으면 팩트 섹션 생략 */ }
+
+// 리스크 배너: 회생/적자·무배당 등 중대 리스크 종목 상단 경고
+function riskBanner(r) {
+  const k = RISK_BY_TICKER[r.ticker];
+  if (!k) return '';
+  return `  <div class="risk-banner risk-${esc(k.level)}"><b>⚠ ${esc(k.label)}</b>${k.note ? ` <span>${esc(k.note)}</span>` : ''}</div>`;
+}
 const STATUS_LABEL = { actual:'실측', estimated:'추정', annualized:'연환산', user_input:'입력', stale:'갱신지연', unavailable:'미확보' };
 const FACT_ROWS = [
   ['aum','AUM(자산총계)'], ['ltv','LTV(차입비율)'], ['wale','WALE(임대차잔존)'], ['occupancy','임대율/공실'],
@@ -182,6 +191,10 @@ function page(r) {
 .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#3254ff,#00a78e);color:#fff;font-weight:900;display:grid;place-items:center;text-decoration:none}
 .top a.brand{color:var(--text);text-decoration:none;font-weight:800}
 .eyebrow{display:inline-block;font-size:12px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:5px 12px}
+.risk-banner{margin:12px 0 0;padding:10px 14px;border-radius:12px;font-size:13.5px;line-height:1.5}
+.risk-banner b{font-weight:900}.risk-banner span{color:inherit;opacity:.9}
+.risk-banner.risk-high{background:#fdecea;border:1px solid #f3c0ba;color:#b42318}
+.risk-banner.risk-caution{background:#fdf6e3;border:1px solid #f2e0a8;color:#9a6700}
 h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 .tk{color:var(--muted);font-weight:700}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px}
@@ -238,6 +251,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   <span class="eyebrow">상장리츠 · ${esc(r.primary)}</span>
   <h1>${esc(r.name)}</h1>
   <div class="tk">종목코드 ${esc(r.ticker)} · ${esc(r.sector.join(', '))}</div>
+${riskBanner(r)}
 
   <div class="card">
     <div class="hero">${annual ? fmt(annual) + '원 <span class="sub">/주 (연환산 추정)</span>' : '<span class="sub">최근배당금 공시 확인 필요</span>'}</div>

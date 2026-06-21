@@ -16,6 +16,7 @@ const flatReit = (r) => ({
   recentDiv: r.recentDiv && typeof r.recentDiv === 'object' ? r.recentDiv.value : (r.recentDiv ?? null),
   assetText: r.assetText, assetBn: r.assetBn,
   homepage: r.homepage, note: r.note, difficulty: r.difficulty, tags: r.tags,
+  risk: r.risk ?? null,
 });
 
 const { retrievedAt, sourceUrl, sourceId, ...market } = marketDoc; // 임베드엔 출처 메타 제외(기존 형태 유지)

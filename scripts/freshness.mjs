@@ -41,23 +41,44 @@ const total = doc.reits.length * KEYS.length;
 const irCount = doc.reits.filter((r) => r.irResources && r.irResources.irPage).length;
 const stamp = today.toISOString().slice(0, 10);
 
+// 투자보고서 핵심 요약: 미보유 종목 + 기준일 경과(stale) 종목
+const reportMissing = [];
+const reportStale = [];
+for (const r of doc.reits) {
+  const s = r.reportSummary;
+  if (!s || ((!s.portfolio || !s.portfolio.length) && (!s.highlights || !s.highlights.length))) {
+    reportMissing.push(`- \`${r.ticker}\` ${r.name}`);
+    continue;
+  }
+  const age = daysSince(s.asOf);
+  if (age > STALE_DAYS) reportStale.push(`- \`${r.ticker}\` ${r.name} — ${s.reportTitle || '투자보고서'} 기준일 ${s.asOf || '미상'} (${age}일 경과)`);
+}
+const reportCount = doc.reits.length - reportMissing.length;
+
 const md = `# 📊 리츠 데이터 보강 체크리스트 (자동 생성)
 
 - 생성일: ${stamp}
 - 정성팩트 실측: **${totalActual} / ${total}**
 - IR 자료 링크: **${irCount} / ${doc.reits.length}** 종목
-- 갱신 필요(stale, 기준일 ${STALE_DAYS}일 초과): **${staleRows.length}건**
+- 투자보고서 요약: **${reportCount} / ${doc.reits.length}** 종목
+- 갱신 필요(stale, 기준일 ${STALE_DAYS}일 초과): 정성팩트 **${staleRows.length}건** · 투자보고서요약 **${reportStale.length}종목**
 
 > 이 문서는 자동 점검 결과입니다. 값을 추정/생성하지 않으며, 아래 항목은 DART·각 리츠 투자보고서/IR 원문을 확인해 \`data/reits.json\`에 \`status:actual\`로 보강해야 할 후보입니다.
 
-## 🟡 갱신 필요 (기준일 경과)
+## 🟡 정성팩트 갱신 필요 (기준일 경과)
 ${staleRows.length ? staleRows.join('\n') : '- 없음'}
 
-## 🔴 미확보 항목 (unavailable)
+## 🔴 정성팩트 미확보 항목 (unavailable)
 ${missingByReit.length ? missingByReit.join('\n') : '- 없음 (전 종목 완비)'}
+
+## 📄 투자보고서 요약 미보유
+${reportMissing.length ? reportMissing.join('\n') : '- 없음 (전 종목 보유)'}
+
+## 📄 투자보고서 요약 갱신 필요 (기준일 경과)
+${reportStale.length ? reportStale.join('\n') : '- 없음'}
 `;
 
 mkdirSync(join(ROOT, 'docs'), { recursive: true });
 writeFileSync(join(ROOT, 'docs', 'data-freshness.md'), md, 'utf8');
 process.stdout.write(md);
-console.error(`\n[freshness] 실측 ${totalActual}/${total} · stale ${staleRows.length} · 미확보종목 ${missingByReit.length}`);
+console.error(`\n[freshness] 실측 ${totalActual}/${total} · stale ${staleRows.length} · 미확보종목 ${missingByReit.length} · 투자보고서요약 ${reportCount}/${doc.reits.length}(미보유 ${reportMissing.length}·stale ${reportStale.length})`);
