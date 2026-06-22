@@ -10,6 +10,29 @@ const marketDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'market.json'), 'ut
 const glossaryDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'glossary.json'), 'utf8'));
 const sourcesDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'sources.json'), 'utf8'));
 
+// 규칙기반 건강 신호(홈 목록 점 표시용) — build-pages.mjs proDashboard 로직과 동일 기준
+const _p = (s) => { const m = String(s ?? '').replace(/,/g, '').match(/(-?\d+(?:\.\d+)?)\s*%/); return m ? parseFloat(m[1]) : null; };
+const _fv = (arr, kw) => { if (!Array.isArray(arr)) return null; const re = new RegExp(kw); const it = arr.find((x) => x && re.test(x.label || '')); return it ? it.value : null; };
+function ltvOf(r) {
+  const f = r.facts || {};
+  if (f.ltv && f.ltv.status === 'actual' && typeof f.ltv.value === 'number' && f.ltv.value <= 100) return f.ltv.value;
+  const s = r.reportDetail && _fv(r.reportDetail.debt && r.reportDetail.debt.summary, 'LTV|레버리지');
+  if (!s || /미기재|미명시|없음|해당없음|참고|부채비율/.test(String(s))) return null;
+  const p = _p(s); return (p != null && p > 0 && p <= 100) ? p : null;
+}
+function healthLevel(r) {
+  let lv = 'ok';
+  if (r.risk) lv = r.risk.level === 'high' ? 'risk' : 'warn';
+  const ltv = ltvOf(r);
+  if (ltv != null) { if (ltv >= 65) lv = lv === 'risk' ? 'risk' : 'warn'; else if (ltv >= 55 && lv === 'ok') lv = 'warn'; }
+  const d = r.reportDetail || {};
+  const fixed = _p(_fv(d.debt && d.debt.summary, '고정금리') || (r.facts && r.facts.debtFixedRatio && r.facts.debtFixedRatio.display));
+  if (fixed != null && fixed <= 20 && lv === 'ok') lv = 'warn';
+  const fin = (d.financials || []).map((x) => String(x.label) + ' ' + String(x.value)).join(' ');
+  if (/적자|순손실/.test(fin) && lv !== 'risk') lv = 'warn';
+  return lv;
+}
+
 const flatReit = (r) => ({
   name: r.name, ticker: r.ticker, sector: r.sector, primary: r.primary,
   divMonths: r.divMonths,
@@ -17,6 +40,7 @@ const flatReit = (r) => ({
   assetText: r.assetText, assetBn: r.assetBn,
   homepage: r.homepage, note: r.note, difficulty: r.difficulty, tags: r.tags,
   risk: r.risk ?? null,
+  health: healthLevel(r),
 });
 
 const { retrievedAt, sourceUrl, sourceId, ...market } = marketDoc; // 임베드엔 출처 메타 제외(기존 형태 유지)
