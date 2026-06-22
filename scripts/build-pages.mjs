@@ -193,7 +193,8 @@ function assetMixBar(d) {
   const lab = (v) => weights ? esc(fmtEok(v)) : v + '개';
   const seg = entries.map(([ty, v]) => `<i style="width:${(v / total * 100).toFixed(1)}%;background:${ASSET_COLORS[ty] || '#94a3b8'}" title="${esc(ty)} ${lab(v)} (${(v / total * 100).toFixed(0)}%)"></i>`).join('');
   const leg = entries.map(([ty, v]) => `<span class="lg"><i style="background:${ASSET_COLORS[ty] || '#94a3b8'}"></i>${esc(ty)} ${(v / total * 100).toFixed(0)}%</span>`).join('');
-  return `<div class="pro-block"><div class="pro-h">자산군 구성 (${assets.length}개 · ${basisLabel} 기준)</div><div class="pro-stack">${seg}</div><div class="pro-legend">${leg}</div></div>`;
+  const aria = entries.map(([ty, v]) => `${ty} ${(v / total * 100).toFixed(0)}%`).join(', ');
+  return `<div class="pro-block"><div class="pro-h">자산군 구성 (${assets.length}개 · ${basisLabel} 기준)</div><div class="pro-stack" role="img" aria-label="자산군 구성 — ${esc(aria)}">${seg}</div><div class="pro-legend">${leg}</div></div>`;
 }
 // 임차인 집중도(상위 임차인 비중 스택)
 function tenantBar(d, facts) {
@@ -215,7 +216,8 @@ function tenantBar(d, facts) {
   if (!segs.length) return '';
   const bar = segs.map((s) => `<i style="width:${s.p.toFixed(1)}%;background:${s.c}" title="${esc(s.name)} ${s.p.toFixed(1)}%"></i>`).join('');
   const leg = segs.filter((s) => s.name !== '기타').map((s) => `<span class="lg"><i style="background:${s.c}"></i>${esc(s.name)} ${s.p.toFixed(1)}%</span>`).join('');
-  return `<div class="pro-block"><div class="pro-h">임차인 집중도</div><div class="pro-stack">${bar}</div><div class="pro-legend">${leg}</div></div>`;
+  const aria = segs.map((s) => `${s.name} ${s.p.toFixed(0)}%`).join(', ');
+  return `<div class="pro-block"><div class="pro-h">임차인 집중도</div><div class="pro-stack" role="img" aria-label="임차인 집중도 — ${esc(aria)}">${bar}</div><div class="pro-legend">${leg}</div></div>`;
 }
 // 동일 자산군 피어 비교(LTV·임대율, 비교 가능 수치만)
 function peerCompare(r) {
@@ -229,15 +231,19 @@ function peerCompare(r) {
   const occs = rows.map((x) => x.occ).filter((v) => v != null);
   const avg = (a) => a.length ? Math.round(a.reduce((s, v) => s + v, 0) / a.length * 10) / 10 : null;
   const avgL = avg(ltvs), avgO = avg(occs);
+  const ranked = rows.filter((x) => x.ltv != null);
+  const myIdx = ranked.findIndex((x) => x.t === r.ticker);
   const body = rows.map((x) => {
     const me = x.t === r.ticker;
+    const nameCell = me ? `<span class="pcn">${esc(x.name)} <em>(이 종목)</em></span>` : `<a class="pcn" href="../${esc(x.t)}/">${esc(x.name)}</a>`;
     const ltvBar = x.ltv != null
       ? `<div class="pcbar" title="LTV ${x.ltv}%"><i style="width:${Math.max(3, x.ltv / maxLtv * 100)}%"></i></div><span class="pcv">${x.ltv}%</span>`
       : `<div class="pcbar"></div><span class="pcv na">–</span>`;
-    return `<div class="pcrow${me ? ' me' : ''}"><span class="pcn">${esc(x.name)}${me ? ' <em>(이 종목)</em>' : ''}</span>${ltvBar}<span class="pco"${x.occ != null ? ` title="임대율 ${x.occ}%"` : ''}>${x.occ != null ? x.occ + '%' : '–'}</span></div>`;
+    return `<div class="pcrow${me ? ' me' : ''}">${nameCell}${ltvBar}<span class="pco"${x.occ != null ? ` title="임대율 ${x.occ}%"` : ''}>${x.occ != null ? x.occ + '%' : '–'}</span></div>`;
   }).join('');
+  const rankTxt = myIdx >= 0 ? ` · 이 종목 LTV ${myIdx + 1}위/${ranked.length}` : '';
   const avgRow = `<div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV ${avgL ?? '–'}%">${avgL != null ? `<i style="width:${Math.max(3, avgL / maxLtv * 100)}%"></i>` : ''}</div><span class="pcv">${avgL != null ? avgL + '%' : '–'}</span><span class="pco">${avgO != null ? avgO + '%' : '–'}</span></div>`;
-  return `<div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · ${esc(meta.primary)} (${rows.length}종)</div>
+  return `<div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · ${esc(meta.primary)} (${rows.length}종)${rankTxt}</div>
     <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
     ${body}
     ${avgRow}
@@ -263,22 +269,26 @@ function proDashboard(r) {
   const yPct = _pct(yieldStr), oPct = numOcc(r.ticker), lPct = numLTV(r.ticker);
   const waleVal = (facts.wale && facts.wale.display) || (() => { const m = String(waleStr || '').match(/(\d+(?:\.\d+)?)\s*년/); return m ? m[1] + '년' : null; })();
   const rGrade = (() => { const m = String(rating || '').match(/(AAA|AA[+-]?|A[+-]?|BBB[+-]?|BB[+-]?|B[+-]?|CCC[+-]?|CC|D)/); return m ? m[0] : rating; })();
+  const ltvTone = lPct == null ? '' : (lPct >= 65 ? 'bad' : lPct >= 55 ? 'warn' : 'good');
+  const occTone = oPct == null ? '' : (oPct >= 95 ? 'good' : oPct >= 85 ? 'warn' : 'bad');
+  const rTone = /(^|[^A-Z])(D|CCC|CC)([^A-Z]|$)/.test(rGrade || '') ? 'bad' : /BBB|BB|^B/.test(rGrade || '') ? 'warn' : /A/.test(rGrade || '') ? 'good' : '';
   const kpis = [
     yPct != null && { k: '배당수익률', v: yPct + '%' + (/분기/.test(yieldStr) ? ' (분기)' : '') },
     lastDiv && { k: '최근 주당배당', v: lastDiv },
-    lPct != null && { k: 'LTV', v: lPct + '%' },
-    oPct != null && { k: '임대율', v: oPct + '%' },
+    lPct != null && { k: 'LTV', v: lPct + '%', t: ltvTone },
+    oPct != null && { k: '임대율', v: oPct + '%', t: occTone },
     waleVal && { k: 'WALE', v: waleVal },
-    rating && { k: '신용등급', v: rGrade },
+    rating && { k: '신용등급', v: rGrade, t: rTone },
   ].filter(Boolean).slice(0, 6);
-  const kpiHtml = kpis.length ? `<div class="pro-kpis">${kpis.map((x) => `<div class="pro-kpi"><div class="pk-k">${esc(x.k)}</div><div class="pk-v">${esc(x.v)}</div></div>`).join('')}</div>` : '';
+  const kpiHtml = kpis.length ? `<div class="pro-kpis">${kpis.map((x) => `<div class="pro-kpi"><div class="pk-k">${esc(x.k)}</div><div class="pk-v${x.t ? ' tn-' + x.t : ''}">${esc(x.v)}</div></div>`).join('')}</div>` : '';
+  const srcCap = [d.reportTitle, d.asOf ? d.asOf + ' 기준' : null].filter(Boolean).map(esc).join(' · ') + (d.sourceUrl ? ` · <a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener">출처</a>` : '');
 
   const gauges = [
     { k: '임대율', val: oPct, cls: 'g-ok' },
     { k: 'LTV', val: lPct, cls: 'g-warn' },
     { k: '고정금리 비중', val: _pct(fixedStr), cls: 'g-ok' },
   ].filter((g) => g.val != null);
-  const gaugeHtml = gauges.length ? `<div class="pro-gauges">${gauges.map((g) => `<div class="pg"><div class="pg-top"><span>${esc(g.k)}</span><b>${g.val}%</b></div><div class="pg-bar"><i class="${g.cls}" style="width:${Math.max(2, Math.min(100, g.val))}%"></i></div></div>`).join('')}</div>` : '';
+  const gaugeHtml = gauges.length ? `<div class="pro-gauges">${gauges.map((g) => `<div class="pg" role="img" aria-label="${esc(g.k)} ${g.val}%"><div class="pg-top"><span>${esc(g.k)}</span><b>${g.val}%</b></div><div class="pg-bar"><i class="${g.cls}" style="width:${Math.max(2, Math.min(100, g.val))}%"></i></div></div>`).join('')}</div>` : '';
 
   const hist = ((d.dividends && d.dividends.history) || []).map((h) => ({ p: h.period, v: _num(h.perShare) })).filter((x) => x.v != null).reverse();
   const maxDiv = Math.max(...hist.map((x) => x.v), 1);
@@ -302,6 +312,7 @@ function proDashboard(r) {
   return `
   <div class="card pro">
     <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">핵심 지표 요약</span></div>
+    ${srcCap ? `<p class="pro-src">${srcCap}</p>` : ''}
     ${riskBadge}
     ${healthChip(r.ticker)}
     ${kpiHtml}
@@ -532,6 +543,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
 .pk-k{font-size:11px;color:var(--muted);font-weight:700}
 .pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
+.pk-v.tn-good{color:#0c7a54}.pk-v.tn-warn{color:#9a6700}.pk-v.tn-bad{color:#b42318}
+a.pcn{color:var(--brand);text-decoration:none}
+a.pcn:hover{text-decoration:underline}
 .pro-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 @media(max-width:520px){.pro-gauges{grid-template-columns:1fr}}
 .pg-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}.pg-top b{font-weight:900}

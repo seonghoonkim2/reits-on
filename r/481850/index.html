@@ -51,6 +51,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
 .pk-k{font-size:11px;color:var(--muted);font-weight:700}
 .pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
+.pk-v.tn-good{color:#0c7a54}.pk-v.tn-warn{color:#9a6700}.pk-v.tn-bad{color:#b42318}
+a.pcn{color:var(--brand);text-decoration:none}
+a.pcn:hover{text-decoration:underline}
 .pro-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 @media(max-width:520px){.pro-gauges{grid-template-columns:1fr}}
 .pg-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}.pg-top b{font-weight:900}
@@ -201,15 +204,16 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 
   <div class="card pro">
     <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">핵심 지표 요약</span></div>
+    <p class="pro-src">제7기 사업보고서 · 2026-02-28 기준 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260513000783" target="_blank" rel="noopener">출처</a></p>
     
     <div class="pro-health h-ok"><span class="hh">🟢 건강 신호: <b>안정</b></span><span class="hr">레버리지 안정</span><span class="hn">규칙기반 요약 · 투자권유 아님</span></div>
-    <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">10%</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">130원</div></div><div class="pro-kpi"><div class="pk-k">LTV</div><div class="pk-v">30.4%</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">해당없음</div></div></div>
-    <div class="pro-gauges"><div class="pg"><div class="pg-top"><span>LTV</span><b>30.4%</b></div><div class="pg-bar"><i class="g-warn" style="width:30.4%"></i></div></div></div>
+    <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">10%</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">130원</div></div><div class="pro-kpi"><div class="pk-k">LTV</div><div class="pk-v tn-good">30.4%</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">해당없음</div></div></div>
+    <div class="pro-gauges"><div class="pg" role="img" aria-label="LTV 30.4%"><div class="pg-top"><span>LTV</span><b>30.4%</b></div><div class="pg-bar"><i class="g-warn" style="width:30.4%"></i></div></div></div>
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">127</span><i style="height:97.6923076923077%"></i><span class="bl">제5기</span></div><div class="bar"><span class="bv">127</span><i style="height:97.6923076923077%"></i><span class="bl">제6기</span></div><div class="bar"><span class="bv">130</span><i style="height:100%"></i><span class="bl">제7기</span></div></div></div></div>
     
-    <div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · 해외 (4종)</div>
+    <div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · 해외 (4종) · 이 종목 LTV 4위/4</div>
     <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
-    <div class="pcrow"><span class="pcn">제이알글로벌리츠</span><div class="pcbar" title="LTV 61%"><i style="width:100%"></i></div><span class="pcv">61%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><span class="pcn">미래에셋글로벌리츠</span><div class="pcbar" title="LTV 57.23%"><i style="width:93.81967213114754%"></i></div><span class="pcv">57.23%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><span class="pcn">KB스타리츠</span><div class="pcbar" title="LTV 51.49%"><i style="width:84.40983606557377%"></i></div><span class="pcv">51.49%</span><span class="pco" title="임대율 99.06%">99.06%</span></div><div class="pcrow me"><span class="pcn">신한글로벌액티브리츠 <em>(이 종목)</em></span><div class="pcbar" title="LTV 30.4%"><i style="width:49.83606557377049%"></i></div><span class="pcv">30.4%</span><span class="pco">–</span></div>
+    <div class="pcrow"><a class="pcn" href="../348950/">제이알글로벌리츠</a><div class="pcbar" title="LTV 61%"><i style="width:100%"></i></div><span class="pcv">61%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><a class="pcn" href="../396690/">미래에셋글로벌리츠</a><div class="pcbar" title="LTV 57.23%"><i style="width:93.81967213114754%"></i></div><span class="pcv">57.23%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><a class="pcn" href="../432320/">KB스타리츠</a><div class="pcbar" title="LTV 51.49%"><i style="width:84.40983606557377%"></i></div><span class="pcv">51.49%</span><span class="pco" title="임대율 99.06%">99.06%</span></div><div class="pcrow me"><span class="pcn">신한글로벌액티브리츠 <em>(이 종목)</em></span><div class="pcbar" title="LTV 30.4%"><i style="width:49.83606557377049%"></i></div><span class="pcv">30.4%</span><span class="pco">–</span></div>
     <div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV 50%"><i style="width:81.9672131147541%"></i></div><span class="pcv">50%</span><span class="pco">99.7%</span></div>
     <p class="pro-cap">LTV 내림차순 정렬 · 막대에 마우스를 올리면 정확한 값. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>
   </div>
