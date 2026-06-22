@@ -280,7 +280,8 @@ function proDashboard(r) {
     waleVal && { k: 'WALE', v: waleVal },
     rating && { k: '신용등급', v: rGrade, t: rTone },
   ].filter(Boolean).slice(0, 6);
-  const kpiHtml = kpis.length ? `<div class="pro-kpis">${kpis.map((x) => `<div class="pro-kpi"><div class="pk-k">${esc(x.k)}</div><div class="pk-v${x.t ? ' tn-' + x.t : ''}">${esc(x.v)}</div></div>`).join('')}</div>` : '';
+  const KPI_TIP = { 'LTV': '담보인정비율 = 총차입금 ÷ 자산(또는 감정가). 높을수록 레버리지·금리 민감도 ↑', 'WALE': '가중평균 잔여임대차기간(년). 길수록 임대수익 안정', '임대율': '임대된 면적 비율(=100%−공실률)', '배당수익률': '주가 대비 배당 비율. 분기/반기/연 기준이 종목마다 다름', '최근 주당배당': '최근 1회 주당 현금배당금(원)', '신용등급': '발행 회사채 또는 기업신용등급(ICR)' };
+  const kpiHtml = kpis.length ? `<div class="pro-kpis">${kpis.map((x) => `<div class="pro-kpi"><div class="pk-k"${KPI_TIP[x.k] ? ` title="${esc(KPI_TIP[x.k])}"` : ''}>${esc(x.k)}${KPI_TIP[x.k] ? ' <span class="pk-i">ⓘ</span>' : ''}</div><div class="pk-v${x.t ? ' tn-' + x.t : ''}">${esc(x.v)}</div></div>`).join('')}</div>` : '';
   const srcCap = [d.reportTitle, d.asOf ? d.asOf + ' 기준' : null].filter(Boolean).map(esc).join(' · ') + (d.sourceUrl ? ` · <a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener">출처</a>` : '');
 
   const gauges = [
@@ -542,6 +543,7 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 @media(max-width:380px){.pro-kpis{grid-template-columns:repeat(2,1fr)}}
 .pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
 .pk-k{font-size:11px;color:var(--muted);font-weight:700}
+.pk-i{font-size:9px;color:var(--muted);cursor:help;opacity:.7}
 .pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
 .pk-v.tn-good{color:#0c7a54}.pk-v.tn-warn{color:#9a6700}.pk-v.tn-bad{color:#b42318}
 a.pcn{color:var(--brand);text-decoration:none}
