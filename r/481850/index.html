@@ -102,6 +102,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pcrow.me .pcbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
 .pcrow .pcv,.pcrow .pco{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
 .pcrow .pcv.na{color:var(--muted)}
+.pcrow.avg{font-weight:800;border-top:2px solid var(--line);background:var(--soft);margin-top:2px;border-radius:6px}
+.pcrow.avg .pcbar{background:transparent}
+.pcrow.avg .pcbar i{background:linear-gradient(90deg,#8aa0c8,#b9c6e0)}
 .pcrow .pcbar{grid-column:auto}
 .pcrow{grid-template-columns:1fr 64px 46px 46px}
 .pchead{grid-template-columns:1fr 64px 46px 46px}
@@ -205,9 +208,10 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">127</span><i style="height:97.6923076923077%"></i><span class="bl">제5기</span></div><div class="bar"><span class="bv">127</span><i style="height:97.6923076923077%"></i><span class="bl">제6기</span></div><div class="bar"><span class="bv">130</span><i style="height:100%"></i><span class="bl">제7기</span></div></div></div></div>
     
     <div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · 해외 (4종)</div>
-    <div class="pchead"><span class="pcn"></span><span></span><span class="pcl">LTV</span><span class="pco">임대율</span></div>
-    <div class="pcrow"><span class="pcn">제이알글로벌리츠</span><div class="pcbar"><i style="width:100%"></i></div><span class="pcv">61%</span><span class="pco">100%</span></div><div class="pcrow"><span class="pcn">미래에셋글로벌리츠</span><div class="pcbar"><i style="width:93.81967213114754%"></i></div><span class="pcv">57.23%</span><span class="pco">100%</span></div><div class="pcrow"><span class="pcn">KB스타리츠</span><div class="pcbar"><i style="width:84.40983606557377%"></i></div><span class="pcv">51.49%</span><span class="pco">99.06%</span></div><div class="pcrow me"><span class="pcn">신한글로벌액티브리츠 <em>(이 종목)</em></span><div class="pcbar"><i style="width:49.83606557377049%"></i></div><span class="pcv">30.4%</span><span class="pco">–</span></div>
-    <p class="pro-cap">공시·실측 기준 비교(정의·기준일 상이 가능). 임대율은 일부 단일자산 기준.</p></div>
+    <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
+    <div class="pcrow"><span class="pcn">제이알글로벌리츠</span><div class="pcbar" title="LTV 61%"><i style="width:100%"></i></div><span class="pcv">61%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><span class="pcn">미래에셋글로벌리츠</span><div class="pcbar" title="LTV 57.23%"><i style="width:93.81967213114754%"></i></div><span class="pcv">57.23%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><span class="pcn">KB스타리츠</span><div class="pcbar" title="LTV 51.49%"><i style="width:84.40983606557377%"></i></div><span class="pcv">51.49%</span><span class="pco" title="임대율 99.06%">99.06%</span></div><div class="pcrow me"><span class="pcn">신한글로벌액티브리츠 <em>(이 종목)</em></span><div class="pcbar" title="LTV 30.4%"><i style="width:49.83606557377049%"></i></div><span class="pcv">30.4%</span><span class="pco">–</span></div>
+    <div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV 50%"><i style="width:81.9672131147541%"></i></div><span class="pcv">50%</span><span class="pco">99.7%</span></div>
+    <p class="pro-cap">LTV 내림차순 정렬 · 막대에 마우스를 올리면 정확한 값. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>
   </div>
 <details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>
   <div class="card rd">

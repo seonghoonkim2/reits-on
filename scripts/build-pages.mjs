@@ -115,11 +115,12 @@ const _findVal = (arr, kw) => { if (!Array.isArray(arr)) return null; const re =
 const fmtEok = (v) => v >= 10000 ? (v / 10000).toFixed(v % 10000 ? 1 : 0) + '조원' : Math.round(v).toLocaleString('ko-KR') + '억원';
 
 // 자산군 분류(보유자산 use → 대표 유형 + 색)
-const ASSET_COLORS = { 오피스: '#3254ff', 물류: '#0c9b69', 리테일: '#e0892b', 호텔: '#a855f7', 주거: '#ec4899', 주유소: '#14b8a6', 데이터센터: '#6366f1', 개발: '#f43f5e', 기타: '#94a3b8' };
+const ASSET_COLORS = { 오피스: '#3254ff', 물류: '#0c9b69', 리테일: '#e0892b', 호텔: '#a855f7', 주거: '#ec4899', 주유소: '#14b8a6', 데이터센터: '#6366f1', 인프라: '#0ea5e9', 개발: '#f43f5e', 기타: '#94a3b8' };
 function assetTypeOf(use) {
   const u = String(use || '');
   if (/주유소/.test(u)) return '주유소';
   if (/데이터|IDC|\bDC\b/.test(u)) return '데이터센터';
+  if (/산업|인프라|수처리|발전/.test(u)) return '인프라';
   if (/물류|창고/.test(u)) return '물류';
   if (/리테일|백화점|아울렛|마트|쇼핑|판매/.test(u)) return '리테일';
   if (/호텔/.test(u)) return '호텔';
@@ -157,9 +158,10 @@ function healthOf(t) {
   if (fixed != null && fixed <= 20) { reasons.push('변동금리 비중↑'); if (level === 'ok') level = 'warn'; }
   const fin = ((d.financials || []).map((x) => String(x.label) + ' ' + String(x.value)).join(' '));
   if (/적자|순손실/.test(fin)) { reasons.push('손실 시현'); if (level !== 'risk') level = 'warn'; }
-  const dv = (((d.dividends && d.dividends.history) || []).map((h) => h.note || '').join(' '));
-  const mp = dv.match(/배당성향[^0-9]*(\d{2,3})/); if (mp && +mp[1] >= 150) { reasons.push(`배당성향 ${mp[1]}%`); if (level === 'ok') level = 'warn'; }
+  const recentPaid = (((d.dividends && d.dividends.history) || []).find((h) => _num(h.perShare) != null)) || {};
+  const mp = String(recentPaid.note || '').match(/배당성향[^0-9]*(\d{2,3})/); if (mp && +mp[1] >= 200) { reasons.push(`배당성향 ${mp[1]}%`); if (level === 'ok') level = 'warn'; }
   if (level === 'ok' && ltv != null && ltv < 55) reasons.push('레버리지 안정');
+  if (level === 'ok' && !reasons.length) reasons.push('특이 리스크 미탐지');
   return { level, reasons: reasons.slice(0, 3) };
 }
 function healthChip(t) {
@@ -168,18 +170,30 @@ function healthChip(t) {
   const [dot, label, cls] = map[h.level];
   return `<div class="pro-health ${cls}"><span class="hh">${dot} 건강 신호: <b>${label}</b></span>${h.reasons.length ? `<span class="hr">${esc(h.reasons.join(' · '))}</span>` : ''}<span class="hn">규칙기반 요약 · 투자권유 아님</span></div>`;
 }
-// 자산군 구성(보유자산 유형 비중, 개수 기준)
+// 보유자산 note에서 특정 기준(감정/매입 등) 가액(억)을 추출 — 키워드 직후 조·억 표기 파싱
+function valNear(note, re) {
+  const m = String(note || '').match(new RegExp('(?:' + re + ')\\s*([^)]*)'));
+  return m ? _eok(m[1]) : null;
+}
+// 자산군 구성: 동일 기준 가액이 전 자산에서 잡히면 '가액 비중', 아니면 '개수' 기준(기준 명시)
 function assetMixBar(d) {
   const assets = (d && d.assets) || [];
   if (assets.length < 2) return '';
-  const cnt = {};
-  assets.forEach((a) => { const ty = assetTypeOf((a.use || '') + ' ' + (a.name || '')); cnt[ty] = (cnt[ty] || 0) + 1; });
-  const entries = Object.entries(cnt).sort((a, b) => b[1] - a[1]);
+  let weights = null, basisLabel = '개수';
+  for (const [re, label] of [['감정', '감정가'], ['당기말', '평가액'], ['매입가|매입|취득|투자', '매입가']]) {
+    const vals = assets.map((a) => valNear(a.note, re));
+    if (vals.every((v) => v != null && v > 0)) { weights = vals; basisLabel = label; break; }
+  }
+  const w = weights || assets.map(() => 1);
+  const agg = {};
+  assets.forEach((a, i) => { const ty = assetTypeOf((a.use || '') + ' ' + (a.name || '')); agg[ty] = (agg[ty] || 0) + w[i]; });
+  const entries = Object.entries(agg).sort((a, b) => b[1] - a[1]);
   if (entries.length < 2) return '';
-  const total = assets.length;
-  const seg = entries.map(([ty, n]) => `<i style="width:${(n / total * 100).toFixed(1)}%;background:${ASSET_COLORS[ty] || '#94a3b8'}" title="${esc(ty)} ${n}"></i>`).join('');
-  const leg = entries.map(([ty, n]) => `<span class="lg"><i style="background:${ASSET_COLORS[ty] || '#94a3b8'}"></i>${esc(ty)} ${n}</span>`).join('');
-  return `<div class="pro-block"><div class="pro-h">자산군 구성 (${total}개)</div><div class="pro-stack">${seg}</div><div class="pro-legend">${leg}</div></div>`;
+  const total = entries.reduce((s, [, v]) => s + v, 0) || 1;
+  const lab = (v) => weights ? esc(fmtEok(v)) : v + '개';
+  const seg = entries.map(([ty, v]) => `<i style="width:${(v / total * 100).toFixed(1)}%;background:${ASSET_COLORS[ty] || '#94a3b8'}" title="${esc(ty)} ${lab(v)} (${(v / total * 100).toFixed(0)}%)"></i>`).join('');
+  const leg = entries.map(([ty, v]) => `<span class="lg"><i style="background:${ASSET_COLORS[ty] || '#94a3b8'}"></i>${esc(ty)} ${(v / total * 100).toFixed(0)}%</span>`).join('');
+  return `<div class="pro-block"><div class="pro-h">자산군 구성 (${assets.length}개 · ${basisLabel} 기준)</div><div class="pro-stack">${seg}</div><div class="pro-legend">${leg}</div></div>`;
 }
 // 임차인 집중도(상위 임차인 비중 스택)
 function tenantBar(d, facts) {
@@ -211,15 +225,23 @@ function peerCompare(r) {
   const rows = group.map((t) => ({ t, name: (META_BY_TICKER[t] || {}).name, ltv: numLTV(t), occ: numOcc(t) }))
     .sort((a, b) => (b.ltv ?? -1) - (a.ltv ?? -1));
   const maxLtv = Math.max(...rows.map((x) => x.ltv || 0), 1);
+  const ltvs = rows.map((x) => x.ltv).filter((v) => v != null);
+  const occs = rows.map((x) => x.occ).filter((v) => v != null);
+  const avg = (a) => a.length ? Math.round(a.reduce((s, v) => s + v, 0) / a.length * 10) / 10 : null;
+  const avgL = avg(ltvs), avgO = avg(occs);
   const body = rows.map((x) => {
     const me = x.t === r.ticker;
-    const ltvBar = x.ltv != null ? `<div class="pcbar"><i style="width:${Math.max(3, x.ltv / maxLtv * 100)}%"></i></div><span class="pcv">${x.ltv}%</span>` : `<div class="pcbar"></div><span class="pcv na">–</span>`;
-    return `<div class="pcrow${me ? ' me' : ''}"><span class="pcn">${esc(x.name)}${me ? ' <em>(이 종목)</em>' : ''}</span>${ltvBar}<span class="pco">${x.occ != null ? x.occ + '%' : '–'}</span></div>`;
+    const ltvBar = x.ltv != null
+      ? `<div class="pcbar" title="LTV ${x.ltv}%"><i style="width:${Math.max(3, x.ltv / maxLtv * 100)}%"></i></div><span class="pcv">${x.ltv}%</span>`
+      : `<div class="pcbar"></div><span class="pcv na">–</span>`;
+    return `<div class="pcrow${me ? ' me' : ''}"><span class="pcn">${esc(x.name)}${me ? ' <em>(이 종목)</em>' : ''}</span>${ltvBar}<span class="pco"${x.occ != null ? ` title="임대율 ${x.occ}%"` : ''}>${x.occ != null ? x.occ + '%' : '–'}</span></div>`;
   }).join('');
+  const avgRow = `<div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV ${avgL ?? '–'}%">${avgL != null ? `<i style="width:${Math.max(3, avgL / maxLtv * 100)}%"></i>` : ''}</div><span class="pcv">${avgL != null ? avgL + '%' : '–'}</span><span class="pco">${avgO != null ? avgO + '%' : '–'}</span></div>`;
   return `<div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · ${esc(meta.primary)} (${rows.length}종)</div>
-    <div class="pchead"><span class="pcn"></span><span></span><span class="pcl">LTV</span><span class="pco">임대율</span></div>
+    <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
     ${body}
-    <p class="pro-cap">공시·실측 기준 비교(정의·기준일 상이 가능). 임대율은 일부 단일자산 기준.</p></div>`;
+    ${avgRow}
+    <p class="pro-cap">LTV 내림차순 정렬 · 막대에 마우스를 올리면 정확한 값. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>`;
 }
 
 function proDashboard(r) {
@@ -561,6 +583,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pcrow.me .pcbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
 .pcrow .pcv,.pcrow .pco{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
 .pcrow .pcv.na{color:var(--muted)}
+.pcrow.avg{font-weight:800;border-top:2px solid var(--line);background:var(--soft);margin-top:2px;border-radius:6px}
+.pcrow.avg .pcbar{background:transparent}
+.pcrow.avg .pcbar i{background:linear-gradient(90deg,#8aa0c8,#b9c6e0)}
 .pcrow .pcbar{grid-column:auto}
 .pcrow{grid-template-columns:1fr 64px 46px 46px}
 .pchead{grid-template-columns:1fr 64px 46px 46px}

@@ -102,6 +102,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pcrow.me .pcbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
 .pcrow .pcv,.pcrow .pco{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
 .pcrow .pcv.na{color:var(--muted)}
+.pcrow.avg{font-weight:800;border-top:2px solid var(--line);background:var(--soft);margin-top:2px;border-radius:6px}
+.pcrow.avg .pcbar{background:transparent}
+.pcrow.avg .pcbar i{background:linear-gradient(90deg,#8aa0c8,#b9c6e0)}
 .pcrow .pcbar{grid-column:auto}
 .pcrow{grid-template-columns:1fr 64px 46px 46px}
 .pchead{grid-template-columns:1fr 64px 46px 46px}
@@ -203,7 +206,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">7.16%</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">150원</div></div><div class="pro-kpi"><div class="pk-k">LTV</div><div class="pk-v">56.3%</div></div><div class="pro-kpi"><div class="pk-k">임대율</div><div class="pk-v">99%</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">A-</div></div></div>
     <div class="pro-gauges"><div class="pg"><div class="pg-top"><span>임대율</span><b>99%</b></div><div class="pg-bar"><i class="g-ok" style="width:99%"></i></div></div><div class="pg"><div class="pg-top"><span>LTV</span><b>56.3%</b></div><div class="pg-bar"><i class="g-warn" style="width:56.3%"></i></div></div><div class="pg"><div class="pg-top"><span>고정금리 비중</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div></div>
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">150</span><i style="height:100%"></i><span class="bl">제11기</span></div><div class="bar"><span class="bv">150</span><i style="height:100%"></i><span class="bl">제12기</span></div></div></div></div>
-    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (5개)</div><div class="pro-stack"><i style="width:80.0%;background:#ec4899" title="주거 4"></i><i style="width:20.0%;background:#3254ff" title="오피스 1"></i></div><div class="pro-legend"><span class="lg"><i style="background:#ec4899"></i>주거 4</span><span class="lg"><i style="background:#3254ff"></i>오피스 1</span></div></div></div>
+    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (5개 · 개수 기준)</div><div class="pro-stack"><i style="width:80.0%;background:#ec4899" title="주거 4개 (80%)"></i><i style="width:20.0%;background:#3254ff" title="오피스 1개 (20%)"></i></div><div class="pro-legend"><span class="lg"><i style="background:#ec4899"></i>주거 80%</span><span class="lg"><i style="background:#3254ff"></i>오피스 20%</span></div></div></div>
     
   </div>
 <details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>
