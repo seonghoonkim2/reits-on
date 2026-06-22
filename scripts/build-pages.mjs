@@ -1055,6 +1055,9 @@ tfoot td.ft-lab{text-align:left}tfoot td.ft-lab span{font-weight:600;opacity:.8}
 .kv{display:flex;justify-content:space-between;font-size:12.5px}.kv i{color:var(--muted);font-style:normal}.kv b{font-weight:700}
 .sectbl{width:100%;min-width:0;font-size:13px}.sectbl th,.sectbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right}.sectbl th:first-child,.sectbl td:first-child{text-align:left}
 .scsvg{width:100%;height:auto;display:block}
+.scaxes{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 8px}
+.scaxes label{font-size:12px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px}
+.scsel{font-size:12.5px;font-weight:700;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text)}
 .legend{margin:16px 0 0;display:grid;gap:5px}
 .lgi{font-size:12px;color:var(--muted)}.lgi b{color:var(--text);font-weight:800;margin-right:4px}
 .note{margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
@@ -1107,8 +1110,13 @@ tfoot td.ft-lab{text-align:left}tfoot td.ft-lab span{font-weight:600;opacity:.8}
   <div class="count" id="count"></div>
 
   <div class="panel" id="scatter" hidden>
-    <h3>분포 — LTV × 배당수익률 <span class="muted" style="font-size:12px;font-weight:600">(버블=자산규모, 색=건강신호)</span></h3>
-    <p class="pcap">왼쪽 아래(저LTV·고배당) 영역이 일반적으로 매력 구간으로 회자되나, 지표 기준일이 서로 달라 단순 비교는 주의가 필요합니다. 점을 누르면 종목 페이지로 이동합니다.</p>
+    <h3>분포 <span class="muted" style="font-size:12px;font-weight:600">(버블=크기축, 색=건강신호 · 점선=중앙값)</span></h3>
+    <div class="scaxes">
+      <label>가로축 <select id="scx" class="scsel"></select></label>
+      <label>세로축 <select id="scy" class="scsel"></select></label>
+      <label>버블 크기 <select id="scsz" class="scsel"></select></label>
+    </div>
+    <p class="pcap">두 지표의 관계를 탐색합니다. 지표마다 공시 기준일이 달라 단순 비교는 주의가 필요합니다. 점을 누르면 종목 페이지로 이동합니다.</p>
     <div id="scbox"></div>
   </div>
   <div class="panel" id="sector" hidden>
@@ -1155,7 +1163,7 @@ var FACTS=${dataJson};
   var trByTk={};[].slice.call(tb.querySelectorAll('tr')).forEach(function(tr){trByTk[tr.dataset.tk]=tr;});
   var PIN='facts_pin_v1';
   function loadPins(){try{return JSON.parse(localStorage.getItem(PIN)||'{}')||{};}catch(e){return {};}}
-  var state={q:'',types:{},h:'',presets:{},key:'aum',dir:-1,view:'table',heat:false,bars:false,hide:{},pins:loadPins(),sel:{},live:false};
+  var state={q:'',types:{},h:'',presets:{},key:'aum',dir:-1,view:'table',heat:false,bars:false,hide:{},pins:loadPins(),sel:{},live:false,scx:'ltv',scy:'yld',scsz:'aum'};
 
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function avg(a){return a.length?a.reduce(function(s,x){return s+x;},0)/a.length:null;}
@@ -1165,6 +1173,17 @@ var FACTS=${dataJson};
   function fa(v){if(v==null)return '—';return v>=10000?(((v/10000)%1)?(v/10000).toFixed(1):(v/10000))+'조원':Math.round(v).toLocaleString('ko-KR')+'억원';}
   function ff(n){return n>=12?'월':n>=4?'분기':n===2?'반기':n===1?'연1회':'연'+n;}
   function yOf(r){return (state.live&&r.yldLive!=null)?r.yldLive:r.yld;}
+  var METRICS={
+    ltv:{l:'LTV (%)',g:function(r){return r.ltv;},f:fp},
+    yld:{l:'배당수익률 (%)',g:function(r){return yOf(r);},f:fp},
+    occ:{l:'임대율 (%)',g:function(r){return r.occ;},f:fp},
+    wale:{l:'WALE (년)',g:function(r){return r.wale;},f:fy},
+    fixed:{l:'고정금리 (%)',g:function(r){return r.fixed;},f:fp},
+    aum:{l:'자산규모',g:function(r){return r.aum;},f:fa},
+    annual:{l:'연배당(추정)',g:function(r){return r.annual;},f:function(v){return v==null?'—':Math.round(v).toLocaleString('ko-KR')+'원';}}
+  };
+  var AXOPT=['ltv','yld','occ','wale','fixed','aum','annual'],SZOPT=['aum','annual'];
+  function tval(mk,v){return mk==='aum'?(v/10000).toFixed(1)+'조':mk==='annual'?Math.round(v):((v%1)?v.toFixed(1):v);}
 
   function passes(r){
     var q=state.q.toLowerCase();
@@ -1244,30 +1263,32 @@ var FACTS=${dataJson};
   }
   function scatter(vis){
     var box=document.getElementById('scbox');
-    var pts=vis.filter(function(r){return r.ltv!=null&&yOf(r)!=null;});
-    if(pts.length<2){box.innerHTML='<p class="muted" style="padding:12px">LTV·배당수익률이 모두 공시된 종목이 부족해 분포를 표시할 수 없습니다.</p>';return;}
-    var W=640,H=380,pad=48;
-    var xs=pts.map(function(p){return p.ltv;}),ys=pts.map(function(p){return yOf(p);});
-    var xmin=Math.min.apply(null,xs)-3,xmax=Math.max.apply(null,xs)+3,ymin=Math.max(0,Math.min.apply(null,ys)-1),ymax=Math.max.apply(null,ys)+1;
+    var xm=METRICS[state.scx]||METRICS.ltv,ym=METRICS[state.scy]||METRICS.yld,sm=METRICS[state.scsz]||METRICS.aum;
+    var pts=vis.filter(function(r){return xm.g(r)!=null&&ym.g(r)!=null;});
+    if(pts.length<2){box.innerHTML='<p class="muted" style="padding:12px">선택한 두 지표가 모두 공시된 종목이 부족해 분포를 표시할 수 없습니다. 다른 축을 선택해 보세요.</p>';return;}
+    var W=640,H=380,pad=54;
+    var xs=pts.map(function(p){return xm.g(p);}),ys=pts.map(function(p){return ym.g(p);});
+    var xmin=Math.min.apply(null,xs),xmax=Math.max.apply(null,xs),ymin=Math.min.apply(null,ys),ymax=Math.max.apply(null,ys);
+    var xp=(xmax-xmin)*0.08||1,yp=(ymax-ymin)*0.08||1;xmin=Math.max(0,xmin-xp);xmax+=xp;ymin=Math.max(0,ymin-yp);ymax+=yp;
     if(xmax<=xmin)xmax=xmin+1;if(ymax<=ymin)ymax=ymin+1;
     function X(v){return pad+(v-xmin)/(xmax-xmin)*(W-pad-16);}
     function Y(v){return H-pad-(v-ymin)/(ymax-ymin)*(H-pad-16);}
-    var amax=Math.max.apply(null,pts.map(function(p){return p.aum||0;}))||1;
-    function R(a){return 6+Math.sqrt((a||0)/amax)*22;}
+    var svals=pts.map(function(p){return sm.g(p)||0;}),smax=Math.max.apply(null,svals)||1;
+    function R(a){return 6+Math.sqrt((a||0)/smax)*22;}
     var col={ok:'#0c9b69',warn:'#e0a33b',risk:'#e0544b'};
     var mx=median(xs),my=median(ys);
-    var s='<svg class="scsvg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img" aria-label="LTV 대 배당수익률 분포">';
+    var s='<svg class="scsvg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img" aria-label="'+esc(xm.l)+' 대 '+esc(ym.l)+' 분포">';
     s+='<line x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-8)+'" y2="'+(H-pad)+'" stroke="currentColor" opacity="0.25"/>';
     s+='<line x1="'+pad+'" y1="12" x2="'+pad+'" y2="'+(H-pad)+'" stroke="currentColor" opacity="0.25"/>';
     s+='<line x1="'+X(mx)+'" y1="12" x2="'+X(mx)+'" y2="'+(H-pad)+'" stroke="currentColor" opacity="0.12" stroke-dasharray="4 4"/>';
     s+='<line x1="'+pad+'" y1="'+Y(my)+'" x2="'+(W-8)+'" y2="'+Y(my)+'" stroke="currentColor" opacity="0.12" stroke-dasharray="4 4"/>';
-    var i;for(i=0;i<=4;i++){var xv=xmin+(xmax-xmin)*i/4;s+='<text x="'+X(xv)+'" y="'+(H-pad+16)+'" font-size="10" fill="currentColor" opacity="0.6" text-anchor="middle">'+Math.round(xv)+'</text>';}
-    for(i=0;i<=4;i++){var yv=ymin+(ymax-ymin)*i/4;s+='<text x="'+(pad-8)+'" y="'+(Y(yv)+3)+'" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">'+yv.toFixed(1)+'</text>';}
-    s+='<text x="'+((W+pad)/2)+'" y="'+(H-8)+'" font-size="11" fill="currentColor" opacity="0.7" text-anchor="middle">LTV (%)</text>';
-    s+='<text x="14" y="14" font-size="11" fill="currentColor" opacity="0.7">배당수익률 (%)</text>';
-    pts.sort(function(a,b){return (b.aum||0)-(a.aum||0);}).forEach(function(p){
-      var cx=X(p.ltv),cy=Y(yOf(p)),r=R(p.aum);
-      s+='<a href="r/'+p.t+'/"><circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+col[p.health]+'" fill-opacity="0.55" stroke="'+col[p.health]+'" stroke-width="1.5"><title>'+esc(p.name)+' · LTV '+fp(p.ltv)+' · 수익률 '+fp(yOf(p))+' · 자산 '+fa(p.aum)+'</title></circle>';
+    var i;for(i=0;i<=4;i++){var xv=xmin+(xmax-xmin)*i/4;s+='<text x="'+X(xv)+'" y="'+(H-pad+16)+'" font-size="10" fill="currentColor" opacity="0.6" text-anchor="middle">'+tval(state.scx,xv)+'</text>';}
+    for(i=0;i<=4;i++){var yv=ymin+(ymax-ymin)*i/4;s+='<text x="'+(pad-8)+'" y="'+(Y(yv)+3)+'" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">'+tval(state.scy,yv)+'</text>';}
+    s+='<text x="'+((W+pad)/2)+'" y="'+(H-8)+'" font-size="11" fill="currentColor" opacity="0.7" text-anchor="middle">'+esc(xm.l)+'</text>';
+    s+='<text x="14" y="14" font-size="11" fill="currentColor" opacity="0.7">'+esc(ym.l)+'</text>';
+    pts.sort(function(a,b){return (sm.g(b)||0)-(sm.g(a)||0);}).forEach(function(p){
+      var cx=X(xm.g(p)),cy=Y(ym.g(p)),r=R(sm.g(p));
+      s+='<a href="r/'+p.t+'/"><circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+col[p.health]+'" fill-opacity="0.55" stroke="'+col[p.health]+'" stroke-width="1.5"><title>'+esc(p.name)+' · '+esc(xm.l)+' '+xm.f(xm.g(p))+' · '+esc(ym.l)+' '+ym.f(ym.g(p))+' · '+esc(sm.l)+' '+sm.f(sm.g(p))+'</title></circle>';
       if(r>=14)s+='<text x="'+cx.toFixed(1)+'" y="'+(cy+3).toFixed(1)+'" font-size="9" fill="currentColor" text-anchor="middle" pointer-events="none">'+esc(p.name.slice(0,4))+'</text>';
       s+='</a>';
     });
@@ -1332,6 +1353,8 @@ var FACTS=${dataJson};
   function toggleBtn(id,prop,after){document.getElementById(id).addEventListener('click',function(){state[prop]=!state[prop];this.classList.toggle('on',state[prop]);if(after)after();});}
   toggleBtn('bHeat','heat',decor);toggleBtn('bBars','bars',decor);
   document.getElementById('bScatter').addEventListener('click',function(){var p=document.getElementById('scatter');p.hidden=!p.hidden;this.classList.toggle('on',!p.hidden);if(!p.hidden)scatter(FACTS.filter(passes).sort(cmp));});
+  function fillSel(id,opts){var s=document.getElementById(id);s.innerHTML=opts.map(function(k){return '<option value="'+k+'"'+(k===state[id]?' selected':'')+'>'+esc(METRICS[k].l)+'</option>';}).join('');}
+  ['scx','scy','scsz'].forEach(function(id){var el=document.getElementById(id);el.addEventListener('change',function(){state[id]=this.value;if(!document.getElementById('scatter').hidden)scatter(FACTS.filter(passes).sort(cmp));writeUrl();});});
   document.getElementById('bSector').addEventListener('click',function(){var p=document.getElementById('sector');p.hidden=!p.hidden;this.classList.toggle('on',!p.hidden);if(!p.hidden)sector(FACTS.filter(passes));});
   document.getElementById('bCols').addEventListener('click',function(e){e.stopPropagation();var p=document.getElementById('colpop');p.hidden=!p.hidden;});
   document.addEventListener('click',function(){document.getElementById('colpop').hidden=true;});
@@ -1376,13 +1399,15 @@ var FACTS=${dataJson};
     if(!(state.key==='aum'&&state.dir===-1))p.push('sort='+state.key+'.'+(state.dir>0?'a':'d'));
     if(state.view!=='table')p.push('view='+state.view);if(state.heat)p.push('heat=1');if(state.bars)p.push('bars=1');
     var hd=Object.keys(state.hide);if(hd.length)p.push('hide='+hd.join(','));
+    if(state.scx!=='ltv')p.push('scx='+state.scx);if(state.scy!=='yld')p.push('scy='+state.scy);if(state.scsz!=='aum')p.push('scsz='+state.scsz);
     var h=p.join('&');try{history.replaceState(null,'',h?('#'+h):location.pathname+location.search);}catch(e){}}
   function readUrl(){var h=location.hash.replace(/^#/,'');if(!h)return;h.split('&').forEach(function(kv){var i=kv.indexOf('='),k=i<0?kv:kv.slice(0,i),v=i<0?'':decodeURIComponent(kv.slice(i+1));
     if(k==='q')state.q=v;else if(k==='type'){v.split(',').forEach(function(x){if(x)state.types[x]=true;});}
     else if(k==='h')state.h=v;else if(k==='p'){v.split(',').forEach(function(x){if(x)state.presets[x]=true;});}
     else if(k==='sort'){var s=v.split('.');state.key=s[0];state.dir=s[1]==='a'?1:-1;}
     else if(k==='view')state.view=v;else if(k==='heat')state.heat=true;else if(k==='bars')state.bars=true;
-    else if(k==='hide'){v.split(',').forEach(function(x){if(x)state.hide[x]=true;});}});}
+    else if(k==='hide'){v.split(',').forEach(function(x){if(x)state.hide[x]=true;});}
+    else if(k==='scx'&&METRICS[v])state.scx=v;else if(k==='scy'&&METRICS[v])state.scy=v;else if(k==='scsz'&&METRICS[v])state.scsz=v;});}
   function syncControls(){
     document.getElementById('q').value=state.q;
     [].slice.call(document.querySelectorAll('#fchips .fchip')).forEach(function(c){var ct=c.dataset.type;c.classList.toggle('on',ct===''?Object.keys(state.types).length===0:!!state.types[ct]);});
@@ -1393,6 +1418,7 @@ var FACTS=${dataJson};
     document.getElementById('bHeat').classList.toggle('on',state.heat);document.getElementById('bBars').classList.toggle('on',state.bars);
     [].slice.call(document.querySelectorAll('#colpop input')).forEach(function(cb){cb.checked=!state.hide[cb.dataset.c];});
     [].slice.call(tbl.querySelectorAll('th.sortable')).forEach(function(th){th.classList.remove('asc','desc');if(th.dataset.key===state.key)th.classList.add(state.dir>0?'asc':'desc');});
+    fillSel('scx',AXOPT);fillSel('scy',AXOPT);fillSel('scsz',SZOPT);
   }
 
   // 라이브 배당수익률(시세 연동) — 실패 시 공시값 유지
@@ -1404,7 +1430,10 @@ var FACTS=${dataJson};
   function markLive(){[].slice.call(tb.querySelectorAll('tr')).forEach(function(tr){var r=byTk[tr.dataset.tk];if(!r||r.yldLive==null)return;
     tr.dataset.yld=r.yldLive;var td=tr.querySelector('td[data-col="yld"] .cv');if(td)td.innerHTML=fp(r.yldLive)+' <span class="lvb">실시간</span>';});}
 
-  readUrl();syncControls();render();decor();fetchLive();
+  var hadView=/(?:^|#|&)view=/.test(location.hash);
+  readUrl();
+  if(!hadView&&window.innerWidth<720)state.view='card'; // 모바일 기본 카드 뷰
+  syncControls();render();decor();fetchLive();
 })();
 </script>
 </body>
