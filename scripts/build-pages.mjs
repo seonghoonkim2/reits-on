@@ -122,11 +122,12 @@ function assetTypeOf(use) {
   if (/데이터|IDC|\bDC\b/.test(u)) return '데이터센터';
   if (/산업|인프라|수처리|발전/.test(u)) return '인프라';
   if (/물류|창고/.test(u)) return '물류';
-  if (/리테일|백화점|아울렛|마트|쇼핑|판매/.test(u)) return '리테일';
-  if (/호텔/.test(u)) return '호텔';
-  if (/주거|임대주택|코리빙|학생|멀티패밀리|레지던스|숙박/.test(u)) return '주거';
+  if (/호텔|숙박/.test(u)) return '호텔';
+  if (/주거|임대주택|코리빙|학생|멀티패밀리|레지던스/.test(u)) return '주거';
   if (/개발/.test(u)) return '개발';
-  if (/오피스|업무/.test(u)) return '오피스';
+  if (/백화점|아울렛|마트|쇼핑/.test(u)) return '리테일';        // 강한 리테일 신호
+  if (/오피스|업무/.test(u)) return '오피스';                    // '오피스·판매' 등 복합은 오피스 우선
+  if (/리테일|판매|상가|점포|근린/.test(u)) return '리테일';     // 순수 상업시설
   return '기타';
 }
 // 종목별 비교용 수치(있을 때만)
@@ -179,22 +180,44 @@ function valNear(note, re) {
 function assetMixBar(d) {
   const assets = (d && d.assets) || [];
   if (assets.length < 2) return '';
-  let weights = null, basisLabel = '개수';
-  for (const [re, label] of [['감정', '감정가'], ['당기말', '평가액'], ['매입가|매입|취득|투자', '매입가']]) {
-    const vals = assets.map((a) => valNear(a.note, re));
-    if (vals.every((v) => v != null && v > 0)) { weights = vals; basisLabel = label; break; }
+  // 후보 가중치를 만든다: 자산별 (가액 또는 null) 배열. null=가액 미공시.
+  let weights = null, basisLabel = '개수', covered = assets.length;
+  // 0) 구조화된 가액 필드(assets[].aum, 억원)가 모든 자산에 있으면 우선 사용(가장 정확)
+  if (assets.every((a) => typeof a.aum === 'number' && a.aum > 0)) {
+    weights = assets.map((a) => a.aum);
+    basisLabel = (d.assetBasis && String(d.assetBasis)) || '가액';
+  } else {
+    // 1) note 문자열에서 동일 기준 가액 파싱(감정가>평가액>매입가>임대료). 전부 잡히면 채택,
+    //    아니면 '다수(70%+)'가 잡히는 기준 중 커버리지가 가장 높은 것을 부분 채택(미공시 자산은 명시 후 제외).
+    let best = null;
+    for (const [re, label] of [['감정평가|감정가|감정', '감정가'], ['당기말|평가액|장부가|공정가', '평가액'], ['매입가|매입|취득가|취득|투자금액|투자|순매입', '매입가'], ['연임대료|임대료', '연임대료']]) {
+      const vals = assets.map((a) => valNear(a.note, re));
+      const cov = vals.filter((v) => v != null && v > 0).length;
+      if (cov === assets.length) { weights = vals; basisLabel = label; covered = cov; best = null; break; }
+      if (cov >= 2 && cov / assets.length >= 0.7 && (!best || cov > best.cov)) best = { vals, label, cov };
+    }
+    if (!weights && best) {
+      weights = best.vals.map((v) => (v != null && v > 0) ? v : null);
+      basisLabel = best.label; covered = best.cov;
+    }
   }
-  const w = weights || assets.map(() => 1);
+  const valueMode = !!weights;
   const agg = {};
-  assets.forEach((a, i) => { const ty = assetTypeOf((a.use || '') + ' ' + (a.name || '')); agg[ty] = (agg[ty] || 0) + w[i]; });
+  assets.forEach((a, i) => {
+    const wi = valueMode ? weights[i] : 1;
+    if (wi == null) return; // 부분 커버리지: 가액 미공시 자산은 비중 계산에서 제외(라벨로 명시)
+    const ty = assetTypeOf((a.use || '') + ' ' + (a.name || ''));
+    agg[ty] = (agg[ty] || 0) + wi;
+  });
   const entries = Object.entries(agg).sort((a, b) => b[1] - a[1]);
   if (entries.length < 2) return '';
   const total = entries.reduce((s, [, v]) => s + v, 0) || 1;
-  const lab = (v) => weights ? esc(fmtEok(v)) : v + '개';
+  const lab = (v) => valueMode ? esc(fmtEok(v)) : v + '개';
   const seg = entries.map(([ty, v]) => `<i style="width:${(v / total * 100).toFixed(1)}%;background:${ASSET_COLORS[ty] || '#94a3b8'}" title="${esc(ty)} ${lab(v)} (${(v / total * 100).toFixed(0)}%)"></i>`).join('');
   const leg = entries.map(([ty, v]) => `<span class="lg"><i style="background:${ASSET_COLORS[ty] || '#94a3b8'}"></i>${esc(ty)} ${(v / total * 100).toFixed(0)}%</span>`).join('');
   const aria = entries.map(([ty, v]) => `${ty} ${(v / total * 100).toFixed(0)}%`).join(', ');
-  return `<div class="pro-block"><div class="pro-h">자산군 구성 (${assets.length}개 · ${basisLabel} 기준)</div><div class="pro-stack" role="img" aria-label="자산군 구성 — ${esc(aria)}">${seg}</div><div class="pro-legend">${leg}</div></div>`;
+  const partial = valueMode && covered < assets.length ? ` · 공시 ${covered}/${assets.length}` : '';
+  return `<div class="pro-block"><div class="pro-h">자산군 구성 (${assets.length}개 · ${basisLabel} 기준${partial})</div><div class="pro-stack" role="img" aria-label="자산군 구성 — ${esc(aria)}">${seg}</div><div class="pro-legend">${leg}</div></div>`;
 }
 // 임차인 집중도(상위 임차인 비중 스택)
 function tenantBar(d, facts) {

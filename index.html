@@ -389,10 +389,13 @@
     .hero-search .input { flex:1; }
     .detail-calc { border:1px solid var(--line); border-radius:14px; padding:12px; background:var(--surface-strong); margin-top:var(--space-2); }
     .data-badge { display:inline-flex; align-items:center; margin-left:4px; padding:1px 6px; border-radius:999px; font-size:10px; line-height:1.4; color:var(--muted); background:var(--line-soft); border:1px solid var(--line); white-space:nowrap; font-weight:600; }
-    .health-legend { display:flex; align-items:center; gap:4px; flex-wrap:wrap; font-size:11.5px; color:var(--muted); font-weight:700; margin:0 0 10px; }
-    .health-legend .h-dot { margin:0 2px 0 8px; }
-    .health-legend .h-dot:first-child { margin-left:0; }
+    .health-legend { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:11.5px; color:var(--muted); font-weight:700; margin:0 0 10px; }
     .health-legend .hl-note { font-weight:600; opacity:.85; }
+    .hl-chip { display:inline-flex; align-items:center; gap:5px; padding:3px 9px; border-radius:999px; border:1px solid var(--border); background:var(--surface); color:var(--muted); font-size:11.5px; font-weight:700; cursor:pointer; transition:background var(--t-micro) var(--ease), border-color var(--t-micro) var(--ease), color var(--t-micro) var(--ease); }
+    .hl-chip:hover { border-color:var(--accent); }
+    .hl-chip .h-dot { margin:0; }
+    .hl-chip.on { color:var(--text); border-color:var(--accent); background:var(--accent-soft, rgba(60,120,240,0.1)); }
+    .hl-chip .hl-n { opacity:.7; font-weight:600; }
     .h-dot { display:inline-block; width:8px; height:8px; border-radius:50%; vertical-align:middle; }
     .h-dot.h-ok { background:#0c9b69; }
     .h-dot.h-warn { background:#e0a33b; }
@@ -1006,6 +1009,8 @@
               <option value="annualDpsDesc">연환산 DPS 순(추정)</option>
               <option value="assetDesc">규모 큰 순</option>
               <option value="freq">자주 주는 순</option>
+              <option value="healthBest">건강신호 좋은 순</option>
+              <option value="healthWorst">건강신호 주의 먼저</option>
               <option value="watch">관심 먼저</option>
             </select>
           </div>
@@ -1018,7 +1023,7 @@
             </div>
           </details>
           <div class="freshness" id="freshness"></div>
-          <div class="health-legend"><span class="h-dot h-ok"></span>안정<span class="h-dot h-warn"></span>주의<span class="h-dot h-risk"></span>위험<span class="hl-note">· 규칙기반(LTV·차입·손익) 요약 · 투자권유 아님</span></div>
+          <div class="health-legend" id="healthLegend" aria-label="건강신호로 거르기"></div>
           <div id="cards" class="cards-grid"></div>
           <button id="loadMore" class="ghost-btn hidden" type="button" style="width:100%; margin-top:var(--space-2);">+ 더 보기</button>
           <div id="emptyState" class="empty hidden">조건에 맞는 상장리츠가 없습니다. 필터를 줄이거나 <b>필터 초기화</b>를 눌러보세요.</div>
@@ -1633,7 +1638,7 @@
     const TABS = ['home', 'find', 'income', 'learn'];
     const state = {
       search:'', sector:'전체', month:'전체', sort:'name', tab:'home',
-      selected: null, quick:null, view:'cards',
+      selected: null, quick:null, view:'cards', health:null,
       watch: new Set((store.get('watch', [])).filter(t => byTicker(t))),
       compare: (store.get('compare', [])).filter(t => byTicker(t)).slice(0, COMPARE_MAX),
       portfolio: (store.get('portfolio', [])).filter(h => h && byTicker(h.ticker)),
@@ -1674,6 +1679,7 @@
       renderHomeFilings();
       renderFilters();
       renderQuickChips();
+      renderHealthLegend();
       renderCharts();
       renderFinder();
       renderCompare();
@@ -1787,7 +1793,7 @@
       const sectors = ['전체'].concat(Array.from(new Set(REITS.flatMap(r => r.sector))).sort((a,b)=>a.localeCompare(b,'ko')));
       $('#sectorSelect').innerHTML = sectors.map(s => '<option value="' + escapeHTML(s) + '">' + escapeHTML(s) + '</option>').join('');
       $('#monthSelect').innerHTML = ['전체'].concat(MONTHS).map((m, i) => '<option value="' + (i === 0 ? '전체' : i) + '">' + m + '</option>').join('');
-      const sortOpts = ['name', 'annualDpsDesc', 'assetDesc', 'freq', 'watch'];
+      const sortOpts = ['name', 'annualDpsDesc', 'assetDesc', 'freq', 'healthBest', 'healthWorst', 'watch'];
       if (sortOpts.indexOf(state.sort) < 0) state.sort = 'name';   // 옛 저장값 정규화
       $('#sortSelect').value = state.sort;
       const freshSee = MARKET._livePrices ? '시세 최근 종가' : '시세 실시간 아님';
@@ -1818,6 +1824,28 @@
       }));
     }
 
+    function renderHealthLegend() {
+      const el = $('#healthLegend');
+      if (!el) return;
+      const items = [
+        {key:null, label:'전체', cls:''},
+        {key:'ok', label:'안정', cls:'h-ok'},
+        {key:'warn', label:'주의', cls:'h-warn'},
+        {key:'risk', label:'위험', cls:'h-risk'},
+      ];
+      const count = (k) => k == null ? REITS.length : REITS.filter(r => (r.health || 'ok') === k).length;
+      el.innerHTML = items.map(it =>
+        '<button type="button" class="hl-chip ' + (state.health === it.key ? 'on' : '') + '" data-health="' + (it.key == null ? '' : it.key) + '" aria-pressed="' + (state.health === it.key) + '">' +
+        (it.cls ? '<span class="h-dot ' + it.cls + '"></span>' : '') + escapeHTML(it.label) +
+        '<span class="hl-n">' + count(it.key) + '</span></button>'
+      ).join('') + '<span class="hl-note">· 규칙기반(LTV·차입·손익) 요약 · 투자권유 아님</span>';
+      $$('#healthLegend .hl-chip').forEach(btn => btn.addEventListener('click', () => {
+        state.health = btn.dataset.health || null;
+        renderHealthLegend();
+        renderFinder();
+      }));
+    }
+
     function scoreLearning(r) {
       let score = 0;
       if (r.assetBn >= 1000) score += 3;
@@ -1842,9 +1870,13 @@
         if (['오피스','물류','리테일','해외','호텔','복합'].includes(state.quick)) quickOk = r.sector.includes(state.quick);
         if (state.quick === 'large') quickOk = r.assetBn >= 1000;
         if (state.quick === 'watch') quickOk = state.watch.has(r.ticker);
-        return searchOk && sectorOk && monthOk && quickOk;
+        const healthOk = !state.health || (r.health || 'ok') === state.health;
+        return searchOk && sectorOk && monthOk && quickOk && healthOk;
       });
+      const HRANK = { ok:0, warn:1, risk:2 };
       rows.sort((a,b) => {
+        if (state.sort === 'healthBest') return (HRANK[a.health]||0) - (HRANK[b.health]||0) || b.assetBn - a.assetBn;
+        if (state.sort === 'healthWorst') return (HRANK[b.health]||0) - (HRANK[a.health]||0) || b.assetBn - a.assetBn;
         if (state.sort === 'assetDesc') return b.assetBn - a.assetBn;
         if (state.sort === 'assetAsc') return a.assetBn - b.assetBn;
         if (state.sort === 'name') return a.name.localeCompare(b.name, 'ko');
@@ -1861,13 +1893,13 @@
 
     function renderFinder() {
       const rows = getFiltered();
-      const sig = [state.search, state.sector, state.month, state.sort, state.quick].join('|');
+      const sig = [state.search, state.sector, state.month, state.sort, state.quick, state.health].join('|');
       if (sig !== state._sig) { state.limit = 9; state._sig = sig; }   // 필터 바뀌면 처음 9개부터
       if (!state.limit) state.limit = 9;
       const shown = rows.slice(0, state.limit);
       $('#resultCount').textContent = rows.length;
       $('#emptyState').classList.toggle('hidden', rows.length > 0);
-      const active = !!state.search || state.sector !== '전체' || state.month !== '전체' || !!state.quick;
+      const active = !!state.search || state.sector !== '전체' || state.month !== '전체' || !!state.quick || !!state.health;
       const rb = $('#resetFilters'); if (rb) rb.style.display = active ? '' : 'none';
       $('#cards').innerHTML = shown.map(renderReitCard).join('');
       const more = rows.length - shown.length;
@@ -2554,9 +2586,9 @@
         $('#finder').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }));
       $('#resetFilters').addEventListener('click', () => {
-        state.search = ''; state.sector = '전체'; state.month = '전체'; state.quick = null;
+        state.search = ''; state.sector = '전체'; state.month = '전체'; state.quick = null; state.health = null;
         $('#searchInput').value = ''; $('#sectorSelect').value = '전체'; $('#monthSelect').value = '전체';
-        renderQuickChips(); renderFinder();
+        renderQuickChips(); renderHealthLegend(); renderFinder();
       });
       const toTop = $('#toTop');
       if (toTop) {
