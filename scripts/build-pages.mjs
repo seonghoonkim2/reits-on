@@ -236,18 +236,16 @@ function peerCompare(r) {
   const body = rows.map((x) => {
     const me = x.t === r.ticker;
     const nameCell = me ? `<span class="pcn">${esc(x.name)} <em>(이 종목)</em></span>` : `<a class="pcn" href="../${esc(x.t)}/">${esc(x.name)}</a>`;
-    const ltvBar = x.ltv != null
-      ? `<div class="pcbar" title="LTV ${x.ltv}%"><i style="width:${Math.max(3, x.ltv / maxLtv * 100)}%"></i></div><span class="pcv">${x.ltv}%</span>`
-      : `<div class="pcbar"></div><span class="pcv na">–</span>`;
-    return `<div class="pcrow${me ? ' me' : ''}">${nameCell}${ltvBar}<span class="pco"${x.occ != null ? ` title="임대율 ${x.occ}%"` : ''}>${x.occ != null ? x.occ + '%' : '–'}</span></div>`;
+    const barI = x.ltv != null ? `<i style="width:${Math.max(3, x.ltv / maxLtv * 100)}%"></i>` : '';
+    return `<div class="pcrow${me ? ' me' : ''}" data-ltv="${x.ltv ?? ''}" data-occ="${x.occ ?? ''}">${nameCell}<div class="pcbar">${barI}</div><span class="pcv${x.ltv == null ? ' na' : ''}">${x.ltv != null ? x.ltv + '%' : '–'}</span><span class="pco${x.occ == null ? ' na' : ''}">${x.occ != null ? x.occ + '%' : '–'}</span></div>`;
   }).join('');
   const rankTxt = myIdx >= 0 ? ` · 이 종목 LTV ${myIdx + 1}위/${ranked.length}` : '';
-  const avgRow = `<div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV ${avgL ?? '–'}%">${avgL != null ? `<i style="width:${Math.max(3, avgL / maxLtv * 100)}%"></i>` : ''}</div><span class="pcv">${avgL != null ? avgL + '%' : '–'}</span><span class="pco">${avgO != null ? avgO + '%' : '–'}</span></div>`;
+  const avgRow = `<div class="pcrow avg" data-ltv="${avgL ?? ''}" data-occ="${avgO ?? ''}"><span class="pcn">그룹 평균</span><div class="pcbar">${avgL != null ? `<i style="width:${Math.max(3, avgL / maxLtv * 100)}%"></i>` : ''}</div><span class="pcv">${avgL != null ? avgL + '%' : '–'}</span><span class="pco">${avgO != null ? avgO + '%' : '–'}</span></div>`;
   return `<div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · ${esc(meta.primary)} (${rows.length}종)${rankTxt}</div>
-    <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
-    ${body}
-    ${avgRow}
-    <p class="pro-cap">LTV 내림차순 정렬 · 막대에 마우스를 올리면 정확한 값. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>`;
+    <div class="pcbtns">막대 기준 <button type="button" class="pcbtn on" data-metric="ltv">LTV</button><button type="button" class="pcbtn" data-metric="occ">임대율</button></div>
+    <div class="pchead"><span class="pcn">종목</span><span class="pcbarh">막대</span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
+    <div class="pcbody">${body}${avgRow}</div>
+    <p class="pro-cap">막대=선택 지표 기준 정렬, 두 값 컬럼은 항상 표시. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>`;
 }
 
 function proDashboard(r) {
@@ -296,11 +294,23 @@ function proDashboard(r) {
   const divHtml = hist.length >= 2 ? `<div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars">${hist.map((x) => `<div class="bar"><span class="bv">${x.v.toLocaleString('ko-KR')}</span><i style="height:${Math.max(8, x.v / maxDiv * 100)}%"></i><span class="bl">${esc(x.p.replace(/\s*\(.*?\)/g, '').trim().slice(0, 7))}</span></div>`).join('')}</div></div>` : '';
 
   const items = (d.debt && d.debt.items) || [];
-  const byYear = {};
-  items.forEach((it) => { const y = _year(it.maturity); const a = _eok(it.amount); if (y && a) byYear[y] = (byYear[y] || 0) + a; });
+  const byYear = {}; let totalDebt = 0, due12 = 0, wsum = 0, wamt = 0;
+  const asOf = d.asOf ? new Date(d.asOf) : null;
+  const cutoff = asOf ? new Date(asOf.getFullYear() + 1, asOf.getMonth(), asOf.getDate()) : null;
+  const pdate = (s) => { const m = String(s || '').match(/(20\d\d)-(\d{2})(?:-(\d{2}))?/); return m ? new Date(+m[1], +m[2] - 1, +(m[3] || 1)) : null; };
+  items.forEach((it) => {
+    const y = _year(it.maturity); const a = _eok(it.amount);
+    if (!a) return;
+    totalDebt += a; if (y) byYear[y] = (byYear[y] || 0) + a;
+    const md = pdate(it.maturity); if (asOf && cutoff && md && md >= asOf && md <= cutoff) due12 += a;
+    const r = _pct(it.rate); if (r != null && it.rateType !== '변동') { wsum += a * r; wamt += a; }
+  });
   const years = Object.keys(byYear).map(Number).sort();
   const maxY = Math.max(...years.map((y) => byYear[y]), 1);
-  const ladderHtml = years.length >= 2 ? `<div class="pro-block"><div class="pro-h">차입 만기 사다리</div><div class="pro-ladder">${years.map((y) => `<div class="lr"><span class="ly">${y}</span><div class="lbar"><i style="width:${Math.max(4, byYear[y] / maxY * 100)}%"></i></div><span class="lv">${esc(fmtEok(byYear[y]))}</span></div>`).join('')}</div><p class="pro-cap">만기 명시된 차입·사채 기준 합산(억원)</p></div>` : '';
+  const wavg = wamt ? Math.round(wsum / wamt * 100) / 100 : null;
+  const nowY = asOf ? asOf.getFullYear() : null;
+  const due12Html = (asOf && due12 > 0 && totalDebt > 0) ? `<div class="ladder-due">⏱ 향후 12개월 내 만기 <b>${esc(fmtEok(due12))}</b> <span>(만기명시 차입의 ${Math.round(due12 / totalDebt * 100)}%)</span></div>` : '';
+  const ladderHtml = years.length >= 2 ? `<div class="pro-block"><div class="pro-h">차입 만기 사다리</div>${due12Html}<div class="pro-ladder">${years.map((y) => `<div class="lr${nowY && (y === nowY || y === nowY + 1) ? ' near' : ''}"><span class="ly">${y}</span><div class="lbar"><i style="width:${Math.max(4, byYear[y] / maxY * 100)}%"></i></div><span class="lv">${esc(fmtEok(byYear[y]))}</span></div>`).join('')}</div><p class="pro-cap">만기 명시 차입·사채 합산${wavg != null ? ` · 고정분 가중평균 금리 약 ${wavg}%` : ''}</p></div>` : '';
 
   const riskBadge = risk ? `<div class="pro-risk risk-${esc(risk.level)}"><b>⚠ ${esc(risk.label)}</b>${risk.note ? ` <span>${esc(risk.note)}</span>` : ''}</div>` : '';
   const mixHtml = assetMixBar(d);
@@ -565,7 +575,11 @@ a.pcn:hover{text-decoration:underline}
 .pro-bars .bar i{display:block;width:70%;max-width:34px;background:linear-gradient(180deg,#3254ff,#6f86ff);border-radius:6px 6px 0 0;min-height:8px}
 .pro-bars .bv{font-size:11px;font-weight:800}
 .pro-bars .bl{font-size:10px;color:var(--muted);text-align:center;line-height:1.2}
+.ladder-due{font-size:12.5px;font-weight:800;color:#9a6700;background:#fdf6e3;border:1px solid #f2e0a8;border-radius:8px;padding:6px 10px;margin:0 0 10px}
+.ladder-due b{font-weight:900}.ladder-due span{font-weight:600;opacity:.85}
 .pro-ladder{display:flex;flex-direction:column;gap:7px}
+.pro-ladder .lr.near .lbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
+.pro-ladder .lr.near .ly{color:#9a6700}
 .pro-ladder .lr{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:8px;font-size:12px}
 .pro-ladder .ly{color:var(--muted);font-weight:700}
 .pro-ladder .lbar{height:14px;background:var(--soft);border-radius:6px;overflow:hidden}
@@ -605,6 +619,10 @@ a.pcn:hover{text-decoration:underline}
 .pcrow .pcbar{grid-column:auto}
 .pcrow{grid-template-columns:1fr 64px 46px 46px}
 .pchead{grid-template-columns:1fr 64px 46px 46px}
+.pcbtns{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:700;margin:0 0 8px}
+.pcbtn{font-size:11.5px;font-weight:800;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:3px 10px;cursor:pointer}
+.pcbtn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.pcbarh{font-size:11px;color:var(--muted);font-weight:800}
 .rd-full{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
 .rd-full>summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--brand);list-style:none}
 .rd-full>summary::-webkit-details-marker{display:none}
@@ -714,6 +732,34 @@ ${irCard(r, naverUrl)}
   <p class="note">⚠ 본 페이지는 일반 투자자 교육·정보 제공용이며 <b>특정 종목의 매수·매도 추천이 아닙니다.</b> 배당금·연환산 수치는 공개자료(한국리츠협회 등) 기반의 <b>교육용 추정</b>으로 실제와 다를 수 있고, 리츠는 배당 삭감·중단 및 원금 손실이 가능합니다. 투자 전 DART·KIND·투자보고서 원문과 최신 시세를 반드시 확인하세요. 데이터 기준일은 변동될 수 있습니다.</p>
   <p class="note"><a class="more" href="../../">← 리츠온 홈으로</a></p>
 </div>
+<script>
+(function(){
+  var box=document.querySelector('.pc-wide'); if(!box) return;
+  var cont=box.querySelector('.pcbody'); if(!cont) return;
+  var btns=[].slice.call(box.querySelectorAll('.pcbtn'));
+  function render(m){
+    var rs=[].slice.call(cont.querySelectorAll('.pcrow'));
+    var vals=rs.filter(function(r){return !r.classList.contains('avg');})
+      .map(function(r){return parseFloat(r.getAttribute('data-'+m));})
+      .filter(function(v){return !isNaN(v);});
+    var max=Math.max.apply(null, vals.concat([1]));
+    rs.sort(function(a,b){
+      if(a.classList.contains('avg'))return 1; if(b.classList.contains('avg'))return -1;
+      var av=parseFloat(a.getAttribute('data-'+m)), bv=parseFloat(b.getAttribute('data-'+m));
+      return (isNaN(bv)?-1:bv)-(isNaN(av)?-1:av);
+    });
+    rs.forEach(function(r){
+      var v=parseFloat(r.getAttribute('data-'+m)); var bar=r.querySelector('.pcbar');
+      if(bar) bar.innerHTML=isNaN(v)?'':'<i style="width:'+Math.max(3, v/max*100).toFixed(1)+'%"></i>';
+      cont.appendChild(r);
+    });
+    btns.forEach(function(b){b.classList.toggle('on', b.getAttribute('data-metric')===m);});
+    var pl=box.querySelector('.pcl'), po=box.querySelector('.pco');
+    if(pl) pl.textContent='LTV'+(m==='ltv'?' ↓':''); if(po) po.textContent='임대율'+(m==='occ'?' ↓':'');
+  }
+  btns.forEach(function(b){b.addEventListener('click', function(){ render(b.getAttribute('data-metric')); });});
+})();
+</script>
 </body>
 </html>`;
 }
