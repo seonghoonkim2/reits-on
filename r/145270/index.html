@@ -51,6 +51,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
 .pk-k{font-size:11px;color:var(--muted);font-weight:700}
 .pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
+.pk-v.tn-good{color:#0c7a54}.pk-v.tn-warn{color:#9a6700}.pk-v.tn-bad{color:#b42318}
+a.pcn{color:var(--brand);text-decoration:none}
+a.pcn:hover{text-decoration:underline}
 .pro-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 @media(max-width:520px){.pro-gauges{grid-template-columns:1fr}}
 .pg-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}.pg-top b{font-weight:900}
@@ -201,15 +204,16 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 
   <div class="card pro">
     <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">핵심 지표 요약</span></div>
+    <p class="pro-src">제16기 사업보고서 · 2025-12-31 기준 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260312001183" target="_blank" rel="noopener">출처</a></p>
     
     <div class="pro-health h-warn"><span class="hh">🟡 건강 신호: <b>주의</b></span><span class="hr">변동금리 비중↑</span><span class="hn">규칙기반 요약 · 투자권유 아님</span></div>
     <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">5.2%</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">50원</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">미평가</div></div></div>
-    <div class="pro-gauges"><div class="pg"><div class="pg-top"><span>고정금리 비중</span><b>0%</b></div><div class="pg-bar"><i class="g-ok" style="width:2%"></i></div></div></div>
+    <div class="pro-gauges"><div class="pg" role="img" aria-label="고정금리 비중 0%"><div class="pg-top"><span>고정금리 비중</span><b>0%</b></div><div class="pg-bar"><i class="g-ok" style="width:2%"></i></div></div></div>
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">95</span><i style="height:100%"></i><span class="bl">제14기</span></div><div class="bar"><span class="bv">68</span><i style="height:71.57894736842105%"></i><span class="bl">제15기</span></div><div class="bar"><span class="bv">50</span><i style="height:52.63157894736842%"></i><span class="bl">제16기</span></div></div></div></div>
-    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (9개 · 개수 기준)</div><div class="pro-stack"><i style="width:77.8%;background:#3254ff" title="오피스 7개 (78%)"></i><i style="width:22.2%;background:#94a3b8" title="기타 2개 (22%)"></i></div><div class="pro-legend"><span class="lg"><i style="background:#3254ff"></i>오피스 78%</span><span class="lg"><i style="background:#94a3b8"></i>기타 22%</span></div></div></div>
+    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (9개 · 개수 기준)</div><div class="pro-stack" role="img" aria-label="자산군 구성 — 오피스 78%, 기타 22%"><i style="width:77.8%;background:#3254ff" title="오피스 7개 (78%)"></i><i style="width:22.2%;background:#94a3b8" title="기타 2개 (22%)"></i></div><div class="pro-legend"><span class="lg"><i style="background:#3254ff"></i>오피스 78%</span><span class="lg"><i style="background:#94a3b8"></i>기타 22%</span></div></div></div>
     <div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · 복합 (4종)</div>
     <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
-    <div class="pcrow"><span class="pcn">SK리츠</span><div class="pcbar" title="LTV 65.7%"><i style="width:100%"></i></div><span class="pcv">65.7%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><span class="pcn">NH올원리츠</span><div class="pcbar" title="LTV 63.6%"><i style="width:96.80365296803653%"></i></div><span class="pcv">63.6%</span><span class="pco" title="임대율 98.2%">98.2%</span></div><div class="pcrow"><span class="pcn">디앤디플랫폼리츠</span><div class="pcbar" title="LTV 58%"><i style="width:88.2800608828006%"></i></div><span class="pcv">58%</span><span class="pco" title="임대율 99.8%">99.8%</span></div><div class="pcrow"><span class="pcn">신한서부티엔디리츠</span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 100%">100%</span></div>
+    <div class="pcrow"><a class="pcn" href="../395400/">SK리츠</a><div class="pcbar" title="LTV 65.7%"><i style="width:100%"></i></div><span class="pcv">65.7%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><a class="pcn" href="../400760/">NH올원리츠</a><div class="pcbar" title="LTV 63.6%"><i style="width:96.80365296803653%"></i></div><span class="pcv">63.6%</span><span class="pco" title="임대율 98.2%">98.2%</span></div><div class="pcrow"><a class="pcn" href="../377190/">디앤디플랫폼리츠</a><div class="pcbar" title="LTV 58%"><i style="width:88.2800608828006%"></i></div><span class="pcv">58%</span><span class="pco" title="임대율 99.8%">99.8%</span></div><div class="pcrow"><a class="pcn" href="../404990/">신한서부티엔디리츠</a><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 100%">100%</span></div>
     <div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV 62.4%"><i style="width:94.97716894977168%"></i></div><span class="pcv">62.4%</span><span class="pco">99.5%</span></div>
     <p class="pro-cap">LTV 내림차순 정렬 · 막대에 마우스를 올리면 정확한 값. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>
   </div>

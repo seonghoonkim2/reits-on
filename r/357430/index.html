@@ -51,6 +51,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
 .pk-k{font-size:11px;color:var(--muted);font-weight:700}
 .pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
+.pk-v.tn-good{color:#0c7a54}.pk-v.tn-warn{color:#9a6700}.pk-v.tn-bad{color:#b42318}
+a.pcn{color:var(--brand);text-decoration:none}
+a.pcn:hover{text-decoration:underline}
 .pro-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 @media(max-width:520px){.pro-gauges{grid-template-columns:1fr}}
 .pg-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}.pg-top b{font-weight:900}
@@ -201,12 +204,13 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 
   <div class="card pro">
     <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">핵심 지표 요약</span></div>
+    <p class="pro-src">제12기 사업보고서 · 2026-03-31 기준 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618000369" target="_blank" rel="noopener">출처</a></p>
     
     <div class="pro-health h-ok"><span class="hh">🟢 건강 신호: <b>안정</b></span><span class="hr">특이 리스크 미탐지</span><span class="hn">규칙기반 요약 · 투자권유 아님</span></div>
-    <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">약 96원</div></div><div class="pro-kpi"><div class="pk-k">임대율</div><div class="pk-v">100%</div></div><div class="pro-kpi"><div class="pk-k">WALE</div><div class="pk-v">9.9년</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">보고서 내 미명시</div></div></div>
-    <div class="pro-gauges"><div class="pg"><div class="pg-top"><span>임대율</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div></div>
+    <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">약 96원</div></div><div class="pro-kpi"><div class="pk-k">임대율</div><div class="pk-v tn-good">100%</div></div><div class="pro-kpi"><div class="pk-k">WALE</div><div class="pk-v">9.9년</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">보고서 내 미명시</div></div></div>
+    <div class="pro-gauges"><div class="pg" role="img" aria-label="임대율 100%"><div class="pg-top"><span>임대율</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div></div>
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">61</span><i style="height:63.541666666666664%"></i><span class="bl">제11기</span></div><div class="bar"><span class="bv">96</span><i style="height:100%"></i><span class="bl">제12기</span></div></div></div><div class="pro-block"><div class="pro-h">차입 만기 사다리</div><div class="pro-ladder"><div class="lr"><span class="ly">2026</span><div class="lbar"><i style="width:11.141371626640257%"></i></div><span class="lv">45억원</span></div><div class="lr"><span class="ly">2027</span><div class="lbar"><i style="width:100%"></i></div><span class="lv">404억원</span></div></div><p class="pro-cap">만기 명시된 차입·사채 기준 합산(억원)</p></div></div>
-    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (4개 · 개수 기준)</div><div class="pro-stack"><i style="width:75.0%;background:#0c9b69" title="물류 3개 (75%)"></i><i style="width:25.0%;background:#3254ff" title="오피스 1개 (25%)"></i></div><div class="pro-legend"><span class="lg"><i style="background:#0c9b69"></i>물류 75%</span><span class="lg"><i style="background:#3254ff"></i>오피스 25%</span></div></div></div>
+    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (4개 · 개수 기준)</div><div class="pro-stack" role="img" aria-label="자산군 구성 — 물류 75%, 오피스 25%"><i style="width:75.0%;background:#0c9b69" title="물류 3개 (75%)"></i><i style="width:25.0%;background:#3254ff" title="오피스 1개 (25%)"></i></div><div class="pro-legend"><span class="lg"><i style="background:#0c9b69"></i>물류 75%</span><span class="lg"><i style="background:#3254ff"></i>오피스 25%</span></div></div></div>
     
   </div>
 <details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>

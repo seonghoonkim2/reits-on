@@ -51,6 +51,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pro-kpi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
 .pk-k{font-size:11px;color:var(--muted);font-weight:700}
 .pk-v{font-size:16px;font-weight:900;letter-spacing:-.02em;margin-top:3px;line-height:1.25}
+.pk-v.tn-good{color:#0c7a54}.pk-v.tn-warn{color:#9a6700}.pk-v.tn-bad{color:#b42318}
+a.pcn{color:var(--brand);text-decoration:none}
+a.pcn:hover{text-decoration:underline}
 .pro-gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 @media(max-width:520px){.pro-gauges{grid-template-columns:1fr}}
 .pg-top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px}.pg-top b{font-weight:900}
@@ -201,15 +204,16 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 
   <div class="card pro">
     <div class="facts-head"><h2 style="margin:0;font-size:18px">한눈에 보기</h2><span class="pro-tag">핵심 지표 요약</span></div>
+    <p class="pro-src">제40기 사업보고서 · 2025-12-31 기준 · <a href="https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260608000343" target="_blank" rel="noopener">출처</a></p>
     
     <div class="pro-health h-ok"><span class="hh">🟢 건강 신호: <b>안정</b></span><span class="hr">특이 리스크 미탐지</span><span class="hn">규칙기반 요약 · 투자권유 아님</span></div>
-    <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">3.8%</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">176원</div></div><div class="pro-kpi"><div class="pk-k">임대율</div><div class="pk-v">100%</div></div><div class="pro-kpi"><div class="pk-k">WALE</div><div class="pk-v">8.5년</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">BBB+</div></div></div>
-    <div class="pro-gauges"><div class="pg"><div class="pg-top"><span>임대율</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div></div>
+    <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">배당수익률</div><div class="pk-v">3.8%</div></div><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">176원</div></div><div class="pro-kpi"><div class="pk-k">임대율</div><div class="pk-v tn-good">100%</div></div><div class="pro-kpi"><div class="pk-k">WALE</div><div class="pk-v">8.5년</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v tn-warn">BBB+</div></div></div>
+    <div class="pro-gauges"><div class="pg" role="img" aria-label="임대율 100%"><div class="pg-top"><span>임대율</span><b>100%</b></div><div class="pg-bar"><i class="g-ok" style="width:100%"></i></div></div></div>
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">176</span><i style="height:100%"></i><span class="bl">제38기</span></div><div class="bar"><span class="bv">174</span><i style="height:98.86363636363636%"></i><span class="bl">제39기</span></div><div class="bar"><span class="bv">176</span><i style="height:100%"></i><span class="bl">제40기</span></div></div></div></div>
-    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">임차인 집중도</div><div class="pro-stack"><i style="width:100.0%;background:#3254ff" title="㈜이랜드리테일 100.0%"></i><i style="width:0.0%;background:#cbd5e1" title="기타 0.0%"></i></div><div class="pro-legend"><span class="lg"><i style="background:#3254ff"></i>㈜이랜드리테일 100.0%</span></div></div></div>
+    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">임차인 집중도</div><div class="pro-stack" role="img" aria-label="임차인 집중도 — ㈜이랜드리테일 100%, 기타 0%"><i style="width:100.0%;background:#3254ff" title="㈜이랜드리테일 100.0%"></i><i style="width:0.0%;background:#cbd5e1" title="기타 0.0%"></i></div><div class="pro-legend"><span class="lg"><i style="background:#3254ff"></i>㈜이랜드리테일 100.0%</span></div></div></div>
     <div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · 리테일 (3종)</div>
     <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
-    <div class="pcrow"><span class="pcn">롯데리츠</span><div class="pcbar" title="LTV 39.3%"><i style="width:100%"></i></div><span class="pcv">39.3%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><span class="pcn">미래에셋맵스리츠</span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow me"><span class="pcn">이리츠코크렙 <em>(이 종목)</em></span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 100%">100%</span></div>
+    <div class="pcrow"><a class="pcn" href="../330590/">롯데리츠</a><div class="pcbar" title="LTV 39.3%"><i style="width:100%"></i></div><span class="pcv">39.3%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow"><a class="pcn" href="../357250/">미래에셋맵스리츠</a><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow me"><span class="pcn">이리츠코크렙 <em>(이 종목)</em></span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 100%">100%</span></div>
     <div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV 39.3%"><i style="width:100%"></i></div><span class="pcv">39.3%</span><span class="pco">100%</span></div>
     <p class="pro-cap">LTV 내림차순 정렬 · 막대에 마우스를 올리면 정확한 값. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>
   </div>
