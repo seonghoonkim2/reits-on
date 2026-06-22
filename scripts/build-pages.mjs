@@ -828,12 +828,16 @@ function _factTip(t, key) {
   const bits = [p.asOf ? p.asOf + ' 기준' : null, p.note ? p.note.slice(0, 60) : null].filter(Boolean);
   return bits.length ? ` title="${esc(bits.join(' · '))}"` : '';
 }
+function _factAsOf(t, key) {
+  const p = (FACTS_BY_TICKER[t] || {})[key];
+  return p && p.status === 'actual' && p.asOf ? p.asOf : null;
+}
 function factsRows() {
   return REITS.map((r) => {
     const t = r.ticker; const h = healthOf(t);
     return {
       t, name: r.name, primary: r.primary || '기타', sector: (r.sector || []).join('·'),
-      health: h.level, reasons: h.reasons || [],
+      health: h.level, reasons: h.reasons || [], risk: RISK_BY_TICKER[t] || null,
       aum: _aumEok(t), freq: r.divMonths.length, annual: r.recentDiv ? r.recentDiv * r.divMonths.length : null,
       yld: _dispYield(t), ltv: numLTV(t), occ: numOcc(t), wale: _waleYears(t),
       fixed: _fixedPct(t), rating: _rateGrade(t), tenant: _topTenant(t),
@@ -857,6 +861,13 @@ function factsPage() {
   const sumAum = aumVals.reduce((s, v) => s + v, 0);
   const hCount = { ok: 0, warn: 0, risk: 0 }; rows.forEach((r) => hCount[r.health]++);
   const quarterly = rows.filter((r) => r.freq >= 4).length;
+  const cov = (k) => rows.filter((r) => r[k] != null).length;
+
+  // 기준일 범위(지표별 상이) — 투명화 배너
+  const asOfs = [];
+  rows.forEach((r) => ['aum', 'ltv', 'occupancy', 'wale', 'debtFixedRatio'].forEach((k) => { const a = _factAsOf(r.t, k); if (a) asOfs.push(a); }));
+  const asOfSorted = asOfs.slice().sort();
+  const asOfMin = asOfSorted[0], asOfMax = asOfSorted[asOfSorted.length - 1];
 
   const num = (v, suf) => v == null ? '<span class="na">—</span>' : esc((Number.isInteger(v) ? v : v.toFixed(1)) + (suf || ''));
   const stat = (label, val, sub) => `<div class="fs-stat"><div class="fs-sv">${val}</div><div class="fs-sl">${esc(label)}</div>${sub ? `<div class="fs-ss">${esc(sub)}</div>` : ''}</div>`;
@@ -873,45 +884,61 @@ function factsPage() {
   const typeChips = ['<button class="fchip on" data-type="">전체</button>']
     .concat(types.map((ty) => `<button class="fchip" data-type="${esc(ty)}">${esc(ty)}</button>`)).join('');
 
-  const cell = (val, tone, tip) => `<td class="numc${tone ? ' tn-' + tone : ''}"${tip || ''}>${val}</td>`;
+  // 컬럼 정의(서버 thead/tbody와 JS가 공유)
+  const cols = [
+    ['name', '종목', 'txt'], ['type', '유형', 'txt'], ['health', '신호', 'health'], ['aum', '자산규모', 'aum'],
+    ['div', '배당', 'div'], ['yld', '배당수익률', 'pct'], ['ltv', 'LTV', 'pct'], ['occ', '임대율', 'pct'],
+    ['wale', 'WALE', 'yr'], ['fixed', '고정금리', 'pct'], ['rating', '신용등급', 'rating'], ['tenant', '주요 임차인', 'none'],
+  ];
+  const COV_KEYS = { yld: 'yld', ltv: 'ltv', occ: 'occ', wale: 'wale', fixed: 'fixed', rating: 'rating' };
+  const sortable = { health: 'num', aum: 'num', div: 'num', pct: 'num', yr: 'num', rating: 'num', txt: 'txt' };
+  const thead = cols.map(([k, lab, ty]) => {
+    const covHtml = COV_KEYS[k] ? `<span class="cov">${cov(k === 'div' ? 'annual' : k)}/${rows.length}</span>` : '';
+    if (ty === 'none') return `<th data-col="${k}">${esc(lab)}</th>`;
+    const sk = sortable[ty] || 'num';
+    return `<th class="sortable" data-col="${k}" data-key="${k}" data-ty="${sk}" tabindex="0" role="button" aria-label="${esc(lab)} 정렬">${esc(lab)}${covHtml}<span class="ar"></span></th>`;
+  }).join('');
+
+  const tdNum = (key, val, tone, tip) => `<td class="numc${tone ? ' tn-' + tone : ''}" data-col="${key}"${tip || ''}><span class="cv">${val}</span></td>`;
   const body = rows.map((r) => {
     const hMap = { ok: ['안정', 'ok'], warn: ['주의', 'warn'], risk: ['위험', 'risk'] };
     const [hLab, hCls] = hMap[r.health];
     const divCell = `${esc(_freqLab(r.freq))}${r.annual ? ` · <span class="muted">추정 ${fmt(Math.round(r.annual))}원</span>` : ''}`;
     const hostTip = r.reasons.length ? ` title="${esc(r.reasons.join(' · '))}"` : '';
-    return `<tr data-name="${esc(r.name)}" data-type="${esc(r.primary)}" data-health="${_hRank[r.health]}" data-aum="${r.aum ?? ''}" data-freq="${r.freq}" data-div="${r.annual ?? ''}" data-yld="${r.yld ?? ''}" data-ltv="${r.ltv ?? ''}" data-occ="${r.occ ?? ''}" data-wale="${r.wale ?? ''}" data-fixed="${r.fixed ?? ''}" data-rating="${_ratRank(r.rating)}" data-tenant="${esc(r.tenant || '')}">
-      <td class="namec"><a href="r/${r.t}/"><b>${esc(r.name)}</b><span class="tk">${esc(r.t)}</span></a></td>
-      <td><span class="typb">${esc(r.primary)}</span></td>
-      <td><span class="hbadge ${hCls}"${hostTip}><span class="hd ${hCls}"></span>${hLab}</span></td>
-      ${cell(r.aum != null ? esc(fmtEok(r.aum)) : '<span class="na">—</span>', '', _factTip(r.t, 'aum'))}
-      <td class="divc">${divCell}</td>
-      ${cell(num(r.yld, '%'), '')}
-      ${cell(num(r.ltv, '%'), _ltvTone(r.ltv), _factTip(r.t, 'ltv'))}
-      ${cell(num(r.occ, '%'), _occTone(r.occ), _factTip(r.t, 'occupancy'))}
-      ${cell(num(r.wale, '년'), '', _factTip(r.t, 'wale'))}
-      ${cell(num(r.fixed, '%'), _fixTone(r.fixed), _factTip(r.t, 'debtFixedRatio'))}
-      ${cell(r.rating ? esc(r.rating) : '<span class="na">—</span>', _ratTone(r.rating))}
-      <td class="tenc">${r.tenant ? esc(r.tenant) : '<span class="na">—</span>'}</td>
+    const riskBadge = r.risk ? ` <span class="rbadge ${esc(r.risk.level)}" title="${esc(r.risk.note || '')}">${esc(r.risk.label)}</span>` : '';
+    return `<tr data-tk="${r.t}" data-name="${esc(r.name)}" data-type="${esc(r.primary)}" data-health="${_hRank[r.health]}" data-aum="${r.aum ?? ''}" data-freq="${r.freq}" data-div="${r.annual ?? ''}" data-yld="${r.yld ?? ''}" data-ltv="${r.ltv ?? ''}" data-occ="${r.occ ?? ''}" data-wale="${r.wale ?? ''}" data-fixed="${r.fixed ?? ''}" data-rating="${_ratRank(r.rating)}" data-tenant="${esc(r.tenant || '')}">
+      <td class="namec" data-col="name"><a href="r/${r.t}/"><b>${esc(r.name)}</b><span class="tk">${esc(r.t)}</span></a></td>
+      <td data-col="type"><span class="typb">${esc(r.primary)}</span></td>
+      <td data-col="health"><span class="hbadge ${hCls}"${hostTip}><span class="hd ${hCls}"></span>${hLab}</span>${riskBadge}</td>
+      ${tdNum('aum', r.aum != null ? esc(fmtEok(r.aum)) : '<span class="na">—</span>', '', _factTip(r.t, 'aum'))}
+      <td class="divc" data-col="div">${divCell}</td>
+      ${tdNum('yld', num(r.yld, '%'), '')}
+      ${tdNum('ltv', num(r.ltv, '%'), _ltvTone(r.ltv), _factTip(r.t, 'ltv'))}
+      ${tdNum('occ', num(r.occ, '%'), _occTone(r.occ), _factTip(r.t, 'occupancy'))}
+      ${tdNum('wale', num(r.wale, '년'), '', _factTip(r.t, 'wale'))}
+      ${tdNum('fixed', num(r.fixed, '%'), _fixTone(r.fixed), _factTip(r.t, 'debtFixedRatio'))}
+      ${tdNum('rating', r.rating ? esc(r.rating) : '<span class="na">—</span>', _ratTone(r.rating))}
+      <td class="tenc" data-col="tenant">${r.tenant ? esc(r.tenant) : '<span class="na">—</span>'}</td>
     </tr>`;
   }).join('\n');
-
-  const cols = [
-    ['name', '종목', 'txt'], ['type', '유형', 'txt'], ['health', '신호', 'num'], ['aum', '자산규모', 'num'],
-    ['div', '배당', 'num'], ['yld', '배당수익률', 'num'], ['ltv', 'LTV', 'num'], ['occ', '임대율', 'num'],
-    ['wale', 'WALE', 'num'], ['fixed', '고정금리', 'num'], ['rating', '신용등급', 'num'], ['tenant', '주요 임차인', 'none'],
-  ];
-  const thead = cols.map(([k, lab, ty]) => ty === 'none'
-    ? `<th>${esc(lab)}</th>`
-    : `<th class="sortable" data-key="${k}" data-ty="${ty}" tabindex="0" role="button" aria-label="${esc(lab)} 정렬">${esc(lab)}<span class="ar"></span></th>`).join('');
 
   const TIP = {
     LTV: '담보인정비율 = 총차입금 ÷ 자산(또는 감정가). 높을수록 레버리지·금리 민감도 ↑',
     임대율: '임대된 면적 비율(=100%−공실률). 높을수록 안정',
     WALE: '가중평균 잔여임대차기간(년). 길수록 임대수익 안정',
     고정금리: '총차입 중 고정금리 비중. 높을수록 금리 인상 방어력 ↑',
-    배당수익률: '주가 대비 배당 비율(공시 기준). 분기/반기/연 기준이 종목마다 다름',
+    배당수익률: '주가 대비 배당 비율. 기본은 공시값, 시세 연동 시 “실시간” 배지로 표시',
   };
   const legend = Object.entries(TIP).map(([k, v]) => `<span class="lgi"><b>${esc(k)}</b> ${esc(v)}</span>`).join('');
+
+  // JS에 넘길 정제 데이터
+  const DATA = rows.map((r) => ({
+    t: r.t, name: r.name, type: r.primary, sector: r.sector, health: r.health, reasons: r.reasons,
+    risk: r.risk ? { level: r.risk.level, label: r.risk.label } : null,
+    aum: r.aum, freq: r.freq, annual: r.annual, yld: r.yld, ltv: r.ltv, occ: r.occ, wale: r.wale,
+    fixed: r.fixed, rating: r.rating, ratingRank: _ratRank(r.rating) === '' ? null : _ratRank(r.rating), tenant: r.tenant,
+  }));
+  const dataJson = JSON.stringify(DATA).replace(/</g, '\\u003c');
 
   const ld = {
     '@context': 'https://schema.org', '@type': 'Dataset', name: '상장리츠 핵심 팩트 데이터',
@@ -925,158 +952,459 @@ function factsPage() {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>리츠 팩트시트 — 상장리츠 25개 핵심 데이터 한눈에 | 리츠온 REITs ON</title>
-<meta name="description" content="국내 상장리츠 25개의 LTV·임대율·WALE·고정금리비중·신용등급·자산규모를 한 표로 정렬·비교. 출처·기준일 포함. (교육용, 투자 권유 아님)" />
+<meta name="description" content="국내 상장리츠 25개의 LTV·임대율·WALE·고정금리비중·신용등급·자산규모를 한 표로 정렬·비교·분포·내보내기. 출처·기준일 포함. (교육용, 투자 권유 아님)" />
 <link rel="canonical" href="${BASE}/facts.html" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <meta name="theme-color" content="#3254ff" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="리츠 팩트시트 — 상장리츠 25개 핵심 데이터" />
-<meta property="og:description" content="LTV·임대율·WALE·고정금리비중·신용등급을 한 표로 정렬·비교(교육용)." />
+<meta property="og:description" content="LTV·임대율·WALE·고정금리비중·신용등급을 한 표로 정렬·비교·분포 시각화(교육용)." />
 <meta property="og:url" content="${BASE}/facts.html" />
 <meta property="og:image" content="${BASE}/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <style>
 :root{--brand:#3254ff;--bg:#f5f7fb;--surface:#fff;--text:#172033;--muted:#5a647b;--line:#e5e9f2;--soft:#eef1f7;--tint:#edf1ff;--good:#0c9b69;--goodb:#e4f5ec;--warn:#b7791f;--warnb:#fbf0d8;--bad:#c4392f;--badb:#fbe4e1}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1626;--surface:#161f33;--text:#e8edf7;--muted:#9aa6bf;--line:#283450;--soft:#1d2740;--tint:#1b2740;--goodb:#103226;--warnb:#322611;--badb:#341a17}}
+:root[data-theme="dark"]{--bg:#0f1626;--surface:#161f33;--text:#e8edf7;--muted:#9aa6bf;--line:#283450;--soft:#1d2740;--tint:#1b2740;--good:#3ddc97;--goodb:#103226;--warn:#e0b765;--warnb:#322611;--bad:#f08a80;--badb:#341a17}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1626;--surface:#161f33;--text:#e8edf7;--muted:#9aa6bf;--line:#283450;--soft:#1d2740;--tint:#1b2740;--good:#3ddc97;--goodb:#103226;--warn:#e0b765;--warnb:#322611;--bad:#f08a80;--badb:#341a17}}
 *{box-sizing:border-box}body{margin:0;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-text-size-adjust:100%}
 a{color:inherit}
-.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 70px}
+.wrap{max-width:1240px;margin:0 auto;padding:18px 16px 90px}
 .top{display:flex;align-items:center;gap:12px;padding:12px 0;flex-wrap:wrap}
 .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#3254ff,#00a78e);color:#fff;font-weight:900;display:grid;place-items:center;text-decoration:none}
 .brand{color:var(--text);text-decoration:none;font-weight:800}
-.top nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.top nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .top nav a{font-size:13px;font-weight:700;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
 .top nav a.cur{color:#fff;background:var(--brand);border-color:var(--brand)}
+.dk{font-size:15px;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:999px;width:34px;height:34px;line-height:1}
 .eyebrow{display:inline-block;font-size:12px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:5px 12px}
 h1{font-size:26px;letter-spacing:-.6px;margin:14px 0 6px}
-.lead{color:var(--muted);margin:0 0 16px;font-size:14.5px;max-width:760px}
-.fs-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:16px 0 18px}
+.lead{color:var(--muted);margin:0 0 12px;font-size:14.5px;max-width:820px}
+.fresh{font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:0 0 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fresh b{color:var(--text)}
+.fs-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:14px 0 16px}
 .fs-stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .fs-sv{font-size:22px;font-weight:900;letter-spacing:-.5px}.fs-sv .u{font-size:13px;font-weight:700;color:var(--muted);margin-left:1px}
 .fs-sl{font-size:12.5px;font-weight:700;margin-top:2px}.fs-ss{font-size:11px;color:var(--muted);margin-top:1px}
 .hd{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin:0 2px 0 6px}
 .hd:first-child{margin-left:0}.hd.ok{background:var(--good)}.hd.warn{background:#e0a33b}.hd.risk{background:#e0544b}
-.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-.controls input{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);font-size:14px}
-.fchips,.hchips{display:flex;gap:6px;flex-wrap:wrap}
+.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.toolbar input{flex:1;min-width:190px;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);font-size:14px}
+.tbtn{padding:8px 13px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.tbtn.on{color:#fff;background:var(--brand);border-color:var(--brand)}
+.tbtn:hover{border-color:var(--brand)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{padding:8px 12px;border:0;background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer}
+.seg button.on{background:var(--brand);color:#fff}
+.fchips,.hchips,.pchips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.pchips .pchip{padding:6px 11px;border-radius:999px;border:1px dashed var(--line);background:var(--surface);color:var(--muted);font-size:12px;font-weight:700;cursor:pointer}
+.pchips .pchip.on{color:#fff;background:var(--good);border-color:var(--good);border-style:solid}
 .fchip,.hchip{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer}
 .fchip.on,.hchip.on{color:#fff;background:var(--brand);border-color:var(--brand)}
 .hchip .hd{margin:0 5px 0 0}
+.count{font-size:12.5px;color:var(--muted);font-weight:700;margin:2px 0 8px}.count b{color:var(--text)}
+.colmenu{position:relative;display:inline-block}
+.colpop{position:absolute;right:0;top:38px;z-index:20;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:0 12px 30px rgba(0,0,0,.16);min-width:170px}
+.colpop label{display:flex;align-items:center;gap:7px;font-size:13px;padding:4px 0;cursor:pointer}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:14px}
+.panel h3{margin:0 0 4px;font-size:15px}.panel .pcap{font-size:12px;color:var(--muted);margin:0 0 10px}
 .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--surface);-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;width:100%;min-width:980px;font-size:13.5px}
-thead th{position:sticky;top:0;background:var(--soft);z-index:2;text-align:right;padding:11px 12px;font-size:12px;font-weight:800;color:var(--muted);white-space:nowrap;border-bottom:1px solid var(--line)}
-thead th:first-child,thead th:nth-child(2),thead th:nth-child(3),thead th:last-child{text-align:left}
+table{border-collapse:collapse;width:100%;min-width:1040px;font-size:13.5px}
+thead th{position:sticky;top:0;background:var(--soft);z-index:2;text-align:right;padding:10px 12px;font-size:12px;font-weight:800;color:var(--muted);white-space:nowrap;border-bottom:1px solid var(--line)}
+thead th[data-col="name"],thead th[data-col="type"],thead th[data-col="health"],thead th[data-col="tenant"]{text-align:left}
 th.sortable{cursor:pointer;user-select:none}th.sortable:hover{color:var(--text)}
+th .cov{display:block;font-size:9.5px;font-weight:700;color:var(--muted);opacity:.7;margin-top:1px}
 th .ar{display:inline-block;width:0;height:0;margin-left:4px;vertical-align:middle;opacity:.4}
 th.asc .ar{border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:5px solid currentColor;opacity:1}
 th.desc .ar{border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid currentColor;opacity:1}
-tbody td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+tbody td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;position:relative}
 tbody tr:last-child td{border-bottom:0}
 tbody tr:hover{background:var(--tint)}
-.namec{text-align:left;position:sticky;left:0;background:var(--surface);z-index:1}
-tbody tr:hover .namec{background:var(--tint)}
+tbody tr.pinned{background:var(--tint)}
+.namec{text-align:left;position:sticky;left:0;background:var(--surface);z-index:1;display:flex;align-items:center;gap:8px}
+tbody tr:hover .namec,tbody tr.pinned .namec{background:var(--tint)}
 .namec a{text-decoration:none;display:flex;flex-direction:column;line-height:1.25}
 .namec b{font-weight:800}.namec .tk{font-size:11px;color:var(--muted);font-weight:600}
+.nc-tools{display:flex;flex-direction:column;gap:3px;align-items:center}
+.pin{width:18px;height:18px;border:0;background:none;cursor:pointer;font-size:13px;line-height:1;color:var(--muted);opacity:.5;padding:0}
+.pin.on{opacity:1;color:#e0a33b}
+.csel{display:flex}.csel input{cursor:pointer}
 .typb{display:inline-block;font-size:11.5px;font-weight:700;color:var(--muted);background:var(--soft);border-radius:999px;padding:3px 9px}
-td:nth-child(2),td.divc,.tenc{text-align:left}
+td[data-col="type"],td.divc,.tenc{text-align:left}
 .divc{font-size:12.5px;font-weight:700}.divc .muted{font-weight:600}
-.tenc{max-width:230px;overflow:hidden;text-overflow:ellipsis;font-size:12.5px;color:var(--muted)}
+.tenc{max-width:240px;overflow:hidden;text-overflow:ellipsis;font-size:12.5px;color:var(--muted)}
 .numc{font-variant-numeric:tabular-nums;font-weight:700}
+.numc .cbar{position:absolute;left:0;bottom:0;height:3px;background:var(--brand);opacity:.5;border-radius:0 2px 2px 0}
+.lvb{font-size:9.5px;font-weight:800;color:var(--good);background:var(--goodb);border-radius:4px;padding:1px 4px;margin-left:3px;vertical-align:middle}
 .na{color:var(--muted);opacity:.55;font-weight:600}
 .muted{color:var(--muted)}
 .tn-good{color:var(--good)}.tn-warn{color:var(--warn)}.tn-bad{color:var(--bad)}
 .hbadge{display:inline-flex;align-items:center;font-size:11.5px;font-weight:800;padding:3px 9px 3px 7px;border-radius:999px}
 .hbadge.ok{background:var(--goodb);color:var(--good)}.hbadge.warn{background:var(--warnb);color:var(--warn)}.hbadge.risk{background:var(--badb);color:var(--bad)}
+.rbadge{display:inline-block;font-size:10px;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:2px}
+.rbadge.high{background:var(--badb);color:var(--bad)}.rbadge.caution{background:var(--warnb);color:var(--warn)}
+tfoot td{padding:9px 12px;border-top:2px solid var(--line);font-size:12px;font-weight:800;text-align:right;color:var(--muted);background:var(--soft)}
+tfoot td.ft-lab{text-align:left}tfoot td.ft-lab span{font-weight:600;opacity:.8}
 .empty{padding:30px;text-align:center;color:var(--muted)}
-.legend{margin:14px 0 0;display:grid;gap:5px}
+.fcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.fcard{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:13px 15px;text-decoration:none}
+.fcard:hover{border-color:var(--brand)}
+.fc-h{display:flex;align-items:center;justify-content:space-between}.fc-h b{font-weight:800;font-size:15px}
+.fc-t{font-size:12px;color:var(--muted);margin:1px 0 9px}
+.fc-g{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px}
+.kv{display:flex;justify-content:space-between;font-size:12.5px}.kv i{color:var(--muted);font-style:normal}.kv b{font-weight:700}
+.sectbl{width:100%;min-width:0;font-size:13px}.sectbl th,.sectbl td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:right}.sectbl th:first-child,.sectbl td:first-child{text-align:left}
+.scsvg{width:100%;height:auto;display:block}
+.legend{margin:16px 0 0;display:grid;gap:5px}
 .lgi{font-size:12px;color:var(--muted)}.lgi b{color:var(--text);font-weight:800;margin-right:4px}
-.note{margin-top:18px;font-size:12px;color:var(--muted);line-height:1.6;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.foot{margin-top:22px;font-size:12px;color:var(--muted)}.foot a{color:var(--brand);text-decoration:none;font-weight:700}
-@media (max-width:760px){.fs-stats{grid-template-columns:repeat(2,1fr)}h1{font-size:22px}.wrap{padding:14px 12px 60px}}
+.note{margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.foot{margin-top:20px;font-size:12px;color:var(--muted)}.foot a{color:var(--brand);text-decoration:none;font-weight:700}
+.cmpbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:40;background:var(--text);color:var(--bg);border-radius:999px;padding:10px 12px 10px 18px;display:none;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:13px;font-weight:700}
+.cmpbar.show{display:flex}
+.cmpbar button{border:0;border-radius:999px;padding:7px 13px;font-weight:800;cursor:pointer;font-size:12.5px}
+.cmpbar .go{background:var(--brand);color:#fff}.cmpbar .clr{background:transparent;color:var(--bg);opacity:.8}
+.modal{position:fixed;inset:0;z-index:60;background:rgba(10,15,25,.55);display:none;align-items:center;justify-content:center;padding:16px}
+.modal.show{display:flex}
+.modal-in{background:var(--surface);border-radius:18px;max-width:760px;width:100%;max-height:86vh;overflow:auto;padding:18px}
+.modal-in h3{margin:0 0 12px;font-size:17px}
+.cmptbl{width:100%;border-collapse:collapse;font-size:13px;min-width:0}
+.cmptbl th,.cmptbl td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right}.cmptbl th:first-child,.cmptbl td:first-child{text-align:left;color:var(--muted);font-weight:700}
+.cmptbl thead th{text-align:right;font-weight:800}
+.mclose{float:right;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 11px;cursor:pointer;font-weight:800}
+@media (max-width:760px){.fs-stats{grid-template-columns:repeat(2,1fr)}h1{font-size:22px}.wrap{padding:14px 12px 90px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
     <a class="logo" href="./">R</a><a class="brand" href="./">리츠온 REITs ON</a>
-    <nav><a href="./">홈</a><a href="facts.html" class="cur">팩트시트</a></nav>
+    <nav><a href="./">홈</a><a href="facts.html" class="cur">팩트시트</a><button class="dk" id="dk" aria-label="다크 모드 전환" title="다크 모드">🌙</button></nav>
   </div>
   <span class="eyebrow">데이터 · 교육용 · 투자 권유 아님</span>
   <h1>리츠 팩트시트 — 핵심 데이터 한눈에</h1>
-  <p class="lead">국내 상장리츠 ${rows.length}개의 자산규모·LTV·임대율·WALE·고정금리비중·신용등급을 한 표에 모았습니다. 헤더를 눌러 정렬하고, 유형·건강신호·검색으로 좁혀 보세요. 모든 수치는 투자보고서·DART·KAREIT 공시 기반이며, 미확보 항목은 “—”로 둡니다.</p>
+  <p class="lead">국내 상장리츠 ${rows.length}개의 자산규모·LTV·임대율·WALE·고정금리비중·신용등급을 한 표에 모았습니다. 헤더로 정렬, 프리셋·유형·건강신호·검색으로 좁히고, 분포·유형집계·CSV로 깊게 보세요. 모든 수치는 투자보고서·DART·KAREIT 공시 기반이며, 미확보 항목은 “—”로 둡니다.</p>
+  <div class="fresh">📅 기준일 <b>${esc(asOfMin || '—')} ~ ${esc(asOfMax || '—')}</b> · 지표마다 공시 기준일이 다릅니다(셀에 마우스를 올리면 기준일·출처 표시). · 배당수익률은 기본 공시값이며 시세 연동 시 <b>실시간</b> 배지로 구분합니다.</div>
   <div class="fs-stats">${stats}</div>
-  <div class="controls">
-    <input id="q" type="search" placeholder="종목·임차인 검색 (예: SK, 오피스, 삼성)" aria-label="검색" />
-    <div class="hchips" id="hchips">
-      <button class="hchip on" data-h="">전체</button>
-      <button class="hchip" data-h="ok"><span class="hd ok"></span>안정</button>
-      <button class="hchip" data-h="warn"><span class="hd warn"></span>주의</button>
-      <button class="hchip" data-h="risk"><span class="hd risk"></span>위험</button>
-    </div>
+
+  <div class="toolbar">
+    <input id="q" type="search" placeholder="종목·임차인·유형 검색 (예: SK, 오피스, 삼성)" aria-label="검색" />
+    <div class="seg" id="viewseg"><button data-view="table" class="on">표</button><button data-view="card">카드</button></div>
+    <button class="tbtn" id="bScatter">📈 분포</button>
+    <button class="tbtn" id="bSector">Σ 유형집계</button>
+    <button class="tbtn" id="bHeat">🎨 히트맵</button>
+    <button class="tbtn" id="bBars">▏막대</button>
+    <div class="colmenu"><button class="tbtn" id="bCols">⚙ 열</button><div class="colpop" id="colpop" hidden></div></div>
+    <button class="tbtn" id="bCsv">⬇ CSV</button>
   </div>
-  <div class="fchips" id="fchips" style="margin-bottom:12px">${typeChips}</div>
-  <div class="tbl-wrap">
+  <div class="pchips" id="pchips" aria-label="스마트 프리셋"></div>
+  <div class="fchips" id="fchips">${typeChips}</div>
+  <div class="hchips" id="hchips">
+    <button class="hchip on" data-h="">전체</button>
+    <button class="hchip" data-h="ok"><span class="hd ok"></span>안정</button>
+    <button class="hchip" data-h="warn"><span class="hd warn"></span>주의</button>
+    <button class="hchip" data-h="risk"><span class="hd risk"></span>위험</button>
+  </div>
+  <div class="count" id="count"></div>
+
+  <div class="panel" id="scatter" hidden>
+    <h3>분포 — LTV × 배당수익률 <span class="muted" style="font-size:12px;font-weight:600">(버블=자산규모, 색=건강신호)</span></h3>
+    <p class="pcap">왼쪽 아래(저LTV·고배당) 영역이 일반적으로 매력 구간으로 회자되나, 지표 기준일이 서로 달라 단순 비교는 주의가 필요합니다. 점을 누르면 종목 페이지로 이동합니다.</p>
+    <div id="scbox"></div>
+  </div>
+  <div class="panel" id="sector" hidden>
+    <h3>유형별 집계</h3>
+    <p class="pcap">현재 필터 기준 · 평균은 공시 종목만 반영(미확보 제외).</p>
+    <div id="secbox"></div>
+  </div>
+
+  <div class="tbl-wrap" id="tblwrap">
     <table id="ft">
       <thead><tr>${thead}</tr></thead>
       <tbody id="ftb">${body}</tbody>
     </table>
     <div class="empty" id="empty" hidden>조건에 맞는 리츠가 없습니다.</div>
   </div>
+  <div class="fcards" id="fcards" hidden></div>
+
   <div class="legend">${legend}</div>
-  <div class="note">⚠ 본 표는 일반 투자자 교육·정보 제공용이며 <b>특정 종목의 매수·매도 추천이 아닙니다.</b> ‘건강 신호’는 LTV·고정금리·손익 등 공시수치 기반의 규칙 요약일 뿐 투자 안전성·수익성과 무관합니다. LTV·임대율 등은 종목별 기준일·산정방식이 다를 수 있으니 셀에 마우스를 올려 기준일·출처를 확인하고, 투자 전 DART·투자보고서 원문과 최신 시세를 반드시 확인하세요.</div>
+  <div class="note">⚠ 본 표는 일반 투자자 교육·정보 제공용이며 <b>특정 종목의 매수·매도 추천이 아닙니다.</b> ‘건강 신호’는 LTV·고정금리·손익 등 공시수치 기반의 규칙 요약일 뿐 투자 안전성·수익성과 무관하며, 의도적으로 종합 점수·순위를 만들지 않습니다. LTV·임대율 등은 종목별 기준일·산정방식이 다를 수 있으니 셀의 기준일·출처를 확인하고, 투자 전 DART·투자보고서 원문과 최신 시세를 반드시 확인하세요.</div>
   <div class="foot">데이터 원천: 각 리츠 투자보고서 · DART · 한국리츠협회(KAREIT) · 단일 파일 <code>data/reits.json</code>(출처·기준일 포함) · <a href="./">← 리츠온 홈으로</a></div>
 </div>
+
+<div class="cmpbar" id="cmpbar"><span id="cmptext"></span><button class="go" id="cmpgo">비교 보기</button><button class="clr" id="cmpclr">해제</button></div>
+<div class="modal" id="modal"><div class="modal-in"><button class="mclose" id="mclose">닫기</button><h3>리츠 비교</h3><div id="cmpbody"></div></div></div>
+
 <script>
+var FACTS=${dataJson};
 (function(){
+  var API='https://reits-on-api.modelter.workers.dev';
+  var byTk={};FACTS.forEach(function(r){byTk[r.t]=r;});
+  var NUM=['aum','yld','ltv','occ','wale','fixed'];
+  var COLS=[['name','종목'],['type','유형'],['health','신호'],['aum','자산규모'],['div','배당'],['yld','배당수익률'],['ltv','LTV'],['occ','임대율'],['wale','WALE'],['fixed','고정금리'],['rating','신용등급'],['tenant','주요 임차인']];
+  var ranges={};NUM.forEach(function(k){var vs=FACTS.map(function(r){return r[k];}).filter(function(v){return v!=null;});ranges[k]=vs.length?{min:Math.min.apply(null,vs),max:Math.max.apply(null,vs)}:{min:0,max:1};});
+  var PRESETS=[
+    {k:'big',l:'자산 1조+',f:function(r){return r.aum!=null&&r.aum>=10000;}},
+    {k:'lowltv',l:'저LTV ≤50%',f:function(r){return r.ltv!=null&&r.ltv<=50;}},
+    {k:'highocc',l:'고임대율 ≥95%',f:function(r){return r.occ!=null&&r.occ>=95;}},
+    {k:'longwale',l:'WALE ≥7년',f:function(r){return r.wale!=null&&r.wale>=7;}},
+    {k:'highfix',l:'고정금리 ≥60%',f:function(r){return r.fixed!=null&&r.fixed>=60;}},
+    {k:'agrade',l:'신용 A이상',f:function(r){return r.ratingRank!=null&&r.ratingRank>=14;}},
+    {k:'quarter',l:'분기배당',f:function(r){return r.freq>=4;}}
+  ];
   var tb=document.getElementById('ftb'),tbl=document.getElementById('ft'),empty=document.getElementById('empty');
-  var rows=[].slice.call(tb.querySelectorAll('tr'));
-  var state={q:'',type:'',h:'',key:'aum',dir:-1};
-  function apply(){
-    var q=state.q.toLowerCase(),shown=0;
-    rows.forEach(function(tr){
-      var name=(tr.dataset.name||'').toLowerCase(),ten=(tr.dataset.tenant||'').toLowerCase(),ty=tr.dataset.type||'';
-      var ok=(!q||name.indexOf(q)>=0||ten.indexOf(q)>=0||ty.toLowerCase().indexOf(q)>=0)
-        &&(!state.type||ty===state.type)
-        &&(!state.h||String(tr.dataset.health)===({ok:'0',warn:'1',risk:'2'})[state.h]);
-      tr.style.display=ok?'':'none';if(ok)shown++;
-    });
-    empty.hidden=shown>0;
+  var trByTk={};[].slice.call(tb.querySelectorAll('tr')).forEach(function(tr){trByTk[tr.dataset.tk]=tr;});
+  var PIN='facts_pin_v1';
+  function loadPins(){try{return JSON.parse(localStorage.getItem(PIN)||'{}')||{};}catch(e){return {};}}
+  var state={q:'',types:{},h:'',presets:{},key:'aum',dir:-1,view:'table',heat:false,bars:false,hide:{},pins:loadPins(),sel:{},live:false};
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function avg(a){return a.length?a.reduce(function(s,x){return s+x;},0)/a.length:null;}
+  function median(a){a=a.slice().sort(function(x,y){return x-y;});var n=a.length;if(!n)return null;return n%2?a[(n-1)/2]:(a[n/2-1]+a[n/2])/2;}
+  function fp(v){return v==null?'—':((v%1)?v.toFixed(1):v)+'%';}
+  function fy(v){return v==null?'—':((v%1)?v.toFixed(1):v)+'년';}
+  function fa(v){if(v==null)return '—';return v>=10000?(((v/10000)%1)?(v/10000).toFixed(1):(v/10000))+'조원':Math.round(v).toLocaleString('ko-KR')+'억원';}
+  function ff(n){return n>=12?'월':n>=4?'분기':n===2?'반기':n===1?'연1회':'연'+n;}
+  function yOf(r){return (state.live&&r.yldLive!=null)?r.yldLive:r.yld;}
+
+  function passes(r){
+    var q=state.q.toLowerCase();
+    if(q&&(r.name||'').toLowerCase().indexOf(q)<0&&(r.tenant||'').toLowerCase().indexOf(q)<0&&(r.type||'').toLowerCase().indexOf(q)<0)return false;
+    var tks=Object.keys(state.types);if(tks.length&&!state.types[r.type])return false;
+    if(state.h&&r.health!==state.h)return false;
+    var pk=Object.keys(state.presets).filter(function(k){return state.presets[k];});
+    for(var i=0;i<pk.length;i++){var p=null;for(var j=0;j<PRESETS.length;j++)if(PRESETS[j].k===pk[i])p=PRESETS[j];if(p&&!p.f(r))return false;}
+    return true;
   }
-  function sortBy(key,ty,dir){
-    var vis=rows.slice();
-    vis.sort(function(a,b){
-      var av=a.dataset[key],bv=b.dataset[key];
-      if(ty==='txt'){av=av||'';bv=bv||'';return dir*av.localeCompare(bv,'ko');}
-      var ae=av===''||av==null,be=bv===''||bv==null;
-      if(ae&&be)return 0;if(ae)return 1;if(be)return -1; // 미확보(빈값)는 항상 뒤로
-      return dir*(parseFloat(av)-parseFloat(bv));
-    });
-    vis.forEach(function(tr){tb.appendChild(tr);});
+  function sortVal(r,k){
+    if(k==='health')return ({ok:0,warn:1,risk:2})[r.health];
+    if(k==='div')return r.annual;
+    if(k==='rating')return r.ratingRank;
+    if(k==='yld')return yOf(r);
+    return r[k];
   }
-  function setSort(key,ty){
-    if(state.key===key)state.dir=-state.dir;else{state.dir=(ty==='txt')?1:-1;state.key=key;}
-    sortBy(key,ty,state.dir);
-    [].forEach.call(tbl.querySelectorAll('th.sortable'),function(th){
-      th.classList.remove('asc','desc');
-      if(th.dataset.key===key)th.classList.add(state.dir>0?'asc':'desc');
+  function cmp(a,b){
+    var pa=state.pins[a.t]?1:0,pb=state.pins[b.t]?1:0;if(pa!==pb)return pb-pa;
+    if(state.key==='name')return state.dir*a.name.localeCompare(b.name,'ko');
+    if(state.key==='type')return state.dir*a.type.localeCompare(b.type,'ko');
+    var av=sortVal(a,state.key),bv=sortVal(b,state.key);
+    var ae=av==null,be=bv==null;if(ae&&be)return 0;if(ae)return 1;if(be)return -1;
+    return state.dir*(av-bv);
+  }
+  function decor(){
+    [].slice.call(tb.querySelectorAll('tr')).forEach(function(tr){
+      NUM.forEach(function(k){
+        var td=tr.querySelector('td[data-col="'+k+'"]');if(!td)return;
+        var raw=tr.dataset[k];var v=(raw===''||raw==null)?null:parseFloat(raw);
+        var old=td.querySelector('.cbar');if(old)old.parentNode.removeChild(old);
+        td.style.background='';
+        if(v==null)return;
+        var rg=ranges[k],frac=(rg.max>rg.min)?(v-rg.min)/(rg.max-rg.min):0.5;
+        if(state.bars){var i=document.createElement('i');i.className='cbar';i.style.width=Math.max(3,frac*100)+'%';td.appendChild(i);}
+        if(state.heat){var good=(k==='ltv')?(1-frac):frac;var hue=Math.round(good*135);td.style.background='hsla('+hue+',62%,48%,0.17)';}
+      });
     });
   }
-  [].forEach.call(tbl.querySelectorAll('th.sortable'),function(th){
-    function go(){setSort(th.dataset.key,th.dataset.ty);}
-    th.addEventListener('click',go);
-    th.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
+  function footer(vis){
+    var tf=tbl.querySelector('tfoot');if(!tf){tf=document.createElement('tfoot');tbl.appendChild(tf);}
+    var cells=COLS.map(function(c){
+      var k=c[0];
+      if(k==='name')return '<td class="ft-lab" data-col="name">중앙값 <span>(범위)</span></td>';
+      if(NUM.indexOf(k)<0)return '<td data-col="'+k+'"></td>';
+      var vs=vis.map(function(r){return k==='yld'?yOf(r):r[k];}).filter(function(v){return v!=null;});
+      if(!vs.length)return '<td class="numc na" data-col="'+k+'">—</td>';
+      var f=k==='aum'?fa:k==='wale'?fy:fp;var md=median(vs),mn=Math.min.apply(null,vs),mx=Math.max.apply(null,vs);
+      return '<td class="numc" data-col="'+k+'" title="중앙값 '+f(md)+' · 평균 '+f(avg(vs))+' · 범위 '+f(mn)+'–'+f(mx)+'">'+f(md)+'</td>';
+    }).join('');
+    tf.innerHTML='<tr>'+cells+'</tr>';
+  }
+  function applyHide(){
+    COLS.forEach(function(c){
+      var k=c[0],on=!state.hide[k];
+      [].slice.call(tbl.querySelectorAll('[data-col="'+k+'"]')).forEach(function(el){el.style.display=on?'':'none';});
+    });
+  }
+  function kv(k,v){return '<span class="kv"><i>'+esc(k)+'</i><b>'+esc(v)+'</b></span>';}
+  function cards(vis){
+    var box=document.getElementById('fcards');
+    box.innerHTML=vis.map(function(r){
+      return '<a class="fcard" href="r/'+r.t+'/"><div class="fc-h"><b>'+esc(r.name)+'</b><span class="hd '+r.health+'"></span></div><div class="fc-t">'+esc(r.type)+' · '+esc(r.t)+(r.risk?' · ⚠'+esc(r.risk.label):'')+'</div><div class="fc-g">'
+        +kv('자산',fa(r.aum))+kv('배당',ff(r.freq))+kv('LTV',fp(r.ltv))+kv('임대율',fp(r.occ))+kv('WALE',fy(r.wale))+kv('고정금리',fp(r.fixed))+kv('신용',r.rating||'—')+kv('수익률',fp(yOf(r)))
+        +'</div></a>';
+    }).join('');
+  }
+  function sector(vis){
+    var box=document.getElementById('secbox');var g={};vis.forEach(function(r){(g[r.type]=g[r.type]||[]).push(r);});
+    var keys=Object.keys(g).sort(function(a,b){return a.localeCompare(b,'ko');});
+    var bodyH=keys.map(function(ty){var a=g[ty];
+      function av(k){var v=a.map(function(r){return k==='yld'?yOf(r):r[k];}).filter(function(x){return x!=null;});return v.length?avg(v):null;}
+      var sa=a.map(function(r){return r.aum;}).filter(function(x){return x!=null;}).reduce(function(s,x){return s+x;},0);
+      return '<tr><td>'+esc(ty)+'</td><td>'+a.length+'</td><td>'+fa(sa)+'</td><td>'+fp(av('ltv'))+'</td><td>'+fp(av('occ'))+'</td><td>'+fp(av('yld'))+'</td></tr>';
+    }).join('');
+    box.innerHTML='<table class="sectbl"><thead><tr><th>유형</th><th>종목</th><th>합산자산</th><th>평균LTV</th><th>평균임대율</th><th>평균수익률</th></tr></thead><tbody>'+bodyH+'</tbody></table>';
+  }
+  function scatter(vis){
+    var box=document.getElementById('scbox');
+    var pts=vis.filter(function(r){return r.ltv!=null&&yOf(r)!=null;});
+    if(pts.length<2){box.innerHTML='<p class="muted" style="padding:12px">LTV·배당수익률이 모두 공시된 종목이 부족해 분포를 표시할 수 없습니다.</p>';return;}
+    var W=640,H=380,pad=48;
+    var xs=pts.map(function(p){return p.ltv;}),ys=pts.map(function(p){return yOf(p);});
+    var xmin=Math.min.apply(null,xs)-3,xmax=Math.max.apply(null,xs)+3,ymin=Math.max(0,Math.min.apply(null,ys)-1),ymax=Math.max.apply(null,ys)+1;
+    if(xmax<=xmin)xmax=xmin+1;if(ymax<=ymin)ymax=ymin+1;
+    function X(v){return pad+(v-xmin)/(xmax-xmin)*(W-pad-16);}
+    function Y(v){return H-pad-(v-ymin)/(ymax-ymin)*(H-pad-16);}
+    var amax=Math.max.apply(null,pts.map(function(p){return p.aum||0;}))||1;
+    function R(a){return 6+Math.sqrt((a||0)/amax)*22;}
+    var col={ok:'#0c9b69',warn:'#e0a33b',risk:'#e0544b'};
+    var mx=median(xs),my=median(ys);
+    var s='<svg class="scsvg" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet" role="img" aria-label="LTV 대 배당수익률 분포">';
+    s+='<line x1="'+pad+'" y1="'+(H-pad)+'" x2="'+(W-8)+'" y2="'+(H-pad)+'" stroke="currentColor" opacity="0.25"/>';
+    s+='<line x1="'+pad+'" y1="12" x2="'+pad+'" y2="'+(H-pad)+'" stroke="currentColor" opacity="0.25"/>';
+    s+='<line x1="'+X(mx)+'" y1="12" x2="'+X(mx)+'" y2="'+(H-pad)+'" stroke="currentColor" opacity="0.12" stroke-dasharray="4 4"/>';
+    s+='<line x1="'+pad+'" y1="'+Y(my)+'" x2="'+(W-8)+'" y2="'+Y(my)+'" stroke="currentColor" opacity="0.12" stroke-dasharray="4 4"/>';
+    var i;for(i=0;i<=4;i++){var xv=xmin+(xmax-xmin)*i/4;s+='<text x="'+X(xv)+'" y="'+(H-pad+16)+'" font-size="10" fill="currentColor" opacity="0.6" text-anchor="middle">'+Math.round(xv)+'</text>';}
+    for(i=0;i<=4;i++){var yv=ymin+(ymax-ymin)*i/4;s+='<text x="'+(pad-8)+'" y="'+(Y(yv)+3)+'" font-size="10" fill="currentColor" opacity="0.6" text-anchor="end">'+yv.toFixed(1)+'</text>';}
+    s+='<text x="'+((W+pad)/2)+'" y="'+(H-8)+'" font-size="11" fill="currentColor" opacity="0.7" text-anchor="middle">LTV (%)</text>';
+    s+='<text x="14" y="14" font-size="11" fill="currentColor" opacity="0.7">배당수익률 (%)</text>';
+    pts.sort(function(a,b){return (b.aum||0)-(a.aum||0);}).forEach(function(p){
+      var cx=X(p.ltv),cy=Y(yOf(p)),r=R(p.aum);
+      s+='<a href="r/'+p.t+'/"><circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+col[p.health]+'" fill-opacity="0.55" stroke="'+col[p.health]+'" stroke-width="1.5"><title>'+esc(p.name)+' · LTV '+fp(p.ltv)+' · 수익률 '+fp(yOf(p))+' · 자산 '+fa(p.aum)+'</title></circle>';
+      if(r>=14)s+='<text x="'+cx.toFixed(1)+'" y="'+(cy+3).toFixed(1)+'" font-size="9" fill="currentColor" text-anchor="middle" pointer-events="none">'+esc(p.name.slice(0,4))+'</text>';
+      s+='</a>';
+    });
+    s+='</svg>';
+    box.innerHTML=s;
+  }
+  function cmpbar(){
+    var ks=Object.keys(state.sel);var bar=document.getElementById('cmpbar');
+    document.getElementById('cmptext').textContent=ks.length+'개 선택';
+    bar.className='cmpbar'+(ks.length>=2?' show':(ks.length===1?' show':''));
+    document.getElementById('cmpgo').disabled=ks.length<2;
+  }
+  function openCmp(){
+    var ks=Object.keys(state.sel).slice(0,4);if(ks.length<2)return;
+    var rs=ks.map(function(t){return byTk[t];});
+    var metrics=[['자산규모',function(r){return fa(r.aum);}],['배당주기',function(r){return ff(r.freq);}],['배당수익률',function(r){return fp(yOf(r));}],['LTV',function(r){return fp(r.ltv);}],['임대율',function(r){return fp(r.occ);}],['WALE',function(r){return fy(r.wale);}],['고정금리',function(r){return fp(r.fixed);}],['신용등급',function(r){return r.rating||'—';}],['건강신호',function(r){return ({ok:'안정',warn:'주의',risk:'위험'})[r.health];}],['주요임차인',function(r){return r.tenant||'—';}]];
+    var h='<table class="cmptbl"><thead><tr><th>지표</th>'+rs.map(function(r){return '<th><a href="r/'+r.t+'/" style="text-decoration:none">'+esc(r.name)+'</a></th>';}).join('')+'</tr></thead><tbody>';
+    h+=metrics.map(function(m){return '<tr><td>'+m[0]+'</td>'+rs.map(function(r){return '<td>'+esc(m[1](r))+'</td>';}).join('')+'</tr>';}).join('');
+    h+='</tbody></table>';
+    document.getElementById('cmpbody').innerHTML=h;
+    document.getElementById('modal').className='modal show';
+  }
+  function syncTools(){
+    [].slice.call(tb.querySelectorAll('tr')).forEach(function(tr){
+      var tk=tr.dataset.tk;var pin=tr.querySelector('.pin');if(pin)pin.className='pin'+(state.pins[tk]?' on':'');
+      tr.className=state.pins[tk]?'pinned':'';
+      var cb=tr.querySelector('.csel input');if(cb)cb.checked=!!state.sel[tk];
+    });
+  }
+  function render(){
+    var vis=FACTS.filter(passes);vis.sort(cmp);
+    vis.forEach(function(r){var tr=trByTk[r.t];if(tr)tb.appendChild(tr);});
+    var visSet={};vis.forEach(function(r){visSet[r.t]=1;});
+    [].slice.call(tb.querySelectorAll('tr')).forEach(function(tr){tr.style.display=visSet[tr.dataset.tk]?'':'none';});
+    empty.hidden=vis.length>0;
+    document.getElementById('count').innerHTML='<b>'+vis.length+'</b>개 표시 / 전체 '+FACTS.length+'개';
+    footer(vis);applyHide();syncTools();
+    if(!document.getElementById('scatter').hidden)scatter(vis);
+    if(!document.getElementById('sector').hidden)sector(vis);
+    if(state.view==='card')cards(vis);
+    writeUrl();
+  }
+  function setSort(key,ty){if(state.key===key)state.dir=-state.dir;else{state.dir=(key==='name'||key==='type')?1:-1;state.key=key;}
+    [].slice.call(tbl.querySelectorAll('th.sortable')).forEach(function(th){th.classList.remove('asc','desc');if(th.dataset.key===key)th.classList.add(state.dir>0?'asc':'desc');});render();}
+
+  // 프리셋 칩
+  document.getElementById('pchips').innerHTML=PRESETS.map(function(p){return '<button class="pchip" data-p="'+p.k+'">'+esc(p.l)+'</button>';}).join('');
+  // 열 메뉴
+  document.getElementById('colpop').innerHTML=COLS.filter(function(c){return c[0]!=='name';}).map(function(c){return '<label><input type="checkbox" data-c="'+c[0]+'" checked> '+esc(c[1])+'</label>';}).join('');
+
+  // 이벤트
+  [].slice.call(tbl.querySelectorAll('th.sortable')).forEach(function(th){function go(){setSort(th.dataset.key,th.dataset.ty);}th.addEventListener('click',go);th.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});});
+  document.getElementById('q').addEventListener('input',function(e){state.q=e.target.value;render();});
+  document.getElementById('fchips').addEventListener('click',function(e){var b=e.target.closest('.fchip');if(!b)return;var t=b.dataset.type;
+    if(t===''){state.types={};}else{if(state.types[t])delete state.types[t];else state.types[t]=true;}
+    var all=Object.keys(state.types).length===0;
+    [].slice.call(this.children).forEach(function(c){var ct=c.dataset.type;c.classList.toggle('on',ct===''?all:!!state.types[ct]);});render();});
+  document.getElementById('hchips').addEventListener('click',function(e){var b=e.target.closest('.hchip');if(!b)return;state.h=b.dataset.h;[].slice.call(this.children).forEach(function(c){c.classList.toggle('on',c===b);});render();});
+  document.getElementById('pchips').addEventListener('click',function(e){var b=e.target.closest('.pchip');if(!b)return;var k=b.dataset.p;if(state.presets[k])delete state.presets[k];else state.presets[k]=true;b.classList.toggle('on',!!state.presets[k]);render();});
+  document.getElementById('viewseg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;state.view=b.dataset.view;[].slice.call(this.children).forEach(function(c){c.classList.toggle('on',c===b);});
+    document.getElementById('tblwrap').hidden=state.view!=='table';document.getElementById('fcards').hidden=state.view!=='card';render();});
+  function toggleBtn(id,prop,after){document.getElementById(id).addEventListener('click',function(){state[prop]=!state[prop];this.classList.toggle('on',state[prop]);if(after)after();});}
+  toggleBtn('bHeat','heat',decor);toggleBtn('bBars','bars',decor);
+  document.getElementById('bScatter').addEventListener('click',function(){var p=document.getElementById('scatter');p.hidden=!p.hidden;this.classList.toggle('on',!p.hidden);if(!p.hidden)scatter(FACTS.filter(passes).sort(cmp));});
+  document.getElementById('bSector').addEventListener('click',function(){var p=document.getElementById('sector');p.hidden=!p.hidden;this.classList.toggle('on',!p.hidden);if(!p.hidden)sector(FACTS.filter(passes));});
+  document.getElementById('bCols').addEventListener('click',function(e){e.stopPropagation();var p=document.getElementById('colpop');p.hidden=!p.hidden;});
+  document.addEventListener('click',function(){document.getElementById('colpop').hidden=true;});
+  document.getElementById('colpop').addEventListener('click',function(e){e.stopPropagation();var cb=e.target.closest('input');if(!cb)return;var k=cb.dataset.c;if(cb.checked)delete state.hide[k];else state.hide[k]=true;applyHide();writeUrl();});
+  document.getElementById('bCsv').addEventListener('click',function(){
+    var vis=FACTS.filter(passes).sort(cmp);var vc=COLS.filter(function(c){return !state.hide[c[0]];});
+    var lines=[vc.map(function(c){return c[1];}).join(',')];
+    vis.forEach(function(r){lines.push(vc.map(function(c){return csvVal(r,c[0]);}).join(','));});
+    var blob=new Blob(['\\ufeff'+lines.join('\\n')],{type:'text/csv;charset=utf-8'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='reits-facts.csv';document.body.appendChild(a);a.click();a.parentNode.removeChild(a);
   });
-  document.getElementById('q').addEventListener('input',function(e){state.q=e.target.value;apply();});
-  document.getElementById('fchips').addEventListener('click',function(e){
-    var b=e.target.closest('.fchip');if(!b)return;state.type=b.dataset.type;
-    [].forEach.call(this.children,function(c){c.classList.toggle('on',c===b);});apply();
+  function csvVal(r,k){var v;
+    if(k==='name')v=r.name+' ('+r.t+')';else if(k==='type')v=r.type;else if(k==='health')v=({ok:'안정',warn:'주의',risk:'위험'})[r.health];
+    else if(k==='div')v=ff(r.freq)+(r.annual?(' 추정'+Math.round(r.annual)+'원'):'');else if(k==='yld')v=yOf(r)==null?'':yOf(r);
+    else if(k==='rating')v=r.rating||'';else if(k==='tenant')v=r.tenant||'';else v=r[k]==null?'':r[k];
+    v=String(v);if(/[",\\n]/.test(v))v='"'+v.replace(/"/g,'""')+'"';return v;}
+
+  // 행 도구(핀·선택) 주입
+  [].slice.call(tb.querySelectorAll('tr')).forEach(function(tr){
+    var nc=tr.querySelector('.namec');if(!nc)return;var tk=tr.dataset.tk;
+    var tools=document.createElement('div');tools.className='nc-tools';
+    tools.innerHTML='<button class="pin" title="상단 고정" aria-label="상단 고정">★</button><label class="csel" title="비교 선택"><input type="checkbox" aria-label="비교 선택"></label>';
+    nc.insertBefore(tools,nc.firstChild);
+    tools.querySelector('.pin').addEventListener('click',function(ev){ev.preventDefault();if(state.pins[tk])delete state.pins[tk];else state.pins[tk]=true;try{localStorage.setItem(PIN,JSON.stringify(state.pins));}catch(e){}render();});
+    tools.querySelector('input').addEventListener('change',function(){if(this.checked)state.sel[tk]=true;else delete state.sel[tk];cmpbar();});
   });
-  document.getElementById('hchips').addEventListener('click',function(e){
-    var b=e.target.closest('.hchip');if(!b)return;state.h=b.dataset.h;
-    [].forEach.call(this.children,function(c){c.classList.toggle('on',c===b);});apply();
-  });
-  setSort('aum','num'); // 초기 정렬: 자산규모 큰 순
+  document.getElementById('cmpgo').addEventListener('click',openCmp);
+  document.getElementById('cmpclr').addEventListener('click',function(){state.sel={};syncTools();cmpbar();});
+  document.getElementById('mclose').addEventListener('click',function(){document.getElementById('modal').className='modal';});
+  document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)this.className='modal';});
+
+  // 다크 모드
+  var dk=document.getElementById('dk');
+  function applyTheme(t){if(t)document.documentElement.setAttribute('data-theme',t);else document.documentElement.removeAttribute('data-theme');dk.textContent=(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches))?'☀️':'🌙';}
+  try{applyTheme(localStorage.getItem('facts_theme'));}catch(e){}
+  dk.addEventListener('click',function(){var cur=document.documentElement.getAttribute('data-theme');var nx=cur==='dark'?'light':'dark';applyTheme(nx);try{localStorage.setItem('facts_theme',nx);}catch(e){}});
+
+  // URL 상태(공유·북마크)
+  function writeUrl(){var p=[];if(state.q)p.push('q='+encodeURIComponent(state.q));
+    var ty=Object.keys(state.types);if(ty.length)p.push('type='+encodeURIComponent(ty.join(',')));
+    if(state.h)p.push('h='+state.h);var pr=Object.keys(state.presets);if(pr.length)p.push('p='+pr.join(','));
+    if(!(state.key==='aum'&&state.dir===-1))p.push('sort='+state.key+'.'+(state.dir>0?'a':'d'));
+    if(state.view!=='table')p.push('view='+state.view);if(state.heat)p.push('heat=1');if(state.bars)p.push('bars=1');
+    var hd=Object.keys(state.hide);if(hd.length)p.push('hide='+hd.join(','));
+    var h=p.join('&');try{history.replaceState(null,'',h?('#'+h):location.pathname+location.search);}catch(e){}}
+  function readUrl(){var h=location.hash.replace(/^#/,'');if(!h)return;h.split('&').forEach(function(kv){var i=kv.indexOf('='),k=i<0?kv:kv.slice(0,i),v=i<0?'':decodeURIComponent(kv.slice(i+1));
+    if(k==='q')state.q=v;else if(k==='type'){v.split(',').forEach(function(x){if(x)state.types[x]=true;});}
+    else if(k==='h')state.h=v;else if(k==='p'){v.split(',').forEach(function(x){if(x)state.presets[x]=true;});}
+    else if(k==='sort'){var s=v.split('.');state.key=s[0];state.dir=s[1]==='a'?1:-1;}
+    else if(k==='view')state.view=v;else if(k==='heat')state.heat=true;else if(k==='bars')state.bars=true;
+    else if(k==='hide'){v.split(',').forEach(function(x){if(x)state.hide[x]=true;});}});}
+  function syncControls(){
+    document.getElementById('q').value=state.q;
+    [].slice.call(document.querySelectorAll('#fchips .fchip')).forEach(function(c){var ct=c.dataset.type;c.classList.toggle('on',ct===''?Object.keys(state.types).length===0:!!state.types[ct]);});
+    [].slice.call(document.querySelectorAll('#hchips .hchip')).forEach(function(c){c.classList.toggle('on',c.dataset.h===state.h);});
+    [].slice.call(document.querySelectorAll('#pchips .pchip')).forEach(function(c){c.classList.toggle('on',!!state.presets[c.dataset.p]);});
+    [].slice.call(document.querySelectorAll('#viewseg button')).forEach(function(c){c.classList.toggle('on',c.dataset.view===state.view);});
+    document.getElementById('tblwrap').hidden=state.view!=='table';document.getElementById('fcards').hidden=state.view!=='card';
+    document.getElementById('bHeat').classList.toggle('on',state.heat);document.getElementById('bBars').classList.toggle('on',state.bars);
+    [].slice.call(document.querySelectorAll('#colpop input')).forEach(function(cb){cb.checked=!state.hide[cb.dataset.c];});
+    [].slice.call(tbl.querySelectorAll('th.sortable')).forEach(function(th){th.classList.remove('asc','desc');if(th.dataset.key===state.key)th.classList.add(state.dir>0?'asc':'desc');});
+  }
+
+  // 라이브 배당수익률(시세 연동) — 실패 시 공시값 유지
+  function fetchLive(){if(!window.fetch)return;
+    fetch(API+'/v1/reits').then(function(r){return r.json();}).then(function(j){var list=(j&&j.reits)||[];var any=false;
+      list.forEach(function(x){var r=byTk[x.ticker];if(r&&x.yieldPriceBasis!=null){r.yldLive=x.yieldPriceBasis;any=true;}});
+      if(any){state.live=true;markLive();render();}
+    }).catch(function(){});}
+  function markLive(){[].slice.call(tb.querySelectorAll('tr')).forEach(function(tr){var r=byTk[tr.dataset.tk];if(!r||r.yldLive==null)return;
+    tr.dataset.yld=r.yldLive;var td=tr.querySelector('td[data-col="yld"] .cv');if(td)td.innerHTML=fp(r.yldLive)+' <span class="lvb">실시간</span>';});}
+
+  readUrl();syncControls();render();decor();fetchLive();
 })();
 </script>
 </body>
