@@ -72,7 +72,11 @@ a.pcn:hover{text-decoration:underline}
 .pro-bars .bar i{display:block;width:70%;max-width:34px;background:linear-gradient(180deg,#3254ff,#6f86ff);border-radius:6px 6px 0 0;min-height:8px}
 .pro-bars .bv{font-size:11px;font-weight:800}
 .pro-bars .bl{font-size:10px;color:var(--muted);text-align:center;line-height:1.2}
+.ladder-due{font-size:12.5px;font-weight:800;color:#9a6700;background:#fdf6e3;border:1px solid #f2e0a8;border-radius:8px;padding:6px 10px;margin:0 0 10px}
+.ladder-due b{font-weight:900}.ladder-due span{font-weight:600;opacity:.85}
 .pro-ladder{display:flex;flex-direction:column;gap:7px}
+.pro-ladder .lr.near .lbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
+.pro-ladder .lr.near .ly{color:#9a6700}
 .pro-ladder .lr{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:8px;font-size:12px}
 .pro-ladder .ly{color:var(--muted);font-weight:700}
 .pro-ladder .lbar{height:14px;background:var(--soft);border-radius:6px;overflow:hidden}
@@ -112,6 +116,10 @@ a.pcn:hover{text-decoration:underline}
 .pcrow .pcbar{grid-column:auto}
 .pcrow{grid-template-columns:1fr 64px 46px 46px}
 .pchead{grid-template-columns:1fr 64px 46px 46px}
+.pcbtns{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:700;margin:0 0 8px}
+.pcbtn{font-size:11.5px;font-weight:800;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:3px 10px;cursor:pointer}
+.pcbtn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.pcbarh{font-size:11px;color:var(--muted);font-weight:800}
 .rd-full{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
 .rd-full>summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--brand);list-style:none}
 .rd-full>summary::-webkit-details-marker{display:none}
@@ -254,5 +262,33 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   <p class="note">⚠ 본 페이지는 일반 투자자 교육·정보 제공용이며 <b>특정 종목의 매수·매도 추천이 아닙니다.</b> 배당금·연환산 수치는 공개자료(한국리츠협회 등) 기반의 <b>교육용 추정</b>으로 실제와 다를 수 있고, 리츠는 배당 삭감·중단 및 원금 손실이 가능합니다. 투자 전 DART·KIND·투자보고서 원문과 최신 시세를 반드시 확인하세요. 데이터 기준일은 변동될 수 있습니다.</p>
   <p class="note"><a class="more" href="../../">← 리츠온 홈으로</a></p>
 </div>
+<script>
+(function(){
+  var box=document.querySelector('.pc-wide'); if(!box) return;
+  var cont=box.querySelector('.pcbody'); if(!cont) return;
+  var btns=[].slice.call(box.querySelectorAll('.pcbtn'));
+  function render(m){
+    var rs=[].slice.call(cont.querySelectorAll('.pcrow'));
+    var vals=rs.filter(function(r){return !r.classList.contains('avg');})
+      .map(function(r){return parseFloat(r.getAttribute('data-'+m));})
+      .filter(function(v){return !isNaN(v);});
+    var max=Math.max.apply(null, vals.concat([1]));
+    rs.sort(function(a,b){
+      if(a.classList.contains('avg'))return 1; if(b.classList.contains('avg'))return -1;
+      var av=parseFloat(a.getAttribute('data-'+m)), bv=parseFloat(b.getAttribute('data-'+m));
+      return (isNaN(bv)?-1:bv)-(isNaN(av)?-1:av);
+    });
+    rs.forEach(function(r){
+      var v=parseFloat(r.getAttribute('data-'+m)); var bar=r.querySelector('.pcbar');
+      if(bar) bar.innerHTML=isNaN(v)?'':'<i style="width:'+Math.max(3, v/max*100).toFixed(1)+'%"></i>';
+      cont.appendChild(r);
+    });
+    btns.forEach(function(b){b.classList.toggle('on', b.getAttribute('data-metric')===m);});
+    var pl=box.querySelector('.pcl'), po=box.querySelector('.pco');
+    if(pl) pl.textContent='LTV'+(m==='ltv'?' ↓':''); if(po) po.textContent='임대율'+(m==='occ'?' ↓':'');
+  }
+  btns.forEach(function(b){b.addEventListener('click', function(){ render(b.getAttribute('data-metric')); });});
+})();
+</script>
 </body>
 </html>

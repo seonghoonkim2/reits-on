@@ -72,7 +72,11 @@ a.pcn:hover{text-decoration:underline}
 .pro-bars .bar i{display:block;width:70%;max-width:34px;background:linear-gradient(180deg,#3254ff,#6f86ff);border-radius:6px 6px 0 0;min-height:8px}
 .pro-bars .bv{font-size:11px;font-weight:800}
 .pro-bars .bl{font-size:10px;color:var(--muted);text-align:center;line-height:1.2}
+.ladder-due{font-size:12.5px;font-weight:800;color:#9a6700;background:#fdf6e3;border:1px solid #f2e0a8;border-radius:8px;padding:6px 10px;margin:0 0 10px}
+.ladder-due b{font-weight:900}.ladder-due span{font-weight:600;opacity:.85}
 .pro-ladder{display:flex;flex-direction:column;gap:7px}
+.pro-ladder .lr.near .lbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
+.pro-ladder .lr.near .ly{color:#9a6700}
 .pro-ladder .lr{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:8px;font-size:12px}
 .pro-ladder .ly{color:var(--muted);font-weight:700}
 .pro-ladder .lbar{height:14px;background:var(--soft);border-radius:6px;overflow:hidden}
@@ -112,6 +116,10 @@ a.pcn:hover{text-decoration:underline}
 .pcrow .pcbar{grid-column:auto}
 .pcrow{grid-template-columns:1fr 64px 46px 46px}
 .pchead{grid-template-columns:1fr 64px 46px 46px}
+.pcbtns{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:700;margin:0 0 8px}
+.pcbtn{font-size:11.5px;font-weight:800;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:3px 10px;cursor:pointer}
+.pcbtn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.pcbarh{font-size:11px;color:var(--muted);font-weight:800}
 .rd-full{margin-top:14px;border-top:1px dashed var(--line);padding-top:10px}
 .rd-full>summary{cursor:pointer;font-weight:800;font-size:14px;color:var(--brand);list-style:none}
 .rd-full>summary::-webkit-details-marker{display:none}
@@ -213,10 +221,10 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">94</span><i style="height:97.91666666666666%"></i><span class="bl">제26기</span></div><div class="bar"><span class="bv">72</span><i style="height:75%"></i><span class="bl">제27기</span></div><div class="bar"><span class="bv">94</span><i style="height:97.91666666666666%"></i><span class="bl">제28기</span></div><div class="bar"><span class="bv">96</span><i style="height:100%"></i><span class="bl">제29기</span></div></div></div></div>
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">임차인 집중도</div><div class="pro-stack" role="img" aria-label="임차인 집중도 — 하나증권㈜ 70%, 기타 30%"><i style="width:70.1%;background:#3254ff" title="하나증권㈜ 70.1%"></i><i style="width:29.9%;background:#cbd5e1" title="기타 29.9%"></i></div><div class="pro-legend"><span class="lg"><i style="background:#3254ff"></i>하나증권㈜ 70.1%</span></div></div></div>
     <div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · 오피스 (6종) · 이 종목 LTV 2위/4</div>
-    <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
-    <div class="pcrow"><a class="pcn" href="../334890/">이지스밸류플러스리츠</a><div class="pcbar" title="LTV 60.2%"><i style="width:100%"></i></div><span class="pcv">60.2%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow me"><span class="pcn">코람코더원리츠 <em>(이 종목)</em></span><div class="pcbar" title="LTV 56.78%"><i style="width:94.31893687707641%"></i></div><span class="pcv">56.78%</span><span class="pco" title="임대율 98.85%">98.85%</span></div><div class="pcrow"><a class="pcn" href="../448730/">삼성FN리츠</a><div class="pcbar" title="LTV 55.1%"><i style="width:91.5282392026578%"></i></div><span class="pcv">55.1%</span><span class="pco" title="임대율 96.7%">96.7%</span></div><div class="pcrow"><a class="pcn" href="../451800/">한화리츠</a><div class="pcbar" title="LTV 54%"><i style="width:89.70099667774086%"></i></div><span class="pcv">54%</span><span class="pco" title="임대율 98.77%">98.77%</span></div><div class="pcrow"><a class="pcn" href="../293940/">신한알파리츠</a><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 97.8%">97.8%</span></div><div class="pcrow"><a class="pcn" href="../0030R0/">대신밸류리츠</a><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 100%">100%</span></div>
-    <div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV 56.5%"><i style="width:93.85382059800665%"></i></div><span class="pcv">56.5%</span><span class="pco">98.7%</span></div>
-    <p class="pro-cap">LTV 내림차순 정렬 · 막대에 마우스를 올리면 정확한 값. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>
+    <div class="pcbtns">막대 기준 <button type="button" class="pcbtn on" data-metric="ltv">LTV</button><button type="button" class="pcbtn" data-metric="occ">임대율</button></div>
+    <div class="pchead"><span class="pcn">종목</span><span class="pcbarh">막대</span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
+    <div class="pcbody"><div class="pcrow" data-ltv="60.2" data-occ="100"><a class="pcn" href="../334890/">이지스밸류플러스리츠</a><div class="pcbar"><i style="width:100%"></i></div><span class="pcv">60.2%</span><span class="pco">100%</span></div><div class="pcrow me" data-ltv="56.78" data-occ="98.85"><span class="pcn">코람코더원리츠 <em>(이 종목)</em></span><div class="pcbar"><i style="width:94.31893687707641%"></i></div><span class="pcv">56.78%</span><span class="pco">98.85%</span></div><div class="pcrow" data-ltv="55.1" data-occ="96.7"><a class="pcn" href="../448730/">삼성FN리츠</a><div class="pcbar"><i style="width:91.5282392026578%"></i></div><span class="pcv">55.1%</span><span class="pco">96.7%</span></div><div class="pcrow" data-ltv="54" data-occ="98.77"><a class="pcn" href="../451800/">한화리츠</a><div class="pcbar"><i style="width:89.70099667774086%"></i></div><span class="pcv">54%</span><span class="pco">98.77%</span></div><div class="pcrow" data-ltv="" data-occ="97.8"><a class="pcn" href="../293940/">신한알파리츠</a><div class="pcbar"></div><span class="pcv na">–</span><span class="pco">97.8%</span></div><div class="pcrow" data-ltv="" data-occ="100"><a class="pcn" href="../0030R0/">대신밸류리츠</a><div class="pcbar"></div><span class="pcv na">–</span><span class="pco">100%</span></div><div class="pcrow avg" data-ltv="56.5" data-occ="98.7"><span class="pcn">그룹 평균</span><div class="pcbar"><i style="width:93.85382059800665%"></i></div><span class="pcv">56.5%</span><span class="pco">98.7%</span></div></div>
+    <p class="pro-cap">막대=선택 지표 기준 정렬, 두 값 컬럼은 항상 표시. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>
   </div>
 <details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>
   <div class="card rd">
@@ -264,5 +272,33 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   <p class="note">⚠ 본 페이지는 일반 투자자 교육·정보 제공용이며 <b>특정 종목의 매수·매도 추천이 아닙니다.</b> 배당금·연환산 수치는 공개자료(한국리츠협회 등) 기반의 <b>교육용 추정</b>으로 실제와 다를 수 있고, 리츠는 배당 삭감·중단 및 원금 손실이 가능합니다. 투자 전 DART·KIND·투자보고서 원문과 최신 시세를 반드시 확인하세요. 데이터 기준일은 변동될 수 있습니다.</p>
   <p class="note"><a class="more" href="../../">← 리츠온 홈으로</a></p>
 </div>
+<script>
+(function(){
+  var box=document.querySelector('.pc-wide'); if(!box) return;
+  var cont=box.querySelector('.pcbody'); if(!cont) return;
+  var btns=[].slice.call(box.querySelectorAll('.pcbtn'));
+  function render(m){
+    var rs=[].slice.call(cont.querySelectorAll('.pcrow'));
+    var vals=rs.filter(function(r){return !r.classList.contains('avg');})
+      .map(function(r){return parseFloat(r.getAttribute('data-'+m));})
+      .filter(function(v){return !isNaN(v);});
+    var max=Math.max.apply(null, vals.concat([1]));
+    rs.sort(function(a,b){
+      if(a.classList.contains('avg'))return 1; if(b.classList.contains('avg'))return -1;
+      var av=parseFloat(a.getAttribute('data-'+m)), bv=parseFloat(b.getAttribute('data-'+m));
+      return (isNaN(bv)?-1:bv)-(isNaN(av)?-1:av);
+    });
+    rs.forEach(function(r){
+      var v=parseFloat(r.getAttribute('data-'+m)); var bar=r.querySelector('.pcbar');
+      if(bar) bar.innerHTML=isNaN(v)?'':'<i style="width:'+Math.max(3, v/max*100).toFixed(1)+'%"></i>';
+      cont.appendChild(r);
+    });
+    btns.forEach(function(b){b.classList.toggle('on', b.getAttribute('data-metric')===m);});
+    var pl=box.querySelector('.pcl'), po=box.querySelector('.pco');
+    if(pl) pl.textContent='LTV'+(m==='ltv'?' ↓':''); if(po) po.textContent='임대율'+(m==='occ'?' ↓':'');
+  }
+  btns.forEach(function(b){b.addEventListener('click', function(){ render(b.getAttribute('data-metric')); });});
+})();
+</script>
 </body>
 </html>
