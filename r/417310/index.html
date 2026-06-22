@@ -102,6 +102,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pcrow.me .pcbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
 .pcrow .pcv,.pcrow .pco{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
 .pcrow .pcv.na{color:var(--muted)}
+.pcrow.avg{font-weight:800;border-top:2px solid var(--line);background:var(--soft);margin-top:2px;border-radius:6px}
+.pcrow.avg .pcbar{background:transparent}
+.pcrow.avg .pcbar i{background:linear-gradient(90deg,#8aa0c8,#b9c6e0)}
 .pcrow .pcbar{grid-column:auto}
 .pcrow{grid-template-columns:1fr 64px 46px 46px}
 .pchead{grid-template-columns:1fr 64px 46px 46px}
@@ -205,9 +208,10 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">94</span><i style="height:97.91666666666666%"></i><span class="bl">제26기</span></div><div class="bar"><span class="bv">72</span><i style="height:75%"></i><span class="bl">제27기</span></div><div class="bar"><span class="bv">94</span><i style="height:97.91666666666666%"></i><span class="bl">제28기</span></div><div class="bar"><span class="bv">96</span><i style="height:100%"></i><span class="bl">제29기</span></div></div></div></div>
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">임차인 집중도</div><div class="pro-stack"><i style="width:70.1%;background:#3254ff" title="하나증권㈜ 70.1%"></i><i style="width:29.9%;background:#cbd5e1" title="기타 29.9%"></i></div><div class="pro-legend"><span class="lg"><i style="background:#3254ff"></i>하나증권㈜ 70.1%</span></div></div></div>
     <div class="pro-block pc-wide"><div class="pro-h">동일 자산군 비교 · 오피스 (6종)</div>
-    <div class="pchead"><span class="pcn"></span><span></span><span class="pcl">LTV</span><span class="pco">임대율</span></div>
-    <div class="pcrow"><span class="pcn">이지스밸류플러스리츠</span><div class="pcbar"><i style="width:100%"></i></div><span class="pcv">60.2%</span><span class="pco">100%</span></div><div class="pcrow me"><span class="pcn">코람코더원리츠 <em>(이 종목)</em></span><div class="pcbar"><i style="width:94.31893687707641%"></i></div><span class="pcv">56.78%</span><span class="pco">98.85%</span></div><div class="pcrow"><span class="pcn">삼성FN리츠</span><div class="pcbar"><i style="width:91.5282392026578%"></i></div><span class="pcv">55.1%</span><span class="pco">96.7%</span></div><div class="pcrow"><span class="pcn">한화리츠</span><div class="pcbar"><i style="width:89.70099667774086%"></i></div><span class="pcv">54%</span><span class="pco">98.77%</span></div><div class="pcrow"><span class="pcn">신한알파리츠</span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco">97.8%</span></div><div class="pcrow"><span class="pcn">대신밸류리츠</span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco">100%</span></div>
-    <p class="pro-cap">공시·실측 기준 비교(정의·기준일 상이 가능). 임대율은 일부 단일자산 기준.</p></div>
+    <div class="pchead"><span class="pcn">종목</span><span></span><span class="pcl">LTV ↓</span><span class="pco">임대율</span></div>
+    <div class="pcrow"><span class="pcn">이지스밸류플러스리츠</span><div class="pcbar" title="LTV 60.2%"><i style="width:100%"></i></div><span class="pcv">60.2%</span><span class="pco" title="임대율 100%">100%</span></div><div class="pcrow me"><span class="pcn">코람코더원리츠 <em>(이 종목)</em></span><div class="pcbar" title="LTV 56.78%"><i style="width:94.31893687707641%"></i></div><span class="pcv">56.78%</span><span class="pco" title="임대율 98.85%">98.85%</span></div><div class="pcrow"><span class="pcn">삼성FN리츠</span><div class="pcbar" title="LTV 55.1%"><i style="width:91.5282392026578%"></i></div><span class="pcv">55.1%</span><span class="pco" title="임대율 96.7%">96.7%</span></div><div class="pcrow"><span class="pcn">한화리츠</span><div class="pcbar" title="LTV 54%"><i style="width:89.70099667774086%"></i></div><span class="pcv">54%</span><span class="pco" title="임대율 98.77%">98.77%</span></div><div class="pcrow"><span class="pcn">신한알파리츠</span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 97.8%">97.8%</span></div><div class="pcrow"><span class="pcn">대신밸류리츠</span><div class="pcbar"></div><span class="pcv na">–</span><span class="pco" title="임대율 100%">100%</span></div>
+    <div class="pcrow avg"><span class="pcn">그룹 평균</span><div class="pcbar avgbar" title="평균 LTV 56.5%"><i style="width:93.85382059800665%"></i></div><span class="pcv">56.5%</span><span class="pco">98.7%</span></div>
+    <p class="pro-cap">LTV 내림차순 정렬 · 막대에 마우스를 올리면 정확한 값. 정의·기준일 상이 가능, 임대율은 일부 단일자산 기준.</p></div>
   </div>
 <details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>
   <div class="card rd">

@@ -102,6 +102,9 @@ ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
 .pcrow.me .pcbar i{background:linear-gradient(90deg,#e0892b,#f0b24b)}
 .pcrow .pcv,.pcrow .pco{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
 .pcrow .pcv.na{color:var(--muted)}
+.pcrow.avg{font-weight:800;border-top:2px solid var(--line);background:var(--soft);margin-top:2px;border-radius:6px}
+.pcrow.avg .pcbar{background:transparent}
+.pcrow.avg .pcbar i{background:linear-gradient(90deg,#8aa0c8,#b9c6e0)}
 .pcrow .pcbar{grid-column:auto}
 .pcrow{grid-template-columns:1fr 64px 46px 46px}
 .pchead{grid-template-columns:1fr 64px 46px 46px}
@@ -203,7 +206,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <div class="pro-kpis"><div class="pro-kpi"><div class="pk-k">최근 주당배당</div><div class="pk-v">0원(무배당)</div></div><div class="pro-kpi"><div class="pk-k">신용등급</div><div class="pk-v">미공시</div></div></div>
     
     <div class="pro-grid2"><div class="pro-block"><div class="pro-h">배당 추이 (주당, 원)</div><div class="pro-bars"><div class="bar"><span class="bv">0</span><i style="height:8%"></i><span class="bl">제14기</span></div><div class="bar"><span class="bv">0</span><i style="height:8%"></i><span class="bl">제15기</span></div><div class="bar"><span class="bv">0</span><i style="height:8%"></i><span class="bl">제16기</span></div></div></div></div>
-    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (3개)</div><div class="pro-stack"><i style="width:66.7%;background:#ec4899" title="주거 2"></i><i style="width:33.3%;background:#94a3b8" title="기타 1"></i></div><div class="pro-legend"><span class="lg"><i style="background:#ec4899"></i>주거 2</span><span class="lg"><i style="background:#94a3b8"></i>기타 1</span></div></div></div>
+    <div class="pro-grid2"><div class="pro-block"><div class="pro-h">자산군 구성 (3개 · 개수 기준)</div><div class="pro-stack"><i style="width:66.7%;background:#ec4899" title="주거 2개 (67%)"></i><i style="width:33.3%;background:#94a3b8" title="기타 1개 (33%)"></i></div><div class="pro-legend"><span class="lg"><i style="background:#ec4899"></i>주거 67%</span><span class="lg"><i style="background:#94a3b8"></i>기타 33%</span></div></div></div>
     
   </div>
 <details class="rd-full"><summary>📄 투자보고서 전체 상세 펼치기</summary>
