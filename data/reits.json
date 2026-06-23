@@ -314,7 +314,12 @@
       },
       "market": {
         "annualDpsEst": 292,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3775,
+        "changePct": -3.58,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/0030R0.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -639,7 +644,12 @@
       },
       "market": {
         "annualDpsEst": 254,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 863,
+        "changePct": -0.12,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/481850.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -1039,7 +1049,12 @@
       },
       "market": {
         "annualDpsEst": 276,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 5180,
+        "changePct": -4.6,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/448730.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -1616,7 +1631,12 @@
       },
       "market": {
         "annualDpsEst": 270,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 4705,
+        "changePct": -3.78,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/451800.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -2068,7 +2088,12 @@
       },
       "market": {
         "annualDpsEst": 340,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 1298,
+        "changePct": -2.48,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/432320.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -2447,7 +2472,12 @@
       },
       "market": {
         "annualDpsEst": 192,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 581,
+        "changePct": -8.36,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/357430.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -2829,7 +2859,12 @@
       },
       "market": {
         "annualDpsEst": 376,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 9790,
+        "changePct": -2.3,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/417310.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -3249,7 +3284,12 @@
       },
       "market": {
         "annualDpsEst": 260,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3815,
+        "changePct": -5.92,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/404990.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -3617,7 +3657,12 @@
       },
       "market": {
         "annualDpsEst": 270,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 1480,
+        "changePct": -0.67,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/396690.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -4055,7 +4100,12 @@
       },
       "market": {
         "annualDpsEst": 340,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3040,
+        "changePct": -0.16,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/400760.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -4629,7 +4679,12 @@
       },
       "market": {
         "annualDpsEst": 264,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 5630,
+        "changePct": -6.01,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/395400.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -5090,7 +5145,12 @@
       },
       "market": {
         "annualDpsEst": 240,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 2020,
+        "changePct": -3.81,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/377190.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -5647,7 +5707,12 @@
       },
       "market": {
         "annualDpsEst": 278,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3445,
+        "changePct": -6.39,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/365550.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -6066,7 +6131,12 @@
       },
       "market": {
         "annualDpsEst": 328,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 4000,
+        "changePct": -2.32,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/357120.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -6479,7 +6549,12 @@
       },
       "market": {
         "annualDpsEst": 230,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 1182,
+        "changePct": 0,
+        "priceAsOf": "2026-04-27",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/348950.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -6868,7 +6943,12 @@
       },
       "market": {
         "annualDpsEst": 224,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 1793,
+        "changePct": -1.16,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/357250.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -7315,7 +7395,12 @@
       },
       "market": {
         "annualDpsEst": 300,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3395,
+        "changePct": -1.02,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/350520.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -7759,7 +7844,12 @@
       },
       "market": {
         "annualDpsEst": 344,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3290,
+        "changePct": -4.78,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/334890.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -8097,7 +8187,12 @@
       },
       "market": {
         "annualDpsEst": 1250,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3635,
+        "changePct": -1.36,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/338100.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -8684,7 +8779,12 @@
       },
       "market": {
         "annualDpsEst": 234,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3520,
+        "changePct": -4.74,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/330590.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -9262,7 +9362,12 @@
       },
       "market": {
         "annualDpsEst": 358,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 5080,
+        "changePct": -3.97,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/293940.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -9651,7 +9756,12 @@
       },
       "market": {
         "annualDpsEst": 348,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 3380,
+        "changePct": -5.72,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/088260.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -10104,7 +10214,12 @@
       },
       "market": {
         "annualDpsEst": 68,
-        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "price": 746,
+        "changePct": -1.71,
+        "priceAsOf": "2026-06-23",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/145270.KS",
+        "priceSourceId": "yahoo-finance",
         "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
         "sourceId": "reits-on-api"
       }
@@ -10441,6 +10556,16 @@
           "⚠ 최대주주·경영진 잦은 변동(JK 인수·사명변경 추진) — 지배구조 불안정."
         ],
         "status": "actual"
+      },
+      "market": {
+        "price": 971,
+        "changePct": 0,
+        "priceAsOf": "2026-06-11",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/204210.KS",
+        "priceSourceId": "yahoo-finance",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -10788,8 +10913,18 @@
           "미분양/사업지연: 시니어레지던스 착공 전 단계로 분양·매각 불확실성·공사비 상승 위험."
         ],
         "status": "actual"
+      },
+      "market": {
+        "price": 750,
+        "changePct": 0,
+        "priceAsOf": "2026-06-09",
+        "retrievedAt": "2026-06-23T22:05:58.202Z",
+        "priceSourceUrl": "https://finance.yahoo.com/quote/140910.KS",
+        "priceSourceId": "yahoo-finance",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     }
   ],
-  "retrievedAt": "2026-06-23T06:58:10.084Z"
+  "retrievedAt": "2026-06-23T22:05:58.202Z"
 }

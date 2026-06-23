@@ -29,8 +29,8 @@ jobs:
           API_BASE: ${{ vars.API_BASE || 'https://reits-on-api.modelter.workers.dev' }}
         run: node scripts/fetch-data.mjs
         continue-on-error: true   # 외부 API 일시 장애가 일일 빌드를 막지 않도록
-      - name: Finance unit tests
-        run: node --test tests/finance.test.mjs
+      - name: Unit tests (finance + 시세 수집)
+        run: node --test tests/*.test.mjs
       - name: Validate data (provenance·도메인 규칙)
         run: node scripts/validate.mjs
       - name: Embed seed (data/*.json → index.html)

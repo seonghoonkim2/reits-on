@@ -1,0 +1,8 @@
+# Cloudflare Workers 배포 설정.  배포: cd backend && wrangler deploy
+# 기존 reits-on-api 워커를 대체/통합할지에 따라 name을 조정하세요.
+name = "reits-on-prices"
+main = "worker.mjs"
+compatibility_date = "2026-01-01"
+
+# 커스텀 도메인/라우트가 필요하면 아래를 사용하세요(예시).
+# routes = [{ pattern = "reits-on-api.modelter.workers.dev/v1/prices", zone_name = "modelter.workers.dev" }]
