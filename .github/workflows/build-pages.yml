@@ -2,7 +2,8 @@ name: Build data + REIT pages
 
 on:
   schedule:
-    - cron: '20 21 * * *'   # 매일 06:20 KST (21:20 UTC)
+    - cron: '20 21 * * *'     # 매일 06:20 KST (21:20 UTC) — 야간 집계·안전망
+    - cron: '30 7 * * 1-5'    # 평일 16:30 KST (07:30 UTC) — KRX 장 마감(15:30) 후 종가 수집
   workflow_dispatch: {}
   push:
     branches: [main]
