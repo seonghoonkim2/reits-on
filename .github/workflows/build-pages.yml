@@ -23,6 +23,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Fetch latest market data (API → data/*.json)
+        env:
+          API_BASE: ${{ vars.API_BASE || 'https://reits-on-api.modelter.workers.dev' }}
+        run: node scripts/fetch-data.mjs
+        continue-on-error: true   # 외부 API 일시 장애가 일일 빌드를 막지 않도록
       - name: Finance unit tests
         run: node --test tests/finance.test.mjs
       - name: Validate data (provenance·도메인 규칙)
@@ -41,6 +46,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "변경 없음 — 커밋 스킵"
           else
-            git commit -m "chore: 데이터 검증·임베드·종목 페이지 재생성 (CI)"
+            git commit -m "chore: 시세·데이터 자동 갱신 + 종목 페이지 재생성 (CI) [skip ci]"
             git push
           fi

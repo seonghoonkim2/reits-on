@@ -311,6 +311,12 @@
           "영업수익이 전액 사모제1호 배당금수익에 의존 — 기초자산 현금흐름 악화 시 직접 노출."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 292,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -630,6 +636,12 @@
           "이자율/차입: 약 138억 차입(고정) 차환·비용 부담."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 254,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -1024,6 +1036,12 @@
           "삼성그룹 계열·매도인·임차인 의존도 높아 특수관계자 거래 비중 큼."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 276,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -1595,6 +1613,12 @@
           "결손 누적: 당반기말 이익잉여금이 약 -198억원 결손 상태로, 감가상각비 한도 내 초과배당 구조에 의존."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 270,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -2041,6 +2065,12 @@
           "재간접·해외 비중 큼 → 환율·환헤지·해외 운용 리스크."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 340,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -2414,6 +2444,12 @@
           "유동성: 감정가 하락으로 당기 중 외화차입 일부 조기상환 발생."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 192,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -2790,6 +2826,12 @@
           "건물 노후화(1994 준공) — 향후 자본적지출(CAPEX) 부담 가능."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 376,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -3204,6 +3246,12 @@
           "전환사채(미상환 382억) 전환 시 보통주 희석(약 1,030만주) 위험."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 260,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -3566,6 +3614,12 @@
           "수익성: 연결 당기순손실(-23.6억) 및 파생 평가손 등 비현금 변동성."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 270,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -3998,6 +4052,12 @@
           "연결 순이익 규모 작고 배당성향 100% 초과(제12기 160%)로 배당 지속성 압박."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 340,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -4566,6 +4626,12 @@
           "규제: 부동산투자회사법상 배당가능이익 90%↑ 배당 등 요건 충족 의존."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 264,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -5021,6 +5087,12 @@
           "신용등급 A-(안정적), 하향 시 조달비용 상승·차환 여건 악화 가능."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 240,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -5572,6 +5644,12 @@
           "담보: 대부분 차입금에 자산·보증금 담보 제공으로 처분·운용 제약 가능."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 278,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -5985,6 +6063,12 @@
           "이익잉여금 결손(약 -168억) 상태로 초과배당 구조 의존."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 328,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -6392,6 +6476,12 @@
           "환율·해외자산: 자산(벨기에·미국)·차입(EUR)이 외화표시로 환율 노출, 대주단 감정평가 적정성 분쟁 소송 중."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 230,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -6775,6 +6865,12 @@
           "간접투자(강남KG·마제스타) 기초자산 가치·배당 변동 위험."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 224,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -7216,6 +7312,12 @@
           "분배 안정성: 반기 배당성향·초과배당 구조에 따른 재원 관리 필요."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 300,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -7654,6 +7756,12 @@
           "북미DC NAV 0 계상으로 해외자산 가치회복 불확실·추가 증자 희석 가능."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 344,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -7986,6 +8094,12 @@
           "오피스 집중에 따른 분산 부족."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 1250,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -8567,6 +8681,12 @@
           "부동산 평가위험: 공정가치가 임대료 인상률·공실률·할인율 가정에 민감."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 234,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -9139,6 +9259,12 @@
           "임차인 집중: 일부 자산이 단일 앵커 임차인(LS네트웍스·GS건설 등) 의존."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 358,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -9522,6 +9648,12 @@
           "수도권 5개 점포 집중, 자산 분산 부족."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 348,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -9969,6 +10101,12 @@
           "주당배당 95→68→50원 추세적 감소, 배당성향 축소."
         ],
         "status": "actual"
+      },
+      "market": {
+        "annualDpsEst": 68,
+        "retrievedAt": "2026-06-23T06:58:10.084Z",
+        "sourceUrl": "https://reits-on-api.modelter.workers.dev/v1/reits",
+        "sourceId": "reits-on-api"
       }
     },
     {
@@ -10652,5 +10790,6 @@
         "status": "actual"
       }
     }
-  ]
+  ],
+  "retrievedAt": "2026-06-23T06:58:10.084Z"
 }

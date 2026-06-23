@@ -33,15 +33,24 @@ function healthLevel(r) {
   return lv;
 }
 
-const flatReit = (r) => ({
-  name: r.name, ticker: r.ticker, sector: r.sector, primary: r.primary,
-  divMonths: r.divMonths,
-  recentDiv: r.recentDiv && typeof r.recentDiv === 'object' ? r.recentDiv.value : (r.recentDiv ?? null),
-  assetText: r.assetText, assetBn: r.assetBn,
-  homepage: r.homepage, note: r.note, difficulty: r.difficulty, tags: r.tags,
-  risk: r.risk ?? null,
-  health: healthLevel(r),
-});
+const flatReit = (r) => {
+  const mkt = r.market || {};
+  return {
+    name: r.name, ticker: r.ticker, sector: r.sector, primary: r.primary,
+    divMonths: r.divMonths,
+    recentDiv: r.recentDiv && typeof r.recentDiv === 'object' ? r.recentDiv.value : (r.recentDiv ?? null),
+    assetText: r.assetText, assetBn: r.assetBn,
+    homepage: r.homepage, note: r.note, difficulty: r.difficulty, tags: r.tags,
+    risk: r.risk ?? null,
+    health: healthLevel(r),
+    // 일일 자동 갱신 시세 스냅샷(빌드 시점) — 런타임 hydrateFromApi가 최신값으로 다시 덮어씀
+    price: mkt.price ?? null,
+    changePct: mkt.changePct ?? null,
+    priceAsOf: mkt.priceAsOf ?? null,
+    yieldPriceBasis: mkt.yieldPriceBasis ?? null,
+    annualDpsEst: mkt.annualDpsEst ?? null,
+  };
+};
 
 const { retrievedAt, sourceUrl, sourceId, ...market } = marketDoc; // 임베드엔 출처 메타 제외(기존 형태 유지)
 
