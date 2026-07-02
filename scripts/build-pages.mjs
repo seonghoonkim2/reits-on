@@ -518,6 +518,14 @@ function page(r) {
   const desc = `${r.name}: ${r.primary} 상장리츠. 배당기준월 ${r.divMonths.map(x=>x+'월').join('·')}, ${freqLabel(r.divMonths.length)}` + (annual ? `, 연환산 추정 배당 약 ${fmt(annual)}원/주.` : '.') + ' 배당월·자산·확인 포인트를 한눈에. (교육용 정보, 투자 권유 아님)';
   const monthCells = MONTHS.map((lab,i)=>`<span class="mc${r.divMonths.includes(i+1)?' on':''}">${i+1}</span>`).join('');
   const naverUrl = naver(r.ticker);
+  // 일일 자동 수집된 최근 종가(빌드 시점 스냅샷). 상승=빨강·하락=파랑(국내 관행).
+  const priceLine = (r.price != null) ? (() => {
+    const cp = r.changePct;
+    const col = cp > 0 ? '#d1453b' : cp < 0 ? '#1f6feb' : 'var(--muted)';
+    const chg = (cp != null) ? ` <span style="color:${col};font-weight:800">${cp > 0 ? '+' : ''}${cp}%</span>` : '';
+    const asof = r.priceAsOf ? ` · ${esc(r.priceAsOf)} 종가` : '';
+    return `<div class="sub" style="margin-top:8px">현재가 <b style="color:var(--text);font-size:16px">${fmt(r.price)}원</b>${chg}<span> (실시간 아님${asof})</span></div>`;
+  })() : '';
   const ld = {
     '@context':'https://schema.org','@type':'WebPage', name:title, url, inLanguage:'ko',
     description: desc,
@@ -726,6 +734,7 @@ ${riskBanner(r)}
     ${annual ? `<div class="sub">월 환산 약 ${fmt(Math.round(annual/12))}원/주 · 최근배당금 ${fmt(r.recentDiv)}원(1회)×${r.divMonths.length}회 단순 추정</div>` : ''}
     <div class="months" role="img" aria-label="배당기준월 ${r.divMonths.map(x=>x+'월').join(', ')}">${monthCells}</div>
     <div class="sub" style="margin-top:8px">${esc(freqLabel(r.divMonths.length))} · 배당기준월 ${r.divMonths.map(x=>x+'월').join('·')}</div>
+    ${priceLine}
   </div>
 
   <div class="card">
