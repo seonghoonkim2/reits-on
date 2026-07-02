@@ -4,7 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { dividendDisplay, week52Position } from '../assets/js/reit-metrics.mjs';
+import { dividendDisplay, week52Position, navDisplay } from '../assets/js/reit-metrics.mjs';
 import { sparklineSvg } from './lib/price-display.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -539,6 +539,12 @@ function metricsBlock(r) {
     }
   }
 
+  // P/NAV(장부 순자산 기준)
+  const nv = navDisplay(r.navPerShare, r.price);
+  const navRow = nv
+    ? `<div class="mx-row"><span class="mx-k">P/NAV<br><span class="mx-sub">장부 순자산 기준</span></span><span class="mx-v"><b>${nv.pnav}배</b> <span class="mx-badge ${nv.premium ? 'muted' : 'ok'}">${nv.premium ? '할증 ' + Math.abs(nv.discountPct) + '%' : '할인 ' + nv.discountPct + '%'}</span> <span class="mx-note">주당 순자산 ${fmt(r.navPerShare)}원</span><div class="mx-cav">감정 공정가치는 장부보다 큰 경우가 많아 실제 할인폭은 더 클 수 있어요.</div></span></div>`
+    : '';
+
   // 52주 범위 + 위치 바
   const p52 = week52Position(r.price, r.week52Low, r.week52High);
   const w52Row = p52
@@ -549,8 +555,8 @@ function metricsBlock(r) {
   const spark = sparklineSvg(PRICE_HISTORY[r.ticker], { w: 260, h: 46 });
   const sparkRow = spark ? `<div class="mx-spark">${spark}<span class="mx-note">최근 1년 주가</span></div>` : '';
 
-  if (!priceRow && !ttmRow && !w52Row) return '';
-  return `<div class="mx">${priceRow}${ttmRow}${w52Row}${sparkRow}</div>`;
+  if (!priceRow && !ttmRow && !w52Row && !navRow) return '';
+  return `<div class="mx">${priceRow}${ttmRow}${navRow}${w52Row}${sparkRow}</div>`;
 }
 
 function page(r) {

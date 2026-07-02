@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { computeTtmDps } from './lib/ttm-dividend.mjs';
+import { navTotalWon, sharesOutstanding } from './lib/nav.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const reitsDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8'));
@@ -37,6 +38,8 @@ function healthLevel(r) {
 const flatReit = (r) => {
   const mkt = r.market || {};
   const ttm = computeTtmDps(r);   // 공시 배당 이력 기반 최근 12개월 실배당(추정 아님)
+  const nav = navTotalWon(r), sh = sharesOutstanding(r);   // 장부 순자산·발행주식수
+  const navPerShare = (nav && sh) ? Math.round(nav / sh) : null;
   return {
     name: r.name, ticker: r.ticker, sector: r.sector, primary: r.primary,
     divMonths: r.divMonths,
@@ -59,6 +62,8 @@ const flatReit = (r) => {
     ttmSpecial: ttm.hasSpecial,
     ttmApprox: ttm.approx,
     ttmPayoutOver100: ttm.payoutOver100,
+    // P/NAV용 장부 주당순자산(가격 무관·런타임에서 현재가로 배율 계산). 산정 불가면 null.
+    navPerShare,
   };
 };
 

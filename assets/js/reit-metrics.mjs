@@ -45,6 +45,15 @@ export function dividendDisplay(f, price) {
   };
 }
 
+// P/NAV 표시(런타임): 주당 장부 순자산(navPerShare)과 현재가로 배율·할인율 계산.
+// null 또는 { pnav, discountPct, premium } (discountPct +면 할인, −면 할증)
+export function navDisplay(navPerShare, price) {
+  if (!(typeof navPerShare === 'number' && navPerShare > 0 && typeof price === 'number' && price > 0)) return null;
+  const pnav = Math.round((price / navPerShare) * 100) / 100;
+  const discountPct = Math.round((1 - price / navPerShare) * 1000) / 10;
+  return { pnav, discountPct, premium: discountPct < 0 };
+}
+
 // 52주 밴드 내 현재가 위치. null 또는 { posPct, fromLowPct, offHighPct }
 //   fromLowPct: 저점 대비 상승률(%), offHighPct: 고점 대비 하락률(% below 52w high, 표준 지표)
 export function week52Position(price, low, high) {
