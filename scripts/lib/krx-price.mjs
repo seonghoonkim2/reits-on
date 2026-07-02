@@ -67,3 +67,75 @@ export async function fetchQuotes(tickers, opts = {}) {
 // 연환산 추정 배당(annualDpsEst)과 현재가로 현재가 기준 배당수익률(%)을 계산.
 export const yieldFromPrice = (annualDpsEst, price) =>
   (num(annualDpsEst) != null && num(price) != null && price > 0) ? round2(annualDpsEst / price * 100) : null;
+
+// ── 일별 시세 이력(1년) + 52주 고저 ─────────────────────────────────────────
+// range=1y 응답 하나로 현재가·전일대비·52주 고저·일별 종가 시계열을 모두 얻는다.
+const kstDate = (epochSec) =>
+  new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date(epochSec * 1000));
+
+async function fetchChart1y(symbol, { fetchImpl, timeoutMs = 15000, tries = 3 } = {}) {
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=1y`;
+  for (let i = 0; i < tries; i++) {
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+      const res = await fetchImpl(url, { signal: ctrl.signal, headers: { 'User-Agent': UA, accept: 'application/json' } });
+      clearTimeout(timer);
+      if (res.ok) return await res.json();
+      if (res.status !== 429 && res.status < 500) return null;
+    } catch { /* 재시도 */ }
+    if (i < tries - 1) await sleep(800 * (i + 1));
+  }
+  return null;
+}
+
+// 단일 티커의 일별 이력 스냅샷. 없으면 null.
+// 반환: { ticker, symbol, price, prevClose, changePct, priceAsOf, currency, week52High, week52Low, series:[{d,c}] }
+export async function fetchDaily(ticker, opts = {}) {
+  const fetchImpl = opts.fetchImpl || globalThis.fetch;
+  for (const symbol of yahooSymbols(ticker)) {
+    const json = await fetchChart1y(symbol, { ...opts, fetchImpl });
+    const result = json?.chart?.result?.[0];
+    const meta = result?.meta;
+    const price = num(meta?.regularMarketPrice);
+    if (!meta || price == null || price <= 0) continue;
+
+    // 일별 종가 시계열(유효 종가만)
+    const ts = result?.timestamp || [];
+    const closes = result?.indicators?.quote?.[0]?.close || [];
+    const series = [];
+    for (let i = 0; i < ts.length; i++) {
+      const c = num(closes[i]);
+      if (c != null && c > 0) series.push({ d: kstDate(ts[i]), c });
+    }
+    // 전일종가: range=1y의 meta.chartPreviousClose는 1년 전 기준이라 부정확 → 시계열의 직전 종가 사용
+    const prevClose = series.length >= 2 ? series[series.length - 2].c : num(meta.chartPreviousClose);
+    const changePct = (prevClose != null && prevClose > 0) ? round2((price - prevClose) / prevClose * 100) : null;
+    // 52주 고저: meta값을 우선하되, 이상치면 시계열에서 산출로 보정
+    const seriesC = series.map((x) => x.c);
+    const sHi = seriesC.length ? Math.max(...seriesC) : null;
+    const sLo = seriesC.length ? Math.min(...seriesC) : null;
+    let week52High = num(meta.fiftyTwoWeekHigh);
+    let week52Low = num(meta.fiftyTwoWeekLow);
+    if (week52High == null || week52High <= 0) week52High = sHi;
+    if (week52Low == null || week52Low <= 0) week52Low = sLo;      // meta의 0.0 결측 보정
+    return {
+      ticker, symbol, price, prevClose, changePct,
+      priceAsOf: num(meta.regularMarketTime) != null ? kstDate(meta.regularMarketTime) : (series.length ? series[series.length - 1].d : null),
+      currency: meta.currency || 'KRW', week52High, week52Low, series,
+    };
+  }
+  return null;
+}
+
+// 여러 티커 일별 이력을 순차 조회(레이트리밋 회피).
+export async function fetchDailyMap(tickers, opts = {}) {
+  const gap = opts.gapMs ?? 350;
+  const out = {};
+  for (const t of tickers) {
+    const q = await fetchDaily(t, opts);
+    if (q) out[t] = q;
+    if (gap) await sleep(gap);
+  }
+  return out;
+}

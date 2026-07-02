@@ -184,6 +184,22 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 .st-estimated,.st-annualized{background:var(--tint);color:var(--brand)}
 .st-stale{background:#fff3d6;color:#9a6b00}
 .st-unavailable,.st-user_input{background:var(--soft);color:var(--muted)}
+.mx{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:linear-gradient(180deg,#fbfcff,#fff);display:grid;gap:8px}
+.mx-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:14px}
+.mx-k{color:var(--muted);font-weight:700;flex:0 0 auto}
+.mx-sub{font-size:10.5px;font-weight:600;opacity:.8}
+.mx-v{text-align:right;font-weight:650}
+.mx-v b{font-size:16px}
+.mx-note{color:var(--muted);font-size:11.5px;font-weight:600}
+.mx-cav{color:#9a6700;font-size:11.5px;font-weight:600;margin-top:3px;max-width:280px;margin-left:auto}
+.mx-badge{display:inline-block;font-size:10.5px;font-weight:800;border-radius:6px;padding:1px 6px;vertical-align:middle}
+.mx-badge.ok{background:var(--okt);color:var(--ok);border:1px solid var(--ok)}
+.mx-badge.warn{background:#fdf6e3;color:#9a6700;border:1px solid #f2e0a8}
+.mx-badge.muted{background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.mx-w52{position:relative;display:inline-block;width:72px;height:6px;border-radius:999px;background:linear-gradient(90deg,#1f6feb22,#d1453b22);vertical-align:middle;margin:0 4px}
+.mx-w52 i{position:absolute;top:-2px;width:3px;height:10px;border-radius:2px;background:var(--text);transform:translateX(-50%)}
+.mx-spark{display:flex;align-items:center;gap:8px;border-top:1px solid var(--soft);padding-top:8px}
+.mx-spark svg{max-width:100%;height:auto}
 </style>
 </head>
 <body>
@@ -200,7 +216,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <div class="sub">월 환산 약 23원/주 · 최근배당금 139원(1회)×2회 단순 추정</div>
     <div class="months" role="img" aria-label="배당기준월 5월, 11월"><span class="mc">1</span><span class="mc">2</span><span class="mc">3</span><span class="mc">4</span><span class="mc on">5</span><span class="mc">6</span><span class="mc">7</span><span class="mc">8</span><span class="mc">9</span><span class="mc">10</span><span class="mc on">11</span><span class="mc">12</span></div>
     <div class="sub" style="margin-top:8px">반기 배당(연 2회) · 배당기준월 5월·11월</div>
-    <div class="sub" style="margin-top:8px">현재가 <b style="color:var(--text);font-size:16px">3,380원</b> <span style="color:#d1453b;font-weight:800">+1.81%</span><span> (실시간 아님 · 2026-07-02 종가)</span></div>
+    <div class="mx"><div class="mx-row"><span class="mx-k">현재가</span><span class="mx-v"><b>3,360원</b> <span style="color:#1f6feb;font-weight:800">-1.32%</span> <span class="mx-note">실시간 아님 · 2026-07-02 종가</span></span></div><div class="mx-row"><span class="mx-k">실배당수익률<br><span class="mx-sub">최근 1년 실적</span></span><span class="mx-v"><b>8.15%</b> <span class="mx-badge ok">실적</span> <span class="mx-note">공시 실지급 274원/주</span></span></div><div class="mx-row"><span class="mx-k">52주 범위</span><span class="mx-v">3,230 ~ 4,795원 <span class="mx-w52"><i style="left:8%"></i></span><span class="mx-note">저점 대비 +4% · 고점 대비 −29.9%</span></span></div><div class="mx-spark"><svg class="spark" viewBox="0 0 260 46" width="260" height="46" preserveAspectRatio="none" role="img" aria-label="최근 1년 주가 추이"><defs><linearGradient id="sg6967" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1f6feb" stop-opacity="0.18"/><stop offset="1" stop-color="#1f6feb" stop-opacity="0"/></linearGradient></defs><polygon points="3,43 3,16.7 7,15.6 11.1,12.3 15.1,13.2 19.1,16.1 23.2,17.4 27.2,13.1 31.2,11.3 35.3,13.5 39.3,12.6 43.3,10.2 47.3,9.9 51.4,7.5 55.4,5.7 59.4,5.7 63.5,8.9 67.5,7.8 71.5,9.2 75.6,8.6 79.6,10.5 83.6,11.1 87.7,15.3 91.7,13.7 95.7,11.9 99.8,9.9 103.8,10.5 107.8,11.9 111.9,10.7 115.9,15.2 119.9,16.1 124,19.8 128,16.1 132,14.3 136,10.7 140.1,11.9 144.1,10.7 148.1,9.6 152.2,12.6 156.2,12 160.2,11.7 164.3,10.4 168.3,11.1 172.3,17 176.4,14.4 180.4,14.4 184.4,18.2 188.5,14.7 192.5,13.4 196.5,9.3 200.6,3 204.6,8.9 208.6,5.3 212.7,12.3 216.7,17.7 220.7,14.9 224.7,19.8 228.8,20 232.8,25.4 236.8,36.5 240.9,33.8 244.9,27.2 248.9,37.1 253,40.9 257,43 257,43" fill="url(#sg6967)"/><polyline points="3,16.7 7,15.6 11.1,12.3 15.1,13.2 19.1,16.1 23.2,17.4 27.2,13.1 31.2,11.3 35.3,13.5 39.3,12.6 43.3,10.2 47.3,9.9 51.4,7.5 55.4,5.7 59.4,5.7 63.5,8.9 67.5,7.8 71.5,9.2 75.6,8.6 79.6,10.5 83.6,11.1 87.7,15.3 91.7,13.7 95.7,11.9 99.8,9.9 103.8,10.5 107.8,11.9 111.9,10.7 115.9,15.2 119.9,16.1 124,19.8 128,16.1 132,14.3 136,10.7 140.1,11.9 144.1,10.7 148.1,9.6 152.2,12.6 156.2,12 160.2,11.7 164.3,10.4 168.3,11.1 172.3,17 176.4,14.4 180.4,14.4 184.4,18.2 188.5,14.7 192.5,13.4 196.5,9.3 200.6,3 204.6,8.9 208.6,5.3 212.7,12.3 216.7,17.7 220.7,14.9 224.7,19.8 228.8,20 232.8,25.4 236.8,36.5 240.9,33.8 244.9,27.2 248.9,37.1 253,40.9 257,43" fill="none" stroke="#1f6feb" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg><span class="mx-note">최근 1년 주가</span></div></div>
   </div>
 
   <div class="card">

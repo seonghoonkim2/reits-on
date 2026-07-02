@@ -4,6 +4,8 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { dividendDisplay, week52Position } from '../assets/js/reit-metrics.mjs';
+import { sparklineSvg } from './lib/price-display.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://seonghoonkim2.github.io/reits-on';
@@ -18,6 +20,10 @@ const m = html.match(/<script id="seed-data" type="application\/json">([\s\S]*?)
 if (!m) { console.error('seed-data를 찾지 못했습니다.'); process.exit(1); }
 const seed = JSON.parse(m[1]);
 const REITS = seed.reits;
+
+// ---- 일별 종가 시계열(스파크라인용). 없으면 빈 객체 ----
+let PRICE_HISTORY = {};
+try { PRICE_HISTORY = (JSON.parse(readFileSync(join(ROOT, 'data', 'price-history.json'), 'utf8')).series) || {}; } catch { /* 없으면 스킵 */ }
 
 // ---- 핵심 팩트(provenance): data/reits.json이 단일 진실원천. 임베드 seed엔 facts가 없어 직접 읽음 ----
 const FACTS_BY_TICKER = {};
@@ -510,6 +516,43 @@ function stickyBar(r) {
   return `  <div class="sticky-kpi"><span class="sk-nm">${dot} ${esc(r.name)}</span><span class="sk-chips">${chips.map((c) => `<span>${esc(c)}</span>`).join('')}</span><a class="sk-home" href="../../">홈</a></div>`;
 }
 
+// 히어로 시세·실배당수익률·52주·스파크라인 블록(빌드 시점 스냅샷, 실시간 아님)
+function metricsBlock(r) {
+  if (r.price == null && !dividendDisplay(r, r.price).show) return '';
+  const cp = r.changePct;
+  const chgCol = cp > 0 ? '#d1453b' : cp < 0 ? '#1f6feb' : 'var(--muted)';
+  const chg = (cp != null) ? ` <span style="color:${chgCol};font-weight:800">${cp > 0 ? '+' : ''}${cp}%</span>` : '';
+  const priceRow = (r.price != null)
+    ? `<div class="mx-row"><span class="mx-k">현재가</span><span class="mx-v"><b>${fmt(r.price)}원</b>${chg} <span class="mx-note">실시간 아님${r.priceAsOf ? ' · ' + esc(r.priceAsOf) + ' 종가' : ''}</span></span></div>`
+    : '';
+
+  // 실배당수익률(TTM)
+  const d = dividendDisplay(r, r.price);
+  let ttmRow = '';
+  if (d.show) {
+    if (!d.isDiv) {
+      ttmRow = `<div class="mx-row"><span class="mx-k">실배당수익률</span><span class="mx-v"><span class="mx-badge warn">무배당</span> <span class="mx-note">${esc(d.caveats[0] || '')}</span></span></div>`;
+    } else {
+      const y = d.yield != null ? `<b>${d.yield}%</b>` : '<span class="mx-note">현재가 연동 시</span>';
+      const cav = d.caveats.length ? `<div class="mx-cav">⚠ ${esc(d.caveats.join(' '))}</div>` : '';
+      ttmRow = `<div class="mx-row"><span class="mx-k">실배당수익률<br><span class="mx-sub">최근 1년 실적</span></span><span class="mx-v">${y} <span class="mx-badge ${d.tone}">${esc(d.badge)}</span> <span class="mx-note">공시 실지급 ${fmt(d.ttmDps)}원/주</span>${cav}</span></div>`;
+    }
+  }
+
+  // 52주 범위 + 위치 바
+  const p52 = week52Position(r.price, r.week52Low, r.week52High);
+  const w52Row = p52
+    ? `<div class="mx-row"><span class="mx-k">52주 범위</span><span class="mx-v">${fmt(r.week52Low)} ~ ${fmt(r.week52High)}원 <span class="mx-w52"><i style="left:${p52.posPct}%"></i></span><span class="mx-note">저점 대비 +${p52.fromLowPct}% · 고점 대비 −${p52.offHighPct}%</span></span></div>`
+    : '';
+
+  // 스파크라인(최근 1년, 빌드 시점 인라인 SVG)
+  const spark = sparklineSvg(PRICE_HISTORY[r.ticker], { w: 260, h: 46 });
+  const sparkRow = spark ? `<div class="mx-spark">${spark}<span class="mx-note">최근 1년 주가</span></div>` : '';
+
+  if (!priceRow && !ttmRow && !w52Row) return '';
+  return `<div class="mx">${priceRow}${ttmRow}${w52Row}${sparkRow}</div>`;
+}
+
 function page(r) {
   const url = BASE + '/r/' + r.ticker + '/';
   const pro = proDashboard(r);
@@ -518,14 +561,7 @@ function page(r) {
   const desc = `${r.name}: ${r.primary} 상장리츠. 배당기준월 ${r.divMonths.map(x=>x+'월').join('·')}, ${freqLabel(r.divMonths.length)}` + (annual ? `, 연환산 추정 배당 약 ${fmt(annual)}원/주.` : '.') + ' 배당월·자산·확인 포인트를 한눈에. (교육용 정보, 투자 권유 아님)';
   const monthCells = MONTHS.map((lab,i)=>`<span class="mc${r.divMonths.includes(i+1)?' on':''}">${i+1}</span>`).join('');
   const naverUrl = naver(r.ticker);
-  // 일일 자동 수집된 최근 종가(빌드 시점 스냅샷). 상승=빨강·하락=파랑(국내 관행).
-  const priceLine = (r.price != null) ? (() => {
-    const cp = r.changePct;
-    const col = cp > 0 ? '#d1453b' : cp < 0 ? '#1f6feb' : 'var(--muted)';
-    const chg = (cp != null) ? ` <span style="color:${col};font-weight:800">${cp > 0 ? '+' : ''}${cp}%</span>` : '';
-    const asof = r.priceAsOf ? ` · ${esc(r.priceAsOf)} 종가` : '';
-    return `<div class="sub" style="margin-top:8px">현재가 <b style="color:var(--text);font-size:16px">${fmt(r.price)}원</b>${chg}<span> (실시간 아님${asof})</span></div>`;
-  })() : '';
+  const priceLine = metricsBlock(r);
   const ld = {
     '@context':'https://schema.org','@type':'WebPage', name:title, url, inLanguage:'ko',
     description: desc,
@@ -718,6 +754,22 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 .st-estimated,.st-annualized{background:var(--tint);color:var(--brand)}
 .st-stale{background:#fff3d6;color:#9a6b00}
 .st-unavailable,.st-user_input{background:var(--soft);color:var(--muted)}
+.mx{margin-top:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:linear-gradient(180deg,#fbfcff,#fff);display:grid;gap:8px}
+.mx-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:14px}
+.mx-k{color:var(--muted);font-weight:700;flex:0 0 auto}
+.mx-sub{font-size:10.5px;font-weight:600;opacity:.8}
+.mx-v{text-align:right;font-weight:650}
+.mx-v b{font-size:16px}
+.mx-note{color:var(--muted);font-size:11.5px;font-weight:600}
+.mx-cav{color:#9a6700;font-size:11.5px;font-weight:600;margin-top:3px;max-width:280px;margin-left:auto}
+.mx-badge{display:inline-block;font-size:10.5px;font-weight:800;border-radius:6px;padding:1px 6px;vertical-align:middle}
+.mx-badge.ok{background:var(--okt);color:var(--ok);border:1px solid var(--ok)}
+.mx-badge.warn{background:#fdf6e3;color:#9a6700;border:1px solid #f2e0a8}
+.mx-badge.muted{background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.mx-w52{position:relative;display:inline-block;width:72px;height:6px;border-radius:999px;background:linear-gradient(90deg,#1f6feb22,#d1453b22);vertical-align:middle;margin:0 4px}
+.mx-w52 i{position:absolute;top:-2px;width:3px;height:10px;border-radius:2px;background:var(--text);transform:translateX(-50%)}
+.mx-spark{display:flex;align-items:center;gap:8px;border-top:1px solid var(--soft);padding-top:8px}
+.mx-spark svg{max-width:100%;height:auto}
 </style>
 </head>
 <body>

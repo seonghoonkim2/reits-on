@@ -3,6 +3,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { parseWon, computeTtmDps } from './lib/ttm-dividend.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const STATUS = ['actual', 'estimated', 'annualized', 'user_input', 'stale', 'unavailable'];
@@ -42,7 +43,32 @@ for (const r of doc.reits || []) {
   if (r.facts && typeof r.facts === 'object') {
     for (const [k, v] of Object.entries(r.facts)) checkProv(`${id}.facts.${k}`, v);
   } else errors.push(`${id}: facts 없음`);
+
+  // 교차검증: recentDiv(KAREIT 표) vs 최신 공시 배당(reportDetail) 불일치 감지 → 갱신 검토 경고
+  const hist = r.reportDetail && Array.isArray(r.reportDetail.dividends?.history) ? r.reportDetail.dividends.history : [];
+  const latest = hist.map((h) => parseWon(h && h.perShare)).find((v) => v != null && v > 0);
+  const rd = r.recentDiv && typeof r.recentDiv === 'object' ? r.recentDiv.value : r.recentDiv;
+  if (latest != null && typeof rd === 'number' && rd > 0) {
+    const diff = Math.abs(latest - rd) / rd;
+    if (diff > 0.2) warns.push(`${id}: recentDiv(${rd}) vs 최신 공시배당(${latest}) ${Math.round(diff * 100)}% 차이 — 갱신 검토`);
+  }
+  // TTM 산정 결과 sanity: 이력이 있는데 none이면(파싱 실패 가능) 경고
+  if (hist.length && computeTtmDps(r).quality === 'none') warns.push(`${id}: 배당 이력이 있으나 TTM 산정 불가(포맷 확인)`);
 }
+
+// facts 기준일 노후 경고(15개월 초과) — provenance 신선도 유지
+const STALE_MONTHS = 15;
+const now = new Date();
+let staleCount = 0;
+for (const r of doc.reits || []) {
+  for (const [k, v] of Object.entries(r.facts || {})) {
+    if (v && isDate(v.asOf) && v.status !== 'unavailable') {
+      const ageMon = (now - new Date(v.asOf + 'T00:00:00Z')) / (1000 * 60 * 60 * 24 * 30.4);
+      if (ageMon > STALE_MONTHS) staleCount++;
+    }
+  }
+}
+if (staleCount) warns.push(`facts 기준일 ${STALE_MONTHS}개월 초과 ${staleCount}건 — 최신 투자보고서로 갱신 검토`);
 
 console.log(`검증: 종목 ${doc.reits?.length ?? 0}개 · 오류 ${errors.length} · 경고 ${warns.length}`);
 warns.forEach((w) => console.log('  ⚠ ' + w));

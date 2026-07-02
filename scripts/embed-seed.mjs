@@ -3,6 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { computeTtmDps } from './lib/ttm-dividend.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const reitsDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8'));
@@ -35,6 +36,7 @@ function healthLevel(r) {
 
 const flatReit = (r) => {
   const mkt = r.market || {};
+  const ttm = computeTtmDps(r);   // 공시 배당 이력 기반 최근 12개월 실배당(추정 아님)
   return {
     name: r.name, ticker: r.ticker, sector: r.sector, primary: r.primary,
     divMonths: r.divMonths,
@@ -49,6 +51,14 @@ const flatReit = (r) => {
     priceAsOf: mkt.priceAsOf ?? null,
     yieldPriceBasis: mkt.yieldPriceBasis ?? null,
     annualDpsEst: mkt.annualDpsEst ?? null,
+    week52High: mkt.week52High ?? null,
+    week52Low: mkt.week52Low ?? null,
+    // 실배당수익률(TTM): ttmDps=최근 12개월 실지급 주당배당 합 · ttmQuality=actual/special/partial/nodiv/none
+    ttmDps: ttm.ttmDps,
+    ttmQuality: ttm.quality,
+    ttmSpecial: ttm.hasSpecial,
+    ttmApprox: ttm.approx,
+    ttmPayoutOver100: ttm.payoutOver100,
   };
 };
 

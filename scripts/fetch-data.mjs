@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { fetchQuotes } from './lib/krx-price.mjs';
+import { fetchDailyMap } from './lib/krx-price.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const API = (process.env.API_BASE || 'https://reits-on-api.modelter.workers.dev').replace(/\/$/, '');
@@ -20,6 +20,35 @@ const eqIgnoringTs = (a, b) => {
   const strip = (o) => JSON.stringify(o, (k, v) => k === 'retrievedAt' ? undefined : v);
   return strip(a) === strip(b);
 };
+
+// data/price-history.json 갱신: Yahoo 1년 종가 시계열을 병합(날짜 유니크·정렬·최대 400일 보관).
+// 최초 실행 시 1년치 백필, 이후 매일 새 날짜만 추가된다.
+const HISTORY_CAP = 400;
+function updatePriceHistory(dailyMap) {
+  let doc = { retrievedAt: null, series: {} };
+  try { doc = readJSON('price-history.json'); } catch { /* 최초 생성 */ }
+  if (!doc.series || typeof doc.series !== 'object') doc.series = {};
+  let changed = false;
+  for (const [ticker, q] of Object.entries(dailyMap)) {
+    if (!q || !Array.isArray(q.series) || !q.series.length) continue;
+    const byDate = new Map((doc.series[ticker] || []).map((p) => [p.d, p.c]));
+    for (const p of q.series) if (num(p.c) != null) byDate.set(p.d, p.c);
+    const merged = [...byDate.entries()]
+      .map(([d, c]) => ({ d, c }))
+      .sort((a, b) => a.d < b.d ? -1 : a.d > b.d ? 1 : 0)
+      .slice(-HISTORY_CAP);
+    const prev = JSON.stringify(doc.series[ticker] || []);
+    if (JSON.stringify(merged) !== prev) changed = true;
+    doc.series[ticker] = merged;
+  }
+  if (changed) {
+    doc.retrievedAt = NOW;
+    // 기계 소비용 · 매일 갱신되는 대용량 파일이라 compact로 저장(레포 비대화 완화)
+    writeFileSync(dataPath('price-history.json'), JSON.stringify(doc) + '\n', 'utf8');
+    const days = Math.max(0, ...Object.values(doc.series).map((s) => s.length));
+    console.log(`  · price-history.json 갱신 (${Object.keys(doc.series).length}종목 · 최대 ${days}일)`);
+  }
+}
 
 async function getJSON(path, tries = 3) {
   for (let i = 0; i < tries; i++) {
@@ -84,10 +113,11 @@ if (rl && Array.isArray(rl.reits) && rl.reits.length >= 20) {
     .filter((t) => t && byT[t] && num(byT[t].price) == null);
   let quotes = {};
   if (needPrice.length) {
-    console.log(`  · 백엔드 시세 누락 ${needPrice.length}종목 → Yahoo Finance 폴백 조회`);
+    console.log(`  · 백엔드 시세 누락 ${needPrice.length}종목 → Yahoo Finance 폴백 조회(일별 이력+52주)`);
     try {
-      quotes = await fetchQuotes(needPrice);
+      quotes = await fetchDailyMap(needPrice);
       console.log(`  · Yahoo 시세 확보 ${Object.keys(quotes).length}/${needPrice.length}`);
+      updatePriceHistory(quotes);
     } catch (e) {
       console.log(`  ! Yahoo 폴백 실패(무시): ${e.message}`);
     }
@@ -115,6 +145,8 @@ if (rl && Array.isArray(rl.reits) && rl.reits.length >= 20) {
       snap.price = num(fb.price);
       if (num(fb.changePct) != null) snap.changePct = num(fb.changePct);
       if (fb.priceAsOf) snap.priceAsOf = String(fb.priceAsOf);
+      if (num(fb.week52High) != null) snap.week52High = num(fb.week52High);
+      if (num(fb.week52Low) != null) snap.week52Low = num(fb.week52Low);
       priceSource = 'yahoo';
       fromFallback++;
     }
@@ -151,6 +183,28 @@ if (rl && Array.isArray(rl.reits) && rl.reits.length >= 20) {
   }
 } else {
   console.log('· reits 응답 없음/부족 — reits.json 유지');
+}
+
+// 3) data/filings.json — DART 공시(/v1/filings) 중 '유의미한' 건만 저장(노이즈 제거).
+//    소음(임원 소유상황·대량보유·주주명부폐쇄 등)은 제외해 RSS·홈 '최근 공시'와 동일 기준 유지.
+const FIL_NOISE = /(임원ㆍ?주요주주|특정증권등\s*소유상황|대량보유상황보고|최대주주등\s*소유주식변동|소유주식수.{0,3}변동신고|의결권\s*대리행사권유|주주명부폐쇄기간또는기준일|기업집단현황|일일자금|호가)/;
+const filNoise = (title) => FIL_NOISE.test(String(title || '').replace(/\s+/g, ''));
+const fl = await getJSON('/v1/filings');
+if (fl && Array.isArray(fl.filings)) {
+  const sig = fl.filings.filter((f) => f && f.title && !filNoise(f.title))
+    .map((f) => ({ rcept_no: f.rcept_no, ticker: f.ticker, title: f.title, filed_at: f.filed_at, url: f.url, category: f.category || [] }));
+  let orig = { filings: [] };
+  try { orig = readJSON('filings.json'); } catch { /* 최초 */ }
+  const next = { retrievedAt: NOW, filings: sig };
+  if (eqIgnoringTs(next, orig)) {
+    console.log(`· filings.json 실질 변경 없음 — 유지 (유의미 ${sig.length}건)`);
+  } else {
+    writeJSON('filings.json', next);
+    wrote = true;
+    console.log(`✓ filings.json 갱신 (유의미 ${sig.length}건 / 전체 ${fl.filings.length})`);
+  }
+} else {
+  console.log('· filings 응답 없음 — filings.json 유지');
 }
 
 console.log(wrote ? '데이터 갱신 완료(변경 있음).' : '데이터 변경 없음 — 기존 데이터로 빌드 진행.');
