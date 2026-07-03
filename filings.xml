@@ -6,7 +6,14 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Thu, 02 Jul 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[미래에셋글로벌리츠] 불성실공시법인지정</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260703800982</link>
+      <guid isPermaLink="false">20260703800982</guid>
+      <pubDate>Fri, 03 Jul 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[SK리츠] 부동산투자회사자금차입</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702800681</link>
@@ -223,13 +230,6 @@
       <guid isPermaLink="false">20260612801109</guid>
       <pubDate>Fri, 12 Jun 2026 09:00:00 +0900</pubDate>
       <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 부동산투자회사부동산임대</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260611800268</link>
-      <guid isPermaLink="false">20260611800268</guid>
-      <pubDate>Thu, 11 Jun 2026 09:00:00 +0900</pubDate>
-      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
     </item>
   </channel>
 </rss>

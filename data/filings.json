@@ -1,6 +1,14 @@
 {
-  "retrievedAt": "2026-07-02T14:21:24.789Z",
+  "retrievedAt": "2026-07-03T13:24:43.420Z",
   "filings": [
+    {
+      "rcept_no": "20260703800982",
+      "ticker": "396690",
+      "title": "불성실공시법인지정              ",
+      "filed_at": "2026-07-03",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260703800982",
+      "category": []
+    },
     {
       "rcept_no": "20260702800681",
       "ticker": "395400",
@@ -270,16 +278,6 @@
       "filed_at": "2026-06-12",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260612801109",
       "category": []
-    },
-    {
-      "rcept_no": "20260611800268",
-      "ticker": "448730",
-      "title": "부동산투자회사부동산임대              ",
-      "filed_at": "2026-06-11",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260611800268",
-      "category": [
-        "임차인/공실"
-      ]
     }
   ]
 }
