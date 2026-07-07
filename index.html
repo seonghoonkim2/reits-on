@@ -1724,7 +1724,7 @@
       const d = clampNum(annualDps), y = Number(targetYieldFraction);
       return d > 0 && isFinite(y) && y > 0 ? d / y : null;
     };
-                                                                                                                                // FINANCE_INLINE_END
+                                                                                                                                    // FINANCE_INLINE_END
 
     // METRICS_INLINE_START (scripts/build-app.mjs가 assets/js/reit-metrics.mjs를 주입 — 이 블록 직접 수정 금지)
     // 리츠 지표 표시 헬퍼(브라우저·빌드 공용, 순수 함수). 시세·배당의 '표시 로직'을 한 곳에서 관리.
@@ -1792,7 +1792,7 @@
       const posPct = Math.max(0, Math.min(100, Math.round((price - low) / (high - low) * 100)));
       return { posPct, fromLowPct: round1((price - low) / low * 100), offHighPct: round1((high - price) / high * 100) };
     }
-                                                                                                                                // METRICS_INLINE_END
+                                                                                                                                    // METRICS_INLINE_END
 
     const store = {
       get(k, f) { try { const v = JSON.parse(localStorage.getItem('reiton_' + k)); return v == null ? f : v; } catch (e) { return f; } },
