@@ -436,6 +436,12 @@
     .ics-btns { display:flex; flex-wrap:wrap; gap:8px; }
     .ics-btn { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:9px 15px; text-decoration:none; color:var(--text); font-weight:800; font-size:13.5px; }
     .ics-btn.primary { background:var(--brand); color:#fff; border-color:var(--brand); }
+    .infra-card { display:flex; align-items:center; gap:12px; border:1px solid var(--line); border-radius:16px; padding:14px 16px; text-decoration:none; color:var(--text); background:var(--surface); }
+    .infra-card:hover { border-color:var(--brand); }
+    .infra-tag { flex:0 0 auto; font-size:11px; font-weight:800; color:#8a5a00; background:#fdf2d8; border-radius:999px; padding:5px 10px; align-self:flex-start; }
+    .infra-b { flex:1; min-width:0; } .infra-nm { font-weight:850; font-size:15px; }
+    .infra-go { flex:0 0 auto; font-weight:800; color:var(--brand); font-size:14px; }
+    @media(max-width:480px){ .infra-card{flex-wrap:wrap} .infra-go{margin-left:auto} }
     .w52 { position:relative; display:inline-block; width:80px; height:6px; border-radius:999px; background:linear-gradient(90deg,#1f6feb22,#d1453b22); vertical-align:middle; margin-left:2px; }
     .w52 i { position:absolute; top:-2px; width:3px; height:10px; border-radius:2px; background:var(--text); transform:translateX(-50%); }
     .m-primary { border:1px solid var(--line); background:var(--primary-tint); border-radius:14px; padding:11px 13px; }
@@ -907,6 +913,19 @@
           <span class="eyebrow" id="filAsOf"></span>
         </div>
         <div id="homeFilingsList"></div>
+      </div>
+    </section>
+
+    <section class="section reveal" data-tab="home" id="homeinfra">
+      <div class="wrap">
+        <a class="infra-card" href="r/088980/">
+          <div class="infra-tag">인프라펀드 · 리츠 아님</div>
+          <div class="infra-b">
+            <div class="infra-nm">맥쿼리인프라 <span class="muted">(088980)</span></div>
+            <div class="infra-dc muted small">국내 배당투자자들이 리츠와 함께 보는 상장 인프라펀드. 도로·터널 등 민자 SOC 기반 — 리츠와 무엇이 다른지, 시세·확인 포인트를 정리했습니다.</div>
+          </div>
+          <span class="infra-go">보기 →</span>
+        </a>
       </div>
     </section>
 
@@ -1688,7 +1707,7 @@
       const d = clampNum(annualDps), y = Number(targetYieldFraction);
       return d > 0 && isFinite(y) && y > 0 ? d / y : null;
     };
-                                                                                                                    // FINANCE_INLINE_END
+                                                                                                                        // FINANCE_INLINE_END
 
     // METRICS_INLINE_START (scripts/build-app.mjs가 assets/js/reit-metrics.mjs를 주입 — 이 블록 직접 수정 금지)
     // 리츠 지표 표시 헬퍼(브라우저·빌드 공용, 순수 함수). 시세·배당의 '표시 로직'을 한 곳에서 관리.
@@ -1756,7 +1775,7 @@
       const posPct = Math.max(0, Math.min(100, Math.round((price - low) / (high - low) * 100)));
       return { posPct, fromLowPct: round1((price - low) / low * 100), offHighPct: round1((high - price) / high * 100) };
     }
-                                                                                                                    // METRICS_INLINE_END
+                                                                                                                        // METRICS_INLINE_END
 
     const store = {
       get(k, f) { try { const v = JSON.parse(localStorage.getItem('reiton_' + k)); return v == null ? f : v; } catch (e) { return f; } },

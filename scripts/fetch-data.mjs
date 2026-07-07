@@ -207,5 +207,26 @@ if (fl && Array.isArray(fl.filings)) {
   console.log('· filings 응답 없음 — filings.json 유지');
 }
 
+// 4) data/infra.json — 상장 인프라펀드(맥쿼리인프라 등) 시세를 Yahoo에서 채운다(리츠와 분리).
+try {
+  const infra = readJSON('infra.json');
+  if (infra && Array.isArray(infra.infra) && infra.infra.length) {
+    const tickers = infra.infra.map((x) => x.ticker).filter(Boolean);
+    const daily = await fetchDailyMap(tickers);
+    if (Object.keys(daily).length) {
+      updatePriceHistory(daily);
+      let changed = false;
+      for (const x of infra.infra) {
+        const q = daily[x.ticker]; if (!q) continue;
+        const snap = { price: num(q.price), changePct: num(q.changePct), priceAsOf: q.priceAsOf || null, week52High: num(q.week52High), week52Low: num(q.week52Low), retrievedAt: NOW, priceSourceUrl: `https://finance.yahoo.com/quote/${q.symbol}`, priceSourceId: 'yahoo-finance' };
+        if (JSON.stringify({ ...snap, retrievedAt: 0 }) !== JSON.stringify({ ...(x.market || {}), retrievedAt: 0 })) changed = true;
+        x.market = snap;
+      }
+      if (changed) { infra.retrievedAt = NOW; writeJSON('infra.json', infra); wrote = true; console.log(`✓ infra.json 갱신 (${Object.keys(daily).length}종목 시세)`); }
+      else console.log('· infra.json 실질 변경 없음 — 유지');
+    }
+  }
+} catch (e) { console.log(`· infra 시세 갱신 건너뜀: ${e.message}`); }
+
 console.log(wrote ? '데이터 갱신 완료(변경 있음).' : '데이터 변경 없음 — 기존 데이터로 빌드 진행.');
 process.exit(0);

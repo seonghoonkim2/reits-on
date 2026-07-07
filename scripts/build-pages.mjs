@@ -32,6 +32,10 @@ const REITS = seed.reits;
 let PRICE_HISTORY = {};
 try { PRICE_HISTORY = (JSON.parse(readFileSync(join(ROOT, 'data', 'price-history.json'), 'utf8')).series) || {}; } catch { /* 없으면 스킵 */ }
 
+// ---- 상장 인프라펀드(리츠 아님) — 별도 데이터·별도 템플릿 ----
+let INFRA = [];
+try { INFRA = (JSON.parse(readFileSync(join(ROOT, 'data', 'infra.json'), 'utf8')).infra) || []; } catch { /* 없으면 스킵 */ }
+
 // ---- 핵심 팩트(provenance): data/reits.json이 단일 진실원천. 임베드 seed엔 facts가 없어 직접 읽음 ----
 const FACTS_BY_TICKER = {};
 const IR_BY_TICKER = {};
@@ -1615,6 +1619,66 @@ var FACTS=${dataJson};
 }
 
 // ---- 생성 ----
+// 상장 인프라펀드(맥쿼리인프라 등) 페이지 — 리츠와 다른 별도 템플릿. P/NAV·WALE·건강신호 미적용.
+function infraPage(x) {
+  const url = BASE + '/r/' + x.ticker + '/';
+  const m = x.market || {};
+  const title = `${x.shortName || x.name} (${x.ticker}) — 인프라펀드 시세·정보 | 리츠온 REITs ON`;
+  const desc = `${x.shortName || x.name}: 국내 유일 상장 인프라펀드(리츠 아님). ${x.assetText}. 시세·52주·확인 포인트·공식 출처. (교육용, 투자 권유 아님)`;
+  const p52 = week52Position(m.price, m.week52Low, m.week52High);
+  const cp = m.changePct;
+  const chg = (cp != null) ? ` <span style="color:${cp > 0 ? '#d1453b' : cp < 0 ? '#1f6feb' : 'var(--muted)'};font-weight:800">${cp > 0 ? '+' : ''}${cp}%</span>` : '';
+  const spark = sparklineSvg(PRICE_HISTORY[x.ticker], { w: 260, h: 46 });
+  const strip = [
+    m.price != null ? `<div class="ns-cell"><div class="ns-k">현재가</div><div class="ns-v">${fmt(m.price)}원</div><div class="ns-sub">${cp != null ? (cp > 0 ? '+' : '') + cp + '%' : ''} · 실시간 아님</div></div>` : '',
+    p52 ? `<div class="ns-cell"><div class="ns-k">52주 위치</div><div class="ns-v">${p52.posPct}%</div><div class="ns-sub">저점 +${p52.fromLowPct}% · 고점 −${p52.offHighPct}%</div></div>` : '',
+    `<div class="ns-cell"><div class="ns-k">분배</div><div class="ns-v">반기</div><div class="ns-sub">${(x.divMonths || []).map((mm) => mm + '월').join('·')}</div></div>`,
+  ].filter(Boolean).join('');
+  const ld = { '@context': 'https://schema.org', '@type': 'WebPage', name: title, url, inLanguage: 'ko', description: desc, isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' } };
+  return `<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>${esc(title)}</title><meta name="description" content="${esc(desc)}" />
+<link rel="canonical" href="${url}" /><link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+<meta property="og:type" content="article" /><meta property="og:title" content="${esc((x.shortName || x.name) + ' · 인프라펀드')}" />
+<meta property="og:description" content="${esc(desc)}" /><meta property="og:url" content="${url}" /><meta property="og:image" content="${BASE}/og.png" />
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+<style>
+:root{--brand:#3254ff;--bg:#f5f7fb;--surface:#fff;--text:#172033;--muted:#515b72;--line:#e5e9f2;--soft:#eef1f7;--tint:#edf1ff}
+*{box-sizing:border-box}body{margin:0;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 60px}
+.top{display:flex;align-items:center;gap:10px;padding:14px 0}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#3254ff,#00a78e);color:#fff;font-weight:900;display:grid;place-items:center;text-decoration:none}
+.top a.brand{color:var(--text);text-decoration:none;font-weight:800}.top .topfacts{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--brand);background:var(--tint);border-radius:999px;padding:6px 12px;text-decoration:none}
+.eyebrow{display:inline-block;font-size:12px;font-weight:800;color:#8a5a00;background:#fdf2d8;border-radius:999px;padding:5px 12px}
+h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}.tk{color:var(--muted);font-weight:700}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px}
+.numstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px}
+.ns-cell{border:1px solid var(--line);border-radius:12px;padding:10px 8px;background:linear-gradient(180deg,#fbfcff,#fff);text-align:center;min-width:0}
+.ns-k{font-size:10.5px;font-weight:800;color:var(--muted)}.ns-v{font-size:20px;font-weight:950;letter-spacing:-.03em;margin:3px 0 2px}.ns-sub{font-size:10px;color:var(--muted);font-weight:600}
+.notbox{border:1px solid #f2e0a8;background:#fdf6e3;border-radius:14px;padding:14px 16px;margin-top:14px;font-size:14px}
+.notbox b{color:#8a5a00}
+h2{font-size:18px;margin:0 0 8px}ul.q{margin:6px 0 0;padding-left:18px}ul.q li{margin:6px 0}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.links a{display:inline-block;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:9px 14px;text-decoration:none;color:var(--text);font-weight:700;font-size:14px}
+.spark{display:flex;align-items:center;gap:8px;margin-top:8px}.spark svg{max-width:100%;height:auto}.muted{color:var(--muted)}.small{font-size:12.5px}
+.note{font-size:12.5px;color:var(--muted);margin-top:18px;line-height:1.6}a.more{color:var(--brand);font-weight:800;text-decoration:none}
+</style></head><body>
+<div class="wrap">
+  <div class="top"><a class="logo" href="../../">R</a><a class="brand" href="../../">리츠온 REITs ON</a><a class="topfacts" href="../../facts.html">📊 팩트시트</a></div>
+  <span class="eyebrow">인프라펀드 · 리츠 아님</span>
+  <h1>${esc(x.name)}</h1>
+  <div class="tk">종목코드 ${esc(x.ticker)} · ${esc(x.assetText)}</div>
+  <div class="numstrip">${strip}</div>
+  ${spark ? `<div class="card"><div class="spark">${spark}<span class="muted small">최근 1년 주가 · ${m.priceAsOf ? esc(m.priceAsOf) + ' 종가' : ''} 실시간 아님</span></div></div>` : ''}
+  <div class="notbox">⚠ <b>이 종목은 리츠(부동산투자회사)가 아닙니다.</b> ${esc(x.vsReit || '')} 따라서 이 사이트의 리츠 지표(실배당 TTM·P/NAV·건강신호)는 표시하지 않습니다.</div>
+  <div class="card"><h2>무엇인가요?</h2><p style="margin:0;color:var(--muted)">${esc(x.note || '')}</p><div class="tk" style="margin-top:8px;font-size:13px">근거법 ${esc(x.law || '-')} · 운용 ${esc(x.manager || '-')}</div></div>
+  <div class="card"><h2>확인 포인트</h2><ul class="q">${(x.checkpoints || []).map((c) => `<li>${esc(c)}</li>`).join('')}</ul></div>
+  <div class="card"><h2>분배금·재무는 공식 자료에서</h2><p class="muted small" style="margin:0 0 8px">분배금 이력·재무는 추정하지 않고 공식 출처로 연결합니다. 최신 분배금·기준일·재원은 아래에서 확인하세요.</p><div class="links">${(x.sources || []).map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)} →</a>`).join('')}</div></div>
+  <p class="note">⚠ 교육용 정보이며 특정 종목의 매수·매도 추천이 아닙니다. 시세는 최근 종가(비공식·참고용)이며 실시간이 아닙니다. 투자 전 공식 IR·DART 원문을 확인하세요.</p>
+  <p class="note"><a class="more" href="../../">← 리츠온 홈으로</a></p>
+</div></body></html>`;
+}
+
 const rDir = join(ROOT, 'r');
 // 기존 r/ 정리(없어진 종목 제거)
 if (existsSync(rDir)) { for (const d of readdirSync(rDir)) rmSync(join(rDir, d), { recursive: true, force: true }); }
@@ -1625,16 +1689,24 @@ for (const r of REITS) {
   writeFileSync(join(dir, 'index.html'), page(r), 'utf8');
   count++;
 }
+// 인프라펀드 페이지(별도 템플릿)
+let infraCount = 0;
+for (const x of INFRA) {
+  const dir = join(rDir, x.ticker);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, 'index.html'), infraPage(x), 'utf8');
+  infraCount++;
+}
 
 // ---- 팩트시트 페이지 ----
 writeFileSync(join(ROOT, 'facts.html'), factsPage(), 'utf8');
 
 // ---- sitemap ----
 const today = new Date().toISOString().slice(0, 10);
-const urls = [BASE + '/', BASE + '/facts.html'].concat(REITS.map(r => BASE + '/r/' + r.ticker + '/'));
+const urls = [BASE + '/', BASE + '/facts.html'].concat(REITS.map(r => BASE + '/r/' + r.ticker + '/')).concat(INFRA.map(x => BASE + '/r/' + x.ticker + '/'));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   urls.map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${u.endsWith('/reits-on/') ? '1.0' : '0.7'}</priority>\n  </url>`).join('\n') +
   `\n</urlset>\n`;
 writeFileSync(join(ROOT, 'sitemap.xml'), sitemap, 'utf8');
 
-console.log(`생성 완료: 종목 페이지 ${count}개 + facts.html + sitemap(${urls.length} URL)`);
+console.log(`생성 완료: 종목 페이지 ${count}개 + 인프라 ${infraCount}개 + facts.html + sitemap(${urls.length} URL)`);
