@@ -24,6 +24,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Install Korean font (OG 이미지 렌더용)
+        run: sudo apt-get update && sudo apt-get install -y fonts-nanum && sudo fc-cache -f
+      - name: Install build deps (resvg 등)
+        run: npm ci
       - name: Fetch latest market data (API → data/*.json)
         env:
           API_BASE: ${{ vars.API_BASE || 'https://reits-on-api.modelter.workers.dev' }}
@@ -45,6 +49,8 @@ jobs:
         run: node scripts/build-filings.mjs
       - name: Generate dividend calendar (.ics 구독 피드)
         run: node scripts/build-ics.mjs
+      - name: Generate OG share cards (종목별 카카오 공유 이미지)
+        run: node scripts/build-og.mjs
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"

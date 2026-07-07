@@ -642,8 +642,9 @@ function page(r) {
 <meta property="og:title" content="${esc(r.name + ' · 배당·정보')}" />
 <meta property="og:description" content="${esc(desc)}" />
 <meta property="og:url" content="${url}" />
-<meta property="og:image" content="${BASE}/og.png" />
-<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:image" content="${url}og.png" />
+<meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content="${url}og.png" />
 <meta name="twitter:image" content="${BASE}/og.png" />
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <style>
@@ -1641,7 +1642,8 @@ function infraPage(x) {
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}" />
 <link rel="canonical" href="${url}" /><link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="article" /><meta property="og:title" content="${esc((x.shortName || x.name) + ' · 인프라펀드')}" />
-<meta property="og:description" content="${esc(desc)}" /><meta property="og:url" content="${url}" /><meta property="og:image" content="${BASE}/og.png" />
+<meta property="og:description" content="${esc(desc)}" /><meta property="og:url" content="${url}" /><meta property="og:image" content="${url}og.png" />
+<meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content="${url}og.png" />
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <style>
 :root{--brand:#3254ff;--bg:#f5f7fb;--surface:#fff;--text:#172033;--muted:#515b72;--line:#e5e9f2;--soft:#eef1f7;--tint:#edf1ff}

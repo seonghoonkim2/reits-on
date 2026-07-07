@@ -1,0 +1,12 @@
+{
+  "name": "reits-on-build",
+  "version": "1.0.0",
+  "private": true,
+  "description": "리츠온 정적 사이트 빌드 도구(OG 이미지 래스터라이저 등)",
+  "scripts": {
+    "og": "node scripts/build-og.mjs"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}
