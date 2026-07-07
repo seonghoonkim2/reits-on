@@ -209,6 +209,23 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 @media(max-width:420px){.ns-v{font-size:17px}}
 .ns-v.t-warn{color:#9a6700}
 .ns-sub{font-size:10px;color:var(--muted);font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dvh-h{font-size:15px;font-weight:850;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dvh-h .sub{font-size:11px;font-weight:600;color:var(--muted)}
+.dvh-trend{margin-left:auto;font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px}
+.dvh-trend.dn{background:#1f6feb14;color:#1f6feb}.dvh-trend.up{background:#d1453b14;color:#d1453b}
+.dvh-bars{display:flex;align-items:flex-end;gap:6px;height:120px;margin:14px 0 4px;padding-top:16px}
+.dvh-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px;min-width:0}
+.dvh-bar i{display:block;width:72%;max-width:38px;border-radius:5px 5px 0 0;min-height:2px}
+.dvh-bar i.reg{background:linear-gradient(180deg,#3254ff,#6f86ff)}
+.dvh-bar i.sp{background:linear-gradient(180deg,#e0892b,#f0b24b)}
+.dvh-bar i.zero{background:var(--line)}
+.dvh-v{font-size:11px;font-weight:800;white-space:nowrap}
+.dvh-l{font-size:10.5px;color:var(--muted);font-weight:700}
+.dvh-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:10px;font-size:11px;color:var(--muted)}
+.dvh-legend .lg{display:inline-flex;align-items:center;gap:4px;font-weight:700}
+.dvh-legend .lg::before{content:"";width:10px;height:10px;border-radius:3px;display:inline-block}
+.dvh-legend .lg.reg::before{background:#3254ff}.dvh-legend .lg.sp::before{background:#e0892b}
+.dvh-note{flex-basis:100%;font-size:10.5px;opacity:.85}
 </style>
 </head>
 <body>
@@ -227,6 +244,11 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     <div class="months" role="img" aria-label="배당기준월 12월"><span class="mc">1</span><span class="mc">2</span><span class="mc">3</span><span class="mc">4</span><span class="mc">5</span><span class="mc">6</span><span class="mc">7</span><span class="mc">8</span><span class="mc">9</span><span class="mc">10</span><span class="mc">11</span><span class="mc on">12</span></div>
     <div class="sub" style="margin-top:8px">연 1회 배당 · 배당기준월 12월</div>
     <div class="mx"><div class="mx-row"><span class="mx-k">현재가</span><span class="mx-v"><b>750원</b> <span style="color:var(--muted);font-weight:800">0%</span> <span class="mx-note">실시간 아님 · 2026-06-09 종가</span></span></div><div class="mx-row"><span class="mx-k">실배당수익률</span><span class="mx-v"><span class="mx-badge warn">무배당</span> <span class="mx-note">최근 12개월 배당이 없어요(적자·배당 여력 부족). 배당 재개 여부를 확인하세요.</span></span></div><div class="mx-row"><span class="mx-k">52주 범위</span><span class="mx-v">610 ~ 3,130원 <span class="mx-w52"><i style="left:6%"></i></span><span class="mx-note">저점 대비 +23% · 고점 대비 −76%</span></span></div></div>
+  </div>
+<div class="card dvh-card">
+    <div class="dvh-h">회차별 배당금 추이 <span class="sub">주당·공시 실적</span></div>
+    <div class="dvh-bars"><div class="dvh-bar"><div class="dvh-v">무배당</div><i class="zero" style="height:2%"></i><div class="dvh-l">14기</div></div><div class="dvh-bar"><div class="dvh-v">무배당</div><i class="zero" style="height:2%"></i><div class="dvh-l">15기</div></div><div class="dvh-bar"><div class="dvh-v">무배당</div><i class="zero" style="height:2%"></i><div class="dvh-l">16기</div></div></div>
+    <div class="dvh-legend"><span class="lg reg">경상 배당</span><span class="dvh-note">회차(기)별 공시 주당배당금. 특별배당은 자산 처분 등 일회성으로 반복성이 낮습니다.</span></div>
   </div>
 
   <div class="card">

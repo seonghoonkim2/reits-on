@@ -537,6 +537,33 @@ function numStrip(r) {
   return `<div class="numstrip">${cells.map((c) => `<div class="ns-cell"><div class="ns-k">${c.k}</div><div class="ns-v${c.tone ? ' t-' + c.tone : ''}">${c.v}</div><div class="ns-sub">${esc(c.sub)}</div></div>`).join('')}</div>`;
 }
 
+// 회차별 배당금 추이 막대차트(주당·공시 실적). 특별배당 구분색·감소 표시.
+function dividendHistoryChart(r) {
+  const s = Array.isArray(r.divHistory) ? r.divHistory : [];
+  if (s.length < 2) return '';
+  const max = Math.max(...s.map((x) => x.value), 1);
+  const bars = s.map((x) => {
+    const h = Math.max(2, Math.round((x.value / max) * 100));
+    const cls = x.value === 0 ? 'zero' : x.special ? 'sp' : 'reg';
+    const vlab = x.value === 0 ? '무배당' : (fmt(x.value) + (x.approx ? '≈' : ''));
+    return `<div class="dvh-bar"><div class="dvh-v">${esc(vlab)}</div><i class="${cls}" style="height:${h}%"></i><div class="dvh-l">${esc(x.period)}</div></div>`;
+  }).join('');
+  // 최근 vs 직전 회차 변화(무배당 제외 값끼리)
+  const vals = s.map((x) => x.value);
+  const last = vals[vals.length - 1], prev = vals[vals.length - 2];
+  let trend = '';
+  if (last != null && prev != null && prev > 0 && last !== prev) {
+    const dn = last < prev;
+    trend = `<span class="dvh-trend ${dn ? 'dn' : 'up'}">최근 ${dn ? '↓ 감소' : '↑ 증가'} ${prev}→${last}원</span>`;
+  }
+  const hasSp = s.some((x) => x.special);
+  return `<div class="card dvh-card">
+    <div class="dvh-h">회차별 배당금 추이 <span class="sub">주당·공시 실적</span>${trend}</div>
+    <div class="dvh-bars">${bars}</div>
+    <div class="dvh-legend"><span class="lg reg">경상 배당</span>${hasSp ? '<span class="lg sp">특별배당(일회성)</span>' : ''}<span class="dvh-note">회차(기)별 공시 주당배당금. 특별배당은 자산 처분 등 일회성으로 반복성이 낮습니다.</span></div>
+  </div>`;
+}
+
 // 히어로 시세·실배당수익률·52주·스파크라인 블록(빌드 시점 스냅샷, 실시간 아님)
 function metricsBlock(r) {
   if (r.price == null && !dividendDisplay(r, r.price).show) return '';
@@ -583,7 +610,9 @@ function metricsBlock(r) {
 function page(r) {
   const url = BASE + '/r/' + r.ticker + '/';
   const pro = proDashboard(r);
-  const annual = r.recentDiv ? r.recentDiv * r.divMonths.length : null;
+  // 연 배당은 실적(TTM) 우선. 이력 없으면 recentDiv×횟수로 폴백.
+  const annual = (r.ttmDps != null && r.ttmDps > 0) ? r.ttmDps : (r.recentDiv ? r.recentDiv * r.divMonths.length : null);
+  const annualIsTtm = (r.ttmDps != null && r.ttmDps > 0);
   const title = `${r.name} (${r.ticker}) 배당·정보 | 리츠온 REITs ON`;
   const desc = `${r.name}: ${r.primary} 상장리츠. 배당기준월 ${r.divMonths.map(x=>x+'월').join('·')}, ${freqLabel(r.divMonths.length)}` + (annual ? `, 연환산 추정 배당 약 ${fmt(annual)}원/주.` : '.') + ' 배당월·자산·확인 포인트를 한눈에. (교육용 정보, 투자 권유 아님)';
   const monthCells = MONTHS.map((lab,i)=>`<span class="mc${r.divMonths.includes(i+1)?' on':''}">${i+1}</span>`).join('');
@@ -806,6 +835,23 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 @media(max-width:420px){.ns-v{font-size:17px}}
 .ns-v.t-warn{color:#9a6700}
 .ns-sub{font-size:10px;color:var(--muted);font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dvh-h{font-size:15px;font-weight:850;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dvh-h .sub{font-size:11px;font-weight:600;color:var(--muted)}
+.dvh-trend{margin-left:auto;font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px}
+.dvh-trend.dn{background:#1f6feb14;color:#1f6feb}.dvh-trend.up{background:#d1453b14;color:#d1453b}
+.dvh-bars{display:flex;align-items:flex-end;gap:6px;height:120px;margin:14px 0 4px;padding-top:16px}
+.dvh-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px;min-width:0}
+.dvh-bar i{display:block;width:72%;max-width:38px;border-radius:5px 5px 0 0;min-height:2px}
+.dvh-bar i.reg{background:linear-gradient(180deg,#3254ff,#6f86ff)}
+.dvh-bar i.sp{background:linear-gradient(180deg,#e0892b,#f0b24b)}
+.dvh-bar i.zero{background:var(--line)}
+.dvh-v{font-size:11px;font-weight:800;white-space:nowrap}
+.dvh-l{font-size:10.5px;color:var(--muted);font-weight:700}
+.dvh-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:10px;font-size:11px;color:var(--muted)}
+.dvh-legend .lg{display:inline-flex;align-items:center;gap:4px;font-weight:700}
+.dvh-legend .lg::before{content:"";width:10px;height:10px;border-radius:3px;display:inline-block}
+.dvh-legend .lg.reg::before{background:#3254ff}.dvh-legend .lg.sp::before{background:#e0892b}
+.dvh-note{flex-basis:100%;font-size:10.5px;opacity:.85}
 </style>
 </head>
 <body>
@@ -819,12 +865,13 @@ ${numStrip(r)}
 ${riskBanner(r)}
 
   <div class="card">
-    <div class="hero">${annual ? fmt(annual) + '원 <span class="sub">/주 (연환산 추정)</span>' : '<span class="sub">최근배당금 공시 확인 필요</span>'}</div>
-    ${annual ? `<div class="sub">월 환산 약 ${fmt(Math.round(annual/12))}원/주 · 최근배당금 ${fmt(r.recentDiv)}원(1회)×${r.divMonths.length}회 단순 추정</div>` : ''}
+    <div class="hero">${annual ? fmt(annual) + `원 <span class="sub">/주 (${annualIsTtm ? '최근 1년 실적·TTM' : '연환산 추정'})</span>` : '<span class="sub">최근배당금 공시 확인 필요</span>'}</div>
+    ${annual ? `<div class="sub">월 환산 약 ${fmt(Math.round(annual/12))}원/주 · ${annualIsTtm ? '최근 12개월 공시 실지급 합산' : '최근배당금 ' + fmt(r.recentDiv) + '원(1회)×' + r.divMonths.length + '회 단순 추정'}</div>` : ''}
     <div class="months" role="img" aria-label="배당기준월 ${r.divMonths.map(x=>x+'월').join(', ')}">${monthCells}</div>
     <div class="sub" style="margin-top:8px">${esc(freqLabel(r.divMonths.length))} · 배당기준월 ${r.divMonths.map(x=>x+'월').join('·')}</div>
     ${priceLine}
   </div>
+${dividendHistoryChart(r)}
 
   <div class="card">
     <div class="rows">

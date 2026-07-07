@@ -1,7 +1,7 @@
 // node --test tests/ttm-dividend.test.mjs
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseWon, computeTtmDps, ttmYield, isUnusualYield, dividendDisplay } from '../scripts/lib/ttm-dividend.mjs';
+import { parseWon, computeTtmDps, ttmYield, isUnusualYield, dividendDisplay, dividendSeries } from '../scripts/lib/ttm-dividend.mjs';
 
 test('parseWon: 다양한 실데이터 포맷', () => {
   assert.equal(parseWon('73원'), 73);
@@ -82,6 +82,31 @@ test('ttmYield / isUnusualYield', () => {
   assert.equal(ttmYield(100, 0), null);
   assert.equal(isUnusualYield(27.8), true);
   assert.equal(isUnusualYield(8.1), false);
+});
+
+test('dividendSeries: 오래된→최근 순, 특별배당 플래그, 미확정/누적 제외', () => {
+  const r = reit([5, 11], [
+    { period: '제14기 반기', perShare: '미정', note: '' },
+    { period: '제13기', perShare: '625원', note: '자산 처분이익 반영' },
+    { period: '제12기', perShare: '126원', note: '' },
+    { period: '상장 후 누적', perShare: '2,248원', note: '' }]);
+  const s = dividendSeries(r);
+  assert.equal(s.length, 2);                     // 미정·누적 제외
+  assert.equal(s[0].period, '12기');             // 오래된 것 먼저
+  assert.equal(s[1].period, '13기');
+  assert.equal(s[1].value, 625);
+  assert.equal(s[1].special, true);              // 처분이익 → 특별배당
+});
+
+test('dividendSeries: 무배당은 value 0으로 포함', () => {
+  const r = reit([12], [{ period: '제12기 (2025)', perShare: '0원(무배당)', note: '' }, { period: '제11기 (2024)', perShare: '0원(무배당)', note: '' }]);
+  const s = dividendSeries(r);
+  assert.equal(s.length, 2);
+  assert.equal(s[0].value, 0);
+  assert.equal(s[0].period, '11기');             // 제N기 우선 라벨(오래된 것 먼저)
+  // 연도만 있는 경우 연도 라벨
+  const r2 = reit([12], [{ period: '2025', perShare: '50원', note: '' }, { period: '2024', perShare: '40원', note: '' }]);
+  assert.equal(dividendSeries(r2)[0].period, "'24");
 });
 
 test('dividendDisplay: 배지·경고 우선순위', () => {

@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { computeTtmDps } from './lib/ttm-dividend.mjs';
+import { computeTtmDps, dividendSeries } from './lib/ttm-dividend.mjs';
 import { navTotalWon, sharesOutstanding } from './lib/nav.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -64,6 +64,8 @@ const flatReit = (r) => {
     ttmPayoutOver100: ttm.payoutOver100,
     // P/NAV용 장부 주당순자산(가격 무관·런타임에서 현재가로 배율 계산). 산정 불가면 null.
     navPerShare,
+    // 회차별 배당 시계열(차트용): [{period,value,special,approx}] 오래된→최근
+    divHistory: dividendSeries(r),
   };
 };
 

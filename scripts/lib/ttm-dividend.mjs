@@ -96,5 +96,27 @@ export function computeTtmDps(reit) {
   };
 }
 
+// 회차별 배당 시계열(차트용). 오래된→최근 순, 최대 maxPeriods개.
+// 각 항목: { period(짧은 라벨), value(주당 원), special(특별배당), approx(근사치) }
+// 미확정(pending)·누적(cumulative)·금액미상(unknown)은 제외한다.
+export function dividendSeries(reit, maxPeriods = 8) {
+  const hist = (reit.reportDetail && Array.isArray(reit.reportDetail.dividends?.history))
+    ? reit.reportDetail.dividends.history : [];
+  const rows = hist.map((h) => ({ c: classify(h), raw: h }))
+    .filter(({ c }) => c.kind === 'regular' || c.kind === 'nodiv');
+  return rows.slice(0, maxPeriods).reverse().map(({ c, raw }) => ({
+    period: shortPeriod(raw && raw.period),
+    value: c.value || 0,
+    special: !!c.special,
+    approx: !!c.approx,
+  }));
+}
+function shortPeriod(p) {
+  const s = String(p || '');
+  const gi = s.match(/제\s*(\d+)\s*기/); if (gi) return gi[1] + '기';   // 제16기 → 16기
+  const yr = s.match(/(20\d{2})/); if (yr) return "'" + yr[1].slice(2);  // 2025 → '25
+  return s.slice(0, 6);
+}
+
 // 표시 로직(수익률·배지·경고)은 브라우저·빌드 공용 모듈에 있음. 재노출해 기존 import 유지.
 export { ttmYield, isUnusualYield, dividendDisplay } from '../../assets/js/reit-metrics.mjs';

@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-07-06T12:25:49.067Z",
+  "retrievedAt": "2026-07-07T06:16:49.035Z",
   "filings": [
     {
       "rcept_no": "20260706800446",
@@ -296,14 +296,6 @@
       "category": [
         "배당"
       ]
-    },
-    {
-      "rcept_no": "20260612801109",
-      "ticker": "293940",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-06-12",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260612801109",
-      "category": []
     }
   ]
 }
