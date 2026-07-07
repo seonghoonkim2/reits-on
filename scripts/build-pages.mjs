@@ -10,6 +10,13 @@ import { sparklineSvg } from './lib/price-display.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://seonghoonkim2.github.io/reits-on';
 const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+const NOW_MONTH = Number(new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', month: 'numeric' }).format(new Date()));
+// 다음 배당기준월(빌드 시점 KST 기준). divMonths 중 이번달 이상 최소값, 없으면 최소값.
+function nextDivMonth(divMonths) {
+  if (!Array.isArray(divMonths) || !divMonths.length) return null;
+  const s = divMonths.slice().sort((a, b) => a - b);
+  return s.find((m) => m >= NOW_MONTH) ?? s[0];
+}
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (t) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[t]));
 const fmt = (n) => Number(n).toLocaleString('ko-KR');
@@ -516,6 +523,20 @@ function stickyBar(r) {
   return `  <div class="sticky-kpi"><span class="sk-nm">${dot} ${esc(r.name)}</span><span class="sk-chips">${chips.map((c) => `<span>${esc(c)}</span>`).join('')}</span><a class="sk-home" href="../../">홈</a></div>`;
 }
 
+// 첫 화면 '3숫자' 스트립: 실배당 TTM · P/NAV · 다음 배당월 (네이버·증권사앱에 없는 차별화 숫자)
+function numStrip(r) {
+  const d = dividendDisplay(r, r.price);
+  const nv = navDisplay(r.navPerShare, r.price);
+  const nm = nextDivMonth(r.divMonths);
+  const cells = [];
+  if (d.show && d.isDiv && d.yield != null) cells.push({ k: '실배당수익률<span class="ns-t">TTM·실적</span>', v: d.yield + '%', sub: d.badge !== '실적' ? d.badge : '공시 실지급 기준', tone: d.tone });
+  else if (d.show && !d.isDiv) cells.push({ k: '실배당수익률', v: '무배당', sub: '최근 12개월', tone: 'warn' });
+  if (nv) cells.push({ k: 'P/NAV<span class="ns-t">장부 순자산</span>', v: nv.pnav + '배', sub: (nv.premium ? '할증 ' + Math.abs(nv.discountPct) : '할인 ' + nv.discountPct) + '%', tone: '' });
+  if (nm) cells.push({ k: '다음 배당기준월', v: nm + '월', sub: r.divMonths.map((m) => m + '월').join('·'), tone: '' });
+  if (cells.length < 2) return '';
+  return `<div class="numstrip">${cells.map((c) => `<div class="ns-cell"><div class="ns-k">${c.k}</div><div class="ns-v${c.tone ? ' t-' + c.tone : ''}">${c.v}</div><div class="ns-sub">${esc(c.sub)}</div></div>`).join('')}</div>`;
+}
+
 // 히어로 시세·실배당수익률·52주·스파크라인 블록(빌드 시점 스냅샷, 실시간 아님)
 function metricsBlock(r) {
   if (r.price == null && !dividendDisplay(r, r.price).show) return '';
@@ -776,6 +797,15 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 .mx-w52 i{position:absolute;top:-2px;width:3px;height:10px;border-radius:2px;background:var(--text);transform:translateX(-50%)}
 .mx-spark{display:flex;align-items:center;gap:8px;border-top:1px solid var(--soft);padding-top:8px}
 .mx-spark svg{max-width:100%;height:auto}
+.numstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px}
+@media(max-width:420px){.numstrip{gap:6px}}
+.ns-cell{border:1px solid var(--line);border-radius:12px;padding:10px 8px;background:linear-gradient(180deg,#fbfcff,#fff);text-align:center;min-width:0}
+.ns-k{font-size:10.5px;font-weight:800;color:var(--muted);line-height:1.25;display:flex;flex-direction:column;align-items:center;gap:1px}
+.ns-t{font-size:9px;font-weight:700;opacity:.7}
+.ns-v{font-size:20px;font-weight:950;letter-spacing:-.03em;margin:3px 0 2px;line-height:1.1}
+@media(max-width:420px){.ns-v{font-size:17px}}
+.ns-v.t-warn{color:#9a6700}
+.ns-sub{font-size:10px;color:var(--muted);font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -785,6 +815,7 @@ ${stickyBar(r)}
   <span class="eyebrow">상장리츠 · ${esc(r.primary)}</span>
   <h1>${esc(r.name)}</h1>
   <div class="tk">종목코드 ${esc(r.ticker)} · ${esc(r.sector.join(', '))}</div>
+${numStrip(r)}
 ${riskBanner(r)}
 
   <div class="card">
@@ -899,15 +930,29 @@ function _factAsOf(t, key) {
   const p = (FACTS_BY_TICKER[t] || {})[key];
   return p && p.status === 'actual' && p.asOf ? p.asOf : null;
 }
+// 실배당수익률(TTM)·P/NAV 팩트시트 셀 정보(공용 표시 로직 재사용)
+function _ttmInfo(r) {
+  const d = dividendDisplay(r, r.price);
+  if (!d.show) return { y: null };
+  if (!d.isDiv) return { y: 0, nodiv: true, badge: '무배당', tone: 'warn' };
+  return { y: d.yield, badge: d.badge, tone: d.tone };
+}
+function _pnavInfo(r) {
+  const n = navDisplay(r.navPerShare, r.price);
+  return n ? { pnav: n.pnav, disc: n.discountPct, premium: n.premium } : { pnav: null };
+}
 function factsRows() {
   return REITS.map((r) => {
     const t = r.ticker; const h = healthOf(t);
+    const tt = _ttmInfo(r), pv = _pnavInfo(r);
     return {
       t, name: r.name, primary: r.primary || '기타', sector: (r.sector || []).join('·'),
       health: h.level, reasons: h.reasons || [], risk: RISK_BY_TICKER[t] || null,
-      aum: _aumEok(t), freq: r.divMonths.length, annual: r.recentDiv ? r.recentDiv * r.divMonths.length : null,
+      aum: _aumEok(t), freq: r.divMonths.length, annual: (r.ttmDps != null && r.ttmDps > 0) ? r.ttmDps : null,
       yld: _dispYield(t), ltv: numLTV(t), occ: numOcc(t), wale: _waleYears(t),
       fixed: _fixedPct(t), rating: _rateGrade(t), tenant: _topTenant(t),
+      ttm: tt.y, ttmBadge: tt.badge || null, ttmTone: tt.tone || null, ttmNodiv: !!tt.nodiv,
+      pnav: pv.pnav, pnavDisc: pv.disc != null ? pv.disc : null, pnavPremium: !!pv.premium,
     };
   });
 }
@@ -954,11 +999,12 @@ function factsPage() {
   // 컬럼 정의(서버 thead/tbody와 JS가 공유)
   const cols = [
     ['name', '종목', 'txt'], ['type', '유형', 'txt'], ['health', '신호', 'health'], ['aum', '자산규모', 'aum'],
-    ['div', '배당', 'div'], ['yld', '배당수익률', 'pct'], ['ltv', 'LTV', 'pct'], ['occ', '임대율', 'pct'],
+    ['div', '배당', 'div'], ['ttm', '실배당 TTM', 'pct'], ['pnav', 'P/NAV', 'pnav'], ['yld', '공시배당률', 'pct'],
+    ['ltv', 'LTV', 'pct'], ['occ', '임대율', 'pct'],
     ['wale', 'WALE', 'yr'], ['fixed', '고정금리', 'pct'], ['rating', '신용등급', 'rating'], ['tenant', '주요 임차인', 'none'],
   ];
-  const COV_KEYS = { yld: 'yld', ltv: 'ltv', occ: 'occ', wale: 'wale', fixed: 'fixed', rating: 'rating' };
-  const sortable = { health: 'num', aum: 'num', div: 'num', pct: 'num', yr: 'num', rating: 'num', txt: 'txt' };
+  const COV_KEYS = { ttm: 'ttm', pnav: 'pnav', yld: 'yld', ltv: 'ltv', occ: 'occ', wale: 'wale', fixed: 'fixed', rating: 'rating' };
+  const sortable = { health: 'num', aum: 'num', div: 'num', pct: 'num', pnav: 'num', yr: 'num', rating: 'num', txt: 'txt' };
   const thead = cols.map(([k, lab, ty]) => {
     const covHtml = COV_KEYS[k] ? `<span class="cov">${cov(k === 'div' ? 'annual' : k)}/${rows.length}</span>` : '';
     if (ty === 'none') return `<th data-col="${k}">${esc(lab)}</th>`;
@@ -970,15 +1016,23 @@ function factsPage() {
   const body = rows.map((r) => {
     const hMap = { ok: ['안정', 'ok'], warn: ['주의', 'warn'], risk: ['위험', 'risk'] };
     const [hLab, hCls] = hMap[r.health];
-    const divCell = `${esc(_freqLab(r.freq))}${r.annual ? ` · <span class="muted">추정 ${fmt(Math.round(r.annual))}원</span>` : ''}`;
+    const divCell = `${esc(_freqLab(r.freq))}${r.annual ? ` · <span class="muted">실적 ${fmt(Math.round(r.annual))}원</span>` : ''}`;
     const hostTip = r.reasons.length ? ` title="${esc(r.reasons.join(' · '))}"` : '';
     const riskBadge = r.risk ? ` <span class="rbadge ${esc(r.risk.level)}" title="${esc(r.risk.note || '')}">${esc(r.risk.label)}</span>` : '';
-    return `<tr data-tk="${r.t}" data-name="${esc(r.name)}" data-type="${esc(r.primary)}" data-health="${_hRank[r.health]}" data-aum="${r.aum ?? ''}" data-freq="${r.freq}" data-div="${r.annual ?? ''}" data-yld="${r.yld ?? ''}" data-ltv="${r.ltv ?? ''}" data-occ="${r.occ ?? ''}" data-wale="${r.wale ?? ''}" data-fixed="${r.fixed ?? ''}" data-rating="${_ratRank(r.rating)}" data-tenant="${esc(r.tenant || '')}">
+    // 실배당 TTM 셀: 수익률 + 품질배지(실적일 땐 배지 생략). P/NAV 셀: 배율 + 할인/할증.
+    const ttmVal = r.ttm == null ? '<span class="na">—</span>'
+      : r.ttmNodiv ? '<span class="fsbadge wn">무배당</span>'
+      : `${(r.ttm % 1 ? r.ttm.toFixed(1) : r.ttm)}%${r.ttmBadge && r.ttmBadge !== '실적' ? ` <span class="fsbadge ${r.ttmTone === 'warn' ? 'wn' : 'mut'}" title="${esc(r.ttmBadge)}">${esc(r.ttmBadge)}</span>` : ''}`;
+    const pnavVal = r.pnav == null ? '<span class="na">—</span>'
+      : `${r.pnav}배 <span class="muted small">${r.pnavPremium ? '할증 ' + Math.abs(r.pnavDisc) : '할인 ' + r.pnavDisc}%</span>`;
+    return `<tr data-tk="${r.t}" data-name="${esc(r.name)}" data-type="${esc(r.primary)}" data-health="${_hRank[r.health]}" data-aum="${r.aum ?? ''}" data-freq="${r.freq}" data-div="${r.annual ?? ''}" data-ttm="${r.ttm ?? ''}" data-pnav="${r.pnav ?? ''}" data-yld="${r.yld ?? ''}" data-ltv="${r.ltv ?? ''}" data-occ="${r.occ ?? ''}" data-wale="${r.wale ?? ''}" data-fixed="${r.fixed ?? ''}" data-rating="${_ratRank(r.rating)}" data-tenant="${esc(r.tenant || '')}">
       <td class="namec" data-col="name"><a href="r/${r.t}/"><b>${esc(r.name)}</b><span class="tk">${esc(r.t)}</span></a></td>
       <td data-col="type"><span class="typb">${esc(r.primary)}</span></td>
       <td data-col="health"><span class="hbadge ${hCls}"${hostTip}><span class="hd ${hCls}"></span>${hLab}</span>${riskBadge}</td>
       ${tdNum('aum', r.aum != null ? esc(fmtEok(r.aum)) : '<span class="na">—</span>', '', _factTip(r.t, 'aum'))}
       <td class="divc" data-col="div">${divCell}</td>
+      <td class="numc" data-col="ttm"><span class="cv">${ttmVal}</span></td>
+      <td class="numc" data-col="pnav"><span class="cv">${pnavVal}</span></td>
       ${tdNum('yld', num(r.yld, '%'), '')}
       ${tdNum('ltv', num(r.ltv, '%'), _ltvTone(r.ltv), _factTip(r.t, 'ltv'))}
       ${tdNum('occ', num(r.occ, '%'), _occTone(r.occ), _factTip(r.t, 'occupancy'))}
@@ -1002,7 +1056,7 @@ function factsPage() {
   const DATA = rows.map((r) => ({
     t: r.t, name: r.name, type: r.primary, sector: r.sector, health: r.health, reasons: r.reasons,
     risk: r.risk ? { level: r.risk.level, label: r.risk.label } : null,
-    aum: r.aum, freq: r.freq, annual: r.annual, yld: r.yld, ltv: r.ltv, occ: r.occ, wale: r.wale,
+    aum: r.aum, freq: r.freq, annual: r.annual, ttm: r.ttm, pnav: r.pnav, yld: r.yld, ltv: r.ltv, occ: r.occ, wale: r.wale,
     fixed: r.fixed, rating: r.rating, ratingRank: _ratRank(r.rating) === '' ? null : _ratRank(r.rating), tenant: r.tenant,
   }));
   const dataJson = JSON.stringify(DATA).replace(/</g, '\\u003c');
@@ -1110,6 +1164,9 @@ td[data-col="type"],td.divc,.tenc{text-align:left}
 .hbadge.ok{background:var(--goodb);color:var(--good)}.hbadge.warn{background:var(--warnb);color:var(--warn)}.hbadge.risk{background:var(--badb);color:var(--bad)}
 .rbadge{display:inline-block;font-size:10px;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:2px}
 .rbadge.high{background:var(--badb);color:var(--bad)}.rbadge.caution{background:var(--warnb);color:var(--warn)}
+.fsbadge{display:inline-block;font-size:9.5px;font-weight:800;padding:1px 5px;border-radius:5px;margin-left:3px;vertical-align:middle;background:var(--soft);color:var(--muted);border:1px solid var(--line)}
+.fsbadge.wn{background:var(--warnb);color:var(--warn);border-color:var(--warnb)}
+.fsbadge.mut{background:var(--soft);color:var(--muted)}
 tfoot td{padding:9px 12px;border-top:2px solid var(--line);font-size:12px;font-weight:800;text-align:right;color:var(--muted);background:var(--soft)}
 tfoot td.ft-lab{text-align:left}tfoot td.ft-lab span{font-weight:600;opacity:.8}
 .empty{padding:30px;text-align:center;color:var(--muted)}
@@ -1214,8 +1271,8 @@ var FACTS=${dataJson};
 (function(){
   var API='https://reits-on-api.modelter.workers.dev';
   var byTk={};FACTS.forEach(function(r){byTk[r.t]=r;});
-  var NUM=['aum','yld','ltv','occ','wale','fixed'];
-  var COLS=[['name','종목'],['type','유형'],['health','신호'],['aum','자산규모'],['div','배당'],['yld','배당수익률'],['ltv','LTV'],['occ','임대율'],['wale','WALE'],['fixed','고정금리'],['rating','신용등급'],['tenant','주요 임차인']];
+  var NUM=['aum','ttm','pnav','yld','ltv','occ','wale','fixed'];
+  var COLS=[['name','종목'],['type','유형'],['health','신호'],['aum','자산규모'],['div','배당'],['ttm','실배당 TTM'],['pnav','P/NAV'],['yld','공시배당률'],['ltv','LTV'],['occ','임대율'],['wale','WALE'],['fixed','고정금리'],['rating','신용등급'],['tenant','주요 임차인']];
   var ranges={};NUM.forEach(function(k){var vs=FACTS.map(function(r){return r[k];}).filter(function(v){return v!=null;});ranges[k]=vs.length?{min:Math.min.apply(null,vs),max:Math.max.apply(null,vs)}:{min:0,max:1};});
   var PRESETS=[
     {k:'big',l:'자산 1조+',f:function(r){return r.aum!=null&&r.aum>=10000;}},
@@ -1240,16 +1297,19 @@ var FACTS=${dataJson};
   function fa(v){if(v==null)return '—';return v>=10000?(((v/10000)%1)?(v/10000).toFixed(1):(v/10000))+'조원':Math.round(v).toLocaleString('ko-KR')+'억원';}
   function ff(n){return n>=12?'월':n>=4?'분기':n===2?'반기':n===1?'연1회':'연'+n;}
   function yOf(r){return (state.live&&r.yldLive!=null)?r.yldLive:r.yld;}
+  function fpn(v){return v==null?'—':v+'배';}
   var METRICS={
     ltv:{l:'LTV (%)',g:function(r){return r.ltv;},f:fp},
-    yld:{l:'배당수익률 (%)',g:function(r){return yOf(r);},f:fp},
+    ttm:{l:'실배당 TTM (%)',g:function(r){return r.ttm;},f:fp},
+    pnav:{l:'P/NAV (배)',g:function(r){return r.pnav;},f:fpn},
+    yld:{l:'공시배당률 (%)',g:function(r){return yOf(r);},f:fp},
     occ:{l:'임대율 (%)',g:function(r){return r.occ;},f:fp},
     wale:{l:'WALE (년)',g:function(r){return r.wale;},f:fy},
     fixed:{l:'고정금리 (%)',g:function(r){return r.fixed;},f:fp},
     aum:{l:'자산규모',g:function(r){return r.aum;},f:fa},
     annual:{l:'연배당(추정)',g:function(r){return r.annual;},f:function(v){return v==null?'—':Math.round(v).toLocaleString('ko-KR')+'원';}}
   };
-  var AXOPT=['ltv','yld','occ','wale','fixed','aum','annual'],SZOPT=['aum','annual'];
+  var AXOPT=['ttm','pnav','ltv','yld','occ','wale','fixed','aum','annual'],SZOPT=['aum','annual'];
   function tval(mk,v){return mk==='aum'?(v/10000).toFixed(1)+'조':mk==='annual'?Math.round(v):((v%1)?v.toFixed(1):v);}
 
   function passes(r){
@@ -1435,7 +1495,7 @@ var FACTS=${dataJson};
   });
   function csvVal(r,k){var v;
     if(k==='name')v=r.name+' ('+r.t+')';else if(k==='type')v=r.type;else if(k==='health')v=({ok:'안정',warn:'주의',risk:'위험'})[r.health];
-    else if(k==='div')v=ff(r.freq)+(r.annual?(' 추정'+Math.round(r.annual)+'원'):'');else if(k==='yld')v=yOf(r)==null?'':yOf(r);
+    else if(k==='div')v=ff(r.freq)+(r.annual?(' 실적'+Math.round(r.annual)+'원'):'');else if(k==='yld')v=yOf(r)==null?'':yOf(r);
     else if(k==='rating')v=r.rating||'';else if(k==='tenant')v=r.tenant||'';else v=r[k]==null?'':r[k];
     v=String(v);if(/[",\\n]/.test(v))v='"'+v.replace(/"/g,'""')+'"';return v;}
 

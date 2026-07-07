@@ -200,6 +200,15 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 .mx-w52 i{position:absolute;top:-2px;width:3px;height:10px;border-radius:2px;background:var(--text);transform:translateX(-50%)}
 .mx-spark{display:flex;align-items:center;gap:8px;border-top:1px solid var(--soft);padding-top:8px}
 .mx-spark svg{max-width:100%;height:auto}
+.numstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 4px}
+@media(max-width:420px){.numstrip{gap:6px}}
+.ns-cell{border:1px solid var(--line);border-radius:12px;padding:10px 8px;background:linear-gradient(180deg,#fbfcff,#fff);text-align:center;min-width:0}
+.ns-k{font-size:10.5px;font-weight:800;color:var(--muted);line-height:1.25;display:flex;flex-direction:column;align-items:center;gap:1px}
+.ns-t{font-size:9px;font-weight:700;opacity:.7}
+.ns-v{font-size:20px;font-weight:950;letter-spacing:-.03em;margin:3px 0 2px;line-height:1.1}
+@media(max-width:420px){.ns-v{font-size:17px}}
+.ns-v.t-warn{color:#9a6700}
+.ns-sub{font-size:10px;color:var(--muted);font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -209,6 +218,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   <span class="eyebrow">상장리츠 · 리테일</span>
   <h1>이리츠코크렙</h1>
   <div class="tk">종목코드 088260 · 리테일</div>
+<div class="numstrip"><div class="ns-cell"><div class="ns-k">실배당수익률<span class="ns-t">TTM·실적</span></div><div class="ns-v t-warn">10.16%</div><div class="ns-sub">배당성향 100%↑</div></div><div class="ns-cell"><div class="ns-k">P/NAV<span class="ns-t">장부 순자산</span></div><div class="ns-v">1.02배</div><div class="ns-sub">할증 2%</div></div><div class="ns-cell"><div class="ns-k">다음 배당기준월</div><div class="ns-v">12월</div><div class="ns-sub">6월·12월</div></div></div>
 
 
   <div class="card">
