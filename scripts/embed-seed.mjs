@@ -11,6 +11,8 @@ const reitsDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'reits.json'), 'utf8
 const marketDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'market.json'), 'utf8'));
 const glossaryDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'glossary.json'), 'utf8'));
 const sourcesDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'sources.json'), 'utf8'));
+let changesDoc = { events: [] };
+try { changesDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'changes.json'), 'utf8')); } catch { /* 최초 빌드 */ }
 
 // 규칙기반 건강 신호(홈 목록 점 표시용) — build-pages.mjs proDashboard 로직과 동일 기준
 const _p = (s) => { const m = String(s ?? '').replace(/,/g, '').match(/(-?\d+(?:\.\d+)?)\s*%/); return m ? parseFloat(m[1]) : null; };
@@ -76,6 +78,7 @@ const seed = {
   market,
   glossary: glossaryDoc.terms,
   sources: sourcesDoc.sources,
+  changes: (changesDoc.events || []).slice(0, 20),   // 최근 변화(홈·개인화용)
 };
 
 const html = readFileSync(join(ROOT, 'index.html'), 'utf8');

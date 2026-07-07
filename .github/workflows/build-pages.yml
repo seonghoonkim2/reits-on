@@ -33,6 +33,8 @@ jobs:
         run: node --test tests/*.test.mjs
       - name: Validate data (provenance·도메인 규칙)
         run: node scripts/validate.mjs
+      - name: Detect changes (변화감지 → data/changes.json)
+        run: node scripts/build-changes.mjs
       - name: Embed seed (data/*.json → index.html)
         run: node scripts/embed-seed.mjs
       - name: Inject finance module (finance.mjs → index.html)
