@@ -17,6 +17,14 @@ function nextDivMonth(divMonths) {
   const s = divMonths.slice().sort((a, b) => a - b);
   return s.find((m) => m >= NOW_MONTH) ?? s[0];
 }
+// 다음 배당기준월 말일까지 D-day(KST). 매일 재빌드되므로 빌드 시점 계산으로 충분.
+const KST_NOW = new Date(Date.now() + 9 * 3600 * 1000);
+function dDayToMonthEnd(m) {
+  const y = KST_NOW.getUTCFullYear() + (m < NOW_MONTH ? 1 : 0);
+  const end = Date.UTC(y, m, 0);   // m월 말일
+  const today = Date.UTC(KST_NOW.getUTCFullYear(), KST_NOW.getUTCMonth(), KST_NOW.getUTCDate());
+  return Math.round((end - today) / 86400000);
+}
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (t) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[t]));
 const fmt = (n) => Number(n).toLocaleString('ko-KR');
@@ -548,7 +556,10 @@ function numStrip(r) {
   if (d.show && d.isDiv && d.yield != null) cells.push({ k: '실배당수익률<span class="ns-t">TTM·실적</span>', v: d.yield + '%', sub: d.badge !== '실적' ? d.badge : '공시 실지급 기준', tone: d.tone });
   else if (d.show && !d.isDiv) cells.push({ k: '실배당수익률', v: '무배당', sub: '최근 12개월', tone: 'warn' });
   if (nv) cells.push({ k: 'P/NAV<span class="ns-t">장부 순자산</span>', v: nv.pnav + '배', sub: (nv.premium ? '할증 ' + Math.abs(nv.discountPct) : '할인 ' + nv.discountPct) + '%', tone: '' });
-  if (nm) cells.push({ k: '다음 배당기준월', v: nm + '월', sub: r.divMonths.map((m) => m + '월').join('·'), tone: '' });
+  if (nm) {
+    const dd = dDayToMonthEnd(nm);
+    cells.push({ k: '다음 배당기준월<span class="ns-t">말일 가정·예상</span>', v: nm + '월', sub: (dd >= 0 ? 'D-' + dd + ' · ' : '') + r.divMonths.map((m) => m + '월').join('·'), tone: '' });
+  }
   if (cells.length < 2) return '';
   return `<div class="numstrip">${cells.map((c) => `<div class="ns-cell"><div class="ns-k">${c.k}</div><div class="ns-v${c.tone ? ' t-' + c.tone : ''}">${c.v}</div><div class="ns-sub">${esc(c.sub)}</div></div>`).join('')}</div>`;
 }
@@ -674,6 +685,14 @@ function page(r) {
 .risk-banner.risk-caution{background:#fdf6e3;border:1px solid #f2e0a8;color:#9a6700}
 h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 .tk{color:var(--muted);font-weight:700}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0 2px}
+.tbtn{font:inherit;font-size:13px;font-weight:800;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.tbtn:hover{border-color:#c9d3ee}
+.tbtn.on{color:#9a6700;background:#fdf6e3;border-color:#f2e0a8}
+.tjump{margin-left:auto}
+.tjump select{font:inherit;font-size:13px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;max-width:170px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.icsl{color:var(--brand);text-decoration:none;font-weight:700}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px}
 .hero{font-size:30px;font-weight:950;letter-spacing:-1px}
 .sub{color:var(--muted);font-size:14px}
@@ -878,6 +897,17 @@ ${stickyBar(r)}
   <span class="eyebrow">상장리츠 · ${esc(r.primary)}</span>
   <h1>${esc(r.name)}</h1>
   <div class="tk">종목코드 ${esc(r.ticker)} · ${esc(r.sector.join(', '))}</div>
+  <div class="toolbar">
+    <button class="tbtn" id="watchBtn" type="button" aria-pressed="false">☆ 관심 추가</button>
+    <button class="tbtn" id="shareBtn" type="button">🔗 공유</button>
+    <label class="tjump"><span class="sr">다른 리츠로 이동</span>
+      <select id="jumpSel" aria-label="다른 리츠로 이동">
+        <option value="">다른 리츠 보기…</option>
+        ${REITS.slice().sort((a, b) => a.name.localeCompare(b.name, 'ko')).map((x) => `<option value="${x.ticker}"${x.ticker === r.ticker ? ' disabled' : ''}>${esc(x.name)}</option>`).join('')}
+        ${INFRA.map((x) => `<option value="${x.ticker}">${esc(x.shortName || x.name)} (인프라)</option>`).join('')}
+      </select>
+    </label>
+  </div>
 ${numStrip(r)}
 ${riskBanner(r)}
 
@@ -885,7 +915,7 @@ ${riskBanner(r)}
     <div class="hero">${annual ? fmt(annual) + `원 <span class="sub">/주 (${annualIsTtm ? '최근 1년 실적·TTM' : '연환산 추정'})</span>` : '<span class="sub">최근배당금 공시 확인 필요</span>'}</div>
     ${annual ? `<div class="sub">월 환산 약 ${fmt(Math.round(annual/12))}원/주 · ${annualIsTtm ? '최근 12개월 공시 실지급 합산' : '최근배당금 ' + fmt(r.recentDiv) + '원(1회)×' + r.divMonths.length + '회 단순 추정'}</div>` : ''}
     <div class="months" role="img" aria-label="배당기준월 ${r.divMonths.map(x=>x+'월').join(', ')}">${monthCells}</div>
-    <div class="sub" style="margin-top:8px">${esc(freqLabel(r.divMonths.length))} · 배당기준월 ${r.divMonths.map(x=>x+'월').join('·')}</div>
+    <div class="sub" style="margin-top:8px">${esc(freqLabel(r.divMonths.length))} · 배당기준월 ${r.divMonths.map(x=>x+'월').join('·')} · <a class="icsl" href="../../reits-on.ics">📅 캘린더 앱에 구독(.ics)</a></div>
     ${priceLine}
   </div>
 ${dividendHistoryChart(r)}
@@ -944,6 +974,26 @@ ${irCard(r, naverUrl)}
     if(pl) pl.textContent='LTV'+(m==='ltv'?' ↓':''); if(po) po.textContent='임대율'+(m==='occ'?' ↓':'');
   }
   btns.forEach(function(b){b.addEventListener('click', function(){ render(b.getAttribute('data-metric')); });});
+})();
+// 관심리츠 토글: 홈(SPA)과 같은 localStorage 키(reiton_watch)를 공유해 홈 개인화에 바로 반영.
+(function(){
+  var TK='${r.ticker}', KEY='reiton_watch';
+  function get(){ try{ var v=JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+  function set(v){ try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){} }
+  var btn=document.getElementById('watchBtn'); if(!btn) return;
+  function paint(){ var on=get().indexOf(TK)>=0; btn.classList.toggle('on',on); btn.textContent=on?'★ 관심리츠':'☆ 관심 추가'; btn.setAttribute('aria-pressed', on?'true':'false'); }
+  btn.addEventListener('click', function(){ var v=get(), i=v.indexOf(TK); if(i>=0) v.splice(i,1); else v.push(TK); set(v); paint(); });
+  paint();
+})();
+(function(){
+  var sb=document.getElementById('shareBtn');
+  if(sb) sb.addEventListener('click', function(){
+    var d={title:document.title, url:location.href};
+    if(navigator.share){ navigator.share(d).catch(function(){}); }
+    else if(navigator.clipboard){ navigator.clipboard.writeText(location.href).then(function(){ var t=sb.textContent; sb.textContent='✓ 링크 복사됨'; setTimeout(function(){ sb.textContent=t; },1500); }); }
+  });
+  var js=document.getElementById('jumpSel');
+  if(js) js.addEventListener('change', function(){ if(js.value) location.href='../'+js.value+'/'; });
 })();
 </script>
 </body>
@@ -1324,7 +1374,7 @@ tfoot td.ft-lab{text-align:left}tfoot td.ft-lab span{font-weight:600;opacity:.8}
 
   <div class="legend">${legend}</div>
   <div class="note">⚠ 본 표는 일반 투자자 교육·정보 제공용이며 <b>특정 종목의 매수·매도 추천이 아닙니다.</b> ‘건강 신호’는 LTV·고정금리·손익 등 공시수치 기반의 규칙 요약일 뿐 투자 안전성·수익성과 무관하며, 의도적으로 종합 점수·순위를 만들지 않습니다. LTV·임대율 등은 종목별 기준일·산정방식이 다를 수 있으니 셀의 기준일·출처를 확인하고, 투자 전 DART·투자보고서 원문과 최신 시세를 반드시 확인하세요.</div>
-  <div class="foot">데이터 원천: 각 리츠 투자보고서 · DART · 한국리츠협회(KAREIT) · 단일 파일 <code>data/reits.json</code>(출처·기준일 포함) · <a href="./">← 리츠온 홈으로</a></div>
+  <div class="foot">데이터 원천: 각 리츠 투자보고서 · DART · 한국리츠협회(KAREIT) · 단일 파일 <code>data/reits.json</code>(출처·기준일 포함) · <a href="about/">산정 방법론</a> · <a href="./">← 리츠온 홈으로</a></div>
 </div>
 
 <div class="cmpbar" id="cmpbar"><span id="cmptext"></span><button class="go" id="cmpgo">비교 보기</button><button class="clr" id="cmpclr">해제</button></div>
@@ -1892,6 +1942,93 @@ function aboutPage() {
   return landingShell({ title, desc, canonical: url, rel: '../', ld, body });
 }
 
+// ---- 최근 변화(/changes/) 페이지: 홈은 7일 요약, 여기는 30일 전체 로그 + 유형 필터 ----
+const CHG_KIND = { low: ['52주 신저가', '#b42318', '#fdecea'], move: ['급등락', '#9a6700', '#fdf6e3'], pnav: ['P/NAV 이동', '#3254ff', '#edf1ff'], div: ['배당 공시', '#0c7a54', '#e4f5ec'], filing: ['공시', '#515b72', '#eef1f7'] };
+function changesPage() {
+  let events = [];
+  try { events = JSON.parse(readFileSync(join(ROOT, 'data', 'changes.json'), 'utf8')).events || []; } catch { /* 최초 */ }
+  const url = `${BASE}/changes/`;
+  const title = '상장리츠 최근 변화 30일 · 신저가·급등락·P/NAV·공시 | 리츠온';
+  const desc = `국내 상장리츠 25개의 최근 30일 변화 로그(${events.length}건): 52주 신저가, 하루 ±4% 급등락, P/NAV 구간 이동, 주요 공시. 자동 수집한 사실만 기록하며 해석·추천이 아닙니다.`;
+  const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url, inLanguage: 'ko', description: desc, isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' } };
+  const byDate = {};
+  for (const e of events) { (byDate[e.date] = byDate[e.date] || []).push(e); }
+  const dates = Object.keys(byDate).sort().reverse();
+  const chip = (k, lab) => `<button class="fchip" type="button" data-kind="${k}">${lab}</button>`;
+  const groups = dates.map((d) => `
+    <div class="dgroup" data-date="${d}">
+      <div class="dhead">${d.slice(0, 4)}년 ${Number(d.slice(5, 7))}월 ${Number(d.slice(8, 10))}일</div>
+      ${byDate[d].map((e) => {
+        const [lab, col, bg] = CHG_KIND[e.kind] || CHG_KIND.filing;
+        const ext = e.url ? ` <a class="dartl" href="${esc(e.url)}" target="_blank" rel="noopener">원문 →</a>` : '';
+        return `<div class="citem" data-kind="${esc(e.kind)}">
+        <span class="ctag" style="color:${col};background:${bg}">${lab}</span>
+        <div class="cbody"><a class="cnm" href="../r/${esc(e.ticker)}/">${esc(e.name)}</a><span class="ctx">${esc(e.text)}</span>${ext}</div>
+      </div>`;
+      }).join('')}
+    </div>`).join('');
+  const body = `  <p class="crumb"><a href="../">홈</a> › 최근 변화</p>
+  <span class="eyebrow">변화 감지 · 사실만 기록</span>
+  <h1>최근 30일, 무엇이 변했나</h1>
+  <p class="lead">52주 신저가 · 하루 ±4% 급등락 · P/NAV 구간 이동 · 주요 공시를 자동 수집해 기록합니다. 해석과 추천 없이 <b>사실</b>만 남기며, 종목명을 누르면 상세 페이지로 이동합니다.</p>
+  <div class="fbar"><button class="fchip on" type="button" data-kind="">전체</button>${chip('low', '52주 신저가')}${chip('move', '급등락')}${chip('pnav', 'P/NAV 이동')}${chip('div', '배당 공시')}${chip('filing', '공시')}</div>
+  ${events.length ? groups : '<div class="card"><p class="muted">최근 30일 기록이 아직 없습니다. 매일 자동 수집 후 이 페이지에 쌓입니다.</p></div>'}
+  <div class="card">
+    <h2>이 로그는 어떻게 만들어지나</h2>
+    <p class="small muted" style="margin:0">매일 시세·공시 수집 후 직전 스냅샷과 비교해 변화만 기록합니다(최근 30일 · 최대 60건 보관). 기준: 52주 최저가의 0.2% 이내 진입, 하루 ±4% 이상 변동, P/NAV 0.1배 구간 이동, 최근 7일 주요 공시. 자세한 산정 방식은 <a class="more" href="../about/">데이터 방법론</a>에 있습니다.</p>
+  </div>`;
+  const shell = landingShell({ title, desc, canonical: url, rel: '../', ld, body });
+  const extra = `<style>
+.fbar{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 4px}
+.fchip{font:inherit;font-size:12.5px;font-weight:800;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer}
+.fchip.on{color:#fff;background:var(--brand);border-color:var(--brand)}
+.dgroup{margin-top:16px}
+.dhead{font-size:12.5px;font-weight:800;color:var(--muted);margin:0 2px 8px}
+.citem{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-top:7px}
+.ctag{flex:none;font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;margin-top:1px;white-space:nowrap}
+.cbody{font-size:13.5px;line-height:1.5}
+.cnm{font-weight:800;color:var(--text);text-decoration:none}
+.cnm:hover{color:var(--brand)}
+.ctx{color:var(--muted);margin-left:6px}
+.dartl{color:var(--brand);text-decoration:none;font-weight:700;font-size:12px;margin-left:6px;white-space:nowrap}
+</style>
+<script>
+(function(){
+  var chips=[].slice.call(document.querySelectorAll('.fchip'));
+  chips.forEach(function(c){ c.addEventListener('click', function(){
+    chips.forEach(function(x){ x.classList.toggle('on', x===c); });
+    var k=c.getAttribute('data-kind');
+    [].slice.call(document.querySelectorAll('.citem')).forEach(function(it){ it.style.display=(!k||it.getAttribute('data-kind')===k)?'':'none'; });
+    [].slice.call(document.querySelectorAll('.dgroup')).forEach(function(g){
+      var vis=[].slice.call(g.querySelectorAll('.citem')).some(function(it){ return it.style.display!=='none'; });
+      g.style.display=vis?'':'none';
+    });
+  }); });
+})();
+</script>
+</body>`;
+  return shell.replace('</body>', extra);
+}
+
+// ---- 404 페이지: GitHub Pages는 404.html을 모든 미존재 경로에 서빙. 절대경로 링크로 복귀 유도 ----
+function notFoundPage() {
+  const title = '페이지를 찾을 수 없습니다 | 리츠온 REITs ON';
+  const sectorChips = Object.entries(SECTOR_META).map(([k, m]) => `<a href="${BASE}/s/${m.slug}/">${k} 리츠</a>`).join('');
+  const stockChips = REITS.slice().sort((a, b) => a.name.localeCompare(b.name, 'ko')).map((r) => `<a href="${BASE}/r/${r.ticker}/">${esc(r.name)}</a>`).join('');
+  const ld = { '@context': 'https://schema.org', '@type': 'WebPage', name: title, inLanguage: 'ko' };
+  const body = `  <span class="eyebrow">404</span>
+  <h1>페이지를 찾을 수 없습니다</h1>
+  <p class="lead">주소가 바뀌었거나 잘못 입력됐을 수 있어요. 아래에서 찾으시던 곳으로 바로 이동하세요.</p>
+  <div class="card">
+    <h2>자주 찾는 곳</h2>
+    <div class="chips"><a href="${BASE}/">홈</a><a href="${BASE}/facts.html">📊 팩트시트</a><a href="${BASE}/changes/">최근 변화</a><a href="${BASE}/about/">사이트 소개·방법론</a></div>
+  </div>
+  <div class="card"><h2>섹터별 리츠</h2><div class="chips">${sectorChips}</div></div>
+  <div class="card"><h2>종목 바로가기</h2><div class="chips">${stockChips}<a href="${BASE}/r/088980/">맥쿼리인프라</a></div></div>`;
+  const shell = landingShell({ title, desc: '요청하신 페이지를 찾을 수 없습니다. 리츠온 홈·팩트시트·섹터·종목 페이지로 이동하세요.', canonical: BASE + '/', rel: BASE + '/', ld, body });
+  return shell.replace('</head>', '<meta name="robots" content="noindex" />\n</head>');
+}
+
 const rDir = join(ROOT, 'r');
 // 기존 r/ 정리(없어진 종목 제거)
 if (existsSync(rDir)) { for (const d of readdirSync(rDir)) rmSync(join(rDir, d), { recursive: true, force: true }); }
@@ -1919,6 +2056,12 @@ const aboutDir = join(ROOT, 'about');
 mkdirSync(aboutDir, { recursive: true });
 writeFileSync(join(aboutDir, 'index.html'), aboutPage(), 'utf8');
 
+// ---- 최근 변화(/changes/) + 404 ----
+const changesDir = join(ROOT, 'changes');
+mkdirSync(changesDir, { recursive: true });
+writeFileSync(join(changesDir, 'index.html'), changesPage(), 'utf8');
+writeFileSync(join(ROOT, '404.html'), notFoundPage(), 'utf8');
+
 // ---- 섹터 랜딩(/s/{slug}/) ----
 const sDir = join(ROOT, 's');
 if (existsSync(sDir)) { for (const d of readdirSync(sDir)) rmSync(join(sDir, d), { recursive: true, force: true }); }
@@ -1938,7 +2081,7 @@ for (const [name, meta] of Object.entries(SECTOR_META)) {
 
 // ---- sitemap ----
 const today = new Date().toISOString().slice(0, 10);
-const urls = [BASE + '/', BASE + '/about/', BASE + '/facts.html']
+const urls = [BASE + '/', BASE + '/about/', BASE + '/changes/', BASE + '/facts.html']
   .concat(sectorUrls)
   .concat(REITS.map(r => BASE + '/r/' + r.ticker + '/'))
   .concat(INFRA.map(x => BASE + '/r/' + x.ticker + '/'));

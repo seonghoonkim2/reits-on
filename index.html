@@ -885,6 +885,7 @@
           </div>
           <div class="chg-tools">
             <label class="chg-only"><input type="checkbox" id="chgWatchOnly" /> 관심 종목만</label>
+            <a class="more" href="changes/" style="font-size:13px;">30일 전체 보기 →</a>
           </div>
         </div>
         <div id="homeChangesList" class="chg-list"></div>
@@ -1378,6 +1379,7 @@
       <nav aria-label="사이트 안내" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:7px 8px;font-size:13px;">
         <a href="about/" style="font-weight:800;color:var(--brand,#3254ff);text-decoration:none;background:#edf1ff;border-radius:999px;padding:5px 12px;">사이트 소개·데이터 방법론</a>
         <a href="facts.html" style="font-weight:700;color:#515b72;text-decoration:none;background:#eef1f7;border-radius:999px;padding:5px 12px;">📊 팩트시트</a>
+        <a href="changes/" style="font-weight:700;color:#515b72;text-decoration:none;background:#eef1f7;border-radius:999px;padding:5px 12px;">🔔 최근 변화 30일</a>
         <a href="reits-on.ics" style="font-weight:700;color:#515b72;text-decoration:none;background:#eef1f7;border-radius:999px;padding:5px 12px;">📅 배당 캘린더 구독</a>
       </nav>
       <nav aria-label="섹터별 리츠" style="margin-top:7px;display:flex;flex-wrap:wrap;gap:7px 8px;font-size:12.5px;">
@@ -2835,16 +2837,21 @@
     }
 
     function renderSectorGuide() {
+      // 정적 섹터 랜딩(/s/{slug}/)으로 심화 연결 — 해당 섹터 리츠 목록·3숫자 비교 제공
+      const SECTOR_URL = { '오피스':'s/office/', '물류':'s/logistics/', '리테일':'s/retail/', '주거':'s/resi/', '호텔':'s/hotel/', '해외':'s/overseas/', '복합':'s/mixed/', '인프라':'s/infra/' };
       $('#sectorGuide').innerHTML = SECTOR_INFO.map(s => {
         const count = REITS.filter(r => r.sector.includes(s.key)).length;
         const kws = s.watch.split(',').map(w => '<span class="kw">' + escapeHTML(w.trim()) + '</span>').join('');
+        const su = SECTOR_URL[s.key];
         return '<div class="sector-card">'
           + '<div class="sc-head"><div class="sc-id"><div class="sicon">' + s.icon + '</div>'
           + '<div><h3>' + escapeHTML(s.key) + '</h3><div class="muted small">상장리츠 ' + count + '개</div></div></div>'
           + '<span class="badge ' + s.stability + '">' + escapeHTML(s.stabilityText) + '</span></div>'
           + '<p class="sc-sum">' + escapeHTML(s.summary) + '</p>'
           + '<div class="sc-kw"><span class="kwl">확인 포인트</span>' + kws + '</div>'
-          + '<div class="sc-risk"><b>⚠ 리스크</b> ' + escapeHTML(s.downside) + '</div></div>';
+          + '<div class="sc-risk"><b>⚠ 리스크</b> ' + escapeHTML(s.downside) + '</div>'
+          + (su ? '<p style="margin:10px 0 0"><a class="more" href="' + su + '">' + escapeHTML(s.key) + ' 리츠 종목별 비교 →</a></p>' : '')
+          + '</div>';
       }).join('');
     }
 

@@ -32,6 +32,14 @@
 .risk-banner.risk-caution{background:#fdf6e3;border:1px solid #f2e0a8;color:#9a6700}
 h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 .tk{color:var(--muted);font-weight:700}
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0 2px}
+.tbtn{font:inherit;font-size:13px;font-weight:800;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.tbtn:hover{border-color:#c9d3ee}
+.tbtn.on{color:#9a6700;background:#fdf6e3;border-color:#f2e0a8}
+.tjump{margin-left:auto}
+.tjump select{font:inherit;font-size:13px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;max-width:170px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.icsl{color:var(--brand);text-decoration:none;font-weight:700}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px}
 .hero{font-size:30px;font-weight:950;letter-spacing:-1px}
 .sub{color:var(--muted);font-size:14px}
@@ -236,14 +244,25 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   <span class="eyebrow">상장리츠 · 인프라</span>
   <h1>코람코라이프인프라리츠</h1>
   <div class="tk">종목코드 357120 · 리테일, 인프라</div>
-<div class="numstrip"><div class="ns-cell"><div class="ns-k">실배당수익률<span class="ns-t">TTM·실적</span></div><div class="ns-v t-ok">7.72%</div><div class="ns-sub">공시 실지급 기준</div></div><div class="ns-cell"><div class="ns-k">P/NAV<span class="ns-t">장부 순자산</span></div><div class="ns-v">0.86배</div><div class="ns-sub">할인 14%</div></div><div class="ns-cell"><div class="ns-k">다음 배당기준월</div><div class="ns-v">11월</div><div class="ns-sub">5월·11월</div></div></div>
+  <div class="toolbar">
+    <button class="tbtn" id="watchBtn" type="button" aria-pressed="false">☆ 관심 추가</button>
+    <button class="tbtn" id="shareBtn" type="button">🔗 공유</button>
+    <label class="tjump"><span class="sr">다른 리츠로 이동</span>
+      <select id="jumpSel" aria-label="다른 리츠로 이동">
+        <option value="">다른 리츠 보기…</option>
+        <option value="0030R0">대신밸류리츠</option><option value="377190">디앤디플랫폼리츠</option><option value="330590">롯데리츠</option><option value="357430">마스턴프리미어리츠</option><option value="396690">미래에셋글로벌리츠</option><option value="357250">미래에셋맵스리츠</option><option value="448730">삼성FN리츠</option><option value="204210">스타에스엠리츠</option><option value="481850">신한글로벌액티브리츠</option><option value="404990">신한서부티엔디리츠</option><option value="293940">신한알파리츠</option><option value="140910">에이리츠</option><option value="088260">이리츠코크렙</option><option value="350520">이지스레지던스리츠</option><option value="334890">이지스밸류플러스리츠</option><option value="348950">제이알글로벌리츠</option><option value="145270">케이탑리츠</option><option value="417310">코람코더원리츠</option><option value="357120" disabled>코람코라이프인프라리츠</option><option value="451800">한화리츠</option><option value="365550">ESR켄달스퀘어리츠</option><option value="432320">KB스타리츠</option><option value="400760">NH올원리츠</option><option value="338100">NH프라임리츠</option><option value="395400">SK리츠</option>
+        <option value="088980">맥쿼리인프라 (인프라)</option>
+      </select>
+    </label>
+  </div>
+<div class="numstrip"><div class="ns-cell"><div class="ns-k">실배당수익률<span class="ns-t">TTM·실적</span></div><div class="ns-v t-ok">7.72%</div><div class="ns-sub">공시 실지급 기준</div></div><div class="ns-cell"><div class="ns-k">P/NAV<span class="ns-t">장부 순자산</span></div><div class="ns-v">0.86배</div><div class="ns-sub">할인 14%</div></div><div class="ns-cell"><div class="ns-k">다음 배당기준월<span class="ns-t">말일 가정·예상</span></div><div class="ns-v">11월</div><div class="ns-sub">D-146 · 5월·11월</div></div></div>
 
 
   <div class="card">
     <div class="hero">327원 <span class="sub">/주 (최근 1년 실적·TTM)</span></div>
     <div class="sub">월 환산 약 27원/주 · 최근 12개월 공시 실지급 합산</div>
     <div class="months" role="img" aria-label="배당기준월 5월, 11월"><span class="mc">1</span><span class="mc">2</span><span class="mc">3</span><span class="mc">4</span><span class="mc on">5</span><span class="mc">6</span><span class="mc">7</span><span class="mc">8</span><span class="mc">9</span><span class="mc">10</span><span class="mc on">11</span><span class="mc">12</span></div>
-    <div class="sub" style="margin-top:8px">반기 배당(연 2회) · 배당기준월 5월·11월</div>
+    <div class="sub" style="margin-top:8px">반기 배당(연 2회) · 배당기준월 5월·11월 · <a class="icsl" href="../../reits-on.ics">📅 캘린더 앱에 구독(.ics)</a></div>
     <div class="mx"><div class="mx-row"><span class="mx-k">현재가</span><span class="mx-v"><b>4,235원</b> <span style="color:#d1453b;font-weight:800">+0.59%</span> <span class="mx-note">실시간 아님 · 2026-07-07 종가</span></span></div><div class="mx-row"><span class="mx-k">실배당수익률<br><span class="mx-sub">최근 1년 실적</span></span><span class="mx-v"><b>7.72%</b> <span class="mx-badge ok">실적</span> <span class="mx-note">공시 실지급 327원/주</span></span></div><div class="mx-row"><span class="mx-k">P/NAV<br><span class="mx-sub">장부 순자산 기준</span></span><span class="mx-v"><b>0.86배</b> <span class="mx-badge ok">할인 14%</span> <span class="mx-note">주당 순자산 4,925원</span><div class="mx-cav">감정 공정가치는 장부보다 큰 경우가 많아 실제 할인폭은 더 클 수 있어요.</div></span></div><div class="mx-row"><span class="mx-k">52주 범위</span><span class="mx-v">3,750 ~ 4,950원 <span class="mx-w52"><i style="left:40%"></i></span><span class="mx-note">저점 대비 +12.9% · 고점 대비 −14.4%</span></span></div><div class="mx-spark"><svg class="spark" viewBox="0 0 260 46" width="260" height="46" preserveAspectRatio="none" role="img" aria-label="최근 1년 주가 추이"><defs><linearGradient id="sg31298" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#1f6feb" stop-opacity="0.18"/><stop offset="1" stop-color="#1f6feb" stop-opacity="0"/></linearGradient></defs><polygon points="3,43 3,21.5 7,19.6 11.1,20.7 15.1,21.3 19.1,24.3 23.2,20.7 27.2,21.9 31.2,22.5 35.3,28.4 39.3,27 43.3,28 47.3,29 51.4,23.7 55.4,23.5 59.4,23.7 63.5,24.1 67.5,23.9 71.5,23.3 75.6,26.1 79.6,25.7 83.6,24.7 87.7,25.1 91.7,22.7 95.7,19.7 99.8,17.8 103.8,16.2 107.8,21.1 111.9,19.6 115.9,21.3 119.9,28.4 124,23.5 128,23.1 132,21.9 136,23.9 140.1,23.7 144.1,22.3 148.1,18 152.2,19 156.2,16.8 160.2,13.2 164.3,14 168.3,18.6 172.3,21.5 176.4,14.6 180.4,14 184.4,15.6 188.5,20.7 192.5,17.6 196.5,14.6 200.6,13 204.6,9.9 208.6,3 212.7,16.2 216.7,21.9 220.7,23.5 224.7,23.7 228.8,23.3 232.8,42.8 236.8,42.2 240.9,43 244.9,35.5 248.9,37.3 253,29.8 257,30 257,43" fill="url(#sg31298)"/><polyline points="3,21.5 7,19.6 11.1,20.7 15.1,21.3 19.1,24.3 23.2,20.7 27.2,21.9 31.2,22.5 35.3,28.4 39.3,27 43.3,28 47.3,29 51.4,23.7 55.4,23.5 59.4,23.7 63.5,24.1 67.5,23.9 71.5,23.3 75.6,26.1 79.6,25.7 83.6,24.7 87.7,25.1 91.7,22.7 95.7,19.7 99.8,17.8 103.8,16.2 107.8,21.1 111.9,19.6 115.9,21.3 119.9,28.4 124,23.5 128,23.1 132,21.9 136,23.9 140.1,23.7 144.1,22.3 148.1,18 152.2,19 156.2,16.8 160.2,13.2 164.3,14 168.3,18.6 172.3,21.5 176.4,14.6 180.4,14 184.4,15.6 188.5,20.7 192.5,17.6 196.5,14.6 200.6,13 204.6,9.9 208.6,3 212.7,16.2 216.7,21.9 220.7,23.5 224.7,23.7 228.8,23.3 232.8,42.8 236.8,42.2 240.9,43 244.9,35.5 248.9,37.3 253,29.8 257,30" fill="none" stroke="#1f6feb" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg><span class="mx-note">최근 1년 주가</span></div></div>
   </div>
 <div class="card dvh-card">
@@ -339,6 +358,26 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
     if(pl) pl.textContent='LTV'+(m==='ltv'?' ↓':''); if(po) po.textContent='임대율'+(m==='occ'?' ↓':'');
   }
   btns.forEach(function(b){b.addEventListener('click', function(){ render(b.getAttribute('data-metric')); });});
+})();
+// 관심리츠 토글: 홈(SPA)과 같은 localStorage 키(reiton_watch)를 공유해 홈 개인화에 바로 반영.
+(function(){
+  var TK='357120', KEY='reiton_watch';
+  function get(){ try{ var v=JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+  function set(v){ try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){} }
+  var btn=document.getElementById('watchBtn'); if(!btn) return;
+  function paint(){ var on=get().indexOf(TK)>=0; btn.classList.toggle('on',on); btn.textContent=on?'★ 관심리츠':'☆ 관심 추가'; btn.setAttribute('aria-pressed', on?'true':'false'); }
+  btn.addEventListener('click', function(){ var v=get(), i=v.indexOf(TK); if(i>=0) v.splice(i,1); else v.push(TK); set(v); paint(); });
+  paint();
+})();
+(function(){
+  var sb=document.getElementById('shareBtn');
+  if(sb) sb.addEventListener('click', function(){
+    var d={title:document.title, url:location.href};
+    if(navigator.share){ navigator.share(d).catch(function(){}); }
+    else if(navigator.clipboard){ navigator.clipboard.writeText(location.href).then(function(){ var t=sb.textContent; sb.textContent='✓ 링크 복사됨'; setTimeout(function(){ sb.textContent=t; },1500); }); }
+  });
+  var js=document.getElementById('jumpSel');
+  if(js) js.addEventListener('change', function(){ if(js.value) location.href='../'+js.value+'/'; });
 })();
 </script>
 </body>
