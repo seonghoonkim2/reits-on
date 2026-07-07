@@ -1,0 +1,667 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//reits-on//dividend-calendar//KO
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:리츠온 배당 캘린더(예상)
+X-WR-CALDESC:국내 상장리츠 배당기준월(예상). 교육용·투자권유 아님. 실제 기준일은 공시 확인.
+X-WR-TIMEZONE:Asia/Seoul
+BEGIN:VEVENT
+UID:reiton-0030R0-02@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260228
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[대신밸류리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 79원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /0030R0/
+URL:https://seonghoonkim2.github.io/reits-on/r/0030R0/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-0030R0-05@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260531
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[대신밸류리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 79원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /0030R0/
+URL:https://seonghoonkim2.github.io/reits-on/r/0030R0/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-0030R0-08@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260831
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[대신밸류리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 79원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /0030R0/
+URL:https://seonghoonkim2.github.io/reits-on/r/0030R0/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-0030R0-11@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261130
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[대신밸류리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 79원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /0030R0/
+URL:https://seonghoonkim2.github.io/reits-on/r/0030R0/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-481850-02@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260228
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[신한글로벌액티브리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 129원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/481850/
+URL:https://seonghoonkim2.github.io/reits-on/r/481850/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-481850-08@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260831
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[신한글로벌액티브리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 129원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/481850/
+URL:https://seonghoonkim2.github.io/reits-on/r/481850/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-448730-01@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260131
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[삼성FN리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 52원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /448730/
+URL:https://seonghoonkim2.github.io/reits-on/r/448730/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-448730-04@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260430
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[삼성FN리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 52원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /448730/
+URL:https://seonghoonkim2.github.io/reits-on/r/448730/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-448730-07@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260731
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[삼성FN리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 52원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /448730/
+URL:https://seonghoonkim2.github.io/reits-on/r/448730/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-448730-10@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261031
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[삼성FN리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 52원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /448730/
+URL:https://seonghoonkim2.github.io/reits-on/r/448730/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-451800-04@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260430
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[한화리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 135원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/451800/
+URL:https://seonghoonkim2.github.io/reits-on/r/451800/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-451800-10@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261031
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[한화리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 135원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/451800/
+URL:https://seonghoonkim2.github.io/reits-on/r/451800/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-432320-01@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260131
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[KB스타리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 170원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/432320/
+URL:https://seonghoonkim2.github.io/reits-on/r/432320/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-432320-07@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260731
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[KB스타리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 170원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/432320/
+URL:https://seonghoonkim2.github.io/reits-on/r/432320/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-357430-03@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260331
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[마스턴프리미어리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 79원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /357430/
+URL:https://seonghoonkim2.github.io/reits-on/r/357430/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-357430-09@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260930
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[마스턴프리미어리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 79원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /357430/
+URL:https://seonghoonkim2.github.io/reits-on/r/357430/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-417310-02@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260228
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[코람코더원리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 89원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /417310/
+URL:https://seonghoonkim2.github.io/reits-on/r/417310/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-417310-05@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260531
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[코람코더원리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 89원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /417310/
+URL:https://seonghoonkim2.github.io/reits-on/r/417310/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-417310-08@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260831
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[코람코더원리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 89원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /417310/
+URL:https://seonghoonkim2.github.io/reits-on/r/417310/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-417310-11@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261130
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[코람코더원리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 89원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /417310/
+URL:https://seonghoonkim2.github.io/reits-on/r/417310/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-404990-06@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260630
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[신한서부티엔디리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 132원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/404990/
+URL:https://seonghoonkim2.github.io/reits-on/r/404990/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-404990-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[신한서부티엔디리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 132원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/404990/
+URL:https://seonghoonkim2.github.io/reits-on/r/404990/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-396690-03@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260331
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[미래에셋글로벌리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 133원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/396690/
+URL:https://seonghoonkim2.github.io/reits-on/r/396690/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-396690-09@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260930
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[미래에셋글로벌리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 133원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/396690/
+URL:https://seonghoonkim2.github.io/reits-on/r/396690/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-400760-06@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260630
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[NH올원리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 160원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/400760/
+URL:https://seonghoonkim2.github.io/reits-on/r/400760/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-400760-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[NH올원리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 160원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/400760/
+URL:https://seonghoonkim2.github.io/reits-on/r/400760/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-395400-03@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260331
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[SK리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 50원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /395400/
+URL:https://seonghoonkim2.github.io/reits-on/r/395400/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-395400-06@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260630
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[SK리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 50원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /395400/
+URL:https://seonghoonkim2.github.io/reits-on/r/395400/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-395400-09@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260930
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[SK리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 50원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /395400/
+URL:https://seonghoonkim2.github.io/reits-on/r/395400/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-395400-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[SK리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 50원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /395400/
+URL:https://seonghoonkim2.github.io/reits-on/r/395400/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-377190-03@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260331
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[디앤디플랫폼리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 120원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/377190/
+URL:https://seonghoonkim2.github.io/reits-on/r/377190/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-377190-09@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260930
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[디앤디플랫폼리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 120원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/377190/
+URL:https://seonghoonkim2.github.io/reits-on/r/377190/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-365550-05@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260531
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[ESR켄달스퀘어리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 137원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/365550/
+URL:https://seonghoonkim2.github.io/reits-on/r/365550/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-365550-11@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261130
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[ESR켄달스퀘어리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 137원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/365550/
+URL:https://seonghoonkim2.github.io/reits-on/r/365550/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-357120-05@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260531
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[코람코라이프인프라리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 164원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/357120/
+URL:https://seonghoonkim2.github.io/reits-on/r/357120/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-357120-11@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261130
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[코람코라이프인프라리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 164원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/357120/
+URL:https://seonghoonkim2.github.io/reits-on/r/357120/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-348950-06@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260630
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[제이알글로벌리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 115원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/348950/
+URL:https://seonghoonkim2.github.io/reits-on/r/348950/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-348950-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[제이알글로벌리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 115원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/348950/
+URL:https://seonghoonkim2.github.io/reits-on/r/348950/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-357250-05@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260531
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[미래에셋맵스리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 135원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/357250/
+URL:https://seonghoonkim2.github.io/reits-on/r/357250/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-357250-11@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261130
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[미래에셋맵스리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 135원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/357250/
+URL:https://seonghoonkim2.github.io/reits-on/r/357250/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-350520-06@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260630
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[이지스레지던스리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 150원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/350520/
+URL:https://seonghoonkim2.github.io/reits-on/r/350520/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-350520-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[이지스레지던스리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 150원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/350520/
+URL:https://seonghoonkim2.github.io/reits-on/r/350520/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-334890-05@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260531
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[이지스밸류플러스리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 196원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/334890/
+URL:https://seonghoonkim2.github.io/reits-on/r/334890/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-334890-11@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261130
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[이지스밸류플러스리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 196원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/334890/
+URL:https://seonghoonkim2.github.io/reits-on/r/334890/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-338100-05@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260531
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[NH프라임리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 376원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/338100/
+URL:https://seonghoonkim2.github.io/reits-on/r/338100/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-338100-11@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261130
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[NH프라임리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 376원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/338100/
+URL:https://seonghoonkim2.github.io/reits-on/r/338100/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-330590-06@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260630
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[롯데리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 120원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/330590/
+URL:https://seonghoonkim2.github.io/reits-on/r/330590/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-330590-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[롯데리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 120원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/330590/
+URL:https://seonghoonkim2.github.io/reits-on/r/330590/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-293940-03@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260331
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[신한알파리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 181원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/293940/
+URL:https://seonghoonkim2.github.io/reits-on/r/293940/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-293940-09@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260930
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[신한알파리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 181원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/293940/
+URL:https://seonghoonkim2.github.io/reits-on/r/293940/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-088260-06@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20260630
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[이리츠코크렙] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 175원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/088260/
+URL:https://seonghoonkim2.github.io/reits-on/r/088260/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-088260-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[이리츠코크렙] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 175원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/
+ r/088260/
+URL:https://seonghoonkim2.github.io/reits-on/r/088260/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-145270-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[케이탑리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요. ·
+  예상 주당배당 약 50원(1회\, 최근 실적 기준)\nhttps://seonghoonkim2.github.io/reits-on/r
+ /145270/
+URL:https://seonghoonkim2.github.io/reits-on/r/145270/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-204210-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[스타에스엠리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요.\n
+ https://seonghoonkim2.github.io/reits-on/r/204210/
+URL:https://seonghoonkim2.github.io/reits-on/r/204210/
+END:VEVENT
+BEGIN:VEVENT
+UID:reiton-140910-12@reits-on
+DTSTAMP:20260707T065228Z
+DTSTART;VALUE=DATE:20261231
+RRULE:FREQ=YEARLY
+TRANSP:TRANSPARENT
+SUMMARY:[에이리츠] 배당기준월(예상)
+DESCRIPTION:예상 배당기준월입니다(결산월 말일 가정 · 확정 아님). 실제 기준일·지급일은 DART 공시로 확인하세요.\n
+ https://seonghoonkim2.github.io/reits-on/r/140910/
+URL:https://seonghoonkim2.github.io/reits-on/r/140910/
+END:VEVENT
+END:VCALENDAR

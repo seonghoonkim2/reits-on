@@ -431,6 +431,11 @@
     .chg-star { font-size:10.5px; font-weight:800; color:var(--warning); }
     .chg-tx { font-size:13px; color:var(--muted); margin-top:2px; }
     .chg-date { flex:0 0 auto; font-size:11.5px; color:var(--muted); font-weight:700; }
+    .ics-sub { margin-top:16px; border:1px solid var(--line); border-radius:14px; padding:14px 16px; background:var(--surface); }
+    .ics-h { font-weight:850; font-size:15px; }
+    .ics-btns { display:flex; flex-wrap:wrap; gap:8px; }
+    .ics-btn { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:9px 15px; text-decoration:none; color:var(--text); font-weight:800; font-size:13.5px; }
+    .ics-btn.primary { background:var(--brand); color:#fff; border-color:var(--brand); }
     .w52 { position:relative; display:inline-block; width:80px; height:6px; border-radius:999px; background:linear-gradient(90deg,#1f6feb22,#d1453b22); vertical-align:middle; margin-left:2px; }
     .w52 i { position:absolute; top:-2px; width:3px; height:10px; border-radius:2px; background:var(--text); transform:translateX(-50%); }
     .m-primary { border:1px solid var(--line); background:var(--primary-tint); border-radius:14px; padding:11px 13px; }
@@ -1206,6 +1211,14 @@
         </div>
         <div class="note-banner info" id="calendarNote"></div>
         <div class="calendar" id="calendarGrid"></div>
+        <div class="ics-sub">
+          <div class="ics-h">📅 배당 캘린더 구독</div>
+          <p class="muted small" style="margin:4px 0 10px;">내 캘린더 앱(구글·애플)에 <b>배당기준월(예상)</b>을 넣어 자동 알림을 받으세요. ⚠ 결산월 말일 가정의 <b>예상</b> 일정이며, 실제 기준일·지급일은 공시로 확인하세요.</p>
+          <div class="ics-btns">
+            <a class="ics-btn primary" id="icsGoogle" href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fseonghoonkim2.github.io%2Freits-on%2Freits-on.ics" target="_blank" rel="noopener">구글 캘린더에 추가</a>
+            <a class="ics-btn" id="icsDownload" href="reits-on.ics" download>구독 파일(.ics) 내려받기</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1675,7 +1688,7 @@
       const d = clampNum(annualDps), y = Number(targetYieldFraction);
       return d > 0 && isFinite(y) && y > 0 ? d / y : null;
     };
-                                                                                                                // FINANCE_INLINE_END
+                                                                                                                    // FINANCE_INLINE_END
 
     // METRICS_INLINE_START (scripts/build-app.mjs가 assets/js/reit-metrics.mjs를 주입 — 이 블록 직접 수정 금지)
     // 리츠 지표 표시 헬퍼(브라우저·빌드 공용, 순수 함수). 시세·배당의 '표시 로직'을 한 곳에서 관리.
@@ -1743,7 +1756,7 @@
       const posPct = Math.max(0, Math.min(100, Math.round((price - low) / (high - low) * 100)));
       return { posPct, fromLowPct: round1((price - low) / low * 100), offHighPct: round1((high - price) / high * 100) };
     }
-                                                                                                                // METRICS_INLINE_END
+                                                                                                                    // METRICS_INLINE_END
 
     const store = {
       get(k, f) { try { const v = JSON.parse(localStorage.getItem('reiton_' + k)); return v == null ? f : v; } catch (e) { return f; } },

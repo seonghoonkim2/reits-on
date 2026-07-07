@@ -43,6 +43,8 @@ jobs:
         run: node scripts/build-pages.mjs
       - name: Generate filings RSS (공시 피드)
         run: node scripts/build-filings.mjs
+      - name: Generate dividend calendar (.ics 구독 피드)
+        run: node scripts/build-ics.mjs
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
