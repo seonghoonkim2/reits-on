@@ -21,6 +21,18 @@ function nextDivMonth(divMonths) {
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (t) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[t]));
 const fmt = (n) => Number(n).toLocaleString('ko-KR');
 
+// 섹터 랜딩(/s/{slug}/) 메타: primary(한글) → {slug, 검색어, 소개, 확인 포인트}. 추천·순위 아님(교육).
+const SECTOR_META = {
+  '오피스': { slug: 'office', lead: '도심 오피스 빌딩을 임대해 임대료로 배당을 만드는 리츠입니다.', points: ['공실률과 재계약 임대료(리싱 스프레드)의 방향', '차입금 금리·리파이낸싱(만기 재조달) 일정과 조건', '스폰서·앵커 임차인의 임대차 만기와 신용도'] },
+  '해외': { slug: 'overseas', lead: '해외 부동산에 투자하는 리츠로, 환율과 현지 시장이 배당·자산가치를 좌우합니다.', points: ['원화 환율 변동(환헤지 여부·비용 포함)', '현지 금리·자산가치·리파이낸싱 조건', '현지 임차인 신용도와 임대차 구조'] },
+  '물류': { slug: 'logistics', lead: '물류센터를 임대하는 리츠입니다. 전자상거래 성장과 신규 공급이 핵심 변수입니다.', points: ['임차인 분산도와 주요 임차인 신용도', '해당 권역 신규 물류센터 공급 물량', '임대료 재계약(리싱) 조건과 공실 위험'] },
+  '복합': { slug: 'mixed', lead: '오피스·물류·리테일 등 여러 유형 자산을 함께 담은 리츠입니다.', points: ['자산별 성과 편차와 비중', '자산별 임대차 만기·차입금 만기의 분산 정도', '특정 자산 매각·편입에 따른 배당 변동 가능성'] },
+  '인프라': { slug: 'infra', lead: '생활 인프라·리테일 성격 자산을 담아 장기 임대차로 배당을 만드는 리츠입니다.', points: ['장기 임대차(마스터리스) 구조와 잔여 기간', '임차인 업태 전환·매출 안정성', '물가연동 임대료 조항 여부'] },
+  '리테일': { slug: 'retail', lead: '백화점·마트 등 리테일 자산을 임대하는 리츠입니다. 소비 경기에 민감합니다.', points: ['핵심 임차인의 매출·영업 안정성과 신용도', '소비 경기와 오프라인 리테일 업황', '장기 임대차(마스터리스) 구조와 잔여 기간'] },
+  '주거': { slug: 'resi', lead: '임대주택 등 주거 자산을 운용하는 리츠입니다.', points: ['임대율과 임대료 상승 여력', '주택 매매·전월세 시장과 정책 변화', '자산 매각 계획과 개발 단계 위험'] },
+  '호텔': { slug: 'hotel', lead: '호텔 자산을 담은 리츠입니다. 객실 수요와 가동률이 실적을 좌우합니다.', points: ['객실 가동률·객단가(ADR)와 관광 수요', '임대차(고정임대료) 구조 여부', '배당 재개·중단 여부와 재무 안정성'] },
+};
+
 // ---- seed 추출 ----
 const html = readFileSync(join(ROOT, 'index.html'), 'utf8');
 const m = html.match(/<script id="seed-data" type="application\/json">([\s\S]*?)<\/script>/);
@@ -904,7 +916,7 @@ ${pro
 ${irCard(r, naverUrl)}
 
   <p class="note">⚠ 본 페이지는 일반 투자자 교육·정보 제공용이며 <b>특정 종목의 매수·매도 추천이 아닙니다.</b> 배당금·연환산 수치는 공개자료(한국리츠협회 등) 기반의 <b>교육용 추정</b>으로 실제와 다를 수 있고, 리츠는 배당 삭감·중단 및 원금 손실이 가능합니다. 투자 전 DART·KIND·투자보고서 원문과 최신 시세를 반드시 확인하세요. 데이터 기준일은 변동될 수 있습니다.</p>
-  <p class="note"><a class="more" href="../../">← 리츠온 홈으로</a></p>
+  <p class="note">${SECTOR_META[r.primary] ? `<a class="more" href="../../s/${SECTOR_META[r.primary].slug}/">${esc(r.primary)} 리츠 전체 보기 →</a> · ` : ''}<a class="more" href="../../about/">데이터 방법론·면책</a> · <a class="more" href="../../">← 리츠온 홈으로</a></p>
 </div>
 <script>
 (function(){
@@ -1681,6 +1693,205 @@ h2{font-size:18px;margin:0 0 8px}ul.q{margin:6px 0 0;padding-left:18px}ul.q li{m
 </div></body></html>`;
 }
 
+// ---- 공용 랜딩 셸(신뢰·섹터 페이지 공통 HTML 뼈대) ----
+// rel: 루트까지 상대경로('../'=/about/, '../../'=/s/x/). 종목 페이지와 동일 디자인 토큰 사용.
+function landingShell({ title, desc, canonical, rel, ld, body }) {
+  return `<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(desc)}" />
+<link rel="canonical" href="${canonical}" />
+<link rel="icon" href="${rel}favicon.svg" type="image/svg+xml" />
+<meta name="theme-color" content="#3254ff" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="${esc(title)}" />
+<meta property="og:description" content="${esc(desc)}" />
+<meta property="og:url" content="${canonical}" />
+<meta property="og:image" content="${BASE}/og.png" />
+<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content="${BASE}/og.png" />
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+<style>
+:root{--brand:#3254ff;--bg:#f5f7fb;--surface:#fff;--text:#172033;--muted:#515b72;--line:#e5e9f2;--soft:#eef1f7;--tint:#edf1ff}
+*{box-sizing:border-box}body{margin:0;font-family:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding:20px 18px 60px}
+.top{display:flex;align-items:center;gap:10px;padding:14px 0}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#3254ff,#00a78e);color:#fff;font-weight:900;display:grid;place-items:center;text-decoration:none}
+.top a.brand{color:var(--text);text-decoration:none;font-weight:800}
+.top .topfacts{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--brand);text-decoration:none;background:var(--tint);border-radius:999px;padding:6px 12px}
+.crumb{font-size:12.5px;color:var(--muted);margin:2px 0 0}.crumb a{color:var(--brand);text-decoration:none;font-weight:700}
+.eyebrow{display:inline-block;font-size:12px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:5px 12px;margin-top:6px}
+h1{font-size:27px;letter-spacing:-1px;margin:12px 0 6px}
+.lead{color:var(--muted);font-size:15px;margin:0 0 4px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px}
+.card h2{font-size:17px;margin:0 0 10px}
+.card h3{font-size:14px;margin:14px 0 4px}
+.card p{margin:6px 0}
+ul.q{margin:8px 0 0;padding-left:18px}ul.q li{margin:6px 0}
+.rows{display:grid;gap:0}.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--soft);font-size:14.5px}.row:last-child{border-bottom:0}.row span{color:var(--muted)}.row b{font-weight:800;text-align:right}
+.muted{color:var(--muted)}.small{font-size:12.5px}
+a.more{color:var(--brand);text-decoration:none;font-weight:700}
+.note{font-size:12px;color:var(--muted);margin:14px 2px 0;line-height:1.55}
+.slist{display:grid;gap:12px;margin-top:6px}
+.sitem{border:1px solid var(--line);border-radius:14px;padding:14px 15px;background:var(--surface);text-decoration:none;color:inherit;display:block}
+.sitem:hover{border-color:#c9d3ee}
+.sitem .snm{font-weight:900;font-size:16px;letter-spacing:-.02em}
+.sitem .stk{color:var(--muted);font-weight:700;font-size:12px;margin-left:6px}
+.sitem .snote{color:var(--muted);font-size:12.5px;margin:4px 0 0}
+.sbadge{display:inline-block;font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+.sbadge.risk{background:#fdecea;color:#b42318}.sbadge.warn{background:#fdf6e3;color:#9a6700}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.chips a{font-size:12.5px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:6px 12px;text-decoration:none}
+.numstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 2px}
+@media(max-width:420px){.numstrip{gap:6px}}
+.ns-cell{border:1px solid var(--line);border-radius:12px;padding:10px 8px;background:linear-gradient(180deg,#fbfcff,#fff);text-align:center;min-width:0}
+.ns-k{font-size:10.5px;font-weight:800;color:var(--muted);line-height:1.25;display:flex;flex-direction:column;align-items:center;gap:1px}
+.ns-t{font-size:9px;font-weight:700;opacity:.7}
+.ns-v{font-size:20px;font-weight:950;letter-spacing:-.03em;margin:3px 0 2px;line-height:1.1}
+@media(max-width:420px){.ns-v{font-size:17px}}
+.ns-v.t-warn{color:#9a6700}
+.ns-sub{font-size:10px;color:var(--muted);font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="logo" href="${rel}" aria-label="리츠온 홈">R</a>
+    <a class="brand" href="${rel}">리츠온 REITs ON</a>
+    <a class="topfacts" href="${rel}facts.html">📊 팩트시트</a>
+  </div>
+${body}
+  <p class="note">⚠ 리츠온은 일반 투자자를 위한 <b>교육·정보 제공 서비스</b>이며, 특정 종목의 매수·매도 추천이나 투자자문이 아닙니다. 모든 수치는 공개자료 기반이며 실제와 다를 수 있고, 리츠는 배당 삭감·중단 및 원금 손실이 가능합니다. 투자 전 DART·KIND·투자보고서 원문과 최신 시세를 반드시 확인하세요.</p>
+  <p class="note"><a class="more" href="${rel}">← 리츠온 홈으로</a> · <a class="more" href="${rel}about/">이 사이트 소개·데이터 방법론</a></p>
+</div>
+</body>
+</html>`;
+}
+
+// 종목 한 줄(섹터 목록용): numStrip 재사용 + 리스크 배지.
+function reitListItem(r) {
+  const badge = r.risk ? `<span class="sbadge ${r.risk.level === 'high' ? 'risk' : 'warn'}">${esc(r.risk.label)}</span>` : '';
+  return `<a class="sitem" href="../../r/${r.ticker}/">
+    <div><span class="snm">${esc(r.name)}</span><span class="stk">${r.ticker}</span>${badge}</div>
+    ${numStrip(r)}
+    <div class="snote">${esc(r.note || '')}</div>
+  </a>`;
+}
+
+// ---- 섹터 랜딩 페이지 ----
+function sectorPage(sectorName, meta, list) {
+  const url = `${BASE}/s/${meta.slug}/`;
+  const title = `${sectorName} 리츠 총정리 (${list.length}개) · 배당·특징·확인 포인트 | 리츠온`;
+  const desc = `국내 상장 ${sectorName} 리츠 ${list.length}개의 실배당수익률(TTM)·P/NAV·배당월과 ${sectorName} 리츠 투자 시 확인 포인트. ${meta.lead} (교육용 정보, 투자 권유 아님)`;
+  const ld = {
+    '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url, inLanguage: 'ko', description: desc,
+    isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' },
+    mainEntity: {
+      '@type': 'ItemList', numberOfItems: list.length,
+      itemListElement: list.map((r, i) => ({ '@type': 'ListItem', position: i + 1, name: r.name, url: `${BASE}/r/${r.ticker}/` })),
+    },
+  };
+  const others = Object.entries(SECTOR_META).filter(([k]) => k !== sectorName)
+    .map(([k, m]) => `<a href="../${m.slug}/">${k} 리츠</a>`).join('');
+  const body = `  <p class="crumb"><a href="../../">홈</a> › ${esc(sectorName)} 리츠</p>
+  <span class="eyebrow">섹터 가이드 · 교육용</span>
+  <h1>${esc(sectorName)} 리츠 (${list.length}개)</h1>
+  <p class="lead">${esc(meta.lead)}</p>
+  <div class="card">
+    <h2>${esc(sectorName)} 리츠, 투자 전 확인 포인트</h2>
+    <ul class="q">${meta.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+    <p class="small muted" style="margin-top:10px">아래 수치는 <b>공시 실지급 배당 기준 실배당수익률(TTM)</b>과 <b>장부 순자산 대비 주가(P/NAV)</b>입니다. 순위·추천이 아니라 같은 섹터를 나란히 비교하기 위한 참고값이며, 종목명을 누르면 자산·재무·공시 확인 포인트를 볼 수 있습니다.</p>
+  </div>
+  <div class="slist">${list.map(reitListItem).join('')}</div>
+  <div class="card">
+    <h2>다른 섹터 리츠</h2>
+    <div class="chips">${others}</div>
+  </div>`;
+  return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
+}
+
+// ---- 신뢰·방법론·면책(/about/) 페이지: E-E-A-T ----
+function aboutPage() {
+  const url = `${BASE}/about/`;
+  const title = '리츠온 소개 · 데이터 방법론 · 면책 | 리츠온 REITs ON';
+  const desc = '리츠온은 국내 상장리츠 25개를 다루는 교육용 정보 서비스입니다. 데이터 수집원(DART·한국거래소·한국리츠협회·Yahoo Finance)과 갱신 주기, 실배당수익률(TTM)·P/NAV 산정 방법, 그리고 하지 않는 것(추천·순위 없음)을 투명하게 밝힙니다.';
+  const faqs = [
+    { q: '리츠온은 종목을 추천하나요?', a: '아니요. 리츠온은 매수·매도 추천, 종합점수·순위, 목표주가를 제공하지 않습니다. 사실(배당·재무·공시)과 그 출처를 정리해 이용자가 스스로 판단하도록 돕는 교육용 서비스입니다. 이는 유사투자자문업이 아닙니다.' },
+    { q: '실배당수익률(TTM)은 어떻게 계산하나요?', a: '최근 12개월간 실제로 지급된 주당 배당금의 합을 현재가로 나눈 값입니다. 미래 배당을 가정한 추정치가 아니라 공시된 실지급액 기준이며, 특별배당 포함·배당성향 100% 초과·이력 부족 등은 배지로 따로 표시합니다.' },
+    { q: 'P/NAV는 어떻게 계산하나요?', a: '현재가를 장부상 주당순자산(자본총계 ÷ 발행주식수)으로 나눈 값입니다. 시가 재평가가 아닌 장부 기준이며, 발행주식수·순자산을 확인할 수 없는 종목은 "산정중"으로 비워 둡니다.' },
+    { q: '데이터는 얼마나 자주 갱신되나요?', a: '시세는 매일 오전 6시 20분과 평일 장마감 후 오후 4시 30분(KST)에 자동 수집합니다. 배당·재무·공시는 DART·투자보고서 공시를 기준으로 반영하며, 각 수치에는 기준일을 함께 표기합니다.' },
+    { q: '시세는 실시간인가요?', a: '아니요. 표시되는 시세는 비공식 소스의 최근 종가로 참고용이며 실시간이 아닙니다. 매매 판단 전에는 반드시 증권사 HTS/MTS의 실시간 시세를 확인하세요.' },
+  ];
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'AboutPage', name: title, url, inLanguage: 'ko', description: desc,
+      isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' },
+      publisher: { '@type': 'Organization', name: '리츠온 REITs ON', url: BASE + '/' } },
+    { '@context': 'https://schema.org', '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ];
+  const sectorChips = Object.entries(SECTOR_META).map(([k, m]) => `<a href="../s/${m.slug}/">${k} 리츠</a>`).join('');
+  const body = `  <p class="crumb"><a href="../">홈</a> › 소개·방법론</p>
+  <span class="eyebrow">사이트 소개 · 데이터 방법론</span>
+  <h1>리츠온을 이렇게 만듭니다</h1>
+  <p class="lead">국내 상장리츠 25개(+상장 인프라펀드)를 다루는 <b>교육용 정보 서비스</b>입니다. 숫자마다 출처와 기준일을 붙이고, 추천 대신 사실을 정리합니다.</p>
+
+  <div class="card">
+    <h2>무엇을 하는가</h2>
+    <div class="rows">
+      <div class="row"><span>다루는 대상</span><b>국내 상장리츠 25개 + 상장 인프라펀드</b></div>
+      <div class="row"><span>핵심 지표</span><b>실배당수익률(TTM) · P/NAV · 배당 캘린더 · 공시</b></div>
+      <div class="row"><span>목적</span><b>스스로 판단하도록 돕는 교육·정보 제공</b></div>
+      <div class="row"><span>비용</span><b>무료(제3자 광고·제휴 링크 게재 가능)</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>데이터 출처</h2>
+    <p class="small muted" style="margin:0 0 8px">모든 수치는 아래 공개자료를 근거로 하며, 화면 곳곳에 원문 링크와 기준일을 함께 제공합니다.</p>
+    <div class="rows">
+      <div class="row"><span>공시·재무·배당</span><b><a class="more" href="https://dart.fss.or.kr/" target="_blank" rel="noopener">DART 전자공시</a> · <a class="more" href="https://kind.krx.co.kr/" target="_blank" rel="noopener">KIND 한국거래소</a></b></div>
+      <div class="row"><span>시장 통계</span><b><a class="more" href="https://www.kareit.or.kr/" target="_blank" rel="noopener">한국리츠협회(KAREIT)</a> · <a class="more" href="https://reits.molit.go.kr/" target="_blank" rel="noopener">국토부 리츠정보시스템</a></b></div>
+      <div class="row"><span>시세(참고·비공식)</span><b>Yahoo Finance(최근 종가)</b></div>
+      <div class="row"><span>세제</span><b><a class="more" href="https://www.nts.go.kr/" target="_blank" rel="noopener">국세청</a></b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>지표는 이렇게 계산합니다</h2>
+    <h3>실배당수익률 (TTM)</h3>
+    <p class="small">최근 12개월간 <b>실제로 지급된</b> 주당 배당금의 합 ÷ 현재가. 미래 배당을 가정한 추정이 아니라 공시 실지급 기준입니다. 특별배당 포함, 배당성향 100% 초과, 이력 부족 등은 <b>배지</b>로 구분해 표시합니다.</p>
+    <h3>P/NAV (장부 순자산 대비 주가)</h3>
+    <p class="small">현재가 ÷ 장부상 주당순자산(자본총계 ÷ 발행주식수). 시가 재평가가 아닌 장부 기준이며, 발행주식수·순자산 확인이 어려운 종목은 "산정중"으로 비워 둡니다. 1배 미만이면 장부 대비 할인입니다.</p>
+    <h3>배당 캘린더</h3>
+    <p class="small">결산월 기준의 <b>예상</b> 배당기준월입니다(확정 기준일은 공시로 별도 확인). 확정 아님을 명시합니다.</p>
+    <h3>갱신 주기</h3>
+    <p class="small">시세는 매일 06:20, 평일 16:30(KST) 자동 수집. 배당·재무·공시는 DART·투자보고서를 기준으로 반영하며 수치마다 기준일을 표기합니다.</p>
+  </div>
+
+  <div class="card">
+    <h2>하지 않는 것</h2>
+    <ul class="q">
+      <li>매수·매도 추천, 목표주가, 종합점수·순위를 제공하지 않습니다.</li>
+      <li>출처가 확인되지 않는 수치를 만들어 넣지 않습니다("산정중"으로 비웁니다).</li>
+      <li>시세를 실시간으로 제공하지 않습니다(참고용 최근 종가).</li>
+      <li>이용자가 입력한 내용(관심리츠·포트폴리오·공시 붙여넣기)은 이 브라우저에만 저장하며 서버로 전송하지 않습니다.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>섹터별로 둘러보기</h2>
+    <div class="chips">${sectorChips}</div>
+  </div>
+
+  <div class="card">
+    <h2>면책</h2>
+    <p class="small muted">리츠온이 제공하는 정보는 일반적인 교육·정보 제공을 위한 것으로, 특정 종목의 투자 권유나 자문이 아닙니다. 정보의 정확성·완전성을 보장하지 않으며, 투자 판단과 그 결과에 대한 책임은 이용자 본인에게 있습니다. 리츠는 부동산 경기·금리·공실·임차인 신용에 따라 배당이 삭감·중단될 수 있고 원금 손실이 발생할 수 있습니다. 투자 전 반드시 공식 공시와 최신 시세를 확인하세요.</p>
+  </div>`;
+  return landingShell({ title, desc, canonical: url, rel: '../', ld, body });
+}
+
 const rDir = join(ROOT, 'r');
 // 기존 r/ 정리(없어진 종목 제거)
 if (existsSync(rDir)) { for (const d of readdirSync(rDir)) rmSync(join(rDir, d), { recursive: true, force: true }); }
@@ -1703,12 +1914,37 @@ for (const x of INFRA) {
 // ---- 팩트시트 페이지 ----
 writeFileSync(join(ROOT, 'facts.html'), factsPage(), 'utf8');
 
+// ---- 신뢰·방법론(/about/) ----
+const aboutDir = join(ROOT, 'about');
+mkdirSync(aboutDir, { recursive: true });
+writeFileSync(join(aboutDir, 'index.html'), aboutPage(), 'utf8');
+
+// ---- 섹터 랜딩(/s/{slug}/) ----
+const sDir = join(ROOT, 's');
+if (existsSync(sDir)) { for (const d of readdirSync(sDir)) rmSync(join(sDir, d), { recursive: true, force: true }); }
+const byPrimary = {};
+for (const r of REITS) { (byPrimary[r.primary] = byPrimary[r.primary] || []).push(r); }
+let sectorCount = 0;
+const sectorUrls = [];
+for (const [name, meta] of Object.entries(SECTOR_META)) {
+  const list = byPrimary[name] || [];
+  if (!list.length) continue;
+  const dir = join(sDir, meta.slug);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, 'index.html'), sectorPage(name, meta, list), 'utf8');
+  sectorUrls.push(BASE + '/s/' + meta.slug + '/');
+  sectorCount++;
+}
+
 // ---- sitemap ----
 const today = new Date().toISOString().slice(0, 10);
-const urls = [BASE + '/', BASE + '/facts.html'].concat(REITS.map(r => BASE + '/r/' + r.ticker + '/')).concat(INFRA.map(x => BASE + '/r/' + x.ticker + '/'));
+const urls = [BASE + '/', BASE + '/about/', BASE + '/facts.html']
+  .concat(sectorUrls)
+  .concat(REITS.map(r => BASE + '/r/' + r.ticker + '/'))
+  .concat(INFRA.map(x => BASE + '/r/' + x.ticker + '/'));
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   urls.map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${u.endsWith('/reits-on/') ? '1.0' : '0.7'}</priority>\n  </url>`).join('\n') +
   `\n</urlset>\n`;
 writeFileSync(join(ROOT, 'sitemap.xml'), sitemap, 'utf8');
 
-console.log(`생성 완료: 종목 페이지 ${count}개 + 인프라 ${infraCount}개 + facts.html + sitemap(${urls.length} URL)`);
+console.log(`생성 완료: 종목 ${count}개 + 인프라 ${infraCount}개 + 섹터 ${sectorCount}개 + about + facts.html + sitemap(${urls.length} URL)`);
