@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { dividendDisplay, week52Position, navDisplay } from '../assets/js/reit-metrics.mjs';
 import { sparklineSvg } from './lib/price-display.mjs';
+import { sustainabilitySignals, signalCounts } from './lib/sustainability.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://seonghoonkim2.github.io/reits-on';
@@ -634,6 +635,41 @@ function metricsBlock(r) {
   return `<div class="mx">${priceRow}${ttmRow}${navRow}${w52Row}${sparkRow}</div>`;
 }
 
+// 배당 지속가능성 점검: 종합점수·추천이 아니라, 배당에 영향을 줄 수 있는 공시 '사실'을 규칙으로 모아
+// 레벨(살펴볼 점/확인 필요/양호/미확인) + 근거 + 출처로 나열. 판단은 이용자 몫.
+const SUS_META = {
+  alert: ['❗', '확인 필요', 'sus-alert'],
+  watch: ['⚠', '살펴볼 점', 'sus-watch'],
+  ok: ['✓', '양호', 'sus-ok'],
+  na: ['—', '공시 미확인', 'sus-na'],
+};
+function sustainabilityCard(r) {
+  const facts = FACTS_BY_TICKER[r.ticker];
+  const detail = DETAIL_BY_TICKER[r.ticker];
+  const signals = sustainabilitySignals(r, facts, detail);
+  if (!signals.length) return '';
+  // 정렬: alert → watch → ok → na
+  const order = { alert: 0, watch: 1, ok: 2, na: 3 };
+  signals.sort((a, b) => order[a.level] - order[b.level]);
+  const c = signalCounts(signals);
+  const chips = [];
+  if (c.alert) chips.push(`<span class="sus-chip sus-alert">확인 필요 ${c.alert}</span>`);
+  if (c.watch) chips.push(`<span class="sus-chip sus-watch">살펴볼 점 ${c.watch}</span>`);
+  if (c.ok) chips.push(`<span class="sus-chip sus-ok">양호 ${c.ok}</span>`);
+  if (c.na) chips.push(`<span class="sus-chip sus-na">미확인 ${c.na}</span>`);
+  const rows = signals.map((s) => {
+    const [icon, , cls] = SUS_META[s.level] || SUS_META.na;
+    const src = s.source ? ` <a class="sus-src" href="${esc(s.source)}" target="_blank" rel="noopener">출처${s.asOf ? '·' + esc(s.asOf) : ''} →</a>` : '';
+    return `<div class="sus-row ${cls}"><span class="sus-ic">${icon}</span><div class="sus-b"><div class="sus-l">${esc(s.label)}</div><div class="sus-t">${esc(s.text)}${src}</div></div></div>`;
+  }).join('');
+  return `<div class="card sus">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">배당 지속가능성 점검</h2><span class="sus-tag">점수·추천 아님</span></div>
+    <p class="sub" style="margin:0 0 10px">종합점수나 매수 판단이 아니라, <b>배당에 영향을 줄 수 있는 공시 사실</b>을 규칙으로 모은 것입니다. 각 항목은 사실이며 근거·출처를 함께 봅니다. 최종 판단은 직접 하세요.</p>
+    <div class="sus-chips">${chips.join('')}</div>
+    <div class="sus-list">${rows}</div>
+  </div>`;
+}
+
 function page(r) {
   const url = BASE + '/r/' + r.ticker + '/';
   const pro = proDashboard(r);
@@ -871,6 +907,24 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 @media(max-width:420px){.ns-v{font-size:17px}}
 .ns-v.t-warn{color:#9a6700}
 .ns-sub{font-size:10px;color:var(--muted);font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sus .sus-tag{font-size:10.5px;font-weight:800;color:var(--muted);background:var(--soft);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.sus-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.sus-chip{font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 10px}
+.sus-chip.sus-alert{color:#b42318;background:#fdecea}
+.sus-chip.sus-watch{color:#9a6700;background:#fdf6e3}
+.sus-chip.sus-ok{color:#0c7a54;background:#e4f5ec}
+.sus-chip.sus-na{color:#5a647b;background:#eef1f7}
+.sus-list{display:grid;gap:8px}
+.sus-row{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff}
+.sus-row.sus-alert{border-color:#f3c0ba;background:#fef7f6}
+.sus-row.sus-watch{border-color:#f2e0a8;background:#fefbf2}
+.sus-row.sus-na{opacity:.72}
+.sus-ic{flex:none;font-size:15px;line-height:1.5;width:20px;text-align:center}
+.sus-row.sus-alert .sus-ic{color:#b42318}.sus-row.sus-watch .sus-ic{color:#9a6700}.sus-row.sus-ok .sus-ic{color:#0c7a54}
+.sus-b{min-width:0}
+.sus-l{font-size:13.5px;font-weight:800;margin-bottom:2px}
+.sus-t{font-size:13px;color:var(--muted);line-height:1.5}
+.sus-src{color:var(--brand);text-decoration:none;font-weight:700;white-space:nowrap}
 .dvh-h{font-size:15px;font-weight:850;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .dvh-h .sub{font-size:11px;font-weight:600;color:var(--muted)}
 .dvh-trend{margin-left:auto;font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px}
@@ -919,6 +973,7 @@ ${riskBanner(r)}
     ${priceLine}
   </div>
 ${dividendHistoryChart(r)}
+${sustainabilityCard(r)}
 
   <div class="card">
     <div class="rows">
