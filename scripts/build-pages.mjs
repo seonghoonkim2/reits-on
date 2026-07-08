@@ -1934,6 +1934,13 @@ a.more{color:var(--brand);text-decoration:none;font-weight:700}
 .sbadge.risk{background:#fdecea;color:#b42318}.sbadge.warn{background:#fdf6e3;color:#9a6700}
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
 .chips a{font-size:12.5px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:6px 12px;text-decoration:none}
+.mo-sec{margin-top:16px}
+.mo-h{font-size:15px;font-weight:850;margin:0 2px 8px}
+.mo-cnt{font-size:12px;font-weight:700;color:var(--muted)}
+.mo-list{display:flex;flex-wrap:wrap;gap:8px}
+.mo-chip{font-size:13px;font-weight:700;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 12px;text-decoration:none}
+.mo-chip:hover{border-color:#c9d3ee}
+.mo-freq{font-size:10.5px;font-weight:700;color:var(--muted);margin-left:4px}
 .numstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 2px}
 @media(max-width:420px){.numstrip{gap:6px}}
 .ns-cell{border:1px solid var(--line);border-radius:12px;padding:10px 8px;background:linear-gradient(180deg,#fbfcff,#fff);text-align:center;min-width:0}
@@ -2169,6 +2176,83 @@ function notFoundPage() {
   return shell.replace('</head>', '<meta name="robots" content="noindex" />\n</head>');
 }
 
+// ---- A5: 프로그래매틱 지표 페이지 (롱테일 SEO, 전부 우리 데이터·공시로만) ----
+
+// 월별 배당(기준월) 리츠 — "N월 배당 리츠" 롱테일
+function dividendMonthsPage() {
+  const url = `${BASE}/list/dividend-months/`;
+  const title = '월별 배당 리츠 총정리 · 몇 월에 배당받나 | 리츠온';
+  const desc = '국내 상장리츠 25개를 배당기준월(결산월)별로 정리. 1월부터 12월까지 어느 리츠가 그 달에 배당기준일이 오는지 한눈에. 배당기준월과 실제 지급월은 다를 수 있습니다. (교육용, 투자 권유 아님)';
+  const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url, inLanguage: 'ko', description: desc, isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' } };
+  const sections = [];
+  for (let m = 1; m <= 12; m++) {
+    const list = REITS.filter((r) => Array.isArray(r.divMonths) && r.divMonths.includes(m));
+    if (!list.length) continue;
+    const items = list.map((r) => `<a class="mo-chip" href="../../r/${r.ticker}/">${esc(r.name)} <span class="mo-freq">${freqLabel(r.divMonths.length)}</span></a>`).join('');
+    sections.push(`<div class="mo-sec" id="m${m}"><div class="mo-h">${m}월 배당기준월 <span class="mo-cnt">${list.length}개</span></div><div class="mo-list">${items}</div></div>`);
+  }
+  const body = `  <p class="crumb"><a href="../../">홈</a> › 월별 배당 리츠</p>
+  <span class="eyebrow">배당 월력 · 교육용</span>
+  <h1>몇 월에 배당받나 — 월별 배당 리츠</h1>
+  <p class="lead">상장리츠를 <b>배당기준월(결산월)</b>별로 모았습니다. 그 달 말일 즈음 주주명부에 있으면 배당 대상이 되는 것이 일반적이지만, <b>확정 기준일·실제 지급월은 공시로 확인</b>해야 하며 지급은 보통 2~3개월 뒤입니다.</p>
+  <div class="chips" style="margin:8px 0 4px">${Array.from({ length: 12 }, (_, i) => i + 1).map((m) => `<a href="#m${m}">${m}월</a>`).join('')}</div>
+  ${sections.join('')}
+  <div class="card"><p class="small muted" style="margin:0">📅 배당 캘린더를 앱에서 구독하려면 <a class="more" href="../../reits-on.ics">.ics 피드</a>를, 배당월별 조합은 <a class="more" href="../../">홈의 배당·현금흐름 탭</a>을 보세요. 배당기준월과 지급월은 다릅니다.</p></div>`;
+  return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
+}
+
+// 장부 순자산(NAV) 대비 할인 리츠 — P/NAV 1배 미만. "저평가 리츠·P/NAV" 롱테일. 순위·추천 아님.
+function pnavDiscountPage() {
+  const url = `${BASE}/list/pnav-discount/`;
+  const title = 'P/NAV 1배 미만 · 장부 순자산 대비 할인 리츠 | 리츠온';
+  const desc = '주가가 장부상 주당순자산(NAV)보다 낮은 상장리츠 목록과 할인율. P/NAV는 감정가가 아닌 장부 기준이며, 할인에는 이유(공실·차입만기·리스크)가 있을 수 있습니다. 저평가 판단이나 매수 추천이 아닙니다. (교육용)';
+  const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url, inLanguage: 'ko', description: desc, isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' } };
+  const rows = REITS.map((r) => ({ r, nv: navDisplay(r.navPerShare, r.price) }))
+    .filter((x) => x.nv && !x.nv.premium)
+    .sort((a, b) => b.nv.discountPct - a.nv.discountPct);
+  const list = rows.map((x) => reitListItem(x.r)).join('');
+  const naCount = REITS.length - REITS.filter((r) => navDisplay(r.navPerShare, r.price)).length;
+  const body = `  <p class="crumb"><a href="../../">홈</a> › P/NAV 할인 리츠</p>
+  <span class="eyebrow">장부 순자산 대비 · 교육용</span>
+  <h1>장부 순자산보다 싼 리츠 (P/NAV 1배 미만)</h1>
+  <p class="lead">주가가 <b>장부상 주당순자산(NAV)</b>보다 낮은 상장리츠 ${rows.length}개입니다. 할인율이 큰 순으로 정렬했지만 <b>순위·추천이 아닙니다</b> — 싼 데는 공실·차입 만기·리스크 등 이유가 있을 수 있고, 감정 공정가치는 장부와 달라 실제 할인폭은 다를 수 있습니다. 각 종목의 <b>지속가능성·최근 변화</b>를 함께 보세요.</p>
+  <div class="slist">${list}</div>
+  ${naCount ? `<div class="card"><p class="small muted" style="margin:0">발행주식수·순자산을 공시에서 확인하기 어려운 ${naCount}개 종목은 P/NAV를 "산정중"으로 비워 이 목록에서 제외했습니다(값을 지어내지 않습니다).</p></div>` : ''}` ;
+  return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
+}
+
+// 리츠 배당 세금 가이드 — "리츠 세금·분리과세" 롱테일 (SPA FAQ를 크롤 가능한 정적 페이지로)
+function taxGuidePage() {
+  const url = `${BASE}/guide/tax/`;
+  const title = '리츠 배당 세금 완전정리 · 15.4%·분리과세 9.9%·종합과세 | 리츠온';
+  const desc = '상장리츠 배당소득 세금: 기본 15.4% 원천징수, 공모리츠 장기투자 분리과세(9.9%) 요건, 금융소득 2천만원 초과 시 종합과세. 세율·요건은 바뀔 수 있으니 매수 전 국세청·증권사 안내를 확인하세요. (교육용, 세무자문 아님)';
+  const faqs = [
+    { q: '리츠 배당의 기본 세금은 얼마인가요?', a: '배당소득은 기본적으로 15.4%(소득세 14% + 지방소득세 1.4%)가 원천징수됩니다. 증권계좌로 배당을 받을 때 이 금액이 이미 차감된 후 입금되는 것이 일반적입니다.' },
+    { q: '공모리츠 분리과세(9.9%)는 무엇인가요?', a: '요건을 갖춘 공모리츠에 일정 기간(예: 3년) 이상, 일정 한도(예: 투자금 5천만원) 내에서 투자하면 배당소득을 9.9%로 분리과세받을 수 있는 제도가 운영되어 왔습니다. 요건·한도·적용기간은 세법 개정으로 바뀔 수 있으므로 반드시 최신 기준을 확인해야 합니다.' },
+    { q: '종합과세는 언제 되나요?', a: '한 해 금융소득(이자+배당)이 2천만원을 초과하면 초과분이 다른 소득과 합산되어 누진세율로 종합과세될 수 있습니다. 배당 규모가 큰 투자자는 분산·시기 조절을 함께 고려하기도 합니다.' },
+    { q: 'ISA·연금계좌로 리츠에 투자하면 세금이 다른가요?', a: 'ISA(개인종합자산관리계좌)나 연금계좌 등 세제혜택 계좌를 통한 투자는 비과세·저율과세·과세이연 등 별도 규정이 적용될 수 있습니다. 계좌 유형과 한도, 인출 조건에 따라 결과가 크게 달라지므로 개별 확인이 필요합니다.' },
+  ];
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'Article', headline: title, inLanguage: 'ko', description: desc, mainEntityOfPage: url, isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' } },
+    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ];
+  const body = `  <p class="crumb"><a href="../../">홈</a> › 리츠 세금</p>
+  <span class="eyebrow">세금 가이드 · 교육용</span>
+  <h1>리츠 배당, 세금은 어떻게 될까</h1>
+  <p class="lead">상장리츠 배당소득에 붙는 세금을 정리했습니다. <b>세율·요건은 세법 개정으로 바뀔 수 있으며</b>, 아래는 일반적인 설명일 뿐 개별 세무자문이 아닙니다. 매수 전 국세청·증권사 안내를 확인하세요.</p>
+  <div class="card">
+    <h2>한눈에</h2>
+    <div class="rows">
+      <div class="row"><span>기본 원천징수</span><b>15.4% (소득세 14% + 지방세 1.4%)</b></div>
+      <div class="row"><span>공모리츠 분리과세</span><b>요건 충족 시 9.9%</b></div>
+      <div class="row"><span>종합과세 기준</span><b>연 금융소득 2천만원 초과분</b></div>
+    </div>
+  </div>
+  ${faqs.map((f) => `<div class="card"><h2>${esc(f.q)}</h2><p class="small">${esc(f.a)}</p></div>`).join('')}
+  <div class="card"><p class="small muted" style="margin:0">출처·확인: <a class="more" href="https://www.nts.go.kr/" target="_blank" rel="noopener">국세청</a> · 개별 종목의 배당·세제는 <a class="more" href="../../about/">데이터 방법론</a>과 각 종목 페이지를 참고하세요. 본 페이지는 교육용이며 세무·투자 자문이 아닙니다.</p></div>`;
+  return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
+}
+
 const rDir = join(ROOT, 'r');
 // 기존 r/ 정리(없어진 종목 제거)
 if (existsSync(rDir)) { for (const d of readdirSync(rDir)) rmSync(join(rDir, d), { recursive: true, force: true }); }
@@ -2202,6 +2286,14 @@ mkdirSync(changesDir, { recursive: true });
 writeFileSync(join(changesDir, 'index.html'), changesPage(), 'utf8');
 writeFileSync(join(ROOT, '404.html'), notFoundPage(), 'utf8');
 
+// ---- A5: 프로그래매틱 지표·가이드 페이지 ----
+const listPages = [
+  { dir: 'list/dividend-months', html: dividendMonthsPage(), url: BASE + '/list/dividend-months/' },
+  { dir: 'list/pnav-discount', html: pnavDiscountPage(), url: BASE + '/list/pnav-discount/' },
+  { dir: 'guide/tax', html: taxGuidePage(), url: BASE + '/guide/tax/' },
+];
+for (const p of listPages) { const d = join(ROOT, p.dir); mkdirSync(d, { recursive: true }); writeFileSync(join(d, 'index.html'), p.html, 'utf8'); }
+
 // ---- 섹터 랜딩(/s/{slug}/) ----
 const sDir = join(ROOT, 's');
 if (existsSync(sDir)) { for (const d of readdirSync(sDir)) rmSync(join(sDir, d), { recursive: true, force: true }); }
@@ -2222,6 +2314,7 @@ for (const [name, meta] of Object.entries(SECTOR_META)) {
 // ---- sitemap ----
 const today = new Date().toISOString().slice(0, 10);
 const urls = [BASE + '/', BASE + '/about/', BASE + '/changes/', BASE + '/facts.html']
+  .concat(listPages.map((p) => p.url))
   .concat(sectorUrls)
   .concat(REITS.map(r => BASE + '/r/' + r.ticker + '/'))
   .concat(INFRA.map(x => BASE + '/r/' + x.ticker + '/'));
