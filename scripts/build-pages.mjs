@@ -680,6 +680,40 @@ function sustainabilityCard(r) {
   </div>`;
 }
 
+// 실배당수익률(TTM) 숫자만 — 비교용. 없으면 null.
+function ttmYieldOf(x) { const d = dividendDisplay(x, x.price); return (d.show && d.isDiv && d.yield != null) ? d.yield : null; }
+function median(arr) { const a = arr.slice().sort((x, y) => x - y); if (!a.length) return null; const m = Math.floor(a.length / 2); return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; }
+
+// 배당수익률 비교: 이 리츠 vs 같은 섹터 중앙값 vs 상장리츠 전체 중앙값 vs 협회 공시 시장평균.
+// 전부 우리 데이터·공시 통계로만 계산(예금·ETF 등 출처 없는 수치는 만들지 않음). 우열 판정 아님.
+function yieldCompareCard(r) {
+  const y = ttmYieldOf(r);
+  if (y == null) return '';
+  const sectorYields = REITS.filter((x) => x.primary === r.primary).map(ttmYieldOf).filter((v) => v != null);
+  const allYields = REITS.map(ttmYieldOf).filter((v) => v != null);
+  const secMed = median(sectorYields), allMed = median(allYields);
+  const mkt = seed.market && seed.market.listedDividendYieldPriceBasis;
+  const mktAsOf = seed.market && seed.market.asOf;
+  const rows = [
+    { k: `${esc(r.name)}`, v: y, me: true },
+    sectorYields.length >= 3 ? { k: `같은 섹터(${esc(r.primary)}) 중앙값`, v: secMed, sub: `${sectorYields.length}개` } : null,
+    { k: '상장리츠 25개 중앙값', v: allMed },
+    (typeof mkt === 'number') ? { k: '상장리츠 시장평균(협회 공시)', v: mkt, sub: '가격기준' } : null,
+  ].filter(Boolean);
+  const max = Math.max(...rows.map((x) => x.v), 1);
+  const bars = rows.map((x) => `<div class="yc-row${x.me ? ' me' : ''}">
+    <span class="yc-k">${x.k}${x.sub ? ` <span class="yc-sub">${x.sub}</span>` : ''}</span>
+    <span class="yc-bar"><i style="width:${Math.max(4, (x.v / max) * 100).toFixed(1)}%"></i></span>
+    <span class="yc-v">${x.v}%</span>
+  </div>`).join('');
+  return `<div class="card yc-card">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">배당수익률, 어느 정도 수준일까</h2><span class="sus-tag">순위·추천 아님</span></div>
+    <p class="sub" style="margin:0 0 10px">이 리츠의 실배당수익률(TTM)을 <b>같은 섹터·전체 상장리츠·시장평균</b>과 나란히 둔 참고용 비교입니다. 높다고 더 좋은 건 아니며, 위의 <b>지속가능성</b>과 함께 보세요.</p>
+    <div class="yc-list">${bars}</div>
+    <p class="yc-note">시장평균은 한국리츠협회 공시(가격기준${mktAsOf ? ' · ' + esc(mktAsOf) : ''}). 예금·배당ETF 등 다른 자산과 비교할 땐 세금·안정성·유동성이 다릅니다. <a href="../../about/">산정 방법 →</a></p>
+  </div>`;
+}
+
 // 이 리츠의 최근 변화 타임라인(diff 저널리즘): changes.json에서 종목별 이벤트만 시간순.
 const CHG_KIND_TL = { low: ['52주 신저가', 'k-low'], move: ['급등락', 'k-move'], pnav: ['P/NAV 이동', 'k-pnav'], div: ['배당 공시', 'k-div'], filing: ['공시', 'k-filing'] };
 function changeTimeline(r) {
@@ -961,6 +995,17 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 .tl-tag.k-low{color:#b42318;background:#fdecea}.tl-tag.k-move{color:#9a6700;background:#fdf6e3}.tl-tag.k-pnav{color:#3254ff;background:#edf1ff}.tl-tag.k-div{color:#0c7a54;background:#e4f5ec}.tl-tag.k-filing{color:#5a647b;background:#eef1f7}
 .tl-tx{color:var(--text);line-height:1.5;min-width:0}
 .tl-src{color:var(--brand);text-decoration:none;font-weight:700;white-space:nowrap}
+.yc-list{display:grid;gap:9px}
+.yc-row{display:grid;grid-template-columns:minmax(0,1.1fr) 2fr auto;gap:10px;align-items:center;font-size:13px}
+.yc-k{color:var(--muted);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.yc-row.me .yc-k{color:var(--text);font-weight:900}
+.yc-sub{font-size:10.5px;font-weight:700;opacity:.7}
+.yc-bar{height:12px;background:var(--soft);border-radius:6px;overflow:hidden}
+.yc-bar i{display:block;height:100%;background:linear-gradient(90deg,#8fa2ff,#b9c5ff);border-radius:6px}
+.yc-row.me .yc-bar i{background:linear-gradient(90deg,#3254ff,#7d93ff)}
+.yc-v{font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}
+.yc-note{font-size:11px;color:var(--muted);margin:10px 0 0;line-height:1.5}
+.yc-note a{color:var(--brand);text-decoration:none;font-weight:700}
 .dvh-h{font-size:15px;font-weight:850;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .dvh-h .sub{font-size:11px;font-weight:600;color:var(--muted)}
 .dvh-trend{margin-left:auto;font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px}
@@ -1011,6 +1056,7 @@ ${riskBanner(r)}
     ${priceLine}
   </div>
 ${dividendHistoryChart(r)}
+${yieldCompareCard(r)}
 ${sustainabilityCard(r)}
 ${changeTimeline(r)}
 
