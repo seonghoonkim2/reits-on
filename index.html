@@ -635,6 +635,23 @@
     .pf-auto .primary-btn { white-space:nowrap; }
     .result-card.hero-result { background: var(--primary-tint); border-color: transparent; }
     .result-card.hero-result .big { color: var(--brand); }
+    .pf-next { display:flex; gap:12px; align-items:center; margin-top:var(--space-2); padding:14px 16px; border-radius:16px; background:var(--primary-tint); border:1px solid transparent; }
+    .pf-next-ic { font-size:26px; line-height:1; }
+    .pf-next-k { font-size:12px; font-weight:800; color:var(--muted); }
+    .pf-next-v { font-size:19px; font-weight:900; letter-spacing:-.01em; margin:1px 0; }
+    .pf-next-s { font-size:12.5px; color:var(--muted); }
+    .pf-risk { margin-top:var(--space-2); padding:12px 14px; border-radius:14px; background:var(--warning-tint,#fdf6e3); border:1px solid #f2e0a8; font-size:13px; line-height:1.55; }
+    .pf-risk b { font-weight:900; color:#9a6700; }
+    .pf-risk a { color:var(--brand); text-decoration:none; font-weight:700; }
+    .pf-risk .pf-risk-item { display:block; margin-top:3px; }
+    .hpf-grid { display:grid; grid-template-columns: 1.3fr 1fr 1fr; gap:var(--space-2); margin-top:var(--space-2); }
+    .hpf-card { border:1px solid var(--line); border-radius:16px; padding:14px 16px; background:var(--surface); }
+    .hpf-card.hpf-hero { background:var(--primary-tint); border-color:transparent; }
+    .hpf-k { font-size:12px; font-weight:800; color:var(--muted); }
+    .hpf-v { font-size:20px; font-weight:900; letter-spacing:-.01em; margin-top:3px; }
+    .hpf-card.hpf-hero .hpf-v { color:var(--brand); }
+    .hpf-s { font-size:12px; color:var(--muted); margin-top:2px; }
+    @media (max-width:640px){ .hpf-grid { grid-template-columns:1fr; } }
     .qc-top { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     .qc-two { display:grid; grid-template-columns: 1fr 1fr; gap:var(--space-2); margin-top:var(--space-2); }
     .qc-box { border:1px solid var(--line); border-radius:16px; padding:14px; background:var(--surface-2); }
@@ -873,6 +890,24 @@
           </div>
         </div>
         <div id="homeWatchList" class="chip-row"></div>
+      </div>
+    </section>
+
+    <section class="section reveal" data-tab="home" id="homepf" hidden>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>내 배당 포트폴리오</h2>
+            <p>저장한 보유 내역 기준 요약입니다(이 브라우저에만 저장). 실배당 TTM·세후 추정이며 확정 금액이 아닙니다.</p>
+          </div>
+          <button class="ghost-btn" type="button" id="homePfOpen" style="padding:8px 14px;min-height:auto;">자세히 보기</button>
+        </div>
+        <div class="hpf-grid">
+          <div class="hpf-card hpf-hero"><div class="hpf-k">다음 배당기준월</div><div class="hpf-v" id="hpfNext">-</div><div class="hpf-s" id="hpfNextSub"></div></div>
+          <div class="hpf-card"><div class="hpf-k">예상 월평균(세후)</div><div class="hpf-v" id="hpfMonthly">-</div></div>
+          <div class="hpf-card"><div class="hpf-k">예상 연 배당(세후)</div><div class="hpf-v" id="hpfAnnual">-</div></div>
+        </div>
+        <div id="hpfRisk" class="pf-risk hidden" style="margin-top:12px;"></div>
       </div>
     </section>
 
@@ -1194,6 +1229,16 @@
 
         <!-- 결과 -->
         <div id="pfResult" class="hidden">
+          <div id="pfNextWrap" class="pf-next hidden">
+            <div class="pf-next-ic">📅</div>
+            <div class="pf-next-b">
+              <div class="pf-next-k">다음 배당기준월</div>
+              <div class="pf-next-v" id="pfNextV">-</div>
+              <div class="pf-next-s" id="pfNextS"></div>
+            </div>
+          </div>
+          <div id="pfRisk" class="pf-risk hidden"></div>
+
           <div class="panel" style="margin-top:var(--space-2);">
             <div class="pf-step">① 배당기준월 커버 확인 <span id="pfCoverNum" class="muted"></span></div>
             <p class="muted small" style="margin:6px 0 10px;"><b>배당기준월(결산월) 기준</b>입니다. 실제 지급(입금)은 보통 그 이후 약 2~3개월 시차가 있어, 매달 균등 입금을 보장하지 않습니다.</p>
@@ -1855,6 +1900,7 @@
       renderKpis();
       renderThisMonth();
       renderHomeWatch();
+      renderHomePf();
       renderChanges();
       renderHomeFilings();
       renderFilters();
@@ -2553,6 +2599,43 @@
       $$('#homeWatchList [data-ticker]').forEach(b => b.addEventListener('click', () => { setTab('find', { noScroll: true }); selectReit(b.dataset.ticker, true); $('#finder').scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
     }
 
+    // 홈 개인화: 저장된 포트폴리오가 있으면 '다음 배당·월평균 세후·리스크'를 요약(습관 앵커)
+    function renderHomePf() {
+      const sec = $('#homepf'); if (!sec) return;
+      const holds = state.portfolio.map(h => ({ h, r: byTicker(h.ticker) })).filter(x => x.r && clampNum(x.h.amount) > 0);
+      const totals = Array(12).fill(0); const coverSet = new Set(); let annual = 0; const flags = [];
+      holds.forEach(({ h, r }) => {
+        if ((r.risk && r.risk.level === 'high') || r.ttmQuality === 'nodiv' || r.ttmPayoutOver100) {
+          const reasons = []; if (r.risk && r.risk.level === 'high') reasons.push(r.risk.label); if (r.ttmQuality === 'nodiv') reasons.push('무배당'); if (r.ttmPayoutOver100) reasons.push('배당성향 100%↑');
+          flags.push({ r, reasons });
+        }
+        const hr = holdingRate(r);
+        if (hr.kind !== 'real' || hr.rate == null) return;
+        const per = perMonthContribution(h.amount, r.divMonths.length, hr.rate);
+        if (per <= 0) return;
+        r.divMonths.forEach(m => { totals[m - 1] += per; annual += per; coverSet.add(m); });
+      });
+      if (annual <= 0) { sec.hidden = true; return; }
+      sec.hidden = false;
+      const taxEl = $('#pfTax'); const taxRate = Number((taxEl && taxEl.value) || 15.4);
+      $('#hpfMonthly').textContent = won(Math.round(afterTaxNet(annual, taxRate) / 12));
+      $('#hpfAnnual').textContent = won(Math.round(afterTaxNet(annual, taxRate)));
+      const now = new Date(), curM = now.getMonth() + 1;
+      const months = Array.from(coverSet).sort((a, b) => a - b);
+      const up = months.find(m => m >= curM) ?? months[0];
+      const yr = now.getFullYear() + (up < curM ? 1 : 0);
+      const endDay = new Date(yr, up, 0).getDate();
+      const dday = Math.max(0, Math.round((new Date(yr, up - 1, endDay) - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000));
+      $('#hpfNext').textContent = up + '월 (D-' + dday + ')';
+      $('#hpfNextSub').innerHTML = '그 달 예상 세후 <b>' + won(Math.round(afterTaxNet(totals[up - 1], taxRate))) + '</b>';
+      const riskBox = $('#hpfRisk');
+      if (flags.length) {
+        riskBox.innerHTML = '<b>⚠ 보유 종목 점검 ' + flags.length + '건</b> — 배당에 영향을 줄 수 있는 공시 사실(추천 아님). '
+          + flags.map(f => '<span class="pf-risk-item">· <a href="r/' + f.r.ticker + '/">' + escapeHTML(f.r.name) + '</a> — ' + escapeHTML(f.reasons.join(' · ')) + '</span>').join('');
+        riskBox.classList.remove('hidden');
+      } else { riskBox.classList.add('hidden'); }
+    }
+
     // 최근 7일 변화(변화감지 엔진 결과). 사실만 표시, 관심 종목 하이라이트.
     const CHG_META = {
       low:    ['52주 저가', 'chg-low'],
@@ -2809,6 +2892,40 @@
       if (hasSpecial) note += ' 일부 종목은 최근 1년에 특별배당(일회성)이 포함돼 경상 배당은 더 낮을 수 있습니다.';
       if (noDps.length) note += ' · 실배당 산정 제외: ' + noDps.join(', ') + '.';
       $('#pfNote').textContent = note;
+
+      // 다음 배당기준월 + 그 달 예상 세후 입금(습관 앵커)
+      const nextWrap = $('#pfNextWrap');
+      if (coverSet.size && annual > 0) {
+        const now = new Date(), curM = now.getMonth() + 1, curD = now.getDate();
+        const months = Array.from(coverSet).sort((a, b) => a - b);
+        // 이번 달 말일이 아직 안 지났으면 이번 달 포함, 아니면 다음
+        const upcoming = months.find(m => m > curM || (m === curM)) ?? months[0];
+        const yr = now.getFullYear() + (upcoming < curM ? 1 : 0);
+        const endDay = new Date(yr, upcoming, 0).getDate();
+        const dday = Math.max(0, Math.round((new Date(yr, upcoming - 1, endDay) - new Date(now.getFullYear(), now.getMonth(), curD)) / 86400000));
+        const monthNet = afterTaxNet(totals[upcoming - 1], taxRate);
+        $('#pfNextV').textContent = upcoming + '월 (D-' + dday + ')';
+        $('#pfNextS').innerHTML = '그 달 예상 세후 <b>' + won(Math.round(monthNet)) + '</b> · 실제 지급은 기준월 이후 2~3개월 시차. 확정 기준일은 공시 확인.';
+        nextWrap.classList.remove('hidden');
+      } else { nextWrap.classList.add('hidden'); }
+
+      // 보유 종목 점검: 배당에 영향 큰 공시 사실(무배당·배당성향 100%↑·중대 리스크)만 경고
+      const flags = [];
+      state.portfolio.forEach(h => {
+        const r = byTicker(h.ticker); if (!r) return;
+        const reasons = [];
+        if (r.risk && r.risk.level === 'high') reasons.push(r.risk.label);
+        if (r.ttmQuality === 'nodiv') reasons.push('무배당');
+        if (r.ttmPayoutOver100) reasons.push('배당성향 100%↑');
+        if (reasons.length) flags.push({ r: r, reasons: reasons });
+      });
+      const riskBox = $('#pfRisk');
+      if (flags.length) {
+        riskBox.innerHTML = '<b>⚠ 보유 종목 점검 ' + flags.length + '건</b> — 배당에 영향을 줄 수 있는 공시 사실입니다(추천 아님). '
+          + flags.map(f => '<span class="pf-risk-item">· <a href="r/' + f.r.ticker + '/">' + escapeHTML(f.r.name) + '</a> — ' + escapeHTML(f.reasons.join(' · ')) + '</span>').join('');
+        riskBox.classList.remove('hidden');
+      } else { riskBox.classList.add('hidden'); }
+      if (typeof renderHomePf === 'function') renderHomePf();
     }
 
     // ---- Quick dividend calculator (종목 없이 양방향 추정) ----
@@ -2952,6 +3069,7 @@
       }
       $('#coverageCsv').addEventListener('click', coverageCsv);
       $('#pfCsv').addEventListener('click', pfExportCsv);
+      { const b = $('#homePfOpen'); if (b) b.addEventListener('click', () => { setTab('income', { noScroll: true }); $('#portfolio').scrollIntoView({ behavior: 'smooth', block: 'start' }); }); }
       $('#clearDataBtn').addEventListener('click', clearData);
 
       // delegated finder events (attached once)
