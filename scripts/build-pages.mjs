@@ -677,6 +677,7 @@ function sustainabilityCard(r) {
     <p class="sub" style="margin:0 0 10px">종합점수나 매수 판단이 아니라, <b>배당에 영향을 줄 수 있는 공시 사실</b>을 규칙으로 모은 것입니다. 각 항목은 사실이며 근거·출처를 함께 봅니다. 최종 판단은 직접 하세요.</p>
     <div class="sus-chips">${chips.join('')}</div>
     <div class="sus-list">${rows}</div>
+    <p class="note" style="margin:12px 0 0"><a class="more" href="../../list/dividend-watch/">확인 필요 신호가 있는 다른 리츠 보기 →</a></p>
   </div>`;
 }
 
@@ -1941,6 +1942,16 @@ a.more{color:var(--brand);text-decoration:none;font-weight:700}
 .mo-chip{font-size:13px;font-weight:700;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 12px;text-decoration:none}
 .mo-chip:hover{border-color:#c9d3ee}
 .mo-freq{font-size:10.5px;font-weight:700;color:var(--muted);margin-left:4px}
+.dw-item{display:block}
+.dw-head{display:block;text-decoration:none;color:inherit}
+.dw-sigs{display:grid;gap:6px;margin:10px 0 4px}
+.dw-sig{display:grid;grid-template-columns:20px auto 1fr;gap:8px;align-items:baseline;border-radius:10px;padding:8px 10px;font-size:12.5px;line-height:1.45}
+.dw-sig.sus-alert{background:#fef7f6;border:1px solid #f3c0ba}
+.dw-sig.sus-watch{background:#fefbf2;border:1px solid #f2e0a8}
+.dw-ic{text-align:center}
+.dw-sig.sus-alert .dw-ic{color:#b42318}.dw-sig.sus-watch .dw-ic{color:#9a6700}
+.dw-l{font-weight:800;white-space:nowrap}
+.dw-t{color:var(--muted);min-width:0}
 .numstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 2px}
 @media(max-width:420px){.numstrip{gap:6px}}
 .ns-cell{border:1px solid var(--line);border-radius:12px;padding:10px 8px;background:linear-gradient(180deg,#fbfcff,#fff);text-align:center;min-width:0}
@@ -2221,6 +2232,39 @@ function pnavDiscountPage() {
   return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
 }
 
+// 배당 지속가능성 점검 리스트 — A1 신호를 25종목에 가로로 펼친 뷰. 확인 필요 신호가 있는 리츠만.
+// 추천·경고 아님: 배당에 영향을 줄 수 있는 '공시 사실'을 모아 보여줄 뿐(각 항목 출처는 종목 페이지).
+function dividendWatchPage() {
+  const url = `${BASE}/list/dividend-watch/`;
+  const title = '배당 지속가능성 점검 · 확인 필요 신호가 있는 리츠 | 리츠온';
+  const desc = '배당성향 100% 초과, 무배당, 순손실, 회생·상장폐지 등 배당에 영향을 줄 수 있는 공시 사실이 있는 상장리츠를 모았습니다. 종합점수·순위·매도 추천이 아니라 사실을 정리한 것입니다. 각 항목은 공시 출처로 확인하세요. (교육용)';
+  const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url, inLanguage: 'ko', description: desc, isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' } };
+  const SIG = { alert: ['❗', 'sus-alert'], watch: ['⚠', 'sus-watch'] };
+  const rows = REITS.map((r) => {
+    const signals = sustainabilitySignals(r, FACTS_BY_TICKER[r.ticker], DETAIL_BY_TICKER[r.ticker]);
+    const c = signalCounts(signals);
+    return { r, signals: signals.filter((s) => s.level === 'alert' || s.level === 'watch'), alert: c.alert, watch: c.watch };
+  }).filter((x) => x.alert > 0).sort((a, b) => b.alert - a.alert || b.watch - a.watch);
+  const items = rows.map(({ r, signals }) => {
+    const chips = signals.map((s) => { const [ic, cls] = SIG[s.level]; return `<div class="dw-sig ${cls}"><span class="dw-ic">${ic}</span><span class="dw-l">${esc(s.label)}</span><span class="dw-t">${esc(s.text)}</span></div>`; }).join('');
+    const badge = r.risk ? `<span class="sbadge ${r.risk.level === 'high' ? 'risk' : 'warn'}">${esc(r.risk.label)}</span>` : '';
+    return `<div class="sitem dw-item">
+      <a class="dw-head" href="../../r/${r.ticker}/"><span class="snm">${esc(r.name)}</span><span class="stk">${r.ticker}</span>${badge}</a>
+      ${numStrip(r)}
+      <div class="dw-sigs">${chips}</div>
+      <div class="snote"><a class="more" href="../../r/${r.ticker}/">지속가능성·근거 자세히 →</a></div>
+    </div>`;
+  }).join('');
+  const okCount = REITS.length - rows.length;
+  const body = `  <p class="crumb"><a href="../../">홈</a> › 배당 지속가능성 점검</p>
+  <span class="eyebrow">배당 지속가능성 · 교육용</span>
+  <h1>확인 필요 신호가 있는 리츠</h1>
+  <p class="lead">배당성향 100% 초과·무배당·순손실·회생/상장폐지 등 <b>배당에 영향을 줄 수 있는 공시 사실</b>이 있는 상장리츠 ${rows.length}개입니다. <b>종합점수·순위·매도 추천이 아닙니다</b> — 사실을 모아 보여줄 뿐이며, 신호가 있다고 반드시 배당이 깎이는 것도, 없다고 안전한 것도 아닙니다. 각 항목의 근거·출처는 종목 페이지에서 확인하세요.</p>
+  <div class="slist">${items}</div>
+  <div class="card"><p class="small muted" style="margin:0">나머지 ${okCount}개 종목은 위 기준의 '확인 필요' 신호가 없었습니다(모든 지표가 확인된다는 뜻은 아닙니다 — 공시 미확인 항목은 각 종목 페이지에 "미확인"으로 표시). 판단 기준은 <a class="more" href="../../about/">데이터 방법론</a>을 참고하세요.</p></div>`;
+  return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
+}
+
 // 리츠 배당 세금 가이드 — "리츠 세금·분리과세" 롱테일 (SPA FAQ를 크롤 가능한 정적 페이지로)
 function taxGuidePage() {
   const url = `${BASE}/guide/tax/`;
@@ -2290,6 +2334,7 @@ writeFileSync(join(ROOT, '404.html'), notFoundPage(), 'utf8');
 const listPages = [
   { dir: 'list/dividend-months', html: dividendMonthsPage(), url: BASE + '/list/dividend-months/' },
   { dir: 'list/pnav-discount', html: pnavDiscountPage(), url: BASE + '/list/pnav-discount/' },
+  { dir: 'list/dividend-watch', html: dividendWatchPage(), url: BASE + '/list/dividend-watch/' },
   { dir: 'guide/tax', html: taxGuidePage(), url: BASE + '/guide/tax/' },
 ];
 for (const p of listPages) { const d = join(ROOT, p.dir); mkdirSync(d, { recursive: true }); writeFileSync(join(d, 'index.html'), p.html, 'utf8'); }
