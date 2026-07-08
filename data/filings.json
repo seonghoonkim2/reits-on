@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-07-07T10:30:49.012Z",
+  "retrievedAt": "2026-07-08T06:38:11.339Z",
   "filings": [
     {
       "rcept_no": "20260707800564",
@@ -361,14 +361,6 @@
       "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
       "filed_at": "2026-06-16",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260616800401",
-      "category": []
-    },
-    {
-      "rcept_no": "20260616000171",
-      "ticker": "396690",
-      "title": "사업보고서 (2026.03)",
-      "filed_at": "2026-06-16",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260616000171",
       "category": []
     }
   ]
