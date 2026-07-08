@@ -576,19 +576,22 @@ function dividendHistoryChart(r) {
     const vlab = x.value === 0 ? '무배당' : (fmt(x.value) + (x.approx ? '≈' : ''));
     return `<div class="dvh-bar"><div class="dvh-v">${esc(vlab)}</div><i class="${cls}" style="height:${h}%"></i><div class="dvh-l">${esc(x.period)}</div></div>`;
   }).join('');
-  // 최근 vs 직전 회차 변화(무배당 제외 값끼리)
-  const vals = s.map((x) => x.value);
-  const last = vals[vals.length - 1], prev = vals[vals.length - 2];
+  // 추세는 '경상배당(특별 제외)'만으로 판단 — 특별배당이 만드는 증감 착시 방지
+  const reg = s.filter((x) => !x.special && x.value > 0).map((x) => x.value);
   let trend = '';
-  if (last != null && prev != null && prev > 0 && last !== prev) {
-    const dn = last < prev;
-    trend = `<span class="dvh-trend ${dn ? 'dn' : 'up'}">최근 ${dn ? '↓ 감소' : '↑ 증가'} ${prev}→${last}원</span>`;
+  if (reg.length >= 2) {
+    const recent = reg.slice(-3);
+    const a = recent[0], b = recent[recent.length - 1];
+    const pct = (b - a) / a;
+    const dir = Math.abs(pct) < 0.02 ? { l: '유지', a: '→', c: 'flat' } : b > a ? { l: '증가', a: '↑', c: 'up' } : { l: '감소', a: '↓', c: 'dn' };
+    trend = `<span class="dvh-trend ${dir.c}">경상배당 최근 ${recent.length}회 ${dir.a} ${dir.l} <span class="dvh-seq">${recent.map(fmt).join('→')}원</span></span>`;
   }
   const hasSp = s.some((x) => x.special);
+  const spNote = hasSp ? ' 아래 추세는 특별배당을 빼고 <b>경상배당</b>만으로 계산했습니다.' : '';
   return `<div class="card dvh-card">
     <div class="dvh-h">회차별 배당금 추이 <span class="sub">주당·공시 실적</span>${trend}</div>
     <div class="dvh-bars">${bars}</div>
-    <div class="dvh-legend"><span class="lg reg">경상 배당</span>${hasSp ? '<span class="lg sp">특별배당(일회성)</span>' : ''}<span class="dvh-note">회차(기)별 공시 주당배당금. 특별배당은 자산 처분 등 일회성으로 반복성이 낮습니다.</span></div>
+    <div class="dvh-legend"><span class="lg reg">경상 배당</span>${hasSp ? '<span class="lg sp">특별배당(일회성)</span>' : ''}<span class="dvh-note">회차(기)별 공시 주당배당금. 특별배당은 자산 처분 등 일회성으로 반복성이 낮습니다.${spNote}</span></div>
   </div>`;
 }
 
@@ -929,6 +932,8 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 .dvh-h .sub{font-size:11px;font-weight:600;color:var(--muted)}
 .dvh-trend{margin-left:auto;font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px}
 .dvh-trend.dn{background:#1f6feb14;color:#1f6feb}.dvh-trend.up{background:#d1453b14;color:#d1453b}
+.dvh-trend.flat{background:var(--soft);color:var(--muted)}
+.dvh-seq{font-weight:700;opacity:.85}
 .dvh-bars{display:flex;align-items:flex-end;gap:6px;height:120px;margin:14px 0 4px;padding-top:16px}
 .dvh-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:3px;min-width:0}
 .dvh-bar i{display:block;width:72%;max-width:38px;border-radius:5px 5px 0 0;min-height:2px}
