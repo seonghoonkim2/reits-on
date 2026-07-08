@@ -57,6 +57,13 @@ try { PRICE_HISTORY = (JSON.parse(readFileSync(join(ROOT, 'data', 'price-history
 let INFRA = [];
 try { INFRA = (JSON.parse(readFileSync(join(ROOT, 'data', 'infra.json'), 'utf8')).infra) || []; } catch { /* 없으면 스킵 */ }
 
+// 변화 로그(diff 저널리즘용): 종목별 인덱스 — 종목 페이지에 '이 리츠의 최근 변화' 타임라인
+const CHANGES_BY_TICKER = {};
+try {
+  const evs = (JSON.parse(readFileSync(join(ROOT, 'data', 'changes.json'), 'utf8')).events) || [];
+  for (const e of evs) { (CHANGES_BY_TICKER[e.ticker] = CHANGES_BY_TICKER[e.ticker] || []).push(e); }
+} catch { /* 없으면 스킵 */ }
+
 // ---- 핵심 팩트(provenance): data/reits.json이 단일 진실원천. 임베드 seed엔 facts가 없어 직접 읽음 ----
 const FACTS_BY_TICKER = {};
 const IR_BY_TICKER = {};
@@ -673,6 +680,23 @@ function sustainabilityCard(r) {
   </div>`;
 }
 
+// 이 리츠의 최근 변화 타임라인(diff 저널리즘): changes.json에서 종목별 이벤트만 시간순.
+const CHG_KIND_TL = { low: ['52주 신저가', 'k-low'], move: ['급등락', 'k-move'], pnav: ['P/NAV 이동', 'k-pnav'], div: ['배당 공시', 'k-div'], filing: ['공시', 'k-filing'] };
+function changeTimeline(r) {
+  const evs = (CHANGES_BY_TICKER[r.ticker] || []).slice().sort((a, b) => a.date < b.date ? 1 : -1).slice(0, 8);
+  if (!evs.length) return '';
+  const rows = evs.map((e) => {
+    const [lab, cls] = CHG_KIND_TL[e.kind] || CHG_KIND_TL.filing;
+    const link = e.url ? ` <a class="tl-src" href="${esc(e.url)}" target="_blank" rel="noopener">원문 →</a>` : '';
+    return `<div class="tl-row"><span class="tl-date">${esc(e.date.slice(5))}</span><span class="tl-tag ${cls}">${lab}</span><span class="tl-tx">${esc(e.text)}${link}</span></div>`;
+  }).join('');
+  return `<div class="card tl-card">
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">이 리츠의 최근 변화</h2><a class="tl-more" href="../../changes/">전체 변화 →</a></div>
+    <p class="sub" style="margin:0 0 10px">자동 수집한 사실만 기록합니다(신저가·급등락·P/NAV 이동·공시). 해석·추천이 아닙니다.</p>
+    <div class="tl-list">${rows}</div>
+  </div>`;
+}
+
 function page(r) {
   const url = BASE + '/r/' + r.ticker + '/';
   const pro = proDashboard(r);
@@ -928,6 +952,15 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 .sus-l{font-size:13.5px;font-weight:800;margin-bottom:2px}
 .sus-t{font-size:13px;color:var(--muted);line-height:1.5}
 .sus-src{color:var(--brand);text-decoration:none;font-weight:700;white-space:nowrap}
+.tl-card .tl-more{margin-left:auto;font-size:12.5px;font-weight:800;color:var(--brand);text-decoration:none;white-space:nowrap}
+.tl-list{display:grid;gap:0}
+.tl-row{display:grid;grid-template-columns:44px auto 1fr;gap:9px;align-items:baseline;padding:9px 0;border-top:1px solid var(--soft);font-size:13px}
+.tl-row:first-child{border-top:0}
+.tl-date{color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums;font-size:12px}
+.tl-tag{font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 8px;white-space:nowrap;align-self:center}
+.tl-tag.k-low{color:#b42318;background:#fdecea}.tl-tag.k-move{color:#9a6700;background:#fdf6e3}.tl-tag.k-pnav{color:#3254ff;background:#edf1ff}.tl-tag.k-div{color:#0c7a54;background:#e4f5ec}.tl-tag.k-filing{color:#5a647b;background:#eef1f7}
+.tl-tx{color:var(--text);line-height:1.5;min-width:0}
+.tl-src{color:var(--brand);text-decoration:none;font-weight:700;white-space:nowrap}
 .dvh-h{font-size:15px;font-weight:850;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .dvh-h .sub{font-size:11px;font-weight:600;color:var(--muted)}
 .dvh-trend{margin-left:auto;font-size:11.5px;font-weight:800;border-radius:999px;padding:2px 9px}
@@ -979,6 +1012,7 @@ ${riskBanner(r)}
   </div>
 ${dividendHistoryChart(r)}
 ${sustainabilityCard(r)}
+${changeTimeline(r)}
 
   <div class="card">
     <div class="rows">
