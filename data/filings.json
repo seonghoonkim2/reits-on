@@ -1,6 +1,14 @@
 {
-  "retrievedAt": "2026-07-08T13:15:54.082Z",
+  "retrievedAt": "2026-07-09T02:34:52.190Z",
   "filings": [
+    {
+      "rcept_no": "20260709000091",
+      "ticker": "448730",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-07-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709000091",
+      "category": []
+    },
     {
       "rcept_no": "20260708000429",
       "ticker": "451800",
@@ -361,14 +369,6 @@
       "title": "기타경영사항(자율공시)              ",
       "filed_at": "2026-06-18",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618800805",
-      "category": []
-    },
-    {
-      "rcept_no": "20260617800684",
-      "ticker": "396690",
-      "title": "불성실공시법인지정예고              ",
-      "filed_at": "2026-06-17",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260617800684",
       "category": []
     }
   ]
