@@ -7,6 +7,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { fetchDailyMap } from './lib/krx-price.mjs';
+import { fetchDividendDecision, DIV_DECISION_RE } from './lib/dart-dividend.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const API = (process.env.API_BASE || 'https://reits-on-api.modelter.workers.dev').replace(/\/$/, '');
@@ -205,6 +206,47 @@ if (fl && Array.isArray(fl.filings)) {
   }
 } else {
   console.log('· filings 응답 없음 — filings.json 유지');
+}
+
+// 3.5) data/dividends-confirmed.json — 배당결정 공시를 DART 공개 뷰어에서 무키 파싱(확정 배당).
+//      새 rcpNo만 가져오고(회당 최대 8건·1.5초 간격), 파싱 실패는 건너뛴다(지어내지 않음).
+try {
+  let confDoc = { retrievedAt: null, confirmed: [] };
+  try { confDoc = readJSON('dividends-confirmed.json'); } catch { /* 최초 */ }
+  const byRcp = new Map((confDoc.confirmed || []).map((c) => [c.rcpNo, c]));
+  let filingsNow = { filings: [] };
+  try { filingsNow = readJSON('filings.json'); } catch { /* 없음 */ }
+  const clean = (s) => String(s || '').replace(/\s+/g, ' ').trim();
+  const cands = (filingsNow.filings || [])
+    .filter((f) => f && DIV_DECISION_RE.test(clean(f.title)))
+    .map((f) => ({ rcpNo: String(f.rcept_no || (String(f.url || '').match(/rcpNo=(\d+)/) || [])[1] || ''), ticker: f.ticker, title: clean(f.title), filedAt: f.filed_at, url: f.url }))
+    .filter((f) => f.rcpNo && !byRcp.has(f.rcpNo));
+  let fetched = 0, failed = 0;
+  for (const c of cands.slice(0, 8)) {
+    const d = await fetchDividendDecision(c.rcpNo);
+    if (d) { byRcp.set(c.rcpNo, { ...c, ...d }); fetched++; }
+    else failed++;
+    await new Promise((r) => setTimeout(r, 1500));
+  }
+  if (fetched) {
+    // 기준일 기준 최근 400일 이내(또는 미래)만 보관, 최신순
+    const cutoff = new Date(Date.now() - 400 * 86400000).toISOString().slice(0, 10);
+    const list = [...byRcp.values()]
+      .filter((c) => c.recordDate && c.recordDate >= cutoff)
+      .sort((a, b) => a.recordDate < b.recordDate ? 1 : -1);
+    const next = { retrievedAt: NOW, confirmed: list };
+    if (!eqIgnoringTs(next, confDoc)) {
+      writeJSON('dividends-confirmed.json', next);
+      wrote = true;
+      console.log(`✓ dividends-confirmed.json 갱신 (신규 ${fetched} · 실패 ${failed} · 누적 ${list.length})`);
+    }
+  } else if (cands.length) {
+    console.log(`· 확정배당: 신규 후보 ${cands.length}건 파싱 실패 — 유지`);
+  } else {
+    console.log('· 확정배당: 신규 배당결정 공시 없음');
+  }
+} catch (e) {
+  console.log(`· 확정배당 수집 건너뜀: ${e.message}`);
 }
 
 // 4) data/infra.json — 상장 인프라펀드(맥쿼리인프라 등) 시세를 Yahoo에서 채운다(리츠와 분리).

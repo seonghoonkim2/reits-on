@@ -1,0 +1,20 @@
+{
+  "retrievedAt": "2026-07-09T02:24:40.045Z",
+  "confirmed": [
+    {
+      "rcpNo": "20260707800460",
+      "ticker": "448730",
+      "title": "부동산투자회사금전배당결정",
+      "filedAt": "2026-07-07",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260707800460",
+      "perShare": 69,
+      "recordDate": "2026-04-30",
+      "payDate": null,
+      "payText": "정기주주총회일로부터 1개월이내",
+      "agmDate": "2026-07-24",
+      "decidedAt": "2026-07-07",
+      "totalWon": 6253000000,
+      "yieldPct": 1
+    }
+  ]
+}

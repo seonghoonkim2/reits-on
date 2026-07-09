@@ -57,6 +57,16 @@ try { PRICE_HISTORY = (JSON.parse(readFileSync(join(ROOT, 'data', 'price-history
 let INFRA = [];
 try { INFRA = (JSON.parse(readFileSync(join(ROOT, 'data', 'infra.json'), 'utf8')).infra) || []; } catch { /* 없으면 스킵 */ }
 
+// 확정 배당(DART 배당결정 공시 무키 파싱): 종목별 최신 1건
+const CONFIRMED_BY_TICKER = {};
+try {
+  const cf = (JSON.parse(readFileSync(join(ROOT, 'data', 'dividends-confirmed.json'), 'utf8')).confirmed) || [];
+  for (const c of cf) {
+    const prev = CONFIRMED_BY_TICKER[c.ticker];
+    if (!prev || (c.recordDate || '') > (prev.recordDate || '')) CONFIRMED_BY_TICKER[c.ticker] = c;
+  }
+} catch { /* 최초 */ }
+
 // 변화 로그(diff 저널리즘용): 종목별 인덱스 — 종목 페이지에 '이 리츠의 최근 변화' 타임라인
 const CHANGES_BY_TICKER = {};
 try {
@@ -715,6 +725,20 @@ function yieldCompareCard(r) {
   </div>`;
 }
 
+// 확정 배당 콜아웃: 배당결정 공시가 최근(기준일 150일 이내)이거나 지급·주총이 미래면 노출.
+const TODAY_ISO = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date());
+function confirmedDivBox(r) {
+  const c = CONFIRMED_BY_TICKER[r.ticker];
+  if (!c || !c.perShare || !c.recordDate) return '';
+  const recent = c.recordDate >= new Date(Date.now() - 150 * 86400000).toISOString().slice(0, 10);
+  const future = (c.payDate && c.payDate >= TODAY_ISO) || (c.agmDate && c.agmDate >= TODAY_ISO);
+  if (!recent && !future) return '';
+  const pay = c.payDate
+    ? `지급 <b>${esc(c.payDate)}</b>`
+    : (c.payText ? `지급 ${esc(c.payText)}${c.agmDate ? ` (주총 ${esc(c.agmDate)})` : ''}` : '');
+  return `<div class="confbox">📌 <b>배당 확정</b> — 주당 <b>${fmt(c.perShare)}원</b> · 기준일 ${esc(c.recordDate)}${pay ? ' · ' + pay : ''}${c.yieldPct != null ? ` · 시가배당률 ${c.yieldPct}%` : ''} <a href="${esc(c.url)}" target="_blank" rel="noopener">공시 원문 →</a><span class="conf-src">DART 배당결정 공시(${esc(c.filedAt || c.decidedAt || '')}) 자동 추출 · 세전</span></div>`;
+}
+
 // 이 리츠의 최근 변화 타임라인(diff 저널리즘): changes.json에서 종목별 이벤트만 시간순.
 const CHG_KIND_TL = { low: ['52주 신저가', 'k-low'], move: ['급등락', 'k-move'], pnav: ['P/NAV 이동', 'k-pnav'], div: ['배당 공시', 'k-div'], filing: ['공시', 'k-filing'] };
 function changeTimeline(r) {
@@ -969,6 +993,10 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 @media(max-width:420px){.ns-v{font-size:17px}}
 .ns-v.t-warn{color:#9a6700}
 .ns-sub{font-size:10px;color:var(--muted);font-weight:600;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.confbox{margin:12px 0 2px;padding:12px 15px;border-radius:14px;background:#e9fbf2;border:1px solid #b9e8cf;font-size:13.5px;line-height:1.6;color:#0c5c40}
+.confbox b{font-weight:900}
+.confbox a{color:#0c7a54;font-weight:800;text-decoration:none;white-space:nowrap}
+.confbox .conf-src{display:block;font-size:11px;color:#3f7a63;opacity:.85;margin-top:3px}
 .sus .sus-tag{font-size:10.5px;font-weight:800;color:var(--muted);background:var(--soft);border-radius:999px;padding:3px 9px;white-space:nowrap}
 .sus-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
 .sus-chip{font-size:11.5px;font-weight:800;border-radius:999px;padding:4px 10px}
@@ -1047,6 +1075,7 @@ ${stickyBar(r)}
     </label>
   </div>
 ${numStrip(r)}
+${confirmedDivBox(r)}
 ${riskBanner(r)}
 
   <div class="card">
