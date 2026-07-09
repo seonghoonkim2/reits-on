@@ -36,36 +36,61 @@ export function navTotalWon(reit) {
   return eok != null ? Math.round(eok * 1e8) : null;
 }
 
-// 발행주식수 역산: ① 배당총액÷주당배당, ② 당기순이익÷주당순이익(EPS). 실패 시 null.
-export function sharesOutstanding(reit) {
+// 발행주식수 역산 후보를 모은다: ⓞ 확정공시 배당총액÷주당(가장 신선) · ① 공시이력 배당총액÷주당 ·
+// ② 당기순이익÷EPS. 각 {n, src}. 서로 다른 시점이므로 교차검증의 재료가 된다.
+// confirmed: dividends-confirmed의 해당 종목 최신 {totalWon, perShare}(선택).
+export function shareEstimates(reit, confirmed) {
   const rd = reit.reportDetail || {};
+  const ests = [];
+  if (confirmed && confirmed.totalWon > 0 && confirmed.perShare > 0) {
+    const n = Math.round(confirmed.totalWon / confirmed.perShare);
+    if (n > 0) ests.push({ n, src: 'confirmed' });
+  }
   const hist = (rd.dividends && Array.isArray(rd.dividends.history)) ? rd.dividends.history : [];
   for (const h of hist) {
     const ps = won(h && h.perShare);
     const tot = String(h && h.note || '').match(/(?:배당총액|총)\s*([\d,.]+)\s*억/);
     if (ps && ps > 0 && tot) {
       const n = Math.round(parseFloat(tot[1].replace(/,/g, '')) * 1e8 / ps);
-      if (n > 0) return n;
+      if (n > 0) ests.push({ n, src: 'history:' + (h.period || '') });
     }
   }
-  // EPS 폴백: 당기순이익 ÷ 주당순이익
   const ni = finItem(rd, /당기순이익/);
   const eps = finItem(rd, /주당순이익|EPS/);
   const niWon = ni ? parseEok(ni.value) : null;   // 억
   const epsWon = eps ? won(eps.value) : null;
   if (niWon != null && epsWon && epsWon > 0) {
     const n = Math.round(niWon * 1e8 / epsWon);
-    if (n > 0) return n;
+    if (n > 0) ests.push({ n, src: 'eps' });
   }
-  return null;
+  return ests;
 }
 
-// P/NAV 계산. price(현재가) 필요. 반환 null 또는
+// 발행주식수: 배당총액 기반 후보(확정공시·공시이력)를 우선 교차검증한다. 2개 이상인데 서로 7% 초과
+// 벌어지면(유상증자 등으로 NAV 시점과 주식수 시점이 어긋난 것) 산정 보류(null). EPS 역산은 연결/별도
+// 순이익·일회성 손익으로 흔들려 신뢰가 낮으므로, 배당기반 후보가 하나라도 있으면 교차검증에서 제외하고
+// 배당기반이 전무할 때만 최후 폴백으로 쓴다.
+export function sharesOutstanding(reit, confirmed) {
+  const ests = shareEstimates(reit, confirmed);
+  if (!ests.length) return null;
+  const divBased = ests.filter((e) => e.src === 'confirmed' || e.src.startsWith('history'));
+  if (divBased.length) {
+    if (divBased.length >= 2) {
+      const ns = divBased.map((e) => e.n);
+      const spread = (Math.max(...ns) - Math.min(...ns)) / Math.min(...ns);
+      if (spread > 0.07) return null;   // 증자 의심 → P/NAV 신뢰 불가
+    }
+    return (divBased.find((e) => e.src === 'confirmed') || divBased[0]).n;   // 확정공시 우선
+  }
+  return ests[0].n;   // EPS 폴백(단일 소스)
+}
+
+// P/NAV 계산. price(현재가) 필요. confirmed(선택) = 해당 종목 {totalWon, perShare}. 반환 null 또는
 //   { pnav, discountPct, navTotalEok, shares, marketCapEok, navPerShare }
-export function computePnav(reit, price) {
+export function computePnav(reit, price, confirmed) {
   if (typeof price !== 'number' || price <= 0) return null;
   const nav = navTotalWon(reit);
-  const sh = sharesOutstanding(reit);
+  const sh = sharesOutstanding(reit, confirmed);
   if (!nav || !sh) return null;
   const marketCap = sh * price;
   const pnav = Math.round((marketCap / nav) * 100) / 100;

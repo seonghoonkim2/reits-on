@@ -1,7 +1,7 @@
 // node --test tests/nav.test.mjs
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseEok, navTotalWon, sharesOutstanding, computePnav } from '../scripts/lib/nav.mjs';
+import { parseEok, navTotalWon, sharesOutstanding, computePnav, shareEstimates } from '../scripts/lib/nav.mjs';
 
 test('parseEok: 조·억 혼합 파싱', () => {
   assert.equal(parseEok('약 8,016억원'), 8016);
@@ -54,4 +54,27 @@ test('computePnav: 데이터/가격 없으면 null', () => {
   const r = reit([{ label: '자본총계(NAV)', value: '약 8,016억원' }], [{ perShare: '182원', note: '배당총액 236.6억' }]);
   assert.equal(computePnav(r, 0), null);
   assert.equal(computePnav(reit([], []), 5000), null);
+});
+
+test('shareEstimates: 확정공시·이력·EPS 후보 수집', () => {
+  const reit = { reportDetail: { dividends: { history: [{ perShare: '69원', note: '배당총액 62.8억' }] }, financials: [{ label: '당기순이익', value: '약 30억' }, { label: '주당순이익(EPS)', value: '33원' }] } };
+  const ests = shareEstimates(reit, { totalWon: 6253000000, perShare: 69 });
+  const srcs = ests.map(e => e.src);
+  assert.ok(srcs.includes('confirmed'));
+  assert.ok(srcs.some(s => s.startsWith('history')));
+  assert.ok(srcs.includes('eps'));
+});
+
+test('sharesOutstanding: 후보 7% 초과 불일치(증자 의심)면 null', () => {
+  const reit = { reportDetail: { dividends: { history: [
+    { perShare: '100원', note: '배당총액 100억' },   // 1억주
+    { perShare: '100원', note: '배당총액 130억' },   // 1.3억주 (30% 차이)
+  ] } } };
+  assert.equal(sharesOutstanding(reit), null);
+});
+
+test('sharesOutstanding: 후보 일치하면 확정공시 우선', () => {
+  const reit = { reportDetail: { dividends: { history: [{ perShare: '69원', note: '배당총액 62.5억' }] } } };
+  const n = sharesOutstanding(reit, { totalWon: 6253000000, perShare: 69 });
+  assert.equal(n, Math.round(6253000000 / 69));
 });

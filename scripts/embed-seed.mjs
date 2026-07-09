@@ -15,11 +15,13 @@ let changesDoc = { events: [] };
 try { changesDoc = JSON.parse(readFileSync(join(ROOT, 'data', 'changes.json'), 'utf8')); } catch { /* 최초 빌드 */ }
 // 확정 배당(DART 배당결정 무키 파싱): 종목별 최신 1건만 seed로 (SPA 캘린더·포트폴리오용)
 const divConfirmed = {};
+const confirmedShares = {};   // {ticker:{totalWon,perShare}} — P/NAV 주식수 교차검증용(가장 신선한 소스)
 try {
   for (const c of (JSON.parse(readFileSync(join(ROOT, 'data', 'dividends-confirmed.json'), 'utf8')).confirmed) || []) {
     const prev = divConfirmed[c.ticker];
     if (!prev || (c.recordDate || '') > (prev.recordDate || '')) {
       divConfirmed[c.ticker] = { perShare: c.perShare, recordDate: c.recordDate, payDate: c.payDate ?? null, payText: c.payText ?? null, agmDate: c.agmDate ?? null, url: c.url };
+      if (c.totalWon > 0 && c.perShare > 0) confirmedShares[c.ticker] = { totalWon: c.totalWon, perShare: c.perShare };
     }
   }
 } catch { /* 최초 */ }
@@ -50,7 +52,7 @@ function healthLevel(r) {
 const flatReit = (r) => {
   const mkt = r.market || {};
   const ttm = computeTtmDps(r);   // 공시 배당 이력 기반 최근 12개월 실배당(추정 아님)
-  const nav = navTotalWon(r), sh = sharesOutstanding(r);   // 장부 순자산·발행주식수
+  const nav = navTotalWon(r), sh = sharesOutstanding(r, confirmedShares[r.ticker]);   // 장부 순자산·발행주식수(확정공시 교차검증)
   const navPerShare = (nav && sh) ? Math.round(nav / sh) : null;
   return {
     name: r.name, ticker: r.ticker, sector: r.sector, primary: r.primary,

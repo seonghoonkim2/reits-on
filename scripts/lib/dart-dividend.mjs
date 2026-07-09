@@ -47,11 +47,30 @@ function after(seq, labelRe, pick, span = 6) {
   return null;
 }
 
+// 1주당 배당금: '1주당 배당금' 라벨 뒤에서 '보통주식' 토큰 다음의 첫 숫자를 취한다.
+// '종류주식'이 '보통주식'보다 먼저 나오면(차등배당) 그 값은 건너뛴다. 앵커가 없으면 라벨 뒤 첫 숫자로 폴백.
+function parsePerShare(seq) {
+  const i = seq.findIndex((t) => /1주당\s*배당금|1주당\s*분배금/.test(t));
+  if (i < 0) return null;
+  const win = seq.slice(i + 1, i + 8);
+  const bo = win.findIndex((t) => /^보통주(식|)$/.test(t));
+  const jong = win.findIndex((t) => /^종류주(식|)$/.test(t));
+  if (bo >= 0) {
+    // 보통주 구간(다음 앵커=종류주 전까지)에서만 숫자를 찾는다. 없으면(차등·무배당) null.
+    const stop = (jong > bo) ? jong : win.length;
+    for (let j = bo + 1; j < stop; j++) { const v = toNum(win[j]); if (v != null) return v; }
+    return null;
+  }
+  // 보통주 앵커가 없고 종류주 앵커가 먼저면 신뢰 불가
+  if (jong >= 0) return null;
+  for (let j = 0; j < Math.min(4, win.length); j++) { const v = toNum(win[j]); if (v != null) return v; }
+  return null;
+}
+
 // 배당결정 문서 본문 파싱 → 확정 배당 필드. 필수(perShare·recordDate) 없으면 null.
 export function parseDividendDoc(html) {
   const seq = docTextSeq(html);
-  // 1주당 배당금: 라벨 뒤 '보통주식' 다음의 숫자(종류주식 '-'는 무시)
-  const perShare = after(seq, /1주당\s*배당금|1주당\s*분배금/, toNum, 4);
+  const perShare = parsePerShare(seq);
   const recordDate = after(seq, /배당기준일|분배기준일/, toISO, 3);
   if (perShare == null || perShare <= 0 || !recordDate) return null;
 
@@ -67,6 +86,11 @@ export function parseDividendDoc(html) {
   }
   const agmDate = after(seq, /주주총회\s*예정일/, toISO, 3);
   const decidedAt = after(seq, /이사회결의일|결정일/, toISO, 3);
+  // 개연성 검사: 총액÷주당 = 발행주식수는 상장리츠 범위(수백만~수백억 주)를 벗어나면 오파싱으로 보고 버린다.
+  if (totalWon != null && totalWon > 0) {
+    const shares = totalWon / perShare;
+    if (shares < 1e5 || shares > 1e11) return null;
+  }
   return { perShare, recordDate, payDate, payText, agmDate, decidedAt, totalWon, yieldPct };
 }
 

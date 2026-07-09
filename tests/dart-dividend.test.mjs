@@ -60,3 +60,16 @@ test('docTextSeq: 태그 제거·공백 정리', () => {
   const seq = docTextSeq('<table><tr><td> 가 나 </td><td>다</td></tr></table>');
   assert.deepEqual(seq, ['가 나', '다']);
 });
+
+test('차등배당(보통주 - / 종류주 금액): 종류주 값을 보통주로 오파싱하지 않음', () => {
+  const html = '<td>2. 1주당 배당금(원)</td><td>보통주식</td><td>-</td><td>종류주식</td><td>500</td>'
+    + '<td>4. 배당기준일</td><td>2026-06-30</td>';
+  // 보통주 값이 '-'라 perShare 없음 → null(종류주 500을 취하지 않는다)
+  assert.equal(parseDividendDoc(html), null);
+});
+
+test('개연성 검사: 총액÷주당 발행주식수가 비현실적이면 버림', () => {
+  // perShare=69, totalWon=100(억이 아니라 원 단위 오파싱 가정) → shares≈1.4 → 범위 밖 → null
+  const html = '<td>1. 배당금총액(원)</td><td>100</td><td>2. 1주당 배당금(원)</td><td>보통주식</td><td>69</td><td>4. 배당기준일</td><td>2026-04-30</td>';
+  assert.equal(parseDividendDoc(html), null);
+});

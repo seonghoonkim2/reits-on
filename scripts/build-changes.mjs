@@ -17,6 +17,12 @@ const reitsDoc = readJSON('reits.json', { reits: [] });
 const filingsDoc = readJSON('filings.json', { filings: [] });
 const snap = readJSON('snapshot.json', { reits: {} });
 const prev = snap.reits || {};
+// P/NAV 주식수 교차검증용 확정공시(가장 신선한 소스)
+const confShares = {};
+for (const c of (readJSON('dividends-confirmed.json', { confirmed: [] }).confirmed || [])) {
+  const p = confShares[c.ticker];
+  if ((!p || (c.recordDate || '') > (p.recordDate || '')) && c.totalWon > 0 && c.perShare > 0) confShares[c.ticker] = { totalWon: c.totalWon, perShare: c.perShare, recordDate: c.recordDate };
+}
 
 const pnavBand = (v) => v == null ? null : v < 0.6 ? '0.6배 미만' : v < 0.7 ? '0.6~0.7배' : v < 0.8 ? '0.7~0.8배' : v < 0.9 ? '0.8~0.9배' : v < 1.0 ? '0.9~1.0배' : '1.0배 이상';
 
@@ -26,7 +32,7 @@ const nextSnap = { date: TODAY, reits: {} };
 for (const r of reitsDoc.reits) {
   const m = r.market || {};
   const price = typeof m.price === 'number' ? m.price : null;
-  const pnav = (() => { const pn = computePnav(r, price); return pn ? pn.pnav : null; })();
+  const pnav = (() => { const pn = computePnav(r, price, confShares[r.ticker]); return pn ? pn.pnav : null; })();
   const band = pnavBand(pnav);
   const p = prev[r.ticker] || {};
   nextSnap.reits[r.ticker] = { price, low: m.week52Low ?? null, band, atLow: (price != null && m.week52Low != null && price <= m.week52Low * 1.002) };

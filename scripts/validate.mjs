@@ -70,6 +70,24 @@ for (const r of doc.reits || []) {
 }
 if (staleCount) warns.push(`facts 기준일 ${STALE_MONTHS}개월 초과 ${staleCount}건 — 최신 투자보고서로 갱신 검토`);
 
+// 불변식: 배당 history의 '제N기'는 최신순(비증가)이어야 한다. TTM이 배열 앞=최신을 전제로 하므로
+// 순서가 뒤집히면 옛 회차로 산정되는 사고. 편집 실수를 main 반영 전에 잡는다.
+for (const r of doc.reits || []) {
+  const hist = r.reportDetail && Array.isArray(r.reportDetail.dividends?.history) ? r.reportDetail.dividends.history : [];
+  const gis = hist.map((h) => { const m = String(h && h.period || '').match(/제\s*(\d+)\s*기/); return m ? Number(m[1]) : null; }).filter((x) => x != null);
+  for (let i = 1; i < gis.length; i++) {
+    if (gis[i] > gis[i - 1]) { warns.push(`${r.ticker}: 배당 history 제N기 역순(제${gis[i - 1]}기→제${gis[i]}기) — 최신순 정렬 확인`); break; }
+  }
+}
+
+// 시세 파이프라인 신선도: 전 종목 최신 거래일이 오늘 대비 4일 넘게 뒤처지면(수집 중단 등) 경고.
+const asOfs = (doc.reits || []).map((r) => r.market && r.market.priceAsOf).filter((d) => isDate(d)).sort();
+if (asOfs.length) {
+  const newest = asOfs[asOfs.length - 1];
+  const ageDays = Math.round((now - new Date(newest + 'T00:00:00Z')) / 864e5);
+  if (ageDays > 4) warns.push(`시세 최신 거래일 ${newest}(오늘 기준 ${ageDays}일 전) — 수집 파이프라인 점검`);
+}
+
 console.log(`검증: 종목 ${doc.reits?.length ?? 0}개 · 오류 ${errors.length} · 경고 ${warns.length}`);
 warns.forEach((w) => console.log('  ⚠ ' + w));
 if (errors.length) { errors.forEach((e) => console.log('  ✗ ' + e)); process.exit(1); }
