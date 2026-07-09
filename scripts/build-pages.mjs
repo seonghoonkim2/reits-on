@@ -30,6 +30,28 @@ function dDayToMonthEnd(m) {
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (t) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[t]));
 const fmt = (n) => Number(n).toLocaleString('ko-KR');
 
+// 첫 방문 신뢰 스트립: 검색 착지 방문자에게 사이트의 정체성을 첫 화면에서 한 줄로 전달.
+// rel = 루트까지 상대경로('../../' 종목·리스트, '../' about/changes). asOf는 seed.market.asOf.
+let TRUST_ASOF = '';   // build-pages 본문에서 seed 로드 후 채움
+function trustStrip(rel) {
+  return `  <p class="trust">공시·투자보고서의 <b>사실만</b> 요약 · <b>순위·추천 없음</b> · 수치마다 출처·기준일${TRUST_ASOF ? ` · ${esc(TRUST_ASOF)} 종가 기준` : ''} · <a href="${rel}about/">산정 방법 →</a></p>`;
+}
+// 리스트·섹터 페이지의 '막다른 길' 해소: 종목 바로가기 + 주요 페이지 크로스링크(rel은 루트까지).
+function landingNav(rel) {
+  const opts = REITS.slice().sort((a, b) => a.name.localeCompare(b.name, 'ko'))
+    .map((x) => `<option value="${rel}r/${x.ticker}/">${esc(x.name)}</option>`).join('');
+  return `<div class="lnav">
+    <select class="lnav-jump" onchange="if(this.value)location.href=this.value" aria-label="종목 바로가기"><option value="">종목 바로가기…</option>${opts}</select>
+    <div class="lnav-chips">
+      <a href="${rel}list/dividend-months/">🗓️ 월별 배당</a>
+      <a href="${rel}list/pnav-discount/">🏷️ P/NAV 할인</a>
+      <a href="${rel}list/dividend-watch/">🔎 지속가능성 점검</a>
+      <a href="${rel}guide/tax/">🧾 배당 세금</a>
+      <a href="${rel}reits-on.ics">📅 캘린더</a>
+    </div>
+  </div>`;
+}
+
 // 섹터 랜딩(/s/{slug}/) 메타: primary(한글) → {slug, 검색어, 소개, 확인 포인트}. 추천·순위 아님(교육).
 const SECTOR_META = {
   '오피스': { slug: 'office', lead: '도심 오피스 빌딩을 임대해 임대료로 배당을 만드는 리츠입니다.', points: ['공실률과 재계약 임대료(리싱 스프레드)의 방향', '차입금 금리·리파이낸싱(만기 재조달) 일정과 조건', '스폰서·앵커 임차인의 임대차 만기와 신용도'] },
@@ -48,6 +70,7 @@ const m = html.match(/<script id="seed-data" type="application\/json">([\s\S]*?)
 if (!m) { console.error('seed-data를 찾지 못했습니다.'); process.exit(1); }
 const seed = JSON.parse(m[1]);
 const REITS = seed.reits;
+TRUST_ASOF = (seed.market && seed.market.asOf) || '';
 // 시세 동결 감지: 전 종목 최신 거래일 대비 7일 이상 뒤처지면(거래정지 등) 가격 파생 지표를 신뢰하지 않는다.
 const MAX_PRICE_ASOF = REITS.map((r) => r.priceAsOf).filter(Boolean).sort().pop() || null;
 function priceStaleDays(r) {
@@ -838,12 +861,18 @@ function page(r) {
 .risk-banner.risk-caution{background:#fdf6e3;border:1px solid #f2e0a8;color:#9a6700}
 h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 .tk{color:var(--muted);font-weight:700}
+.trust{font-size:12px;color:var(--muted);line-height:1.5;margin:4px 0 0;padding:8px 12px;background:var(--soft);border-radius:10px}
+.trust b{color:var(--text);font-weight:800}
+.trust a{color:var(--brand);text-decoration:none;font-weight:700;white-space:nowrap}
 .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0 2px}
 .tbtn{font:inherit;font-size:13px;font-weight:800;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
 .tbtn:hover{border-color:#c9d3ee}
 .tbtn.on{color:#9a6700;background:#fdf6e3;border-color:#f2e0a8}
 .tjump{margin-left:auto}
 .tjump select{font:inherit;font-size:13px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;max-width:170px}
+.watch-copy{font-size:12px;color:var(--muted);margin:8px 2px 0;line-height:1.5}
+.watch-copy a{color:var(--brand);text-decoration:none;font-weight:700}.watch-copy b{color:var(--text);font-weight:800}
+.watch-copy.on{color:#0c7a54}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .icsl{color:var(--brand);text-decoration:none;font-weight:700}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px}
@@ -1090,6 +1119,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 <body>
 <div class="wrap">
   <div class="top"><a class="logo" href="../../">R</a><a class="brand" href="../../">리츠온 REITs ON</a><a class="topfacts" href="../../facts.html">📊 팩트시트</a></div>
+${trustStrip('../../')}
 ${stickyBar(r)}
   <span class="eyebrow">상장리츠 · ${esc(r.primary)}</span>
   <h1>${esc(r.name)}</h1>
@@ -1105,6 +1135,7 @@ ${stickyBar(r)}
       </select>
     </label>
   </div>
+  <p class="watch-copy" id="watchHint">☆ 관심 추가하면 <a href="../../">홈</a>에서 이 리츠의 <b>다음 배당 D-day·최근 변화</b>를 모아 봅니다(이 브라우저에만 저장).</p>
 ${numStrip(r)}
 ${confirmedDivBox(r)}
 ${riskBanner(r)}
@@ -1182,7 +1213,10 @@ ${irCard(r, naverUrl)}
   function get(){ try{ var v=JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
   function set(v){ try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){} }
   var btn=document.getElementById('watchBtn'); if(!btn) return;
-  function paint(){ var on=get().indexOf(TK)>=0; btn.classList.toggle('on',on); btn.textContent=on?'★ 관심리츠':'☆ 관심 추가'; btn.setAttribute('aria-pressed', on?'true':'false'); }
+  var hint=document.getElementById('watchHint');
+  function paint(){ var on=get().indexOf(TK)>=0; btn.classList.toggle('on',on); btn.textContent=on?'★ 관심리츠':'☆ 관심 추가'; btn.setAttribute('aria-pressed', on?'true':'false');
+    if(hint){ hint.innerHTML = on ? '★ 저장됨 — <a href="../../">홈</a>에서 <b>다음 배당 D-day·최근 변화</b>를 모아 봅니다(이 브라우저에만 저장).' : '☆ 관심 추가하면 <a href="../../">홈</a>에서 이 리츠의 <b>다음 배당 D-day·최근 변화</b>를 모아 봅니다(이 브라우저에만 저장).'; hint.classList.toggle('on', on); }
+  }
   btn.addEventListener('click', function(){ var v=get(), i=v.indexOf(TK); if(i>=0) v.splice(i,1); else v.push(TK); set(v); paint(); });
   paint();
 })();
@@ -1974,6 +2008,14 @@ function landingShell({ title, desc, canonical, rel, ld, body }) {
 .top a.brand{color:var(--text);text-decoration:none;font-weight:800}
 .top .topfacts{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--brand);text-decoration:none;background:var(--tint);border-radius:999px;padding:6px 12px}
 .crumb{font-size:12.5px;color:var(--muted);margin:2px 0 0}.crumb a{color:var(--brand);text-decoration:none;font-weight:700}
+.trust{font-size:12px;color:var(--muted);line-height:1.5;margin:8px 0 0;padding:8px 12px;background:var(--soft);border-radius:10px}
+.trust b{color:var(--text);font-weight:800}
+.trust a{color:var(--brand);text-decoration:none;font-weight:700;white-space:nowrap}
+.lnav{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0 2px}
+.lnav-jump{font:inherit;font-size:13px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;max-width:180px}
+.lnav-chips{display:flex;flex-wrap:wrap;gap:6px}
+.lnav-chips a{font-size:12px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 11px;text-decoration:none}
+.lnav-chips a:hover{border-color:#c9d3ee}
 .eyebrow{display:inline-block;font-size:12px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:5px 12px;margin-top:6px}
 h1{font-size:27px;letter-spacing:-1px;margin:12px 0 6px}
 .lead{color:var(--muted);font-size:15px;margin:0 0 4px}
@@ -2031,6 +2073,7 @@ a.more{color:var(--brand);text-decoration:none;font-weight:700}
     <a class="brand" href="${rel}">리츠온 REITs ON</a>
     <a class="topfacts" href="${rel}facts.html">📊 팩트시트</a>
   </div>
+${trustStrip(rel)}
 ${body}
   <p class="note">⚠ 리츠온은 일반 투자자를 위한 <b>교육·정보 제공 서비스</b>이며, 특정 종목의 매수·매도 추천이나 투자자문이 아닙니다. 모든 수치는 공개자료 기반이며 실제와 다를 수 있고, 리츠는 배당 삭감·중단 및 원금 손실이 가능합니다. 투자 전 DART·KIND·투자보고서 원문과 최신 시세를 반드시 확인하세요.</p>
   <p class="note"><a class="more" href="${rel}">← 리츠온 홈으로</a> · <a class="more" href="${rel}about/">이 사이트 소개·데이터 방법론</a></p>
@@ -2068,6 +2111,7 @@ function sectorPage(sectorName, meta, list) {
   <span class="eyebrow">섹터 가이드 · 교육용</span>
   <h1>${esc(sectorName)} 리츠 (${list.length}개)</h1>
   <p class="lead">${esc(meta.lead)}</p>
+  ${landingNav('../../')}
   <div class="card">
     <h2>${esc(sectorName)} 리츠, 투자 전 확인 포인트</h2>
     <ul class="q">${meta.points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
@@ -2267,6 +2311,7 @@ function dividendMonthsPage() {
   <span class="eyebrow">배당 월력 · 교육용</span>
   <h1>몇 월에 배당받나 — 월별 배당 리츠</h1>
   <p class="lead">상장리츠를 <b>배당기준월(결산월)</b>별로 모았습니다. 그 달 말일 즈음 주주명부에 있으면 배당 대상이 되는 것이 일반적이지만, <b>확정 기준일·실제 지급월은 공시로 확인</b>해야 하며 지급은 보통 2~3개월 뒤입니다.</p>
+  ${landingNav('../../')}
   <div class="chips" style="margin:8px 0 4px">${Array.from({ length: 12 }, (_, i) => i + 1).map((m) => `<a href="#m${m}">${m}월</a>`).join('')}</div>
   ${sections.join('')}
   <div class="card"><p class="small muted" style="margin:0">📅 배당 캘린더를 앱에서 구독하려면 <a class="more" href="../../reits-on.ics">.ics 피드</a>를, 배당월별 조합은 <a class="more" href="../../#~tab=income">홈의 배당·현금흐름 탭</a>을 보세요. 배당 세금은 <a class="more" href="../../guide/tax/">세금 가이드</a>를 참고하세요. 배당기준월과 지급월은 다릅니다.</p></div>`;
@@ -2290,6 +2335,7 @@ function pnavDiscountPage() {
   <span class="eyebrow">장부 순자산 대비 · 교육용</span>
   <h1>장부 순자산보다 싼 리츠 (P/NAV 1배 미만)</h1>
   <p class="lead">주가가 <b>장부상 주당순자산(NAV)</b>보다 낮은 상장리츠 ${rows.length}개입니다. 할인율이 큰 순으로 정렬했지만 <b>순위·추천이 아닙니다</b> — 싼 데는 공실·차입 만기·리스크 등 이유가 있을 수 있고, 감정 공정가치는 장부와 달라 실제 할인폭은 다를 수 있습니다. 각 종목의 <b>지속가능성·최근 변화</b>를 함께 보세요.</p>
+  ${landingNav('../../')}
   <div class="slist">${list}</div>
   ${(naCount > 0 || staleNames.length) ? `<div class="card"><p class="small muted" style="margin:0">${naCount > 0 ? `발행주식수·순자산을 공시에서 확인하기 어려운 ${naCount}개 종목은 P/NAV를 "산정중"으로 비워 이 목록에서 제외했습니다(값을 지어내지 않습니다).` : ''}${staleNames.length ? ` 시세가 장기간 동결된 ${staleNames.join('·')}는 동결 가격 기준 할인율이 오도할 수 있어 제외했습니다(거래정지 가능성 — 종목 페이지 참고).` : ''}</p></div>` : ''}` ;
   return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
@@ -2323,6 +2369,7 @@ function dividendWatchPage() {
   <span class="eyebrow">배당 지속가능성 · 교육용</span>
   <h1>확인 필요 신호가 있는 리츠</h1>
   <p class="lead">배당성향 100% 초과·무배당·순손실·회생/상장폐지 등 <b>배당에 영향을 줄 수 있는 공시 사실</b>이 있는 상장리츠 ${rows.length}개입니다. <b>종합점수·순위·매도 추천이 아닙니다</b> — 사실을 모아 보여줄 뿐이며, 신호가 있다고 반드시 배당이 깎이는 것도, 없다고 안전한 것도 아닙니다. 각 항목의 근거·출처는 종목 페이지에서 확인하세요.</p>
+  ${landingNav('../../')}
   <div class="slist">${items}</div>
   <div class="card"><p class="small muted" style="margin:0">나머지 ${okCount}개 종목은 위 기준의 '확인 필요' 신호가 없었습니다(모든 지표가 확인된다는 뜻은 아닙니다 — 공시 미확인 항목은 각 종목 페이지에 "미확인"으로 표시). 판단 기준은 <a class="more" href="../../about/">데이터 방법론</a>을 참고하세요.</p></div>`;
   return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });

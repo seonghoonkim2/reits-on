@@ -33,12 +33,18 @@
 .risk-banner.risk-caution{background:#fdf6e3;border:1px solid #f2e0a8;color:#9a6700}
 h1{font-size:28px;letter-spacing:-1px;margin:14px 0 4px}
 .tk{color:var(--muted);font-weight:700}
+.trust{font-size:12px;color:var(--muted);line-height:1.5;margin:4px 0 0;padding:8px 12px;background:var(--soft);border-radius:10px}
+.trust b{color:var(--text);font-weight:800}
+.trust a{color:var(--brand);text-decoration:none;font-weight:700;white-space:nowrap}
 .toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0 2px}
 .tbtn{font:inherit;font-size:13px;font-weight:800;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
 .tbtn:hover{border-color:#c9d3ee}
 .tbtn.on{color:#9a6700;background:#fdf6e3;border-color:#f2e0a8}
 .tjump{margin-left:auto}
 .tjump select{font:inherit;font-size:13px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;max-width:170px}
+.watch-copy{font-size:12px;color:var(--muted);margin:8px 2px 0;line-height:1.5}
+.watch-copy a{color:var(--brand);text-decoration:none;font-weight:700}.watch-copy b{color:var(--text);font-weight:800}
+.watch-copy.on{color:#0c7a54}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .icsl{color:var(--brand);text-decoration:none;font-weight:700}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-top:14px}
@@ -285,6 +291,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
 <body>
 <div class="wrap">
   <div class="top"><a class="logo" href="../../">R</a><a class="brand" href="../../">리츠온 REITs ON</a><a class="topfacts" href="../../facts.html">📊 팩트시트</a></div>
+  <p class="trust">공시·투자보고서의 <b>사실만</b> 요약 · <b>순위·추천 없음</b> · 수치마다 출처·기준일 · 2026-07-09 종가 기준 · <a href="../../about/">산정 방법 →</a></p>
   <div class="sticky-kpi"><span class="sk-nm">🟢 한화리츠</span><span class="sk-chips"><span>실배당 5.72%</span><span>LTV 54%</span><span>임대 98.77%</span></span><a class="sk-home" href="../../">홈</a></div>
   <span class="eyebrow">상장리츠 · 오피스</span>
   <h1>한화리츠</h1>
@@ -300,6 +307,7 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
       </select>
     </label>
   </div>
+  <p class="watch-copy" id="watchHint">☆ 관심 추가하면 <a href="../../">홈</a>에서 이 리츠의 <b>다음 배당 D-day·최근 변화</b>를 모아 봅니다(이 브라우저에만 저장).</p>
 <div class="numstrip"><div class="ns-cell"><div class="ns-k">실배당수익률<span class="ns-t">TTM·실적</span></div><div class="ns-v t-ok">5.72%</div><div class="ns-sub">공시 실지급 기준</div></div><div class="ns-cell"><div class="ns-k">P/NAV<span class="ns-t">장부 순자산</span></div><div class="ns-v">1.24배</div><div class="ns-sub">할증 24.2%</div></div><div class="ns-cell"><div class="ns-k">다음 배당기준월<span class="ns-t">말일 가정·예상</span></div><div class="ns-v">10월</div><div class="ns-sub">D-114 · 4월·10월</div></div></div>
 
 
@@ -449,7 +457,10 @@ a.more{color:var(--brand);font-weight:800;text-decoration:none}
   function get(){ try{ var v=JSON.parse(localStorage.getItem(KEY)); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
   function set(v){ try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){} }
   var btn=document.getElementById('watchBtn'); if(!btn) return;
-  function paint(){ var on=get().indexOf(TK)>=0; btn.classList.toggle('on',on); btn.textContent=on?'★ 관심리츠':'☆ 관심 추가'; btn.setAttribute('aria-pressed', on?'true':'false'); }
+  var hint=document.getElementById('watchHint');
+  function paint(){ var on=get().indexOf(TK)>=0; btn.classList.toggle('on',on); btn.textContent=on?'★ 관심리츠':'☆ 관심 추가'; btn.setAttribute('aria-pressed', on?'true':'false');
+    if(hint){ hint.innerHTML = on ? '★ 저장됨 — <a href="../../">홈</a>에서 <b>다음 배당 D-day·최근 변화</b>를 모아 봅니다(이 브라우저에만 저장).' : '☆ 관심 추가하면 <a href="../../">홈</a>에서 이 리츠의 <b>다음 배당 D-day·최근 변화</b>를 모아 봅니다(이 브라우저에만 저장).'; hint.classList.toggle('on', on); }
+  }
   btn.addEventListener('click', function(){ var v=get(), i=v.indexOf(TK); if(i>=0) v.splice(i,1); else v.push(TK); set(v); paint(); });
   paint();
 })();

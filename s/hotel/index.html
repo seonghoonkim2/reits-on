@@ -25,6 +25,14 @@
 .top a.brand{color:var(--text);text-decoration:none;font-weight:800}
 .top .topfacts{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--brand);text-decoration:none;background:var(--tint);border-radius:999px;padding:6px 12px}
 .crumb{font-size:12.5px;color:var(--muted);margin:2px 0 0}.crumb a{color:var(--brand);text-decoration:none;font-weight:700}
+.trust{font-size:12px;color:var(--muted);line-height:1.5;margin:8px 0 0;padding:8px 12px;background:var(--soft);border-radius:10px}
+.trust b{color:var(--text);font-weight:800}
+.trust a{color:var(--brand);text-decoration:none;font-weight:700;white-space:nowrap}
+.lnav{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0 2px}
+.lnav-jump{font:inherit;font-size:13px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 12px;max-width:180px}
+.lnav-chips{display:flex;flex-wrap:wrap;gap:6px}
+.lnav-chips a{font-size:12px;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 11px;text-decoration:none}
+.lnav-chips a:hover{border-color:#c9d3ee}
 .eyebrow{display:inline-block;font-size:12px;font-weight:800;color:var(--brand);background:var(--tint);border-radius:999px;padding:5px 12px;margin-top:6px}
 h1{font-size:27px;letter-spacing:-1px;margin:12px 0 6px}
 .lead{color:var(--muted);font-size:15px;margin:0 0 4px}
@@ -82,10 +90,21 @@ a.more{color:var(--brand);text-decoration:none;font-weight:700}
     <a class="brand" href="../../">리츠온 REITs ON</a>
     <a class="topfacts" href="../../facts.html">📊 팩트시트</a>
   </div>
+  <p class="trust">공시·투자보고서의 <b>사실만</b> 요약 · <b>순위·추천 없음</b> · 수치마다 출처·기준일 · 2026-07-09 종가 기준 · <a href="../../about/">산정 방법 →</a></p>
   <p class="crumb"><a href="../../">홈</a> › 호텔 리츠</p>
   <span class="eyebrow">섹터 가이드 · 교육용</span>
   <h1>호텔 리츠 (1개)</h1>
   <p class="lead">호텔 자산을 담은 리츠입니다. 객실 수요와 가동률이 실적을 좌우합니다.</p>
+  <div class="lnav">
+    <select class="lnav-jump" onchange="if(this.value)location.href=this.value" aria-label="종목 바로가기"><option value="">종목 바로가기…</option><option value="../../r/0030R0/">대신밸류리츠</option><option value="../../r/377190/">디앤디플랫폼리츠</option><option value="../../r/330590/">롯데리츠</option><option value="../../r/357430/">마스턴프리미어리츠</option><option value="../../r/396690/">미래에셋글로벌리츠</option><option value="../../r/357250/">미래에셋맵스리츠</option><option value="../../r/448730/">삼성FN리츠</option><option value="../../r/204210/">스타에스엠리츠</option><option value="../../r/481850/">신한글로벌액티브리츠</option><option value="../../r/404990/">신한서부티엔디리츠</option><option value="../../r/293940/">신한알파리츠</option><option value="../../r/140910/">에이리츠</option><option value="../../r/088260/">이리츠코크렙</option><option value="../../r/350520/">이지스레지던스리츠</option><option value="../../r/334890/">이지스밸류플러스리츠</option><option value="../../r/348950/">제이알글로벌리츠</option><option value="../../r/145270/">케이탑리츠</option><option value="../../r/417310/">코람코더원리츠</option><option value="../../r/357120/">코람코라이프인프라리츠</option><option value="../../r/451800/">한화리츠</option><option value="../../r/365550/">ESR켄달스퀘어리츠</option><option value="../../r/432320/">KB스타리츠</option><option value="../../r/400760/">NH올원리츠</option><option value="../../r/338100/">NH프라임리츠</option><option value="../../r/395400/">SK리츠</option></select>
+    <div class="lnav-chips">
+      <a href="../../list/dividend-months/">🗓️ 월별 배당</a>
+      <a href="../../list/pnav-discount/">🏷️ P/NAV 할인</a>
+      <a href="../../list/dividend-watch/">🔎 지속가능성 점검</a>
+      <a href="../../guide/tax/">🧾 배당 세금</a>
+      <a href="../../reits-on.ics">📅 캘린더</a>
+    </div>
+  </div>
   <div class="card">
     <h2>호텔 리츠, 투자 전 확인 포인트</h2>
     <ul class="q"><li>객실 가동률·객단가(ADR)와 관광 수요</li><li>임대차(고정임대료) 구조 여부</li><li>배당 재개·중단 여부와 재무 안정성</li></ul>
