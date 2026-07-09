@@ -128,3 +128,39 @@ test('dividendDisplay: 배지·경고 우선순위', () => {
   // 산정 불가
   assert.equal(dividendDisplay({ ttmDps: null, ttmQuality: 'none' }, 1000).show, false);
 });
+
+// ---- 신선도(stale) 감지: 최신 회차가 오래되면 '갱신지연' ----
+import { periodEndYM } from '../scripts/lib/ttm-dividend.mjs';
+
+test('periodEndYM: 다양한 회차 라벨에서 종료 연월 추정', () => {
+  assert.deepEqual(periodEndYM('제10기 (2025.05 결산)'), { y: 2025, m: 5 });
+  assert.deepEqual(periodEndYM('제11기 (2025.07~12)'), { y: 2025, m: 12 });
+  assert.deepEqual(periodEndYM('제16기 (2025)'), { y: 2025, m: 12 });
+  assert.deepEqual(periodEndYM('2026.1Q'), { y: 2026, m: 3 });
+  assert.equal(periodEndYM('11기'), null);   // 연도 없음 → 판단 보류
+});
+
+test('TTM stale: 반기배당인데 최신 회차가 13개월 전이면 stale=true', () => {
+  const old = new Date(); old.setMonth(old.getMonth() - 13);
+  const ym = `${old.getFullYear()}.${String(old.getMonth() + 1).padStart(2, '0')}`;
+  const reit = { divMonths: [5, 11], reportDetail: { dividends: { history: [
+    { period: `제9기 (${ym} 결산)`, perShare: '137원' },
+    { period: '제8기', perShare: '137원' },
+  ] } } };
+  const t = computeTtmDps(reit);
+  assert.equal(t.stale, true);
+  assert.equal(t.quality, 'actual');   // 품질 분류는 유지, 신선도만 플래그
+});
+
+test('TTM stale: 최신 회차가 신선하면 stale=false, 연도 미상도 false(보류)', () => {
+  const now = new Date();
+  const ym = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}`;
+  const fresh = { divMonths: [5, 11], reportDetail: { dividends: { history: [
+    { period: `제9기 (${ym} 결산)`, perShare: '137원' }, { period: '제8기', perShare: '137원' },
+  ] } } };
+  assert.equal(computeTtmDps(fresh).stale, false);
+  const unknown = { divMonths: [5, 11], reportDetail: { dividends: { history: [
+    { period: '9기', perShare: '137원' }, { period: '8기', perShare: '137원' },
+  ] } } };
+  assert.equal(computeTtmDps(unknown).stale, false);
+});

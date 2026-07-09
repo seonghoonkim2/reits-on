@@ -54,7 +54,20 @@ function card(name, sector, cells, footRight) {
 </svg>`;
 }
 
+// 시세 동결(거래정지 등) 종목: 동결 가격 기반 수익률·P/NAV는 공유카드에서도 숨긴다.
+const MAX_ASOF = seed.reits.map((r) => r.priceAsOf).filter(Boolean).sort().pop() || null;
+const isStale = (r) => MAX_ASOF && r.priceAsOf && r.priceAsOf < MAX_ASOF
+  && Math.round((new Date(MAX_ASOF) - new Date(r.priceAsOf)) / 86400000) >= 7;
+
 function reitSvg(r) {
+  if (isStale(r)) {
+    const nmS = nextDivMonth(r.divMonths);
+    return card(r.name, r.primary || '상장리츠',
+      statCell(72, '실배당수익률', '산정 보류', '시세 동결 · 거래정지 가능', 'warn')
+      + statCell(432, 'P/NAV', '산정 보류', '최신 시세 확인 필요', 'warn')
+      + statCell(792, '다음 배당기준월', (nmS ? nmS + '월' : '—'), (r.divMonths || []).map((m) => m + '월').join('·')),
+      '');
+  }
   const d = dividendDisplay(r, r.price);
   const nv = navDisplay(r.navPerShare, r.price);
   const nm = nextDivMonth(r.divMonths);

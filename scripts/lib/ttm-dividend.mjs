@@ -56,6 +56,26 @@ const freqOf = (reit) => {
   return Math.min(4, Math.max(1, n || 1));
 };
 
+// 회차 라벨에서 종료 연·월 추정: "제10기 (2025.05 결산)"→2025-05, "2025.07~12"→2025-12,
+// "제16기 (2025)"→2025-12, "2026.1Q"→2026-03. 못 찾으면 null(신선도 판단 보류).
+export function periodEndYM(period) {
+  const s = String(period || '');
+  const q = s.match(/(20\d{2})\s*[.\-]?\s*([1-4])\s*Q/i);
+  if (q) return { y: +q[1], m: (+q[2]) * 3 };
+  // 모든 YYYY.MM / YYYY-MM 중 가장 늦은 것("2025.07~12"의 12는 연도 생략이라 별도 처리)
+  const range = s.match(/(20\d{2})\s*[.\-]\s*(\d{1,2})\s*[~‐-]\s*(\d{1,2})(?!\d)/);
+  if (range) return { y: +range[1], m: Math.min(12, +range[3]) };
+  const yms = [...s.matchAll(/(20\d{2})\s*[.\-]\s*(\d{1,2})(?!\d)/g)]
+    .map((m) => ({ y: +m[1], m: Math.min(12, +m[2]) }))
+    .filter((v) => v.m >= 1);
+  if (yms.length) return yms.sort((a, b) => (a.y - b.y) || (a.m - b.m)).pop();
+  const yr = s.match(/(20\d{2})/);
+  if (yr) return { y: +yr[1], m: 12 };
+  return null;
+}
+// 오늘로부터 몇 개월 전인지(대략, 월 단위)
+const monthsAgo = (ym, now = new Date()) => (now.getFullYear() - ym.y) * 12 + (now.getMonth() + 1 - ym.m);
+
 export function computeTtmDps(reit) {
   const freq = freqOf(reit);
   const hist = (reit.reportDetail && Array.isArray(reit.reportDetail.dividends?.history))
@@ -74,6 +94,15 @@ export function computeTtmDps(reit) {
   const payoutOver100 = picked.some((p) => p.payoutOver100);
   const allZero = picked.every((p) => (p.value || 0) === 0);
 
+  // 신선도: 최신 usable 회차의 종료월이 '회차 간격(12/freq개월)+4개월(공시 지연 버퍼)'보다
+  // 오래됐으면 '최근 12개월' 창이 사실상 밀린 것 → stale 플래그(표시층에서 '갱신지연' 배지).
+  let stale = false;
+  const newestYM = periodEndYM(picked[0] && picked[0].period);
+  if (newestYM && !allZero) {
+    const limit = Math.ceil(12 / freq) + 4;
+    stale = monthsAgo(newestYM) > limit;
+  }
+
   let quality;
   if (allZero) quality = 'nodiv';
   else if (picked.length < freq) quality = 'partial';
@@ -85,6 +114,7 @@ export function computeTtmDps(reit) {
     freq,
     periodsUsed: picked.length,
     quality,
+    stale,
     hasSpecial,
     approx,
     payoutOver100,

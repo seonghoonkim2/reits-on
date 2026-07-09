@@ -20,6 +20,7 @@ export function dividendDisplay(f, price) {
 
   const y = ttmYield(f.ttmDps, price);
   const flags = [];
+  if (f.ttmStale) flags.push('stale');
   if (f.ttmSpecial) flags.push('special');
   if (f.ttmPayoutOver100) flags.push('payout');
   if (q === 'partial') flags.push('partial');
@@ -27,15 +28,16 @@ export function dividendDisplay(f, price) {
   if (f.ttmApprox) flags.push('approx');
 
   const CAVEAT = {
+    stale: '가장 최근 확정 회차가 오래돼 최신 배당이 아직 반영되지 않았을 수 있어요(공시 확인 권장).',
     special: '최근 1년 배당에 일회성 특별배당(자산 처분이익 등)이 포함돼 반복 가능한 경상 수익률은 더 낮을 수 있어요.',
     payout: '배당성향이 100%를 넘어(순이익보다 많이 배당) 향후 배당 지속성에 유의하세요.',
     partial: '확정 배당 회차가 결산 횟수보다 적어, 실제 연배당보다 낮게 표시될 수 있어요.',
     unusual: '주가 하락이 반영돼 수익률이 이례적으로 높게 표시됩니다(주당 배당금 자체는 유지). 반드시 확인하세요.',
     approx: '배당금이 공시 자본변동표 기준 근사치예요.',
   };
-  const BADGE = { special: '특별배당 포함', payout: '배당성향 100%↑', partial: '이력 부족', unusual: '이례적·확인', approx: '근사치' };
-  const TONE = { special: 'warn', payout: 'warn', unusual: 'warn', partial: 'muted', approx: 'muted' };
-  const primary = ['special', 'payout', 'partial', 'unusual', 'approx'].find((k) => flags.includes(k));
+  const BADGE = { stale: '갱신지연·확인', special: '특별배당 포함', payout: '배당성향 100%↑', partial: '이력 부족', unusual: '이례적·확인', approx: '근사치' };
+  const TONE = { stale: 'warn', special: 'warn', payout: 'warn', unusual: 'warn', partial: 'muted', approx: 'muted' };
+  const primary = ['stale', 'special', 'payout', 'partial', 'unusual', 'approx'].find((k) => flags.includes(k));
 
   return {
     show: true, isDiv: true, ttmDps: f.ttmDps, yield: y,

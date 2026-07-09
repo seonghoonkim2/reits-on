@@ -71,6 +71,7 @@ const flatReit = (r) => {
     // 실배당수익률(TTM): ttmDps=최근 12개월 실지급 주당배당 합 · ttmQuality=actual/special/partial/nodiv/none
     ttmDps: ttm.ttmDps,
     ttmQuality: ttm.quality,
+    ttmStale: !!ttm.stale,
     ttmSpecial: ttm.hasSpecial,
     ttmApprox: ttm.approx,
     ttmPayoutOver100: ttm.payoutOver100,

@@ -48,6 +48,13 @@ const m = html.match(/<script id="seed-data" type="application\/json">([\s\S]*?)
 if (!m) { console.error('seed-data를 찾지 못했습니다.'); process.exit(1); }
 const seed = JSON.parse(m[1]);
 const REITS = seed.reits;
+// 시세 동결 감지: 전 종목 최신 거래일 대비 7일 이상 뒤처지면(거래정지 등) 가격 파생 지표를 신뢰하지 않는다.
+const MAX_PRICE_ASOF = REITS.map((r) => r.priceAsOf).filter(Boolean).sort().pop() || null;
+function priceStaleDays(r) {
+  if (!MAX_PRICE_ASOF || !r.priceAsOf || r.priceAsOf >= MAX_PRICE_ASOF) return 0;
+  return Math.round((new Date(MAX_PRICE_ASOF) - new Date(r.priceAsOf)) / 86400000);
+}
+const isPriceStale = (r) => priceStaleDays(r) >= 7;
 
 // ---- 일별 종가 시계열(스파크라인용). 없으면 빈 객체 ----
 let PRICE_HISTORY = {};
@@ -559,14 +566,27 @@ function stickyBar(r) {
   const d = DETAIL_BY_TICKER[r.ticker];
   const h = healthOf(r.ticker); const dot = { ok: '🟢', warn: '🟡', risk: '🔴' }[h.level];
   const ltv = numLTV(r.ticker), occ = numOcc(r.ticker);
-  const yld = d && d.dividends && _pct(d.dividends.yield);
-  const chips = [yld != null && `배당 ${yld}%`, ltv != null && `LTV ${ltv}%`, occ != null && `임대 ${occ}%`].filter(Boolean);
+  // 배당 칩은 본문 넘버스트립과 같은 값(실배당 TTM)으로 통일 — 한 화면 두 수치 상충 방지
+  const dd = dividendDisplay(r, r.price);
+  const yld = (dd.show && dd.isDiv && dd.yield != null) ? dd.yield : null;
+  const chips = [yld != null && `실배당 ${yld}%`, ltv != null && `LTV ${ltv}%`, occ != null && `임대 ${occ}%`].filter(Boolean);
   if (!d && !chips.length) return '';
   return `  <div class="sticky-kpi"><span class="sk-nm">${dot} ${esc(r.name)}</span><span class="sk-chips">${chips.map((c) => `<span>${esc(c)}</span>`).join('')}</span><a class="sk-home" href="../../">홈</a></div>`;
 }
 
 // 첫 화면 '3숫자' 스트립: 실배당 TTM · P/NAV · 다음 배당월 (네이버·증권사앱에 없는 차별화 숫자)
 function numStrip(r) {
+  // 시세 동결 종목: 가격 파생 지표(TTM 수익률·P/NAV)를 계산하지 않고 사유를 밝힌다.
+  if (isPriceStale(r)) {
+    const days = priceStaleDays(r);
+    const nmS = nextDivMonth(r.divMonths);
+    const cells0 = [
+      { k: '실배당수익률', v: '산정 보류', sub: `시세 ${days}일 동결 · 거래정지 가능`, tone: 'warn' },
+      { k: 'P/NAV', v: '산정 보류', sub: '최신 시세 확인 필요', tone: 'warn' },
+    ];
+    if (nmS) cells0.push({ k: '다음 배당기준월<span class="ns-t">말일 가정·예상</span>', v: nmS + '월', sub: r.divMonths.map((m) => m + '월').join('·'), tone: '' });
+    return `<div class="numstrip">${cells0.map((c) => `<div class="ns-cell"><div class="ns-k">${c.k}</div><div class="ns-v${c.tone ? ' t-' + c.tone : ''}">${c.v}</div><div class="ns-sub">${esc(c.sub)}</div></div>`).join('')}</div>`;
+  }
   const d = dividendDisplay(r, r.price);
   const nv = navDisplay(r.navPerShare, r.price);
   const nm = nextDivMonth(r.divMonths);
@@ -618,9 +638,17 @@ function metricsBlock(r) {
   const cp = r.changePct;
   const chgCol = cp > 0 ? '#d1453b' : cp < 0 ? '#1f6feb' : 'var(--muted)';
   const chg = (cp != null) ? ` <span style="color:${chgCol};font-weight:800">${cp > 0 ? '+' : ''}${cp}%</span>` : '';
+  const stale = isPriceStale(r);
+  const staleNote = stale ? `<div class="mx-cav">⚠ 시세가 ${priceStaleDays(r)}일째 갱신되지 않았습니다(거래정지 가능성). 이 가격 기준 수익률·P/NAV는 표시하지 않습니다.</div>` : '';
   const priceRow = (r.price != null)
-    ? `<div class="mx-row"><span class="mx-k">현재가</span><span class="mx-v"><b>${fmt(r.price)}원</b>${chg} <span class="mx-note">실시간 아님${r.priceAsOf ? ' · ' + esc(r.priceAsOf) + ' 종가' : ''}</span></span></div>`
+    ? `<div class="mx-row"><span class="mx-k">현재가</span><span class="mx-v"><b>${fmt(r.price)}원</b>${chg} <span class="mx-note">실시간 아님${r.priceAsOf ? ' · ' + esc(r.priceAsOf) + ' 종가' : ''}</span>${staleNote}</span></div>`
     : '';
+  if (stale) {
+    // 동결 시세: 가격 파생 행(TTM 수익률·P/NAV·52주 위치) 생략 — 가격·스파크라인만
+    const spark0 = sparklineSvg(PRICE_HISTORY[r.ticker], { w: 260, h: 46 });
+    const sparkRow0 = spark0 ? `<div class="mx-spark">${spark0}<span class="mx-note">최근 1년 주가</span></div>` : '';
+    return priceRow ? `<div class="mx">${priceRow}${sparkRow0}</div>` : '';
+  }
 
   // 실배당수익률(TTM)
   const d = dividendDisplay(r, r.price);
@@ -698,10 +726,12 @@ function median(arr) { const a = arr.slice().sort((x, y) => x - y); if (!a.lengt
 // 배당수익률 비교: 이 리츠 vs 같은 섹터 중앙값 vs 상장리츠 전체 중앙값 vs 협회 공시 시장평균.
 // 전부 우리 데이터·공시 통계로만 계산(예금·ETF 등 출처 없는 수치는 만들지 않음). 우열 판정 아님.
 function yieldCompareCard(r) {
+  if (isPriceStale(r)) return '';   // 동결 시세 기반 수익률 비교는 오도 — 표시하지 않음
   const y = ttmYieldOf(r);
   if (y == null) return '';
-  const sectorYields = REITS.filter((x) => x.primary === r.primary).map(ttmYieldOf).filter((v) => v != null);
-  const allYields = REITS.map(ttmYieldOf).filter((v) => v != null);
+  const fresh = REITS.filter((x) => !isPriceStale(x));   // 동결 시세 종목은 중앙값 계산에서도 제외
+  const sectorYields = fresh.filter((x) => x.primary === r.primary).map(ttmYieldOf).filter((v) => v != null);
+  const allYields = fresh.map(ttmYieldOf).filter((v) => v != null);
   const secMed = median(sectorYields), allMed = median(allYields);
   const mkt = seed.market && seed.market.listedDividendYieldPriceBasis;
   const mktAsOf = seed.market && seed.market.asOf;
@@ -2247,17 +2277,19 @@ function pnavDiscountPage() {
   const title = 'P/NAV 1배 미만 · 장부 순자산 대비 할인 리츠 | 리츠온';
   const desc = '주가가 장부상 주당순자산(NAV)보다 낮은 상장리츠 목록과 할인율. P/NAV는 감정가가 아닌 장부 기준이며, 할인에는 이유(공실·차입만기·리스크)가 있을 수 있습니다. 저평가 판단이나 매수 추천이 아닙니다. (교육용)';
   const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: title, url, inLanguage: 'ko', description: desc, isPartOf: { '@type': 'WebSite', name: '리츠온 REITs ON', url: BASE + '/' } };
-  const rows = REITS.map((r) => ({ r, nv: navDisplay(r.navPerShare, r.price) }))
+  const rows = REITS.filter((r) => !isPriceStale(r))   // 동결 시세로 계산된 할인율은 오도 — 목록에서 제외
+    .map((r) => ({ r, nv: navDisplay(r.navPerShare, r.price) }))
     .filter((x) => x.nv && !x.nv.premium)
     .sort((a, b) => b.nv.discountPct - a.nv.discountPct);
   const list = rows.map((x) => reitListItem(x.r)).join('');
-  const naCount = REITS.length - REITS.filter((r) => navDisplay(r.navPerShare, r.price)).length;
+  const staleNames = REITS.filter(isPriceStale).map((r) => r.name);
+  const naCount = REITS.length - REITS.filter((r) => navDisplay(r.navPerShare, r.price)).length - staleNames.length;
   const body = `  <p class="crumb"><a href="../../">홈</a> › P/NAV 할인 리츠</p>
   <span class="eyebrow">장부 순자산 대비 · 교육용</span>
   <h1>장부 순자산보다 싼 리츠 (P/NAV 1배 미만)</h1>
   <p class="lead">주가가 <b>장부상 주당순자산(NAV)</b>보다 낮은 상장리츠 ${rows.length}개입니다. 할인율이 큰 순으로 정렬했지만 <b>순위·추천이 아닙니다</b> — 싼 데는 공실·차입 만기·리스크 등 이유가 있을 수 있고, 감정 공정가치는 장부와 달라 실제 할인폭은 다를 수 있습니다. 각 종목의 <b>지속가능성·최근 변화</b>를 함께 보세요.</p>
   <div class="slist">${list}</div>
-  ${naCount ? `<div class="card"><p class="small muted" style="margin:0">발행주식수·순자산을 공시에서 확인하기 어려운 ${naCount}개 종목은 P/NAV를 "산정중"으로 비워 이 목록에서 제외했습니다(값을 지어내지 않습니다).</p></div>` : ''}` ;
+  ${(naCount > 0 || staleNames.length) ? `<div class="card"><p class="small muted" style="margin:0">${naCount > 0 ? `발행주식수·순자산을 공시에서 확인하기 어려운 ${naCount}개 종목은 P/NAV를 "산정중"으로 비워 이 목록에서 제외했습니다(값을 지어내지 않습니다).` : ''}${staleNames.length ? ` 시세가 장기간 동결된 ${staleNames.join('·')}는 동결 가격 기준 할인율이 오도할 수 있어 제외했습니다(거래정지 가능성 — 종목 페이지 참고).` : ''}</p></div>` : ''}` ;
   return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
 }
 

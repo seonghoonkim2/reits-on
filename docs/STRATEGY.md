@@ -164,6 +164,36 @@
 ## 진행 현황
 
 - ✅ Fact Layer (2026 H1)
-- 🔄 Phase A — Context Layer 심화 (진행 중)
-- ⏳ Phase B — 사용자 액션 대기(DART키·공공데이터키·애널리틱스·도메인)
-- ⏳ Phase C/D
+- ✅ Phase A — Context Layer (A1~A5 + dividend-watch 리스트)
+- ✅ B1 — 확정 배당: DART 무키 파싱으로 해결 (키 불필요 판명)
+- ✅ C3 — 포트폴리오 추적 (다음 배당 D-day·보유 점검·홈 요약)
+- ✅ Q1 — 데이터 정합성 가드 (시세 동결·TTM 갱신지연·ics 모순·수치 상충)
+- ⏳ Phase B 잔여 — 애널리틱스·도메인만 사용자 액션 필요 (우회 불가 판명)
+
+---
+
+## 부록: 실측 기반 백로그 (2026-07 3-렌즈 감사)
+
+7-에이전트 워크플로우(무키 프로브 4 + 렌즈 3)의 검증된 발견. 모두 코드만으로 가능.
+
+### Q2 — 남은 정합성 (다음 품질 턴)
+- P/NAV 발행주식수 3중 교차검증: 배당총액÷주당 여러 회차 상호 대조(7%↑ 불일치 시 '산정중'), **dividends-confirmed의 totalWon÷perShare를 1순위 소스로 승격**, 역산 근거 회차 표기
+- DART 파서 앵커 강화: '보통주식' 토큰 강제 + 개연성 밴드(시가배당률×주가 ≈ perShare) — 차등배당 픽스처 추가
+- validate.mjs 불변식: 배당 history '제N기' 단조감소 검사(편집 실수 차단), 전 종목 max(priceAsOf) 3영업일 초과 노후 시 경고
+
+### UX1 — 첫 방문 신뢰 (렌즈 1)
+- **신원·신선도 스트립**: 착지 페이지 상단 한 줄 "공시 사실만 요약 · 순위/추천 없음 · 수치마다 출처·기준일 · {asOf} 종가 기준 · 방법론→"
+- **용어 팝오버**: glossary.json을 정적 페이지에도 배선(TTM·P/NAV·WALE 탭 토글, 모바일 대응)
+- 리스트/섹터 페이지에 종목 점프 셀렉트 + 리스트 간 크로스링크 칩
+- 관심 버튼 가치 설명(첫 토글 시 1회 안내 "홈에서 D-day·변화를 모아봅니다") + 리스트 아이템에 ☆
+
+### UX2 — 연결 완결 (렌즈 3)
+- **SPA divConfirmed 소비**: nextDividend·pfNext·hpfNext에서 확정값 우선(+'확정' 배지·원문 링크) — B1의 마지막 마일
+- SPA 딥링크 활용: 종목 페이지 CTA를 `#~tab=income&t={ticker}`로 + hashchange 리스너
+- RSS alternate·가시 링크를 /changes/·종목 페이지에
+- /guide/tax를 '세후' 라벨 곳곳에서 링크(고아 페이지 해소)
+
+### 무키 데이터 확장 (프로브 검증 완료)
+- 회사별 공시 RSS(`companyRSS.xml?crpCd=`) — 25개 crpCd 전수 확보됨. filings 수집 이중화(워커 장애 대비)
+- Yahoo `events=div` — 배당락일 이력 교차검증용(과거 금액은 조정계수 소급이라 표시 금지)
+- dsab007/detailSearch.ax POST(JSESSIONID 쿠키 필요) — 배당결정 공시 과거 백필 가능

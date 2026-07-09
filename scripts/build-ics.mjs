@@ -26,6 +26,8 @@ const events = [];
 for (const r of reits) {
   if (!Array.isArray(r.divMonths) || !r.divMonths.length) continue;
   const ttm = computeTtmDps(r);
+  // 무배당·중대 리스크(회생/상폐 등) 종목엔 '예상 배당' 이벤트를 내지 않는다 — 사이트 자신의 리스크 배지와 모순 방지
+  if (ttm.quality === 'nodiv' || (r.risk && r.risk.level === 'high')) continue;
   const freq = Math.max(1, r.divMonths.length);
   const perEst = (ttm.ttmDps != null && ttm.ttmDps > 0) ? Math.round(ttm.ttmDps / freq) : null;
   const amt = perEst ? ` · 예상 주당배당 약 ${perEst.toLocaleString('ko-KR')}원(1회, 최근 실적 기준)` : '';
