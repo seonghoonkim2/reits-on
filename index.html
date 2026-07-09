@@ -541,6 +541,7 @@
     .month-card { border: 1px solid var(--line); background: var(--surface-strong); border-radius: 18px; padding: var(--space-2); min-height: 170px; }
     .month-card h3 { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
     .month-card .count { color: var(--muted); font-size: 13px; font-weight: 700; }
+    .mc-conf { color: #0c7a54; background: #e4f5ec; border-radius: 999px; padding: 1px 7px; font-size: 11px; font-weight: 800; margin-left: 4px; }
     .mc-bar { height:6px; border-radius:var(--radius-pill); background:var(--line-soft); overflow:hidden; }
     .mc-bar > i { display:block; height:100%; background:linear-gradient(90deg,var(--brand),var(--brand-2)); border-radius:var(--radius-pill); }
     .month-list { display:flex; flex-wrap:wrap; gap: 6px; margin-top: 12px; }
@@ -898,7 +899,7 @@
         <div class="section-head">
           <div>
             <h2>내 배당 포트폴리오</h2>
-            <p>저장한 보유 내역 기준 요약입니다(이 브라우저에만 저장). 실배당 TTM·세후 추정이며 확정 금액이 아닙니다.</p>
+            <p>저장한 보유 내역 기준 요약입니다(이 브라우저에만 저장). 실배당 TTM·세후 추정이며 확정 금액이 아닙니다. <a class="more" href="guide/tax/">세금 계산 방식 →</a></p>
           </div>
           <button class="ghost-btn" type="button" id="homePfOpen" style="padding:8px 14px;min-height:auto;">자세히 보기</button>
         </div>
@@ -1250,7 +1251,7 @@
           </div>
 
           <div class="panel" style="margin-top:var(--space-2);">
-            <div class="pf-step">② 배당기준월별 배당 추정 (1년·가정 배당률 기준)</div>
+            <div class="pf-step">② 배당기준월별 배당 추정 (1년·가정 배당률 기준) <a class="more" href="guide/tax/" style="font-size:12px;font-weight:700;">세금 계산 방식 →</a></div>
             <div class="pf-summary">
               <div class="result-card hero-result"><div class="small">월평균(세후·추정)</div><div class="big" id="pfMonthly">-</div></div>
               <div class="result-card"><div class="small">연 배당(세후·추정)</div><div class="big" id="pfAnnual">-</div></div>
@@ -1463,6 +1464,17 @@
     const GLOSSARY = seed.glossary;
     const SOURCES = seed.sources;
     const CHANGES = seed.changes || [];
+    const DIV_CONFIRMED = seed.divConfirmed || {};   // DART 배당결정 공시 파싱(확정 배당) — {ticker:{perShare,recordDate,payDate,payText,agmDate,url}}
+    // 확정 배당이 '아직 유효'한가: 기준일이 최근 200일 이내이거나 지급/주총 예정일이 미래
+    function confirmedDiv(r) {
+      const c = DIV_CONFIRMED[r && r.ticker];
+      if (!c || !c.perShare || !c.recordDate) return null;
+      const today = new Intl.DateTimeFormat('en-CA').format(new Date());
+      const recentCut = new Date(); recentCut.setDate(recentCut.getDate() - 200);
+      const recent = c.recordDate >= new Intl.DateTimeFormat('en-CA').format(recentCut);
+      const future = (c.payDate && c.payDate >= today) || (c.agmDate && c.agmDate >= today);
+      return (recent || future) ? c : null;
+    }
     const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
     // 백엔드(Cloudflare Worker) 주소. 비우면 내장 seed로 동작(정적). 배포 후 'https://reits-on-api.<계정>.workers.dev' 입력 → 자동으로 라이브 데이터 사용.
     const API_BASE = 'https://reits-on-api.modelter.workers.dev';
@@ -1893,6 +1905,15 @@
       try { history.replaceState(null, '', str ? ('#~' + str) : (location.pathname + location.search)); } catch (e) {}
     }
 
+    // 딥링크: 다른 페이지에서 #~tab=income&t=... 로 들어오거나 뒤로가기 시 탭·선택 복원
+    function applyHashNav() {
+      const before = state.tab;
+      readHashState();
+      if (state.tab !== before) setTab(state.tab, { noScroll: false });
+      if (state.selected) { try { selectReit(state.selected, false); } catch (e) {} }
+    }
+    window.addEventListener('hashchange', applyHashNav);
+
     function init() {
       readHashState();
       if (!state.selected) state.selected = REITS[0].ticker;
@@ -2223,6 +2244,14 @@
       return { month: nextM, days, payMonth: payMonth(nextM) };
     }
     function detailNextDivLi(r) {
+      // 확정 배당(공시) 우선: 있으면 예상 대신 확정값+원문 링크
+      const c = confirmedDiv(r);
+      if (c) {
+        const pay = c.payDate ? ('지급 <b>' + c.payDate + '</b>')
+          : (c.payText ? ('지급 ' + escapeHTML(c.payText) + (c.agmDate ? ' <span class="muted small">(주총 ' + c.agmDate + ')</span>' : '')) : '');
+        return '<li><strong>📌 배당 확정(공시)</strong><br>주당 <b>' + fmt.format(c.perShare) + '원</b> · 기준일 <b>' + c.recordDate + '</b>' + (pay ? ' · ' + pay : '')
+          + '<br><a href="' + escapeHTML(c.url) + '" target="_blank" rel="noopener">DART 공시 원문 →</a> <span class="muted small">세전·감사 전 수치</span></li>';
+      }
       const nd = nextDividend(r); if (!nd || !r.recentDiv) return '';
       return '<li><strong>다음 배당(예상)</strong><br>기준월 <b>' + nd.month + '월</b> · 약 <b>' + nd.days + '일</b> 후 · 예상 지급 ' + nd.payMonth + '월'
         + '<br>주당 약 ' + fmt.format(r.recentDiv) + '원 <span class="muted small">(최근 1회 실적 기준·확정 아님)</span></li>';
@@ -2701,9 +2730,12 @@
       $('#calendarGrid').innerHTML = MONTHS.map((label, idx) => {
         const month = idx + 1;
         const list = REITS.filter(r => r.divMonths.includes(month));
-        return '<div class="month-card"><h3>' + label + '<span class="count">' + list.length + '개</span></h3>'
+        // 이 달을 배당기준월로 하는 확정 배당(공시)이 있으면 📌 표시
+        const confList = list.filter(r => { const c = confirmedDiv(r); return c && Number(c.recordDate.slice(5, 7)) === month; });
+        const confBadge = confList.length ? ' <span class="mc-conf" title="공시로 확정된 배당: ' + confList.map(r => escapeHTML(r.name)).join(', ') + '">📌 확정 ' + confList.length + '</span>' : '';
+        return '<div class="month-card"><h3>' + label + '<span class="count">' + list.length + '개' + confBadge + '</span></h3>'
           + '<div class="mc-bar"><i style="width:' + ((list.length/maxC)*100).toFixed(0) + '%"></i></div>'
-          + '<div class="month-list">' + (list.map(r => '<button type="button" data-ticker="' + r.ticker + '"' + (owned.has(r.ticker) ? ' class="owned" disabled' : '') + '>' + (owned.has(r.ticker) ? '✓ ' : '+ ') + escapeHTML(r.name) + '</button>').join('') || '<span class="muted small">해당 없음</span>') + '</div></div>';
+          + '<div class="month-list">' + (list.map(r => '<button type="button" data-ticker="' + r.ticker + '"' + (owned.has(r.ticker) ? ' class="owned" disabled' : '') + '>' + (owned.has(r.ticker) ? '✓ ' : '+ ') + (confirmedDiv(r) && Number(confirmedDiv(r).recordDate.slice(5,7)) === month ? '📌 ' : '') + escapeHTML(r.name) + '</button>').join('') || '<span class="muted small">해당 없음</span>') + '</div></div>';
       }).join('');
       $$('#calendarGrid [data-ticker]').forEach(btn => btn.addEventListener('click', () => {
         const r = byTicker(btn.dataset.ticker);

@@ -546,7 +546,7 @@ function irCard(r, naverUrl) {
       ${naverUrl ? `<a href="${naverUrl}" target="_blank" rel="noopener">현재가(네이버 금융)</a>` : ''}
       <a href="https://kind.krx.co.kr/" target="_blank" rel="noopener">KIND</a>
     </div>
-    <p style="margin:14px 0 0"><a class="cta" href="../../">앱에서 배당 캘린더·월배당 포트폴리오 보기 →</a></p>
+    <p style="margin:14px 0 0"><a class="cta" href="../../#~tab=income&t=${r.ticker}">앱에서 배당 캘린더·월배당 포트폴리오 보기 →</a></p>
   </div>`;
 }
 
@@ -766,7 +766,7 @@ function confirmedDivBox(r) {
   const pay = c.payDate
     ? `지급 <b>${esc(c.payDate)}</b>`
     : (c.payText ? `지급 ${esc(c.payText)}${c.agmDate ? ` (주총 ${esc(c.agmDate)})` : ''}` : '');
-  return `<div class="confbox">📌 <b>배당 확정</b> — 주당 <b>${fmt(c.perShare)}원</b> · 기준일 ${esc(c.recordDate)}${pay ? ' · ' + pay : ''}${c.yieldPct != null ? ` · 시가배당률 ${c.yieldPct}%` : ''} <a href="${esc(c.url)}" target="_blank" rel="noopener">공시 원문 →</a><span class="conf-src">DART 배당결정 공시(${esc(c.filedAt || c.decidedAt || '')}) 자동 추출 · 세전</span></div>`;
+  return `<div class="confbox">📌 <b>배당 확정</b> — 주당 <b>${fmt(c.perShare)}원</b> · 기준일 ${esc(c.recordDate)}${pay ? ' · ' + pay : ''}${c.yieldPct != null ? ` · 시가배당률 ${c.yieldPct}%` : ''} <a href="${esc(c.url)}" target="_blank" rel="noopener">공시 원문 →</a><span class="conf-src">DART 배당결정 공시(${esc(c.filedAt || c.decidedAt || '')}) 자동 추출 · <b>세전</b> · <a href="../../guide/tax/">배당 세금 →</a></span></div>`;
 }
 
 // 이 리츠의 최근 변화 타임라인(diff 저널리즘): changes.json에서 종목별 이벤트만 시간순.
@@ -780,7 +780,7 @@ function changeTimeline(r) {
     return `<div class="tl-row"><span class="tl-date">${esc(e.date.slice(5))}</span><span class="tl-tag ${cls}">${lab}</span><span class="tl-tx">${esc(e.text)}${link}</span></div>`;
   }).join('');
   return `<div class="card tl-card">
-    <div class="facts-head"><h2 style="margin:0;font-size:18px">이 리츠의 최근 변화</h2><a class="tl-more" href="../../changes/">전체 변화 →</a></div>
+    <div class="facts-head"><h2 style="margin:0;font-size:18px">이 리츠의 최근 변화</h2><span><a class="tl-more" href="${BASE}/filings.xml" style="margin-right:10px">📡 공시 RSS</a><a class="tl-more" href="../../changes/">전체 변화 →</a></span></div>
     <p class="sub" style="margin:0 0 10px">자동 수집한 사실만 기록합니다(신저가·급등락·P/NAV 이동·공시). 해석·추천이 아닙니다.</p>
     <div class="tl-list">${rows}</div>
   </div>`;
@@ -811,6 +811,7 @@ function page(r) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}" />
 <link rel="canonical" href="${url}" />
+<link rel="alternate" type="application/rss+xml" title="리츠온 · 상장리츠 주요 공시" href="${BASE}/filings.xml" />
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
 <meta name="theme-color" content="#3254ff" />
 <meta property="og:type" content="article" />
@@ -1954,6 +1955,7 @@ function landingShell({ title, desc, canonical, rel, ld, body }) {
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}" />
 <link rel="canonical" href="${canonical}" />
+<link rel="alternate" type="application/rss+xml" title="리츠온 · 상장리츠 주요 공시" href="${BASE}/filings.xml" />
 <link rel="icon" href="${rel}favicon.svg" type="image/svg+xml" />
 <meta name="theme-color" content="#3254ff" />
 <meta property="og:type" content="website" />
@@ -2187,7 +2189,7 @@ function changesPage() {
   const body = `  <p class="crumb"><a href="../">홈</a> › 최근 변화</p>
   <span class="eyebrow">변화 감지 · 사실만 기록</span>
   <h1>최근 30일, 무엇이 변했나</h1>
-  <p class="lead">52주 신저가 · 하루 ±4% 급등락 · P/NAV 구간 이동 · 주요 공시를 자동 수집해 기록합니다. 해석과 추천 없이 <b>사실</b>만 남기며, 종목명을 누르면 상세 페이지로 이동합니다.</p>
+  <p class="lead">52주 신저가 · 하루 ±4% 급등락 · P/NAV 구간 이동 · 주요 공시를 자동 수집해 기록합니다. 해석과 추천 없이 <b>사실</b>만 남기며, 종목명을 누르면 상세 페이지로 이동합니다. <a class="more" href="${BASE}/filings.xml">📡 공시 RSS 구독</a></p>
   <div class="fbar"><button class="fchip on" type="button" data-kind="">전체</button>${chip('low', '52주 신저가')}${chip('move', '급등락')}${chip('pnav', 'P/NAV 이동')}${chip('div', '배당 공시')}${chip('filing', '공시')}</div>
   ${events.length ? groups : '<div class="card"><p class="muted">최근 30일 기록이 아직 없습니다. 매일 자동 수집 후 이 페이지에 쌓입니다.</p></div>'}
   <div class="card">
@@ -2267,7 +2269,7 @@ function dividendMonthsPage() {
   <p class="lead">상장리츠를 <b>배당기준월(결산월)</b>별로 모았습니다. 그 달 말일 즈음 주주명부에 있으면 배당 대상이 되는 것이 일반적이지만, <b>확정 기준일·실제 지급월은 공시로 확인</b>해야 하며 지급은 보통 2~3개월 뒤입니다.</p>
   <div class="chips" style="margin:8px 0 4px">${Array.from({ length: 12 }, (_, i) => i + 1).map((m) => `<a href="#m${m}">${m}월</a>`).join('')}</div>
   ${sections.join('')}
-  <div class="card"><p class="small muted" style="margin:0">📅 배당 캘린더를 앱에서 구독하려면 <a class="more" href="../../reits-on.ics">.ics 피드</a>를, 배당월별 조합은 <a class="more" href="../../">홈의 배당·현금흐름 탭</a>을 보세요. 배당기준월과 지급월은 다릅니다.</p></div>`;
+  <div class="card"><p class="small muted" style="margin:0">📅 배당 캘린더를 앱에서 구독하려면 <a class="more" href="../../reits-on.ics">.ics 피드</a>를, 배당월별 조합은 <a class="more" href="../../#~tab=income">홈의 배당·현금흐름 탭</a>을 보세요. 배당 세금은 <a class="more" href="../../guide/tax/">세금 가이드</a>를 참고하세요. 배당기준월과 지급월은 다릅니다.</p></div>`;
   return landingShell({ title, desc, canonical: url, rel: '../../', ld, body });
 }
 
