@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-07-09T02:34:52.190Z",
+  "retrievedAt": "2026-07-09T10:35:13.885Z",
   "filings": [
     {
       "rcept_no": "20260709000091",
@@ -7,6 +7,42 @@
       "title": "주주총회소집공고",
       "filed_at": "2026-07-09",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709000091",
+      "category": []
+    },
+    {
+      "rcept_no": "20260709800586",
+      "ticker": "357120",
+      "title": "부동산투자회사부동산처분              ",
+      "filed_at": "2026-07-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709800586",
+      "category": []
+    },
+    {
+      "rcept_no": "20260709800584",
+      "ticker": "357120",
+      "title": "부동산투자회사자금차입              ",
+      "filed_at": "2026-07-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709800584",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20260709800578",
+      "ticker": "357120",
+      "title": "부동산투자회사자금차입              ",
+      "filed_at": "2026-07-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709800578",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20260709800597",
+      "ticker": "357120",
+      "title": "부동산투자회사부동산처분              ",
+      "filed_at": "2026-07-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709800597",
       "category": []
     },
     {
@@ -353,22 +389,6 @@
       "title": "감사보고서제출              ",
       "filed_at": "2026-06-18",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618800657",
-      "category": []
-    },
-    {
-      "rcept_no": "20260618800841",
-      "ticker": "395400",
-      "title": "정기주주총회결과              ",
-      "filed_at": "2026-06-18",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618800841",
-      "category": []
-    },
-    {
-      "rcept_no": "20260618800805",
-      "ticker": "395400",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-06-18",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260618800805",
       "category": []
     }
   ]
