@@ -1,6 +1,40 @@
 {
-  "retrievedAt": "2026-07-10T10:12:34.030Z",
+  "retrievedAt": "2026-07-13T08:36:05.144Z",
   "filings": [
+    {
+      "rcept_no": "20260713800267",
+      "ticker": "448730",
+      "title": "감사보고서제출              ",
+      "filed_at": "2026-07-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260713800267",
+      "category": []
+    },
+    {
+      "rcept_no": "20260713800357",
+      "ticker": "365550",
+      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
+      "filed_at": "2026-07-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260713800357",
+      "category": []
+    },
+    {
+      "rcept_no": "20260713800290",
+      "ticker": "365550",
+      "title": "부동산투자회사금전배당결정              ",
+      "filed_at": "2026-07-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260713800290",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20260713800645",
+      "ticker": "451800",
+      "title": "감사보고서제출              ",
+      "filed_at": "2026-07-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260713800645",
+      "category": []
+    },
     {
       "rcept_no": "20260710800905",
       "ticker": "334890",
@@ -347,32 +381,6 @@
       "title": "정기주주총회결과              ",
       "filed_at": "2026-06-26",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260626800791",
-      "category": []
-    },
-    {
-      "rcept_no": "20260624800554",
-      "ticker": "396690",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-06-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260624800554",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260624800539",
-      "ticker": "396690",
-      "title": "정기주주총회결과              ",
-      "filed_at": "2026-06-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260624800539",
-      "category": []
-    },
-    {
-      "rcept_no": "20260623000292",
-      "ticker": "396690",
-      "title": "[기재정정]주주총회소집공고",
-      "filed_at": "2026-06-23",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260623000292",
       "category": []
     }
   ]
