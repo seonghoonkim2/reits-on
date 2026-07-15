@@ -6,7 +6,49 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Tue, 14 Jul 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jul 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[미래에셋맵스리츠] 매출액또는손익구조30%(대규모법인은15%)이상변경</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800264</link>
+      <guid isPermaLink="false">20260715800264</guid>
+      <pubDate>Wed, 15 Jul 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[미래에셋맵스리츠] 부동산투자회사금전배당결정</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800253</link>
+      <guid isPermaLink="false">20260715800253</guid>
+      <pubDate>Wed, 15 Jul 2026 09:00:00 +0900</pubDate>
+      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[신한글로벌액티브리츠] 반기보고서 (2026.05)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715000507</link>
+      <guid isPermaLink="false">20260715000507</guid>
+      <pubDate>Wed, 15 Jul 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[디앤디플랫폼리츠] 유형자산처분결정(종속회사의주요경영사항)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800833</link>
+      <guid isPermaLink="false">20260715800833</guid>
+      <pubDate>Wed, 15 Jul 2026 09:00:00 +0900</pubDate>
+      <description>자산 매각 공시. 매각차익은 일회성 특별배당일 수 있어요.</description>
+    </item>
+    <item>
+      <title>[이지스밸류플러스리츠] 반기보고서 (2026.05)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715000520</link>
+      <guid isPermaLink="false">20260715000520</guid>
+      <pubDate>Wed, 15 Jul 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[제이알글로벌리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800885</link>
+      <guid isPermaLink="false">20260715800885</guid>
+      <pubDate>Wed, 15 Jul 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[삼성FN리츠] 기타경영사항(자율공시)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260714800322</link>
