@@ -6,7 +6,28 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Wed, 15 Jul 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[제이알글로벌리츠] [기재정정]주요사항보고서(회생절차개시신청)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716000129</link>
+      <guid isPermaLink="false">20260716000129</guid>
+      <pubDate>Thu, 16 Jul 2026 09:00:00 +0900</pubDate>
+      <description>⚠ 재무 위기 관련 중대 공시. 원문을 반드시 확인하세요.</description>
+    </item>
+    <item>
+      <title>[한화리츠] [기재정정]부동산투자회사부동산임대</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716800529</link>
+      <guid isPermaLink="false">20260716800529</guid>
+      <pubDate>Thu, 16 Jul 2026 09:00:00 +0900</pubDate>
+      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[롯데리츠] 매출액또는손익구조30%(대규모법인은15%)이상변경</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716800710</link>
+      <guid isPermaLink="false">20260716800710</guid>
+      <pubDate>Thu, 16 Jul 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[미래에셋맵스리츠] 매출액또는손익구조30%(대규모법인은15%)이상변경</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800264</link>
@@ -321,62 +342,6 @@
       <guid isPermaLink="false">20260702800681</guid>
       <pubDate>Thu, 02 Jul 2026 09:00:00 +0900</pubDate>
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 자본잠식50%이상또는매출액50억원미만사실발생</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260701800480</link>
-      <guid isPermaLink="false">20260701800480</guid>
-      <pubDate>Wed, 01 Jul 2026 09:00:00 +0900</pubDate>
-      <description>⚠ 상장 유지·재무에 영향을 주는 중대 공시. 사유와 후속 공시를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[NH올원리츠] [기재정정]부동산투자회사부동산임대</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260701800823</link>
-      <guid isPermaLink="false">20260701800823</guid>
-      <pubDate>Wed, 01 Jul 2026 09:00:00 +0900</pubDate>
-      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[한화리츠] 주주총회소집결의</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260630801243</link>
-      <guid isPermaLink="false">20260630801243</guid>
-      <pubDate>Tue, 30 Jun 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[롯데리츠] 부동산투자회사자산보관위탁계약변경</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260630801521</link>
-      <guid isPermaLink="false">20260630801521</guid>
-      <pubDate>Tue, 30 Jun 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[롯데리츠] 부동산투자회사자산보관위탁계약변경</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260630801518</link>
-      <guid isPermaLink="false">20260630801518</guid>
-      <pubDate>Tue, 30 Jun 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[디앤디플랫폼리츠] 부동산투자회사자금차입</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260629800438</link>
-      <guid isPermaLink="false">20260629800438</guid>
-      <pubDate>Mon, 29 Jun 2026 09:00:00 +0900</pubDate>
-      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[NH올원리츠] 부동산투자회사부동산임대</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260629800974</link>
-      <guid isPermaLink="false">20260629800974</guid>
-      <pubDate>Mon, 29 Jun 2026 09:00:00 +0900</pubDate>
-      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[마스턴프리미어리츠] 정기주주총회결과</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260626800791</link>
-      <guid isPermaLink="false">20260626800791</guid>
-      <pubDate>Fri, 26 Jun 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
     </item>
   </channel>
 </rss>
