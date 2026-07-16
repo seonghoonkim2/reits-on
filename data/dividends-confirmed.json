@@ -1,20 +1,20 @@
 {
-  "retrievedAt": "2026-07-15T22:15:55.499Z",
+  "retrievedAt": "2026-07-16T22:17:15.574Z",
   "confirmed": [
     {
-      "rcpNo": "20260715800253",
-      "ticker": "357250",
+      "rcpNo": "20260716800937",
+      "ticker": "338100",
       "title": "부동산투자회사금전배당결정",
-      "filedAt": "2026-07-15",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800253",
-      "perShare": 120,
+      "filedAt": "2026-07-16",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716800937",
+      "perShare": 837,
       "recordDate": "2026-05-31",
       "payDate": null,
-      "payText": "정기주주총회결의일로부터 1개월 이내",
-      "agmDate": "2026-08-27",
-      "decidedAt": "2026-07-15",
-      "totalWon": 2999412600,
-      "yieldPct": 5.7
+      "payText": "정기주주총회일로부터 1개월 이내",
+      "agmDate": "2026-08-19",
+      "decidedAt": "2026-07-16",
+      "totalWon": 15618420000,
+      "yieldPct": 19.1
     },
     {
       "rcpNo": "20260713800290",
@@ -30,6 +30,21 @@
       "decidedAt": "2026-07-13",
       "totalWon": 34206371000,
       "yieldPct": 3.4
+    },
+    {
+      "rcpNo": "20260715800253",
+      "ticker": "357250",
+      "title": "부동산투자회사금전배당결정",
+      "filedAt": "2026-07-15",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800253",
+      "perShare": 120,
+      "recordDate": "2026-05-31",
+      "payDate": null,
+      "payText": "정기주주총회결의일로부터 1개월 이내",
+      "agmDate": "2026-08-27",
+      "decidedAt": "2026-07-15",
+      "totalWon": 2999412600,
+      "yieldPct": 5.7
     },
     {
       "rcpNo": "20260707800460",
