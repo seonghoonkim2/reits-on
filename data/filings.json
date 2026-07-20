@@ -1,6 +1,52 @@
 {
-  "retrievedAt": "2026-07-16T22:17:15.574Z",
+  "retrievedAt": "2026-07-20T10:25:21.728Z",
   "filings": [
+    {
+      "rcept_no": "20260720000084",
+      "ticker": "348950",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-07-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260720000084",
+      "category": []
+    },
+    {
+      "rcept_no": "20260720800442",
+      "ticker": "330590",
+      "title": "부동산투자회사자금차입              ",
+      "filed_at": "2026-07-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260720800442",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20260720800650",
+      "ticker": "357120",
+      "title": "풍문또는보도에대한해명(미확정)              ",
+      "filed_at": "2026-07-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260720800650",
+      "category": []
+    },
+    {
+      "rcept_no": "20260720800789",
+      "ticker": "350520",
+      "title": "[기재정정]부동산투자회사자금차입              ",
+      "filed_at": "2026-07-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260720800789",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20260720800722",
+      "ticker": "350520",
+      "title": "[기재정정]부동산투자회사자금차입              ",
+      "filed_at": "2026-07-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260720800722",
+      "category": [
+        "차입/만기"
+      ]
+    },
     {
       "rcept_no": "20260716000129",
       "ticker": "348950",
@@ -442,16 +488,6 @@
       "filed_at": "2026-07-03",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260703800982",
       "category": []
-    },
-    {
-      "rcept_no": "20260702800681",
-      "ticker": "395400",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-07-02",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702800681",
-      "category": [
-        "차입/만기"
-      ]
     }
   ]
 }
