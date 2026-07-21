@@ -1,6 +1,14 @@
 {
-  "retrievedAt": "2026-07-20T10:25:21.728Z",
+  "retrievedAt": "2026-07-21T10:01:48.166Z",
   "filings": [
+    {
+      "rcept_no": "20260721801490",
+      "ticker": "348950",
+      "title": "투자판단관련주요경영사항              ",
+      "filed_at": "2026-07-21",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260721801490",
+      "category": []
+    },
     {
       "rcept_no": "20260720000084",
       "ticker": "348950",
@@ -479,14 +487,6 @@
       "title": "주주총회소집결의              ",
       "filed_at": "2026-07-06",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260706800896",
-      "category": []
-    },
-    {
-      "rcept_no": "20260703800982",
-      "ticker": "396690",
-      "title": "불성실공시법인지정              ",
-      "filed_at": "2026-07-03",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260703800982",
       "category": []
     }
   ]
