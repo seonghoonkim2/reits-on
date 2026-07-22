@@ -22,6 +22,20 @@
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
     </item>
     <item>
+      <title>[코람코더원리츠] 수시공시의무관련사항(공정공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260722800798</link>
+      <guid isPermaLink="false">20260722800798</guid>
+      <pubDate>Wed, 22 Jul 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[NH올원리츠] [기재정정]부동산투자회사부동산임대</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260722800889</link>
+      <guid isPermaLink="false">20260722800889</guid>
+      <pubDate>Wed, 22 Jul 2026 09:00:00 +0900</pubDate>
+      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
+    </item>
+    <item>
       <title>[제이알글로벌리츠] 투자판단관련주요경영사항</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260721801490</link>
       <guid isPermaLink="false">20260721801490</guid>
@@ -377,20 +391,6 @@
       <guid isPermaLink="false">20260707800605</guid>
       <pubDate>Tue, 07 Jul 2026 09:00:00 +0900</pubDate>
       <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 주요사항보고서(유형자산양수결정)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260707000401</link>
-      <guid isPermaLink="false">20260707000401</guid>
-      <pubDate>Tue, 07 Jul 2026 09:00:00 +0900</pubDate>
-      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[한화리츠] 부동산투자회사부동산임대</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260706800446</link>
-      <guid isPermaLink="false">20260706800446</guid>
-      <pubDate>Mon, 06 Jul 2026 09:00:00 +0900</pubDate>
-      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
     </item>
   </channel>
 </rss>
