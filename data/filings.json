@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-07-23T09:58:22.913Z",
+  "retrievedAt": "2026-07-23T22:16:48.061Z",
   "filings": [
     {
       "rcept_no": "20260723800778",
@@ -7,6 +7,14 @@
       "title": "기타경영사항(자율공시)              ",
       "filed_at": "2026-07-23",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260723800778",
+      "category": []
+    },
+    {
+      "rcept_no": "20260723800927",
+      "ticker": "451800",
+      "title": "정기주주총회결과              ",
+      "filed_at": "2026-07-23",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260723800927",
       "category": []
     },
     {
@@ -356,16 +364,6 @@
       "filed_at": "2026-07-08",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260708000429",
       "category": []
-    },
-    {
-      "rcept_no": "20260708800534",
-      "ticker": "396690",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-07-08",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260708800534",
-      "category": [
-        "차입/만기"
-      ]
     }
   ]
 }
