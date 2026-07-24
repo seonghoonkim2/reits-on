@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-07-24T09:55:18.687Z",
+  "retrievedAt": "2026-07-24T22:29:41.949Z",
   "filings": [
     {
       "rcept_no": "20260724800177",
@@ -53,6 +53,16 @@
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260724800457",
       "category": [
         "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20260724800847",
+      "ticker": "481850",
+      "title": "유상증자결정(종속회사의주요경영사항)              ",
+      "filed_at": "2026-07-24",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260724800847",
+      "category": [
+        "증자"
       ]
     },
     {
