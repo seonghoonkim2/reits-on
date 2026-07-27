@@ -1,6 +1,42 @@
 {
-  "retrievedAt": "2026-07-24T22:29:41.949Z",
+  "retrievedAt": "2026-07-27T10:54:03.590Z",
   "filings": [
+    {
+      "rcept_no": "20260727800296",
+      "ticker": "404990",
+      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
+      "filed_at": "2026-07-27",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800296",
+      "category": []
+    },
+    {
+      "rcept_no": "20260727800288",
+      "ticker": "404990",
+      "title": "부동산투자회사금전배당결정              ",
+      "filed_at": "2026-07-27",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800288",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20260727800286",
+      "ticker": "404990",
+      "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정              ",
+      "filed_at": "2026-07-27",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800286",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20260727800188",
+      "ticker": "377190",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-07-27",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800188",
+      "category": []
+    },
     {
       "rcept_no": "20260724800177",
       "ticker": "451800",
@@ -384,34 +420,6 @@
       "filed_at": "2026-07-09",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709000091",
       "category": []
-    },
-    {
-      "rcept_no": "20260709800586",
-      "ticker": "357120",
-      "title": "부동산투자회사부동산처분              ",
-      "filed_at": "2026-07-09",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709800586",
-      "category": []
-    },
-    {
-      "rcept_no": "20260709800584",
-      "ticker": "357120",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-07-09",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709800584",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260709800578",
-      "ticker": "357120",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-07-09",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709800578",
-      "category": [
-        "차입/만기"
-      ]
     }
   ]
 }
