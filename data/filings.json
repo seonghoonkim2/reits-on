@@ -1,6 +1,58 @@
 {
-  "retrievedAt": "2026-07-28T10:06:07.561Z",
+  "retrievedAt": "2026-07-29T10:07:53.868Z",
   "filings": [
+    {
+      "rcept_no": "20260729800555",
+      "ticker": "0030R0",
+      "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정              ",
+      "filed_at": "2026-07-29",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800555",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20260729800549",
+      "ticker": "0030R0",
+      "title": "부동산투자회사금전배당결정              ",
+      "filed_at": "2026-07-29",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800549",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20260729800541",
+      "ticker": "0030R0",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-07-29",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800541",
+      "category": []
+    },
+    {
+      "rcept_no": "20260729000260",
+      "ticker": "0030R0",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-07-29",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729000260",
+      "category": []
+    },
+    {
+      "rcept_no": "20260729800565",
+      "ticker": "348950",
+      "title": "기업설명회(IR)개최(안내공시)              ",
+      "filed_at": "2026-07-29",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800565",
+      "category": []
+    },
+    {
+      "rcept_no": "20260729000303",
+      "ticker": "448730",
+      "title": "[기재정정]주요사항보고서(유형자산양수결정)",
+      "filed_at": "2026-07-29",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729000303",
+      "category": []
+    },
     {
       "rcept_no": "20260728800740",
       "ticker": "145270",
@@ -414,22 +466,6 @@
       "category": [
         "자산"
       ]
-    },
-    {
-      "rcept_no": "20260710800967",
-      "ticker": "293940",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-07-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260710800967",
-      "category": []
-    },
-    {
-      "rcept_no": "20260709000091",
-      "ticker": "448730",
-      "title": "주주총회소집공고",
-      "filed_at": "2026-07-09",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260709000091",
-      "category": []
     }
   ]
 }
