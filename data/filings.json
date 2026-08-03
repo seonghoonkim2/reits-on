@@ -1,6 +1,22 @@
 {
-  "retrievedAt": "2026-07-31T10:05:33.230Z",
+  "retrievedAt": "2026-08-03T10:54:48.219Z",
   "filings": [
+    {
+      "rcept_no": "20260803800914",
+      "ticker": "481850",
+      "title": "감자결정(종속회사의주요경영사항)              ",
+      "filed_at": "2026-08-03",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260803800914",
+      "category": []
+    },
+    {
+      "rcept_no": "20260803801033",
+      "ticker": "481850",
+      "title": "타법인주식및출자증권처분결정              ",
+      "filed_at": "2026-08-03",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260803801033",
+      "category": []
+    },
     {
       "rcept_no": "20260731000544",
       "ticker": "448730",
@@ -399,32 +415,6 @@
       "title": "사업보고서 (2026.04)",
       "filed_at": "2026-07-16",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716000794",
-      "category": []
-    },
-    {
-      "rcept_no": "20260716800947",
-      "ticker": "338100",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-07-16",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716800947",
-      "category": []
-    },
-    {
-      "rcept_no": "20260716800937",
-      "ticker": "338100",
-      "title": "부동산투자회사금전배당결정              ",
-      "filed_at": "2026-07-16",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716800937",
-      "category": [
-        "배당"
-      ]
-    },
-    {
-      "rcept_no": "20260715800264",
-      "ticker": "357250",
-      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
-      "filed_at": "2026-07-15",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800264",
       "category": []
     }
   ]
