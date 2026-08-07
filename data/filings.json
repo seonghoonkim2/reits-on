@@ -1,6 +1,46 @@
 {
-  "retrievedAt": "2026-08-07T01:02:35.984Z",
+  "retrievedAt": "2026-08-07T08:34:25.193Z",
   "filings": [
+    {
+      "rcept_no": "20260807800353",
+      "ticker": "365550",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-08-07",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800353",
+      "category": []
+    },
+    {
+      "rcept_no": "20260807800280",
+      "ticker": "357250",
+      "title": "감사보고서제출              ",
+      "filed_at": "2026-08-07",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800280",
+      "category": []
+    },
+    {
+      "rcept_no": "20260807000262",
+      "ticker": "357250",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-08-07",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807000262",
+      "category": []
+    },
+    {
+      "rcept_no": "20260807800573",
+      "ticker": "400760",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-08-07",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800573",
+      "category": []
+    },
+    {
+      "rcept_no": "20260807800631",
+      "ticker": "338100",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-08-07",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800631",
+      "category": []
+    },
     {
       "rcept_no": "20260806000338",
       "ticker": "417310",
