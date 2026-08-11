@@ -36,6 +36,27 @@
       <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
     </item>
     <item>
+      <title>[KB스타리츠] [기재정정]부동산투자회사자금차입</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811800760</link>
+      <guid isPermaLink="false">20260811800760</guid>
+      <pubDate>Tue, 11 Aug 2026 09:00:00 +0900</pubDate>
+      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
+    </item>
+    <item>
+      <title>[NH프라임리츠] 사업보고서 (2026.05)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811000696</link>
+      <guid isPermaLink="false">20260811000696</guid>
+      <pubDate>Tue, 11 Aug 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[NH프라임리츠] 감사보고서제출</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811800884</link>
+      <guid isPermaLink="false">20260811800884</guid>
+      <pubDate>Tue, 11 Aug 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
       <title>[ESR켄달스퀘어리츠] 주주총회소집공고</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260810000154</link>
       <guid isPermaLink="false">20260810000154</guid>
@@ -398,13 +419,6 @@
       <guid isPermaLink="false">20260729000303</guid>
       <pubDate>Wed, 29 Jul 2026 09:00:00 +0900</pubDate>
       <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[케이탑리츠] [기재정정]부동산투자회사자금차입</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260728800740</link>
-      <guid isPermaLink="false">20260728800740</guid>
-      <pubDate>Tue, 28 Jul 2026 09:00:00 +0900</pubDate>
-      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
     </item>
   </channel>
 </rss>
