@@ -6,7 +6,35 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Mon, 10 Aug 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[이리츠코크렙] 기업설명회(IR)개최(안내공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811800292</link>
+      <guid isPermaLink="false">20260811800292</guid>
+      <pubDate>Tue, 11 Aug 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[KB스타리츠] 부동산투자회사자금차입</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811800561</link>
+      <guid isPermaLink="false">20260811800561</guid>
+      <pubDate>Tue, 11 Aug 2026 09:00:00 +0900</pubDate>
+      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
+    </item>
+    <item>
+      <title>[KB스타리츠] 부동산투자회사자금차입</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811800553</link>
+      <guid isPermaLink="false">20260811800553</guid>
+      <pubDate>Tue, 11 Aug 2026 09:00:00 +0900</pubDate>
+      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
+    </item>
+    <item>
+      <title>[마스턴프리미어리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811800479</link>
+      <guid isPermaLink="false">20260811800479</guid>
+      <pubDate>Tue, 11 Aug 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[ESR켄달스퀘어리츠] 주주총회소집공고</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260810000154</link>
@@ -377,41 +405,6 @@
       <guid isPermaLink="false">20260728800740</guid>
       <pubDate>Tue, 28 Jul 2026 09:00:00 +0900</pubDate>
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[신한서부티엔디리츠] 매출액또는손익구조30%(대규모법인은15%)이상변경</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800296</link>
-      <guid isPermaLink="false">20260727800296</guid>
-      <pubDate>Mon, 27 Jul 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[신한서부티엔디리츠] 부동산투자회사금전배당결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800288</link>
-      <guid isPermaLink="false">20260727800288</guid>
-      <pubDate>Mon, 27 Jul 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[신한서부티엔디리츠] 현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800286</link>
-      <guid isPermaLink="false">20260727800286</guid>
-      <pubDate>Mon, 27 Jul 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[디앤디플랫폼리츠] 주주총회소집결의</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800188</link>
-      <guid isPermaLink="false">20260727800188</guid>
-      <pubDate>Mon, 27 Jul 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[한화리츠] [기재정정]정기주주총회결과</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260724800177</link>
-      <guid isPermaLink="false">20260724800177</guid>
-      <pubDate>Fri, 24 Jul 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
     </item>
   </channel>
 </rss>
