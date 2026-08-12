@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-08-12T08:47:31.627Z",
+  "retrievedAt": "2026-08-12T22:05:45.021Z",
   "filings": [
     {
       "rcept_no": "20260812800084",
@@ -32,6 +32,16 @@
       "filed_at": "2026-08-12",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260812000740",
       "category": []
+    },
+    {
+      "rcept_no": "20260812800864",
+      "ticker": "400760",
+      "title": "[기재정정]부동산투자회사자금차입              ",
+      "filed_at": "2026-08-12",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260812800864",
+      "category": [
+        "차입/만기"
+      ]
     },
     {
       "rcept_no": "20260811800292",
@@ -491,16 +501,6 @@
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260730800588",
       "category": [
         "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260729800555",
-      "ticker": "0030R0",
-      "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정              ",
-      "filed_at": "2026-07-29",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800555",
-      "category": [
-        "배당"
       ]
     }
   ]

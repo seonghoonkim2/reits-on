@@ -36,6 +36,13 @@
       <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
     </item>
     <item>
+      <title>[NH올원리츠] [기재정정]부동산투자회사자금차입</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260812800864</link>
+      <guid isPermaLink="false">20260812800864</guid>
+      <pubDate>Wed, 12 Aug 2026 09:00:00 +0900</pubDate>
+      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
+    </item>
+    <item>
       <title>[이리츠코크렙] 기업설명회(IR)개최(안내공시)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811800292</link>
       <guid isPermaLink="false">20260811800292</guid>
@@ -405,13 +412,6 @@
       <guid isPermaLink="false">20260730800588</guid>
       <pubDate>Thu, 30 Jul 2026 09:00:00 +0900</pubDate>
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800555</link>
-      <guid isPermaLink="false">20260729800555</guid>
-      <pubDate>Wed, 29 Jul 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
     </item>
   </channel>
 </rss>
