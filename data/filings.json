@@ -1,6 +1,32 @@
 {
-  "retrievedAt": "2026-08-14T21:42:58.148Z",
+  "retrievedAt": "2026-08-18T21:41:15.535Z",
   "filings": [
+    {
+      "rcept_no": "20260818800670",
+      "ticker": "377190",
+      "title": "타법인주식및출자증권취득결정              ",
+      "filed_at": "2026-08-18",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260818800670",
+      "category": [
+        "자산"
+      ]
+    },
+    {
+      "rcept_no": "20260818800631",
+      "ticker": "377190",
+      "title": "부동산투자회사증권처분              ",
+      "filed_at": "2026-08-18",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260818800631",
+      "category": []
+    },
+    {
+      "rcept_no": "20260818800617",
+      "ticker": "377190",
+      "title": "감자결정(종속회사의주요경영사항)              ",
+      "filed_at": "2026-08-18",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260818800617",
+      "category": []
+    },
     {
       "rcept_no": "20260814000060",
       "ticker": "330590",
@@ -549,14 +575,6 @@
       "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
       "filed_at": "2026-08-06",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260806800280",
-      "category": []
-    },
-    {
-      "rcept_no": "20260806000506",
-      "ticker": "338100",
-      "title": "[기재정정]주주총회소집공고",
-      "filed_at": "2026-08-06",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260806000506",
       "category": []
     }
   ]
