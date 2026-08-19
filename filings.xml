@@ -6,7 +6,35 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Tue, 18 Aug 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[코람코라이프인프라리츠] 풍문또는보도에대한해명(미확정)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260819800146</link>
+      <guid isPermaLink="false">20260819800146</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[신한서부티엔디리츠] 출자법인부도ㆍ해산사유등발생</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260819800209</link>
+      <guid isPermaLink="false">20260819800209</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
+      <description>⚠ 재무 위기 관련 중대 공시. 원문을 반드시 확인하세요.</description>
+    </item>
+    <item>
+      <title>[미래에셋맵스리츠] 사업보고서 (2026.05)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260819000222</link>
+      <guid isPermaLink="false">20260819000222</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[코람코더원리츠] 수시공시의무관련사항(공정공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260819800342</link>
+      <guid isPermaLink="false">20260819800342</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[디앤디플랫폼리츠] 타법인주식및출자증권취득결정</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260818800670</link>
@@ -398,34 +426,6 @@
       <guid isPermaLink="false">20260810000528</guid>
       <pubDate>Mon, 10 Aug 2026 09:00:00 +0900</pubDate>
       <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[ESR켄달스퀘어리츠] 주주총회소집결의</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800353</link>
-      <guid isPermaLink="false">20260807800353</guid>
-      <pubDate>Fri, 07 Aug 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[미래에셋맵스리츠] 감사보고서제출</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800280</link>
-      <guid isPermaLink="false">20260807800280</guid>
-      <pubDate>Fri, 07 Aug 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[미래에셋맵스리츠] 주주총회소집공고</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807000262</link>
-      <guid isPermaLink="false">20260807000262</guid>
-      <pubDate>Fri, 07 Aug 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[NH올원리츠] 기타경영사항(자율공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800573</link>
-      <guid isPermaLink="false">20260807800573</guid>
-      <pubDate>Fri, 07 Aug 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
     </item>
   </channel>
 </rss>
