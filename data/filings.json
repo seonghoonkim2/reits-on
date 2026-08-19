@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-08-19T08:04:07.947Z",
+  "retrievedAt": "2026-08-19T21:47:22.479Z",
   "filings": [
     {
       "rcept_no": "20260819800146",
@@ -31,6 +31,14 @@
       "title": "수시공시의무관련사항(공정공시)              ",
       "filed_at": "2026-08-19",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260819800342",
+      "category": []
+    },
+    {
+      "rcept_no": "20260819800611",
+      "ticker": "338100",
+      "title": "정기주주총회결과              ",
+      "filed_at": "2026-08-19",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260819800611",
       "category": []
     },
     {
