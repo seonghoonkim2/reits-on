@@ -1,6 +1,30 @@
 {
-  "retrievedAt": "2026-08-20T08:05:22.663Z",
+  "retrievedAt": "2026-08-21T08:05:28.497Z",
   "filings": [
+    {
+      "rcept_no": "20260821800406",
+      "ticker": "417310",
+      "title": "정기주주총회결과              ",
+      "filed_at": "2026-08-21",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800406",
+      "category": []
+    },
+    {
+      "rcept_no": "20260821800421",
+      "ticker": "404990",
+      "title": "기업설명회(IR)개최(안내공시)              ",
+      "filed_at": "2026-08-21",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800421",
+      "category": []
+    },
+    {
+      "rcept_no": "20260821800730",
+      "ticker": "400760",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-08-21",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800730",
+      "category": []
+    },
     {
       "rcept_no": "20260820800396",
       "ticker": "395400",
@@ -543,22 +567,6 @@
       "title": "주주총회소집공고",
       "filed_at": "2026-08-10",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260810000528",
-      "category": []
-    },
-    {
-      "rcept_no": "20260807800353",
-      "ticker": "365550",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-08-07",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800353",
-      "category": []
-    },
-    {
-      "rcept_no": "20260807800280",
-      "ticker": "357250",
-      "title": "감사보고서제출              ",
-      "filed_at": "2026-08-07",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807800280",
       "category": []
     }
   ]
