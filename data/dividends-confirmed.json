@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-08-13T08:51:04.063Z",
+  "retrievedAt": "2026-08-21T21:42:16.661Z",
   "confirmed": [
     {
       "rcpNo": "20260813801009",
@@ -47,6 +47,21 @@
       "yieldPct": 4
     },
     {
+      "rcpNo": "20260821800668",
+      "ticker": "400760",
+      "title": "부동산투자회사금전배당결정",
+      "filedAt": "2026-08-21",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800668",
+      "perShare": 150,
+      "recordDate": "2026-06-30",
+      "payDate": null,
+      "payText": "정기주주총회일로부터 1개월 이내",
+      "agmDate": "2026-09-21",
+      "decidedAt": "2026-08-21",
+      "totalWon": 8239391250,
+      "yieldPct": 4.9
+    },
+    {
       "rcpNo": "20260805800558",
       "ticker": "395400",
       "title": "부동산투자회사금전배당결정",
@@ -62,49 +77,19 @@
       "yieldPct": 1.21
     },
     {
-      "rcpNo": "20260715800253",
-      "ticker": "357250",
+      "rcpNo": "20260806800266",
+      "ticker": "417310",
       "title": "부동산투자회사금전배당결정",
-      "filedAt": "2026-07-15",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800253",
-      "perShare": 120,
-      "recordDate": "2026-05-31",
-      "payDate": null,
-      "payText": "정기주주총회결의일로부터 1개월 이내",
-      "agmDate": "2026-08-27",
-      "decidedAt": "2026-07-15",
-      "totalWon": 2999412600,
-      "yieldPct": 5.7
-    },
-    {
-      "rcpNo": "20260713800290",
-      "ticker": "365550",
-      "title": "부동산투자회사금전배당결정",
-      "filedAt": "2026-07-13",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260713800290",
-      "perShare": 139,
+      "filedAt": "2026-08-06",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260806800266",
+      "perShare": 114,
       "recordDate": "2026-05-31",
       "payDate": null,
       "payText": "정기주주총회일로부터 1개월 이내",
-      "agmDate": "2026-08-25",
-      "decidedAt": "2026-07-13",
-      "totalWon": 34206371000,
-      "yieldPct": 3.4
-    },
-    {
-      "rcpNo": "20260716800937",
-      "ticker": "338100",
-      "title": "부동산투자회사금전배당결정",
-      "filedAt": "2026-07-16",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716800937",
-      "perShare": 837,
-      "recordDate": "2026-05-31",
-      "payDate": null,
-      "payText": "정기주주총회일로부터 1개월 이내",
-      "agmDate": "2026-08-19",
-      "decidedAt": "2026-07-16",
-      "totalWon": 15618420000,
-      "yieldPct": 19.1
+      "agmDate": "2026-08-21",
+      "decidedAt": "2026-08-06",
+      "totalWon": 4642202554,
+      "yieldPct": 1.1
     },
     {
       "rcpNo": "20260729800549",
@@ -122,19 +107,49 @@
       "yieldPct": 1.7
     },
     {
-      "rcpNo": "20260806800266",
-      "ticker": "417310",
+      "rcpNo": "20260716800937",
+      "ticker": "338100",
       "title": "부동산투자회사금전배당결정",
-      "filedAt": "2026-08-06",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260806800266",
-      "perShare": 114,
+      "filedAt": "2026-07-16",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260716800937",
+      "perShare": 837,
       "recordDate": "2026-05-31",
       "payDate": null,
       "payText": "정기주주총회일로부터 1개월 이내",
-      "agmDate": "2026-08-21",
-      "decidedAt": "2026-08-06",
-      "totalWon": 4642202554,
-      "yieldPct": 1.1
+      "agmDate": "2026-08-19",
+      "decidedAt": "2026-07-16",
+      "totalWon": 15618420000,
+      "yieldPct": 19.1
+    },
+    {
+      "rcpNo": "20260713800290",
+      "ticker": "365550",
+      "title": "부동산투자회사금전배당결정",
+      "filedAt": "2026-07-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260713800290",
+      "perShare": 139,
+      "recordDate": "2026-05-31",
+      "payDate": null,
+      "payText": "정기주주총회일로부터 1개월 이내",
+      "agmDate": "2026-08-25",
+      "decidedAt": "2026-07-13",
+      "totalWon": 34206371000,
+      "yieldPct": 3.4
+    },
+    {
+      "rcpNo": "20260715800253",
+      "ticker": "357250",
+      "title": "부동산투자회사금전배당결정",
+      "filedAt": "2026-07-15",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260715800253",
+      "perShare": 120,
+      "recordDate": "2026-05-31",
+      "payDate": null,
+      "payText": "정기주주총회결의일로부터 1개월 이내",
+      "agmDate": "2026-08-27",
+      "decidedAt": "2026-07-15",
+      "totalWon": 2999412600,
+      "yieldPct": 5.7
     },
     {
       "rcpNo": "20260707800460",
