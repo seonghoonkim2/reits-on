@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-08-24T08:11:09.637Z",
+  "retrievedAt": "2026-08-24T21:46:30.381Z",
   "filings": [
     {
       "rcept_no": "20260824800258",
@@ -61,6 +61,24 @@
       "title": "주주총회소집공고",
       "filed_at": "2026-08-24",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824000210",
+      "category": []
+    },
+    {
+      "rcept_no": "20260824800600",
+      "ticker": "404990",
+      "title": "타법인주식및출자증권취득결정              ",
+      "filed_at": "2026-08-24",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800600",
+      "category": [
+        "자산"
+      ]
+    },
+    {
+      "rcept_no": "20260824800669",
+      "ticker": "348950",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-08-24",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800669",
       "category": []
     },
     {
@@ -576,22 +594,6 @@
       "category": [
         "차입/만기"
       ]
-    },
-    {
-      "rcept_no": "20260811000696",
-      "ticker": "338100",
-      "title": "사업보고서 (2026.05)",
-      "filed_at": "2026-08-11",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811000696",
-      "category": []
-    },
-    {
-      "rcept_no": "20260811800884",
-      "ticker": "338100",
-      "title": "감사보고서제출              ",
-      "filed_at": "2026-08-11",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811800884",
-      "category": []
     }
   ]
 }
