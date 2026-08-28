@@ -6,7 +6,21 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Thu, 27 Aug 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[이리츠코크렙] 부동산투자회사금전배당결정</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828800397</link>
+      <guid isPermaLink="false">20260828800397</guid>
+      <pubDate>Fri, 28 Aug 2026 09:00:00 +0900</pubDate>
+      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[이리츠코크렙] 주주총회소집결의</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828800396</link>
+      <guid isPermaLink="false">20260828800396</guid>
+      <pubDate>Fri, 28 Aug 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
     <item>
       <title>[코람코더원리츠] 부동산투자회사금전배당결정</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827800324</link>
@@ -412,20 +426,6 @@
       <guid isPermaLink="false">20260813800251</guid>
       <pubDate>Thu, 13 Aug 2026 09:00:00 +0900</pubDate>
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[코람코더원리츠] 사업보고서 (2026.05)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813000607</link>
-      <guid isPermaLink="false">20260813000607</guid>
-      <pubDate>Thu, 13 Aug 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 합병등종료보고서(자산양수도)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813001237</link>
-      <guid isPermaLink="false">20260813001237</guid>
-      <pubDate>Thu, 13 Aug 2026 09:00:00 +0900</pubDate>
-      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
     </item>
   </channel>
 </rss>

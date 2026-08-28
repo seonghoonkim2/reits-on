@@ -1,6 +1,24 @@
 {
-  "retrievedAt": "2026-08-27T18:22:24.739Z",
+  "retrievedAt": "2026-08-28T19:32:00.543Z",
   "filings": [
+    {
+      "rcept_no": "20260828800397",
+      "ticker": "088260",
+      "title": "부동산투자회사금전배당결정              ",
+      "filed_at": "2026-08-28",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828800397",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20260828800396",
+      "ticker": "088260",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-08-28",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828800396",
+      "category": []
+    },
     {
       "rcept_no": "20260827800324",
       "ticker": "417310",
@@ -513,14 +531,6 @@
       "title": "합병등종료보고서(자산양수도)",
       "filed_at": "2026-08-13",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813001237",
-      "category": []
-    },
-    {
-      "rcept_no": "20260813001516",
-      "ticker": "357430",
-      "title": "반기보고서 (2026.06)",
-      "filed_at": "2026-08-13",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260813001516",
       "category": []
     }
   ]
