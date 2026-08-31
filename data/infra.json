@@ -1,6 +1,6 @@
 {
   "_doc": "상장 인프라펀드(리츠 아님) 별도 데이터. 25개 리츠 기계와 분리해 정체성을 지킨다. 재무·분배금 수치는 날조하지 않고 공식 출처 링크로 연결한다. market은 fetch-data가 Yahoo에서 채운다.",
-  "retrievedAt": "2026-08-30T23:33:25.061Z",
+  "retrievedAt": "2026-08-31T15:17:16.359Z",
   "infra": [
     {
       "ticker": "088980",
@@ -40,12 +40,12 @@
         }
       ],
       "market": {
-        "price": 9960,
-        "changePct": 1.12,
-        "priceAsOf": "2026-08-28",
+        "price": 9910,
+        "changePct": 0.61,
+        "priceAsOf": "2026-08-31",
         "week52High": 11890,
-        "week52Low": 9430,
-        "retrievedAt": "2026-08-30T23:33:25.061Z",
+        "week52Low": 9320,
+        "retrievedAt": "2026-08-31T15:17:16.359Z",
         "priceSourceUrl": "https://finance.yahoo.com/quote/088980.KS",
         "priceSourceId": "yahoo-finance"
       }
