@@ -1,6 +1,42 @@
 {
-  "retrievedAt": "2026-08-31T15:17:16.359Z",
+  "retrievedAt": "2026-09-01T12:40:57.062Z",
   "filings": [
+    {
+      "rcept_no": "20260901000129",
+      "ticker": "088260",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-09-01",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260901000129",
+      "category": []
+    },
+    {
+      "rcept_no": "20260901800670",
+      "ticker": "481850",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-09-01",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260901800670",
+      "category": []
+    },
+    {
+      "rcept_no": "20260901800665",
+      "ticker": "481850",
+      "title": "[기재정정]부동산투자회사자금차입              ",
+      "filed_at": "2026-09-01",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260901800665",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20260901800709",
+      "ticker": "404990",
+      "title": "[기재정정]타법인주식및출자증권취득결정              ",
+      "filed_at": "2026-09-01",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260901800709",
+      "category": [
+        "자산"
+      ]
+    },
     {
       "rcept_no": "20260831000842",
       "ticker": "448730",
@@ -473,74 +509,6 @@
       "title": "타법인주식및출자증권처분결정              ",
       "filed_at": "2026-08-14",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814801698",
-      "category": []
-    },
-    {
-      "rcept_no": "20260814801679",
-      "ticker": "400760",
-      "title": "감자결정(종속회사의주요경영사항)              ",
-      "filed_at": "2026-08-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814801679",
-      "category": []
-    },
-    {
-      "rcept_no": "20260814002878",
-      "ticker": "330590",
-      "title": "증권발행실적보고서",
-      "filed_at": "2026-08-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814002878",
-      "category": [
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20260814002042",
-      "ticker": "293940",
-      "title": "반기보고서 (2026.06)",
-      "filed_at": "2026-08-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814002042",
-      "category": []
-    },
-    {
-      "rcept_no": "20260814003527",
-      "ticker": "204210",
-      "title": "반기보고서 (2026.06)",
-      "filed_at": "2026-08-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814003527",
-      "category": []
-    },
-    {
-      "rcept_no": "20260814004149",
-      "ticker": "365550",
-      "title": "사업보고서 (2026.05)",
-      "filed_at": "2026-08-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814004149",
-      "category": []
-    },
-    {
-      "rcept_no": "20260814004147",
-      "ticker": "357120",
-      "title": "사업보고서 (2026.05)",
-      "filed_at": "2026-08-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814004147",
-      "category": []
-    },
-    {
-      "rcept_no": "20260814803224",
-      "ticker": "357120",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-08-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814803224",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260814003707",
-      "ticker": "348950",
-      "title": "[기재정정]주요사항보고서(회생절차개시신청)",
-      "filed_at": "2026-08-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260814003707",
       "category": []
     }
   ]
