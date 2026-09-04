@@ -1,6 +1,40 @@
 {
-  "retrievedAt": "2026-09-03T12:12:19.410Z",
+  "retrievedAt": "2026-09-04T12:13:21.192Z",
   "filings": [
+    {
+      "rcept_no": "20260904000003",
+      "ticker": "451800",
+      "title": "투자설명서",
+      "filed_at": "2026-09-04",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260904000003",
+      "category": []
+    },
+    {
+      "rcept_no": "20260825100068",
+      "ticker": "451800",
+      "title": "효력발생안내( 2026.8.25. 제출 증권신고서(채무증권) )",
+      "filed_at": "2026-09-04",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260825100068",
+      "category": []
+    },
+    {
+      "rcept_no": "20260904000454",
+      "ticker": "451800",
+      "title": "증권발행실적보고서",
+      "filed_at": "2026-09-04",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260904000454",
+      "category": [
+        "증자"
+      ]
+    },
+    {
+      "rcept_no": "20260904000448",
+      "ticker": "400760",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-09-04",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260904000448",
+      "category": []
+    },
     {
       "rcept_no": "20260903000290",
       "ticker": "451800",
@@ -449,16 +483,6 @@
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800668",
       "category": [
         "배당"
-      ]
-    },
-    {
-      "rcept_no": "20260820800396",
-      "ticker": "395400",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-08-20",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260820800396",
-      "category": [
-        "차입/만기"
       ]
     }
   ]
