@@ -1,6 +1,70 @@
 {
-  "retrievedAt": "2026-09-07T13:37:13.387Z",
+  "retrievedAt": "2026-09-08T12:14:44.632Z",
   "filings": [
+    {
+      "rcept_no": "20260908800369",
+      "ticker": "404990",
+      "title": "정기주주총회결과              ",
+      "filed_at": "2026-09-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800369",
+      "category": []
+    },
+    {
+      "rcept_no": "20260908800373",
+      "ticker": "400760",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-09-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800373",
+      "category": []
+    },
+    {
+      "rcept_no": "20260908800524",
+      "ticker": "395400",
+      "title": "감사보고서제출              ",
+      "filed_at": "2026-09-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800524",
+      "category": []
+    },
+    {
+      "rcept_no": "20260908800331",
+      "ticker": "377190",
+      "title": "임시주주총회결과              ",
+      "filed_at": "2026-09-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800331",
+      "category": []
+    },
+    {
+      "rcept_no": "20260908800365",
+      "ticker": "338100",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-09-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800365",
+      "category": []
+    },
+    {
+      "rcept_no": "20260908000319",
+      "ticker": "088260",
+      "title": "사업보고서 (2026.06)",
+      "filed_at": "2026-09-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908000319",
+      "category": []
+    },
+    {
+      "rcept_no": "20260908800379",
+      "ticker": "088260",
+      "title": "감사보고서제출              ",
+      "filed_at": "2026-09-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800379",
+      "category": []
+    },
+    {
+      "rcept_no": "20260908000397",
+      "ticker": "395400",
+      "title": "사업보고서 (2026.06)",
+      "filed_at": "2026-09-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908000397",
+      "category": []
+    },
     {
       "rcept_no": "20260907800369",
       "ticker": "395400",
@@ -434,74 +498,6 @@
       "filed_at": "2026-08-24",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800458",
       "category": []
-    },
-    {
-      "rcept_no": "20260824000210",
-      "ticker": "377190",
-      "title": "주주총회소집공고",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824000210",
-      "category": []
-    },
-    {
-      "rcept_no": "20260824800600",
-      "ticker": "404990",
-      "title": "타법인주식및출자증권취득결정              ",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800600",
-      "category": [
-        "자산"
-      ]
-    },
-    {
-      "rcept_no": "20260824800669",
-      "ticker": "348950",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800669",
-      "category": []
-    },
-    {
-      "rcept_no": "20260821800406",
-      "ticker": "417310",
-      "title": "정기주주총회결과              ",
-      "filed_at": "2026-08-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800406",
-      "category": []
-    },
-    {
-      "rcept_no": "20260821800421",
-      "ticker": "404990",
-      "title": "기업설명회(IR)개최(안내공시)              ",
-      "filed_at": "2026-08-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800421",
-      "category": []
-    },
-    {
-      "rcept_no": "20260821800730",
-      "ticker": "400760",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-08-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800730",
-      "category": []
-    },
-    {
-      "rcept_no": "20260821800744",
-      "ticker": "400760",
-      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
-      "filed_at": "2026-08-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800744",
-      "category": []
-    },
-    {
-      "rcept_no": "20260821800668",
-      "ticker": "400760",
-      "title": "부동산투자회사금전배당결정              ",
-      "filed_at": "2026-08-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800668",
-      "category": [
-        "배당"
-      ]
     }
   ]
 }
