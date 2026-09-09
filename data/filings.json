@@ -1,6 +1,22 @@
 {
-  "retrievedAt": "2026-09-08T12:14:44.632Z",
+  "retrievedAt": "2026-09-09T12:25:52.960Z",
   "filings": [
+    {
+      "rcept_no": "20260909800001",
+      "ticker": "348950",
+      "title": "투자판단관련주요경영사항              ",
+      "filed_at": "2026-09-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909800001",
+      "category": []
+    },
+    {
+      "rcept_no": "20260909800626",
+      "ticker": "0030R0",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-09-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909800626",
+      "category": []
+    },
     {
       "rcept_no": "20260908800369",
       "ticker": "404990",
@@ -395,108 +411,6 @@
       "title": "주주총회소집공고",
       "filed_at": "2026-08-26",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826000705",
-      "category": []
-    },
-    {
-      "rcept_no": "20260826800678",
-      "ticker": "448730",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-08-26",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800678",
-      "category": []
-    },
-    {
-      "rcept_no": "20260826800685",
-      "ticker": "417310",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-08-26",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800685",
-      "category": []
-    },
-    {
-      "rcept_no": "20260826800693",
-      "ticker": "357120",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-08-26",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260826800693",
-      "category": []
-    },
-    {
-      "rcept_no": "20260825800456",
-      "ticker": "365550",
-      "title": "정기주주총회결과              ",
-      "filed_at": "2026-08-25",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260825800456",
-      "category": []
-    },
-    {
-      "rcept_no": "20260825800383",
-      "ticker": "357120",
-      "title": "정기주주총회결과              ",
-      "filed_at": "2026-08-25",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260825800383",
-      "category": []
-    },
-    {
-      "rcept_no": "20260825000452",
-      "ticker": "451800",
-      "title": "증권신고서(채무증권)",
-      "filed_at": "2026-08-25",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260825000452",
-      "category": []
-    },
-    {
-      "rcept_no": "20260824800258",
-      "ticker": "451800",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800258",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260824800257",
-      "ticker": "451800",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800257",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260824800240",
-      "ticker": "451800",
-      "title": "[기재정정]부동산투자회사부동산임대              ",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800240",
-      "category": [
-        "임차인/공실"
-      ]
-    },
-    {
-      "rcept_no": "20260824000260",
-      "ticker": "451800",
-      "title": "특수관계인에대한채권매도",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824000260",
-      "category": []
-    },
-    {
-      "rcept_no": "20260824000257",
-      "ticker": "404990",
-      "title": "주주총회소집공고",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824000257",
-      "category": []
-    },
-    {
-      "rcept_no": "20260824800458",
-      "ticker": "404990",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-08-24",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260824800458",
       "category": []
     }
   ]
