@@ -1,6 +1,66 @@
 {
-  "retrievedAt": "2026-09-11T12:18:29.268Z",
+  "retrievedAt": "2026-09-14T14:20:02.027Z",
   "filings": [
+    {
+      "rcept_no": "20260914000320",
+      "ticker": "451800",
+      "title": "반기보고서 (2026.07)",
+      "filed_at": "2026-09-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260914000320",
+      "category": []
+    },
+    {
+      "rcept_no": "20260914800555",
+      "ticker": "400760",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-09-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260914800555",
+      "category": []
+    },
+    {
+      "rcept_no": "20260914000405",
+      "ticker": "348950",
+      "title": "[기재정정]주요사항보고서(회생절차개시신청)",
+      "filed_at": "2026-09-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260914000405",
+      "category": []
+    },
+    {
+      "rcept_no": "20260914800677",
+      "ticker": "330590",
+      "title": "[기재정정]부동산투자회사금전배당결정              ",
+      "filed_at": "2026-09-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260914800677",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20260914800669",
+      "ticker": "330590",
+      "title": "부동산투자회사자금차입              ",
+      "filed_at": "2026-09-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260914800669",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20260914000412",
+      "ticker": "330590",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-09-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260914000412",
+      "category": []
+    },
+    {
+      "rcept_no": "20260914800619",
+      "ticker": "330590",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-09-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260914800619",
+      "category": []
+    },
     {
       "rcept_no": "20260911800131",
       "ticker": "448730",
@@ -425,24 +485,6 @@
       "title": "부동산투자회사금전배당결정              ",
       "filed_at": "2026-08-28",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828800397",
-      "category": [
-        "배당"
-      ]
-    },
-    {
-      "rcept_no": "20260828800396",
-      "ticker": "088260",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-08-28",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260828800396",
-      "category": []
-    },
-    {
-      "rcept_no": "20260827800324",
-      "ticker": "417310",
-      "title": "부동산투자회사금전배당결정              ",
-      "filed_at": "2026-08-27",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260827800324",
       "category": [
         "배당"
       ]
