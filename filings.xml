@@ -6,7 +6,56 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Mon, 21 Sep 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[삼성FN리츠] 효력발생안내( 2026.9.21. 제출 증권신고서(집합투자증권-회사형) )</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921100010</link>
+      <guid isPermaLink="false">20260921100010</guid>
+      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[SK리츠] 투자설명서</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000011</link>
+      <guid isPermaLink="false">20260922000011</guid>
+      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[SK리츠] 효력발생안내( 2026.9.10. 제출 증권신고서(채무증권) )</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260916100001</link>
+      <guid isPermaLink="false">20260916100001</guid>
+      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[코람코라이프인프라리츠] 주요사항보고서(자기전환사채만기전취득결정)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000433</link>
+      <guid isPermaLink="false">20260921000433</guid>
+      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
+      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[코람코라이프인프라리츠] 주요사항보고서(자기전환사채만기전취득결정)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000432</link>
+      <guid isPermaLink="false">20260921000432</guid>
+      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
+      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[코람코라이프인프라리츠] 주요사항보고서(전환사채권발행결정)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000428</link>
+      <guid isPermaLink="false">20260921000428</guid>
+      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
+      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
+    </item>
+    <item>
+      <title>[코람코라이프인프라리츠] 주요사항보고서(전환사채권발행결정)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000425</link>
+      <guid isPermaLink="false">20260921000425</guid>
+      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
+      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
+    </item>
     <item>
       <title>[삼성FN리츠] 효력발생안내( 2026.9.10. 제출 증권신고서(집합투자증권-회사형) )</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260918100018</link>
@@ -377,48 +426,6 @@
       <guid isPermaLink="false">20260909800626</guid>
       <pubDate>Wed, 09 Sep 2026 09:00:00 +0900</pubDate>
       <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[신한서부티엔디리츠] 정기주주총회결과</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800369</link>
-      <guid isPermaLink="false">20260908800369</guid>
-      <pubDate>Tue, 08 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[NH올원리츠] 기타경영사항(자율공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800373</link>
-      <guid isPermaLink="false">20260908800373</guid>
-      <pubDate>Tue, 08 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[SK리츠] 감사보고서제출</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800524</link>
-      <guid isPermaLink="false">20260908800524</guid>
-      <pubDate>Tue, 08 Sep 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[디앤디플랫폼리츠] 임시주주총회결과</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800331</link>
-      <guid isPermaLink="false">20260908800331</guid>
-      <pubDate>Tue, 08 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[NH프라임리츠] 기타경영사항(자율공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908800365</link>
-      <guid isPermaLink="false">20260908800365</guid>
-      <pubDate>Tue, 08 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[이리츠코크렙] 사업보고서 (2026.06)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260908000319</link>
-      <guid isPermaLink="false">20260908000319</guid>
-      <pubDate>Tue, 08 Sep 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
     </item>
   </channel>
 </rss>
