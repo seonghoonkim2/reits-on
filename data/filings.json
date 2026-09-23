@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-09-22T12:45:56.928Z",
+  "retrievedAt": "2026-09-23T12:55:44.139Z",
   "filings": [
     {
       "rcept_no": "20260921100010",
@@ -545,38 +545,6 @@
       "title": "감사보고서제출              ",
       "filed_at": "2026-09-10",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910800285",
-      "category": []
-    },
-    {
-      "rcept_no": "20260910000550",
-      "ticker": "395400",
-      "title": "증권신고서(채무증권)",
-      "filed_at": "2026-09-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000550",
-      "category": []
-    },
-    {
-      "rcept_no": "20260910000505",
-      "ticker": "350520",
-      "title": "사업보고서 (2026.06)",
-      "filed_at": "2026-09-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000505",
-      "category": []
-    },
-    {
-      "rcept_no": "20260910000500",
-      "ticker": "448730",
-      "title": "증권신고서(집합투자증권-회사형)(삼성에프엔위탁관리부동산투자회사주식회사)",
-      "filed_at": "2026-09-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910000500",
-      "category": []
-    },
-    {
-      "rcept_no": "20260909800001",
-      "ticker": "348950",
-      "title": "투자판단관련주요경영사항              ",
-      "filed_at": "2026-09-09",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260909800001",
       "category": []
     }
   ]
