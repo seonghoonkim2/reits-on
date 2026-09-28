@@ -1,6 +1,46 @@
 {
-  "retrievedAt": "2026-09-23T12:55:44.139Z",
+  "retrievedAt": "2026-09-28T15:46:31.314Z",
   "filings": [
+    {
+      "rcept_no": "20260928800465",
+      "ticker": "377190",
+      "title": "[기재정정]부동산투자회사자금차입              ",
+      "filed_at": "2026-09-28",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800465",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20260928800476",
+      "ticker": "338100",
+      "title": "부동산투자회사증권취득              ",
+      "filed_at": "2026-09-28",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800476",
+      "category": [
+        "자산"
+      ]
+    },
+    {
+      "rcept_no": "20260928800890",
+      "ticker": "338100",
+      "title": "[기재정정]부동산투자회사증권취득              ",
+      "filed_at": "2026-09-28",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800890",
+      "category": [
+        "자산"
+      ]
+    },
+    {
+      "rcept_no": "20260928800601",
+      "ticker": "330590",
+      "title": "[기재정정]부동산투자회사자금차입              ",
+      "filed_at": "2026-09-28",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800601",
+      "category": [
+        "차입/만기"
+      ]
+    },
     {
       "rcept_no": "20260921100010",
       "ticker": "448730",
@@ -513,38 +553,6 @@
       "title": "[기재정정]사업보고서 (2026.06)",
       "filed_at": "2026-09-11",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260911000326",
-      "category": []
-    },
-    {
-      "rcept_no": "20260910800063",
-      "ticker": "293940",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-09-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910800063",
-      "category": []
-    },
-    {
-      "rcept_no": "20260910800272",
-      "ticker": "448730",
-      "title": "임시주주총회결과              ",
-      "filed_at": "2026-09-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910800272",
-      "category": []
-    },
-    {
-      "rcept_no": "20260910800316",
-      "ticker": "432320",
-      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
-      "filed_at": "2026-09-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910800316",
-      "category": []
-    },
-    {
-      "rcept_no": "20260910800285",
-      "ticker": "350520",
-      "title": "감사보고서제출              ",
-      "filed_at": "2026-09-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260910800285",
       "category": []
     }
   ]
