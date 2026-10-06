@@ -1,6 +1,24 @@
 {
-  "retrievedAt": "2026-10-02T14:01:14.365Z",
+  "retrievedAt": "2026-10-06T14:23:40.375Z",
   "filings": [
+    {
+      "rcept_no": "20261006800165",
+      "ticker": "0030R0",
+      "title": "자본잠식50%이상또는매출액50억원미만사실발생              ",
+      "filed_at": "2026-10-06",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006800165",
+      "category": []
+    },
+    {
+      "rcept_no": "20261006800404",
+      "ticker": "330590",
+      "title": "[기재정정]부동산투자회사자금차입              ",
+      "filed_at": "2026-10-06",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006800404",
+      "category": [
+        "차입/만기"
+      ]
+    },
     {
       "rcept_no": "20261002800465",
       "ticker": "448730",
@@ -586,36 +604,6 @@
       "filed_at": "2026-09-21",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800564",
       "category": []
-    },
-    {
-      "rcept_no": "20260918800182",
-      "ticker": "365550",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-09-18",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260918800182",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260918800178",
-      "ticker": "365550",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-09-18",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260918800178",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260918800177",
-      "ticker": "365550",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-09-18",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260918800177",
-      "category": [
-        "차입/만기"
-      ]
     }
   ]
 }
