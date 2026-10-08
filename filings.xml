@@ -6,7 +6,35 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Wed, 07 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[삼성FN리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800561</link>
+      <guid isPermaLink="false">20261008800561</guid>
+      <pubDate>Thu, 08 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[KB스타리츠] 부동산투자회사자금차입</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800429</link>
+      <guid isPermaLink="false">20261008800429</guid>
+      <pubDate>Thu, 08 Oct 2026 09:00:00 +0900</pubDate>
+      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
+    </item>
+    <item>
+      <title>[NH올원리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800556</link>
+      <guid isPermaLink="false">20261008800556</guid>
+      <pubDate>Thu, 08 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[NH프라임리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800501</link>
+      <guid isPermaLink="false">20261008800501</guid>
+      <pubDate>Thu, 08 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[삼성FN리츠] 사업보고서 (2026.07)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000407</link>
@@ -335,97 +363,6 @@
       <guid isPermaLink="false">20260921000428</guid>
       <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[코람코라이프인프라리츠] 주요사항보고서(전환사채권발행결정)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000425</link>
-      <guid isPermaLink="false">20260921000425</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] [기재정정]투자설명서(집합투자증권)(삼성에프엔위탁관리부동산투자회사주식회사)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000056</link>
-      <guid isPermaLink="false">20260922000056</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[SK리츠] 증권발행실적보고서</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000289</link>
-      <guid isPermaLink="false">20260922000289</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[코람코더원리츠] [기재정정]부동산투자회사금전배당결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922800440</link>
-      <guid isPermaLink="false">20260922800440</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[코람코더원리츠] 매출액또는손익구조30%(대규모법인은15%)이상변경</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922800404</link>
-      <guid isPermaLink="false">20260922800404</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[제이알글로벌리츠] 투자유의안내              (상장폐지 기준 해당)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922800678</link>
-      <guid isPermaLink="false">20260922800678</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>⚠ 상장 유지·재무에 영향을 주는 중대 공시. 사유와 후속 공시를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[제이알글로벌리츠] 사업보고서 (2026.06)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000530</link>
-      <guid isPermaLink="false">20260922000530</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[제이알글로벌리츠] 감사보고서제출</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922800602</link>
-      <guid isPermaLink="false">20260922800602</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 효력발생안내( 2026.9.10. 제출 증권신고서(집합투자증권-회사형) )</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260918100018</link>
-      <guid isPermaLink="false">20260918100018</guid>
-      <pubDate>Mon, 21 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 투자설명서(집합투자증권)(삼성에프엔위탁관리부동산투자회사주식회사)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000061</link>
-      <guid isPermaLink="false">20260921000061</guid>
-      <pubDate>Mon, 21 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 유상증자신주발행가액(안내공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800156</link>
-      <guid isPermaLink="false">20260921800156</guid>
-      <pubDate>Mon, 21 Sep 2026 09:00:00 +0900</pubDate>
-      <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] [기재정정]주요사항보고서(유상증자결정)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000086</link>
-      <guid isPermaLink="false">20260921000086</guid>
-      <pubDate>Mon, 21 Sep 2026 09:00:00 +0900</pubDate>
-      <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] [기재정정]증권신고서(집합투자증권-회사형)(삼성에프엔위탁관리부동산투자회사주식회사)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000095</link>
-      <guid isPermaLink="false">20260921000095</guid>
-      <pubDate>Mon, 21 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
     </item>
   </channel>
 </rss>

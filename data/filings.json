@@ -1,6 +1,40 @@
 {
-  "retrievedAt": "2026-10-07T14:39:09.643Z",
+  "retrievedAt": "2026-10-08T14:47:34.510Z",
   "filings": [
+    {
+      "rcept_no": "20261008800561",
+      "ticker": "448730",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-10-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800561",
+      "category": []
+    },
+    {
+      "rcept_no": "20261008800429",
+      "ticker": "432320",
+      "title": "부동산투자회사자금차입              ",
+      "filed_at": "2026-10-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800429",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20261008800556",
+      "ticker": "400760",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-10-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800556",
+      "category": []
+    },
+    {
+      "rcept_no": "20261008800501",
+      "ticker": "338100",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-10-08",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800501",
+      "category": []
+    },
     {
       "rcept_no": "20261007000407",
       "ticker": "448730",
@@ -426,193 +460,6 @@
       "category": [
         "차입/만기",
         "증자"
-      ]
-    },
-    {
-      "rcept_no": "20260921000425",
-      "ticker": "357120",
-      "title": "주요사항보고서(전환사채권발행결정)",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000425",
-      "category": [
-        "차입/만기",
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20260922000056",
-      "ticker": "448730",
-      "title": "[기재정정]투자설명서(집합투자증권)(삼성에프엔위탁관리부동산투자회사주식회사)",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000056",
-      "category": []
-    },
-    {
-      "rcept_no": "20260922000289",
-      "ticker": "395400",
-      "title": "증권발행실적보고서",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000289",
-      "category": [
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20260922800440",
-      "ticker": "417310",
-      "title": "[기재정정]부동산투자회사금전배당결정              ",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922800440",
-      "category": [
-        "배당"
-      ]
-    },
-    {
-      "rcept_no": "20260922800404",
-      "ticker": "417310",
-      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922800404",
-      "category": []
-    },
-    {
-      "rcept_no": "20260922800678",
-      "ticker": "348950",
-      "title": "투자유의안내              (상장폐지 기준 해당)",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922800678",
-      "category": []
-    },
-    {
-      "rcept_no": "20260922000530",
-      "ticker": "348950",
-      "title": "사업보고서 (2026.06)",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000530",
-      "category": []
-    },
-    {
-      "rcept_no": "20260922800602",
-      "ticker": "348950",
-      "title": "감사보고서제출              ",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922800602",
-      "category": []
-    },
-    {
-      "rcept_no": "20260918100018",
-      "ticker": "448730",
-      "title": "효력발생안내( 2026.9.10. 제출 증권신고서(집합투자증권-회사형) )",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260918100018",
-      "category": []
-    },
-    {
-      "rcept_no": "20260921000061",
-      "ticker": "448730",
-      "title": "투자설명서(집합투자증권)(삼성에프엔위탁관리부동산투자회사주식회사)",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000061",
-      "category": []
-    },
-    {
-      "rcept_no": "20260921800156",
-      "ticker": "448730",
-      "title": "유상증자신주발행가액(안내공시)              ",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800156",
-      "category": [
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20260921000086",
-      "ticker": "448730",
-      "title": "[기재정정]주요사항보고서(유상증자결정)",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000086",
-      "category": [
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20260921000095",
-      "ticker": "448730",
-      "title": "[기재정정]증권신고서(집합투자증권-회사형)(삼성에프엔위탁관리부동산투자회사주식회사)",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000095",
-      "category": []
-    },
-    {
-      "rcept_no": "20260921800350",
-      "ticker": "400760",
-      "title": "정기주주총회결과              ",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800350",
-      "category": []
-    },
-    {
-      "rcept_no": "20260921800311",
-      "ticker": "357120",
-      "title": "풍문또는보도에대한해명(미확정)              ",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800311",
-      "category": []
-    },
-    {
-      "rcept_no": "20260921000222",
-      "ticker": "330590",
-      "title": "사업보고서 (2026.06)",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000222",
-      "category": []
-    },
-    {
-      "rcept_no": "20260921800292",
-      "ticker": "330590",
-      "title": "감사보고서제출              ",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800292",
-      "category": []
-    },
-    {
-      "rcept_no": "20260921800634",
-      "ticker": "404990",
-      "title": "[기재정정]부동산투자회사금전배당결정              ",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800634",
-      "category": [
-        "배당"
-      ]
-    },
-    {
-      "rcept_no": "20260921800626",
-      "ticker": "395400",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800626",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20260921000411",
-      "ticker": "395400",
-      "title": "[발행조건확정]증권신고서(채무증권)",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000411",
-      "category": [
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20260921800465",
-      "ticker": "357120",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-09-21",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921800465",
-      "category": [
-        "차입/만기"
       ]
     }
   ]
