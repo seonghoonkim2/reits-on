@@ -1,6 +1,32 @@
 {
-  "retrievedAt": "2026-10-08T14:47:34.510Z",
+  "retrievedAt": "2026-10-12T16:54:20.441Z",
   "filings": [
+    {
+      "rcept_no": "20261012800293",
+      "ticker": "293940",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-10-12",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012800293",
+      "category": []
+    },
+    {
+      "rcept_no": "20261012000418",
+      "ticker": "330590",
+      "title": "[발행조건확정]증권신고서(채무증권)",
+      "filed_at": "2026-10-12",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012000418",
+      "category": [
+        "증자"
+      ]
+    },
+    {
+      "rcept_no": "20261012000412",
+      "ticker": "330590",
+      "title": "[기재정정]증권신고서(채무증권)",
+      "filed_at": "2026-10-12",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012000412",
+      "category": []
+    },
     {
       "rcept_no": "20261008800561",
       "ticker": "448730",
@@ -428,39 +454,6 @@
       "filed_at": "2026-09-22",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260916100001",
       "category": []
-    },
-    {
-      "rcept_no": "20260921000433",
-      "ticker": "357120",
-      "title": "주요사항보고서(자기전환사채만기전취득결정)",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000433",
-      "category": [
-        "차입/만기",
-        "자산"
-      ]
-    },
-    {
-      "rcept_no": "20260921000432",
-      "ticker": "357120",
-      "title": "주요사항보고서(자기전환사채만기전취득결정)",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000432",
-      "category": [
-        "차입/만기",
-        "자산"
-      ]
-    },
-    {
-      "rcept_no": "20260921000428",
-      "ticker": "357120",
-      "title": "주요사항보고서(전환사채권발행결정)",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921000428",
-      "category": [
-        "차입/만기",
-        "증자"
-      ]
     }
   ]
 }
