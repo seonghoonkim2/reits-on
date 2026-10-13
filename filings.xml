@@ -6,7 +6,28 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Mon, 12 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[삼성FN리츠] 기업설명회(IR)개최(안내공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800111</link>
+      <guid isPermaLink="false">20261013800111</guid>
+      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[한화리츠] 기업설명회(IR)개최(안내공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800075</link>
+      <guid isPermaLink="false">20261013800075</guid>
+      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[마스턴프리미어리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800095</link>
+      <guid isPermaLink="false">20261013800095</guid>
+      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[신한알파리츠] 기타경영사항(자율공시)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261012800293</link>
@@ -342,27 +363,6 @@
       <guid isPermaLink="false">20260928800601</guid>
       <pubDate>Mon, 28 Sep 2026 09:00:00 +0900</pubDate>
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 효력발생안내( 2026.9.21. 제출 증권신고서(집합투자증권-회사형) )</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921100010</link>
-      <guid isPermaLink="false">20260921100010</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[SK리츠] 투자설명서</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000011</link>
-      <guid isPermaLink="false">20260922000011</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[SK리츠] 효력발생안내( 2026.9.10. 제출 증권신고서(채무증권) )</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260916100001</link>
-      <guid isPermaLink="false">20260916100001</guid>
-      <pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
     </item>
   </channel>
 </rss>

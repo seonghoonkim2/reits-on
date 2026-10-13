@@ -1,6 +1,30 @@
 {
-  "retrievedAt": "2026-10-12T16:54:20.441Z",
+  "retrievedAt": "2026-10-13T02:36:01.827Z",
   "filings": [
+    {
+      "rcept_no": "20261013800111",
+      "ticker": "448730",
+      "title": "기업설명회(IR)개최(안내공시)              ",
+      "filed_at": "2026-10-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800111",
+      "category": []
+    },
+    {
+      "rcept_no": "20261013800075",
+      "ticker": "451800",
+      "title": "기업설명회(IR)개최(안내공시)              ",
+      "filed_at": "2026-10-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800075",
+      "category": []
+    },
+    {
+      "rcept_no": "20261013800095",
+      "ticker": "357430",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-10-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800095",
+      "category": []
+    },
     {
       "rcept_no": "20261012800293",
       "ticker": "293940",
@@ -430,30 +454,6 @@
       "category": [
         "차입/만기"
       ]
-    },
-    {
-      "rcept_no": "20260921100010",
-      "ticker": "448730",
-      "title": "효력발생안내( 2026.9.21. 제출 증권신고서(집합투자증권-회사형) )",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260921100010",
-      "category": []
-    },
-    {
-      "rcept_no": "20260922000011",
-      "ticker": "395400",
-      "title": "투자설명서",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260922000011",
-      "category": []
-    },
-    {
-      "rcept_no": "20260916100001",
-      "ticker": "395400",
-      "title": "효력발생안내( 2026.9.10. 제출 증권신고서(채무증권) )",
-      "filed_at": "2026-09-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260916100001",
-      "category": []
     }
   ]
 }
