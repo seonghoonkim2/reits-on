@@ -1,6 +1,34 @@
 {
-  "retrievedAt": "2026-10-13T15:12:36.321Z",
+  "retrievedAt": "2026-10-14T12:58:56.691Z",
   "filings": [
+    {
+      "rcept_no": "20261014800087",
+      "ticker": "451800",
+      "title": "부동산투자회사부동산임대              ",
+      "filed_at": "2026-10-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261014800087",
+      "category": [
+        "임차인/공실"
+      ]
+    },
+    {
+      "rcept_no": "20261014800086",
+      "ticker": "451800",
+      "title": "부동산투자회사부동산임대              ",
+      "filed_at": "2026-10-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261014800086",
+      "category": [
+        "임차인/공실"
+      ]
+    },
+    {
+      "rcept_no": "20261014800214",
+      "ticker": "357120",
+      "title": "수시공시의무관련사항(공정공시)              ",
+      "filed_at": "2026-10-14",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261014800214",
+      "category": []
+    },
     {
       "rcept_no": "20261013800111",
       "ticker": "448730",
