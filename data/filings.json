@@ -1,6 +1,30 @@
 {
-  "retrievedAt": "2026-10-19T14:52:21.151Z",
+  "retrievedAt": "2026-10-20T12:52:04.328Z",
   "filings": [
+    {
+      "rcept_no": "20261020800340",
+      "ticker": "357120",
+      "title": "풍문또는보도에대한해명(미확정)              ",
+      "filed_at": "2026-10-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800340",
+      "category": []
+    },
+    {
+      "rcept_no": "20261020800752",
+      "ticker": "348950",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-10-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800752",
+      "category": []
+    },
+    {
+      "rcept_no": "20261020800748",
+      "ticker": "348950",
+      "title": "수시공시의무관련사항(공정공시)              ",
+      "filed_at": "2026-10-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800748",
+      "category": []
+    },
     {
       "rcept_no": "20261016100008",
       "ticker": "448730",
