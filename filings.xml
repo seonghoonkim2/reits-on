@@ -6,7 +6,35 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Tue, 20 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[코람코더원리츠] 주주총회소집공고</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022000172</link>
+      <guid isPermaLink="false">20261022000172</guid>
+      <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[코람코더원리츠] 주주총회소집결의</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022800227</link>
+      <guid isPermaLink="false">20261022800227</guid>
+      <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[KB스타리츠] 감사보고서제출</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022800407</link>
+      <guid isPermaLink="false">20261022800407</guid>
+      <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[KB스타리츠] 사업보고서 (2026.07)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022000450</link>
+      <guid isPermaLink="false">20261022000450</guid>
+      <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
     <item>
       <title>[코람코라이프인프라리츠] 풍문또는보도에대한해명(미확정)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261020800340</link>
@@ -321,90 +349,6 @@
       <guid isPermaLink="false">20261007800624</guid>
       <pubDate>Wed, 07 Oct 2026 09:00:00 +0900</pubDate>
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[롯데리츠] 증권신고서(채무증권)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000467</link>
-      <guid isPermaLink="false">20261007000467</guid>
-      <pubDate>Wed, 07 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] [기재정정]증권신고서(집합투자증권-회사형)(삼성에프엔위탁관리부동산투자회사주식회사)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000439</link>
-      <guid isPermaLink="false">20261007000439</guid>
-      <pubDate>Wed, 07 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 자본잠식50%이상또는매출액50억원미만사실발생</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006800165</link>
-      <guid isPermaLink="false">20261006800165</guid>
-      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
-      <description>⚠ 상장 유지·재무에 영향을 주는 중대 공시. 사유와 후속 공시를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[롯데리츠] [기재정정]부동산투자회사자금차입</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261006800404</link>
-      <guid isPermaLink="false">20261006800404</guid>
-      <pubDate>Tue, 06 Oct 2026 09:00:00 +0900</pubDate>
-      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 감사보고서제출</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261002800465</link>
-      <guid isPermaLink="false">20261002800465</guid>
-      <pubDate>Fri, 02 Oct 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[케이탑리츠] 부동산투자회사자금차입</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261002800470</link>
-      <guid isPermaLink="false">20261002800470</guid>
-      <pubDate>Fri, 02 Oct 2026 09:00:00 +0900</pubDate>
-      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[신한서부티엔디리츠] [기재정정]부동산투자회사부동산임대</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261002801015</link>
-      <guid isPermaLink="false">20261002801015</guid>
-      <pubDate>Fri, 02 Oct 2026 09:00:00 +0900</pubDate>
-      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[케이탑리츠] [기재정정]부동산투자회사자금차입</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261002801089</link>
-      <guid isPermaLink="false">20261002801089</guid>
-      <pubDate>Fri, 02 Oct 2026 09:00:00 +0900</pubDate>
-      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[NH올원리츠] 기업설명회(IR)개최(안내공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261001800114</link>
-      <guid isPermaLink="false">20261001800114</guid>
-      <pubDate>Thu, 01 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[NH올원리츠] 수시공시의무관련사항(공정공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261001800102</link>
-      <guid isPermaLink="false">20261001800102</guid>
-      <pubDate>Thu, 01 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[NH프라임리츠] 기업설명회(IR)개최(안내공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261001800137</link>
-      <guid isPermaLink="false">20261001800137</guid>
-      <pubDate>Thu, 01 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[NH프라임리츠] 수시공시의무관련사항(공정공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261001800107</link>
-      <guid isPermaLink="false">20261001800107</guid>
-      <pubDate>Thu, 01 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
     </item>
   </channel>
 </rss>
