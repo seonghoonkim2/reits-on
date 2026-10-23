@@ -1,6 +1,14 @@
 {
-  "retrievedAt": "2026-10-22T13:05:52.389Z",
+  "retrievedAt": "2026-10-23T12:44:55.837Z",
   "filings": [
+    {
+      "rcept_no": "20261023800656",
+      "ticker": "396690",
+      "title": "유형자산처분결정(종속회사의주요경영사항)              ",
+      "filed_at": "2026-10-23",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261023800656",
+      "category": []
+    },
     {
       "rcept_no": "20261022000172",
       "ticker": "417310",
@@ -406,16 +414,6 @@
       "filed_at": "2026-10-07",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000407",
       "category": []
-    },
-    {
-      "rcept_no": "20261007800624",
-      "ticker": "330590",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-10-07",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007800624",
-      "category": [
-        "차입/만기"
-      ]
     }
   ]
 }
