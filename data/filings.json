@@ -1,6 +1,52 @@
 {
-  "retrievedAt": "2026-10-23T12:44:55.837Z",
+  "retrievedAt": "2026-10-27T00:30:42.973Z",
   "filings": [
+    {
+      "rcept_no": "20261026800275",
+      "ticker": "357120",
+      "title": "부동산투자회사부동산처분              ",
+      "filed_at": "2026-10-26",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800275",
+      "category": []
+    },
+    {
+      "rcept_no": "20261026800270",
+      "ticker": "293940",
+      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
+      "filed_at": "2026-10-26",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800270",
+      "category": []
+    },
+    {
+      "rcept_no": "20261026800263",
+      "ticker": "293940",
+      "title": "부동산투자회사금전배당결정              ",
+      "filed_at": "2026-10-26",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800263",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20261026800253",
+      "ticker": "293940",
+      "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정              ",
+      "filed_at": "2026-10-26",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800253",
+      "category": [
+        "배당"
+      ]
+    },
+    {
+      "rcept_no": "20261026800469",
+      "ticker": "357120",
+      "title": "타법인주식및출자증권취득결정              ",
+      "filed_at": "2026-10-26",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800469",
+      "category": [
+        "자산"
+      ]
+    },
     {
       "rcept_no": "20261023800656",
       "ticker": "396690",
@@ -397,22 +443,6 @@
       "title": "기타경영사항(자율공시)              ",
       "filed_at": "2026-10-08",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800556",
-      "category": []
-    },
-    {
-      "rcept_no": "20261008800501",
-      "ticker": "338100",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-10-08",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800501",
-      "category": []
-    },
-    {
-      "rcept_no": "20261007000407",
-      "ticker": "448730",
-      "title": "사업보고서 (2026.07)",
-      "filed_at": "2026-10-07",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261007000407",
       "category": []
     }
   ]
