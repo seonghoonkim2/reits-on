@@ -6,7 +6,14 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Wed, 28 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 29 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[마스턴프리미어리츠] [기재정정]유형자산처분결정(종속회사의주요경영사항)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800001</link>
+      <guid isPermaLink="false">20261029800001</guid>
+      <pubDate>Thu, 29 Oct 2026 09:00:00 +0900</pubDate>
+      <description>자산 매각 공시. 매각차익은 일회성 특별배당일 수 있어요.</description>
+    </item>
     <item>
       <title>[코람코더원리츠] 감사보고서제출</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800384</link>

@@ -1,6 +1,14 @@
 {
-  "retrievedAt": "2026-10-28T14:18:07.424Z",
+  "retrievedAt": "2026-10-29T01:00:44.619Z",
   "filings": [
+    {
+      "rcept_no": "20261029800001",
+      "ticker": "357430",
+      "title": "[기재정정]유형자산처분결정(종속회사의주요경영사항)              ",
+      "filed_at": "2026-10-29",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800001",
+      "category": []
+    },
     {
       "rcept_no": "20261028800384",
       "ticker": "417310",
