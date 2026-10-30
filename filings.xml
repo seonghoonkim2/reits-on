@@ -6,7 +6,56 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Thu, 29 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 30 Oct 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[삼성FN리츠] [기재정정]주요사항보고서(유상증자결정)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000106</link>
+      <guid isPermaLink="false">20261030000106</guid>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+      <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
+    </item>
+    <item>
+      <title>[삼성FN리츠] 유상증자신주발행가액(안내공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030800319</link>
+      <guid isPermaLink="false">20261030800319</guid>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+      <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
+    </item>
+    <item>
+      <title>[신한서부티엔디리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030800311</link>
+      <guid isPermaLink="false">20261030800311</guid>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[코람코더원리츠] 주주총회소집공고</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000138</link>
+      <guid isPermaLink="false">20261030000138</guid>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[삼성FN리츠] [기재정정]증권신고서(집합투자증권-회사형)(삼성에프엔위탁관리부동산투자회사주식회사)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000109</link>
+      <guid isPermaLink="false">20261030000109</guid>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[KB스타리츠] 부동산투자회사자산관리위탁계약변경</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030800893</link>
+      <guid isPermaLink="false">20261030800893</guid>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[KB스타리츠] 정기주주총회결과</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030800850</link>
+      <guid isPermaLink="false">20261030800850</guid>
+      <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
     <item>
       <title>[마스턴프리미어리츠] [기재정정]유형자산처분결정(종속회사의주요경영사항)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800001</link>
@@ -321,62 +370,6 @@
       <guid isPermaLink="false">20261014800086</guid>
       <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
       <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[코람코라이프인프라리츠] 수시공시의무관련사항(공정공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261014800214</link>
-      <guid isPermaLink="false">20261014800214</guid>
-      <pubDate>Wed, 14 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 기업설명회(IR)개최(안내공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800111</link>
-      <guid isPermaLink="false">20261013800111</guid>
-      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[한화리츠] 기업설명회(IR)개최(안내공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800075</link>
-      <guid isPermaLink="false">20261013800075</guid>
-      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[마스턴프리미어리츠] 기타경영사항(자율공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800095</link>
-      <guid isPermaLink="false">20261013800095</guid>
-      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[신한글로벌액티브리츠] 부동산투자회사금전배당결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800451</link>
-      <guid isPermaLink="false">20261013800451</guid>
-      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[신한글로벌액티브리츠] 자본잠식50%이상또는매출액50억원미만사실발생</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800446</link>
-      <guid isPermaLink="false">20261013800446</guid>
-      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
-      <description>⚠ 상장 유지·재무에 영향을 주는 중대 공시. 사유와 후속 공시를 확인하세요.</description>
-    </item>
-    <item>
-      <title>[신한서부티엔디리츠] 기업설명회(IR)개최(안내공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800290</link>
-      <guid isPermaLink="false">20261013800290</guid>
-      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[SK리츠] 기업설명회(IR)개최(안내공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261013800488</link>
-      <guid isPermaLink="false">20261013800488</guid>
-      <pubDate>Tue, 13 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
     </item>
   </channel>
 </rss>
