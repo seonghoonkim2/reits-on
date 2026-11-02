@@ -1,6 +1,14 @@
 {
-  "retrievedAt": "2026-10-30T14:26:10.567Z",
+  "retrievedAt": "2026-11-02T00:48:13.657Z",
   "filings": [
+    {
+      "rcept_no": "20261030100002",
+      "ticker": "448730",
+      "title": "효력발생안내( 2026.10.30. 제출 증권신고서(집합투자증권-회사형) )",
+      "filed_at": "2026-11-02",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030100002",
+      "category": []
+    },
     {
       "rcept_no": "20261030000106",
       "ticker": "448730",
@@ -437,16 +445,6 @@
       "title": "부동산투자회사부동산임대              ",
       "filed_at": "2026-10-14",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261014800087",
-      "category": [
-        "임차인/공실"
-      ]
-    },
-    {
-      "rcept_no": "20261014800086",
-      "ticker": "451800",
-      "title": "부동산투자회사부동산임대              ",
-      "filed_at": "2026-10-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261014800086",
       "category": [
         "임차인/공실"
       ]
