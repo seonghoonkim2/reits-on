@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-11-02T00:48:13.657Z",
+  "retrievedAt": "2026-11-02T17:19:44.084Z",
   "filings": [
     {
       "rcept_no": "20261030100002",
@@ -7,6 +7,40 @@
       "title": "효력발생안내( 2026.10.30. 제출 증권신고서(집합투자증권-회사형) )",
       "filed_at": "2026-11-02",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030100002",
+      "category": []
+    },
+    {
+      "rcept_no": "20261102000040",
+      "ticker": "448730",
+      "title": "[기재정정]투자설명서(집합투자증권)(삼성에프엔위탁관리부동산투자회사주식회사)",
+      "filed_at": "2026-11-02",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000040",
+      "category": []
+    },
+    {
+      "rcept_no": "20261102800658",
+      "ticker": "400760",
+      "title": "[기재정정]부동산투자회사자금차입              ",
+      "filed_at": "2026-11-02",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800658",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20261102800775",
+      "ticker": "400760",
+      "title": "해산사유발생(종속회사의주요경영사항)              ",
+      "filed_at": "2026-11-02",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800775",
+      "category": []
+    },
+    {
+      "rcept_no": "20261102800876",
+      "ticker": "348950",
+      "title": "기타시장안내              (개선기간 부여)",
+      "filed_at": "2026-11-02",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800876",
       "category": []
     },
     {
@@ -418,36 +452,6 @@
       "filed_at": "2026-10-15",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015000279",
       "category": []
-    },
-    {
-      "rcept_no": "20261015800792",
-      "ticker": "330590",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-10-15",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015800792",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20261015000417",
-      "ticker": "330590",
-      "title": "[발행조건확정]증권신고서(채무증권)",
-      "filed_at": "2026-10-15",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015000417",
-      "category": [
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20261014800087",
-      "ticker": "451800",
-      "title": "부동산투자회사부동산임대              ",
-      "filed_at": "2026-10-14",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261014800087",
-      "category": [
-        "임차인/공실"
-      ]
     }
   ]
 }
