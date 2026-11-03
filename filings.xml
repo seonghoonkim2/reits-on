@@ -6,7 +6,70 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Mon, 02 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[삼성FN리츠] 특수관계인의유상증자참여</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103000092</link>
+      <guid isPermaLink="false">20261103000092</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
+    </item>
+    <item>
+      <title>[삼성FN리츠] 특수관계인의유상증자참여</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103000090</link>
+      <guid isPermaLink="false">20261103000090</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800333</link>
+      <guid isPermaLink="false">20261103800333</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 주주총회소집결의</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800328</link>
+      <guid isPermaLink="false">20261103800328</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 주주총회소집공고</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103000177</link>
+      <guid isPermaLink="false">20261103000177</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[디앤디플랫폼리츠] 임시주주총회결과</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800259</link>
+      <guid isPermaLink="false">20261103800259</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 부동산투자회사금전배당결정</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800359</link>
+      <guid isPermaLink="false">20261103800359</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800661</link>
+      <guid isPermaLink="false">20261103800661</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 수시공시의무관련사항(공정공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800636</link>
+      <guid isPermaLink="false">20261103800636</guid>
+      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[삼성FN리츠] 효력발생안내( 2026.10.30. 제출 증권신고서(집합투자증권-회사형) )</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030100002</link>
@@ -342,41 +405,6 @@
       <guid isPermaLink="false">20261015800548</guid>
       <pubDate>Thu, 15 Oct 2026 09:00:00 +0900</pubDate>
       <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[KB스타리츠] 주주총회소집공고</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015000298</link>
-      <guid isPermaLink="false">20261015000298</guid>
-      <pubDate>Thu, 15 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[KB스타리츠] 부동산투자회사금전배당결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015800504</link>
-      <guid isPermaLink="false">20261015800504</guid>
-      <pubDate>Thu, 15 Oct 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[KB스타리츠] 현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015800501</link>
-      <guid isPermaLink="false">20261015800501</guid>
-      <pubDate>Thu, 15 Oct 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[KB스타리츠] 주주총회소집결의</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015800507</link>
-      <guid isPermaLink="false">20261015800507</guid>
-      <pubDate>Thu, 15 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[NH프라임리츠] 반기보고서 (2026.08)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261015000279</link>
-      <guid isPermaLink="false">20261015000279</guid>
-      <pubDate>Thu, 15 Oct 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
     </item>
   </channel>
 </rss>
