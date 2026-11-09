@@ -6,7 +6,49 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Fri, 06 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[NH올원리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800486</link>
+      <guid isPermaLink="false">20261109800486</guid>
+      <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[NH올원리츠] 수시공시의무관련사항(공정공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800441</link>
+      <guid isPermaLink="false">20261109800441</guid>
+      <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[NH프라임리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800599</link>
+      <guid isPermaLink="false">20261109800599</guid>
+      <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[신한서부티엔디리츠] 부동산투자회사부동산임대</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800763</link>
+      <guid isPermaLink="false">20261109800763</guid>
+      <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[신한서부티엔디리츠] 주주총회소집공고</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109000370</link>
+      <guid isPermaLink="false">20261109000370</guid>
+      <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[신한서부티엔디리츠] 주주총회소집결의</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800759</link>
+      <guid isPermaLink="false">20261109800759</guid>
+      <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
     <item>
       <title>[마스턴프리미어리츠] 기타경영사항(자율공시)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106800282</link>

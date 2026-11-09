@@ -1,6 +1,56 @@
 {
-  "retrievedAt": "2026-11-06T15:16:32.734Z",
+  "retrievedAt": "2026-11-09T17:44:11.299Z",
   "filings": [
+    {
+      "rcept_no": "20261109800486",
+      "ticker": "400760",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-11-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800486",
+      "category": []
+    },
+    {
+      "rcept_no": "20261109800441",
+      "ticker": "400760",
+      "title": "수시공시의무관련사항(공정공시)              ",
+      "filed_at": "2026-11-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800441",
+      "category": []
+    },
+    {
+      "rcept_no": "20261109800599",
+      "ticker": "338100",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-11-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800599",
+      "category": []
+    },
+    {
+      "rcept_no": "20261109800763",
+      "ticker": "404990",
+      "title": "부동산투자회사부동산임대              ",
+      "filed_at": "2026-11-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800763",
+      "category": [
+        "임차인/공실"
+      ]
+    },
+    {
+      "rcept_no": "20261109000370",
+      "ticker": "404990",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-11-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109000370",
+      "category": []
+    },
+    {
+      "rcept_no": "20261109800759",
+      "ticker": "404990",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-11-09",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800759",
+      "category": []
+    },
     {
       "rcept_no": "20261106800282",
       "ticker": "357430",
