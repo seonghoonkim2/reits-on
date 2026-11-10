@@ -1,6 +1,41 @@
 {
-  "retrievedAt": "2026-11-09T17:44:11.299Z",
+  "retrievedAt": "2026-11-10T15:42:53.271Z",
   "filings": [
+    {
+      "rcept_no": "20261110800233",
+      "ticker": "448730",
+      "title": "유상증자또는주식관련사채등의청약결과(자율공시)              ",
+      "filed_at": "2026-11-10",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800233",
+      "category": [
+        "차입/만기",
+        "증자"
+      ]
+    },
+    {
+      "rcept_no": "20261110000451",
+      "ticker": "0030R0",
+      "title": "사업보고서 (2026.08)",
+      "filed_at": "2026-11-10",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110000451",
+      "category": []
+    },
+    {
+      "rcept_no": "20261110800766",
+      "ticker": "0030R0",
+      "title": "감사보고서제출              ",
+      "filed_at": "2026-11-10",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800766",
+      "category": []
+    },
+    {
+      "rcept_no": "20261110800853",
+      "ticker": "396690",
+      "title": "자본잠식50%이상또는매출액50억원미만사실발생              ",
+      "filed_at": "2026-11-10",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800853",
+      "category": []
+    },
     {
       "rcept_no": "20261109800486",
       "ticker": "400760",
@@ -474,30 +509,6 @@
       "title": "유형자산처분결정(종속회사의주요경영사항)              ",
       "filed_at": "2026-10-23",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261023800656",
-      "category": []
-    },
-    {
-      "rcept_no": "20261022000172",
-      "ticker": "417310",
-      "title": "주주총회소집공고",
-      "filed_at": "2026-10-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022000172",
-      "category": []
-    },
-    {
-      "rcept_no": "20261022800227",
-      "ticker": "417310",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-10-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022800227",
-      "category": []
-    },
-    {
-      "rcept_no": "20261022800407",
-      "ticker": "432320",
-      "title": "감사보고서제출              ",
-      "filed_at": "2026-10-22",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022800407",
       "category": []
     }
   ]

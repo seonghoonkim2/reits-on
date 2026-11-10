@@ -6,7 +6,35 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Mon, 09 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[삼성FN리츠] 유상증자또는주식관련사채등의청약결과(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800233</link>
+      <guid isPermaLink="false">20261110800233</guid>
+      <pubDate>Tue, 10 Nov 2026 09:00:00 +0900</pubDate>
+      <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 사업보고서 (2026.08)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110000451</link>
+      <guid isPermaLink="false">20261110000451</guid>
+      <pubDate>Tue, 10 Nov 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 감사보고서제출</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800766</link>
+      <guid isPermaLink="false">20261110800766</guid>
+      <pubDate>Tue, 10 Nov 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[미래에셋글로벌리츠] 자본잠식50%이상또는매출액50억원미만사실발생</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800853</link>
+      <guid isPermaLink="false">20261110800853</guid>
+      <pubDate>Tue, 10 Nov 2026 09:00:00 +0900</pubDate>
+      <description>⚠ 상장 유지·재무에 영향을 주는 중대 공시. 사유와 후속 공시를 확인하세요.</description>
+    </item>
     <item>
       <title>[NH올원리츠] 기타경영사항(자율공시)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800486</link>
@@ -391,27 +419,6 @@
       <guid isPermaLink="false">20261023800656</guid>
       <pubDate>Fri, 23 Oct 2026 09:00:00 +0900</pubDate>
       <description>자산 매각 공시. 매각차익은 일회성 특별배당일 수 있어요.</description>
-    </item>
-    <item>
-      <title>[코람코더원리츠] 주주총회소집공고</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022000172</link>
-      <guid isPermaLink="false">20261022000172</guid>
-      <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[코람코더원리츠] 주주총회소집결의</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022800227</link>
-      <guid isPermaLink="false">20261022800227</guid>
-      <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[KB스타리츠] 감사보고서제출</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261022800407</link>
-      <guid isPermaLink="false">20261022800407</guid>
-      <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
-      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
     </item>
   </channel>
 </rss>
