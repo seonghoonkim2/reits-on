@@ -1,6 +1,97 @@
 {
-  "retrievedAt": "2026-11-10T15:42:53.271Z",
+  "retrievedAt": "2026-11-12T02:17:37.981Z",
   "filings": [
+    {
+      "rcept_no": "20261111800079",
+      "ticker": "293940",
+      "title": "기타경영사항(자율공시)              ",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800079",
+      "category": []
+    },
+    {
+      "rcept_no": "20261111000209",
+      "ticker": "404990",
+      "title": "[기재정정]주주총회소집공고",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111000209",
+      "category": []
+    },
+    {
+      "rcept_no": "20261111000251",
+      "ticker": "481850",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111000251",
+      "category": []
+    },
+    {
+      "rcept_no": "20261111800416",
+      "ticker": "481850",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800416",
+      "category": []
+    },
+    {
+      "rcept_no": "20261111800673",
+      "ticker": "448730",
+      "title": "유상증자또는주식관련사채등의발행결과(자율공시)              ",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800673",
+      "category": [
+        "차입/만기",
+        "증자"
+      ]
+    },
+    {
+      "rcept_no": "20261111000258",
+      "ticker": "448730",
+      "title": "[기재정정]특수관계인의유상증자참여",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111000258",
+      "category": [
+        "증자"
+      ]
+    },
+    {
+      "rcept_no": "20261111000286",
+      "ticker": "145270",
+      "title": "분기보고서 (2026.09)",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111000286",
+      "category": []
+    },
+    {
+      "rcept_no": "20261111000396",
+      "ticker": "448730",
+      "title": "증권발행실적보고서(집합투자증권)(삼성에프엔위탁관리부동산투자회사주식회사)",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111000396",
+      "category": [
+        "증자"
+      ]
+    },
+    {
+      "rcept_no": "20261111800679",
+      "ticker": "432320",
+      "title": "부동산투자회사자금차입              ",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800679",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20261111800676",
+      "ticker": "432320",
+      "title": "부동산투자회사자금차입              ",
+      "filed_at": "2026-11-11",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800676",
+      "category": [
+        "차입/만기"
+      ]
+    },
     {
       "rcept_no": "20261110800233",
       "ticker": "448730",
@@ -421,94 +512,6 @@
       "title": "수시공시의무관련사항(공정공시)              ",
       "filed_at": "2026-10-29",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800873",
-      "category": []
-    },
-    {
-      "rcept_no": "20261029800879",
-      "ticker": "357120",
-      "title": "수시공시의무관련사항(공정공시)              ",
-      "filed_at": "2026-10-29",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800879",
-      "category": []
-    },
-    {
-      "rcept_no": "20261028800384",
-      "ticker": "417310",
-      "title": "감사보고서제출              ",
-      "filed_at": "2026-10-28",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800384",
-      "category": []
-    },
-    {
-      "rcept_no": "20261028800527",
-      "ticker": "377190",
-      "title": "부동산투자회사금전배당결정              ",
-      "filed_at": "2026-10-28",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800527",
-      "category": [
-        "배당"
-      ]
-    },
-    {
-      "rcept_no": "20261028800501",
-      "ticker": "377190",
-      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
-      "filed_at": "2026-10-28",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800501",
-      "category": []
-    },
-    {
-      "rcept_no": "20261026800275",
-      "ticker": "357120",
-      "title": "부동산투자회사부동산처분              ",
-      "filed_at": "2026-10-26",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800275",
-      "category": []
-    },
-    {
-      "rcept_no": "20261026800270",
-      "ticker": "293940",
-      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
-      "filed_at": "2026-10-26",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800270",
-      "category": []
-    },
-    {
-      "rcept_no": "20261026800263",
-      "ticker": "293940",
-      "title": "부동산투자회사금전배당결정              ",
-      "filed_at": "2026-10-26",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800263",
-      "category": [
-        "배당"
-      ]
-    },
-    {
-      "rcept_no": "20261026800253",
-      "ticker": "293940",
-      "title": "현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정              ",
-      "filed_at": "2026-10-26",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800253",
-      "category": [
-        "배당"
-      ]
-    },
-    {
-      "rcept_no": "20261026800469",
-      "ticker": "357120",
-      "title": "타법인주식및출자증권취득결정              ",
-      "filed_at": "2026-10-26",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261026800469",
-      "category": [
-        "자산"
-      ]
-    },
-    {
-      "rcept_no": "20261023800656",
-      "ticker": "396690",
-      "title": "유형자산처분결정(종속회사의주요경영사항)              ",
-      "filed_at": "2026-10-23",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261023800656",
       "category": []
     }
   ]
