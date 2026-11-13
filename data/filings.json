@@ -1,6 +1,38 @@
 {
-  "retrievedAt": "2026-11-12T16:07:11.685Z",
+  "retrievedAt": "2026-11-13T15:35:11.440Z",
   "filings": [
+    {
+      "rcept_no": "20261113000989",
+      "ticker": "404990",
+      "title": "반기보고서 (2026.09)",
+      "filed_at": "2026-11-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261113000989",
+      "category": []
+    },
+    {
+      "rcept_no": "20261113000678",
+      "ticker": "348950",
+      "title": "[기재정정]주요사항보고서(회생절차개시신청)",
+      "filed_at": "2026-11-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261113000678",
+      "category": []
+    },
+    {
+      "rcept_no": "20261113001234",
+      "ticker": "204210",
+      "title": "분기보고서 (2026.09)",
+      "filed_at": "2026-11-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261113001234",
+      "category": []
+    },
+    {
+      "rcept_no": "20261113801914",
+      "ticker": "357430",
+      "title": "수시공시의무관련사항(공정공시)              ",
+      "filed_at": "2026-11-13",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261113801914",
+      "category": []
+    },
     {
       "rcept_no": "20261112800726",
       "ticker": "334890",
@@ -434,60 +466,6 @@
       "title": "[기재정정]투자설명서(집합투자증권)(삼성에프엔위탁관리부동산투자회사주식회사)",
       "filed_at": "2026-11-02",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000040",
-      "category": []
-    },
-    {
-      "rcept_no": "20261102800658",
-      "ticker": "400760",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-11-02",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800658",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20261102800775",
-      "ticker": "400760",
-      "title": "해산사유발생(종속회사의주요경영사항)              ",
-      "filed_at": "2026-11-02",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800775",
-      "category": []
-    },
-    {
-      "rcept_no": "20261102800876",
-      "ticker": "348950",
-      "title": "기타시장안내              (개선기간 부여)",
-      "filed_at": "2026-11-02",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102800876",
-      "category": []
-    },
-    {
-      "rcept_no": "20261030000106",
-      "ticker": "448730",
-      "title": "[기재정정]주요사항보고서(유상증자결정)",
-      "filed_at": "2026-10-30",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030000106",
-      "category": [
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20261030800319",
-      "ticker": "448730",
-      "title": "유상증자신주발행가액(안내공시)              ",
-      "filed_at": "2026-10-30",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030800319",
-      "category": [
-        "증자"
-      ]
-    },
-    {
-      "rcept_no": "20261030800311",
-      "ticker": "404990",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-10-30",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030800311",
       "category": []
     }
   ]
