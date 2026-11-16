@@ -6,7 +6,98 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Fri, 13 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 16 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[삼성FN리츠] 기타경영사항(자율공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116800247</link>
+      <guid isPermaLink="false">20261116800247</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[코람코더원리츠] 임시주주총회결과</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116800308</link>
+      <guid isPermaLink="false">20261116800308</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[코람코더원리츠] 주요사항보고서(해산사유발생)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116000179</link>
+      <guid isPermaLink="false">20261116000179</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[에이리츠] 분기보고서 (2026.09)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116000212</link>
+      <guid isPermaLink="false">20261116000212</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[신한서부티엔디리츠] 기업설명회(IR)개최(안내공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116801846</link>
+      <guid isPermaLink="false">20261116801846</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[NH올원리츠] 반기보고서 (2026.09)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116001637</link>
+      <guid isPermaLink="false">20261116001637</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[롯데리츠] 반기보고서 (2026.09)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116001275</link>
+      <guid isPermaLink="false">20261116001275</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[이리츠코크렙] 반기보고서 (2026.09)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116001417</link>
+      <guid isPermaLink="false">20261116001417</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[삼성FN리츠] [기재정정]부동산투자회사부동산임대</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116802328</link>
+      <guid isPermaLink="false">20261116802328</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[삼성FN리츠] 부동산투자회사부동산임대</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116802309</link>
+      <guid isPermaLink="false">20261116802309</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[삼성FN리츠] 부동산투자회사부동산임대</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116802283</link>
+      <guid isPermaLink="false">20261116802283</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>자산 취득·임대 공시. 자금 조달 방식과 임차 조건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[제이알글로벌리츠] 반기검토의견부적정,의견거절또는완전자본잠식사실발생</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116802560</link>
+      <guid isPermaLink="false">20261116802560</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>⚠ 상장 유지·재무에 영향을 주는 중대 공시. 사유와 후속 공시를 확인하세요.</description>
+    </item>
+    <item>
+      <title>[이지스레지던스리츠] 반기보고서 (2026.09)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116002219</link>
+      <guid isPermaLink="false">20261116002219</guid>
+      <pubDate>Mon, 16 Nov 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
     <item>
       <title>[신한서부티엔디리츠] 반기보고서 (2026.09)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261113000989</link>
@@ -321,69 +412,6 @@
       <guid isPermaLink="false">20261103000090</guid>
       <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
       <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 현금ㆍ현물배당을위한주주명부폐쇄(기준일)결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800333</link>
-      <guid isPermaLink="false">20261103800333</guid>
-      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 주주총회소집결의</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800328</link>
-      <guid isPermaLink="false">20261103800328</guid>
-      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 주주총회소집공고</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103000177</link>
-      <guid isPermaLink="false">20261103000177</guid>
-      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[디앤디플랫폼리츠] 임시주주총회결과</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800259</link>
-      <guid isPermaLink="false">20261103800259</guid>
-      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 부동산투자회사금전배당결정</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800359</link>
-      <guid isPermaLink="false">20261103800359</guid>
-      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
-      <description>배당(분배금) 공시. 1주당 금액·기준일·지급일과 재원을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 기타경영사항(자율공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800661</link>
-      <guid isPermaLink="false">20261103800661</guid>
-      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[대신밸류리츠] 수시공시의무관련사항(공정공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261103800636</link>
-      <guid isPermaLink="false">20261103800636</guid>
-      <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 효력발생안내( 2026.10.30. 제출 증권신고서(집합투자증권-회사형) )</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030100002</link>
-      <guid isPermaLink="false">20261030100002</guid>
-      <pubDate>Mon, 02 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] [기재정정]투자설명서(집합투자증권)(삼성에프엔위탁관리부동산투자회사주식회사)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261102000040</link>
-      <guid isPermaLink="false">20261102000040</guid>
-      <pubDate>Mon, 02 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
     </item>
   </channel>
 </rss>
