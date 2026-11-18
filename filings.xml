@@ -6,7 +6,28 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Tue, 17 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 18 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[코람코라이프인프라리츠] 풍문또는보도에대한해명(미확정)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800135</link>
+      <guid isPermaLink="false">20261118800135</guid>
+      <pubDate>Wed, 18 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[대신밸류리츠] 정기주주총회결과</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118800395</link>
+      <guid isPermaLink="false">20261118800395</guid>
+      <pubDate>Wed, 18 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[신한글로벌액티브리츠] 사업보고서 (2026.08)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261118000327</link>
+      <guid isPermaLink="false">20261118000327</guid>
+      <pubDate>Wed, 18 Nov 2026 09:00:00 +0900</pubDate>
+      <description>정기·감사 보고서. 감사의견과 실적 추세를 확인하세요.</description>
+    </item>
     <item>
       <title>[제이알글로벌리츠] 반기보고서 (2026.09)</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261116002246</link>
@@ -398,20 +419,6 @@
       <guid isPermaLink="false">20261105800972</guid>
       <pubDate>Thu, 05 Nov 2026 09:00:00 +0900</pubDate>
       <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[제이알글로벌리츠] [기재정정]수시공시의무관련사항(공정공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800970</link>
-      <guid isPermaLink="false">20261105800970</guid>
-      <pubDate>Thu, 05 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
-    </item>
-    <item>
-      <title>[코람코더원리츠] 주주총회소집결의</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261104800180</link>
-      <guid isPermaLink="false">20261104800180</guid>
-      <pubDate>Wed, 04 Nov 2026 09:00:00 +0900</pubDate>
-      <description>주주총회 관련 공시. 배당·임원·정관 등 안건을 확인하세요.</description>
     </item>
   </channel>
 </rss>
