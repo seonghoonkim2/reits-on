@@ -1,5 +1,5 @@
 {
-  "retrievedAt": "2026-11-18T16:39:32.564Z",
+  "retrievedAt": "2026-11-19T02:37:10.772Z",
   "filings": [
     {
       "rcept_no": "20261118800135",
@@ -496,14 +496,6 @@
       "title": "[첨부정정]수시공시의무관련사항(공정공시)              ",
       "filed_at": "2026-11-05",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800978",
-      "category": []
-    },
-    {
-      "rcept_no": "20261105800972",
-      "ticker": "348950",
-      "title": "[기재정정]기타경영사항(자율공시)              ",
-      "filed_at": "2026-11-05",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800972",
       "category": []
     }
   ]
