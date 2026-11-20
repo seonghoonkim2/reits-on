@@ -1,6 +1,22 @@
 {
-  "retrievedAt": "2026-11-19T16:42:46.664Z",
+  "retrievedAt": "2026-11-20T16:17:54.583Z",
   "filings": [
+    {
+      "rcept_no": "20261120000463",
+      "ticker": "140910",
+      "title": "[기재정정]분기보고서 (2026.09)",
+      "filed_at": "2026-11-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261120000463",
+      "category": []
+    },
+    {
+      "rcept_no": "20261120800929",
+      "ticker": "357430",
+      "title": "자본잠식50%이상또는매출액50억원미만사실발생              ",
+      "filed_at": "2026-11-20",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261120800929",
+      "category": []
+    },
     {
       "rcept_no": "20261119800562",
       "ticker": "395400",
@@ -471,22 +487,6 @@
       "title": "주주총회소집공고",
       "filed_at": "2026-11-09",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109000370",
-      "category": []
-    },
-    {
-      "rcept_no": "20261109800759",
-      "ticker": "404990",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-11-09",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261109800759",
-      "category": []
-    },
-    {
-      "rcept_no": "20261106800282",
-      "ticker": "357430",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-11-06",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261106800282",
       "category": []
     }
   ]
