@@ -1,6 +1,48 @@
 {
-  "retrievedAt": "2026-11-23T19:24:52.371Z",
+  "retrievedAt": "2026-11-24T19:00:32.678Z",
   "filings": [
+    {
+      "rcept_no": "20261124800820",
+      "ticker": "404990",
+      "title": "부동산투자회사자금차입              ",
+      "filed_at": "2026-11-24",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261124800820",
+      "category": [
+        "차입/만기"
+      ]
+    },
+    {
+      "rcept_no": "20261124800691",
+      "ticker": "396690",
+      "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
+      "filed_at": "2026-11-24",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261124800691",
+      "category": []
+    },
+    {
+      "rcept_no": "20261124000391",
+      "ticker": "377190",
+      "title": "주주총회소집공고",
+      "filed_at": "2026-11-24",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261124000391",
+      "category": []
+    },
+    {
+      "rcept_no": "20261124800680",
+      "ticker": "377190",
+      "title": "주주총회소집결의              ",
+      "filed_at": "2026-11-24",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261124800680",
+      "category": []
+    },
+    {
+      "rcept_no": "20261124800845",
+      "ticker": "404990",
+      "title": "임시주주총회결과              ",
+      "filed_at": "2026-11-24",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261124800845",
+      "category": []
+    },
     {
       "rcept_no": "20261123000341",
       "ticker": "395400",
@@ -462,30 +504,6 @@
         "차입/만기",
         "증자"
       ]
-    },
-    {
-      "rcept_no": "20261110000451",
-      "ticker": "0030R0",
-      "title": "사업보고서 (2026.08)",
-      "filed_at": "2026-11-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110000451",
-      "category": []
-    },
-    {
-      "rcept_no": "20261110800766",
-      "ticker": "0030R0",
-      "title": "감사보고서제출              ",
-      "filed_at": "2026-11-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800766",
-      "category": []
-    },
-    {
-      "rcept_no": "20261110800853",
-      "ticker": "396690",
-      "title": "자본잠식50%이상또는매출액50억원미만사실발생              ",
-      "filed_at": "2026-11-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800853",
-      "category": []
     }
   ]
 }
