@@ -6,7 +6,21 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" href="https://seonghoonkim2.github.io/reits-on/filings.xml" rel="self" type="application/rss+xml" />
     <description>국내 상장리츠 DART 주요 공시(소음 제외). 교육용 정보이며 투자 권유가 아닙니다.</description>
     <language>ko</language>
-    <lastBuildDate>Tue, 24 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 25 Nov 2026 09:00:00 +0900</lastBuildDate>
+    <item>
+      <title>[미래에셋글로벌리츠] 기업설명회(IR)개최(안내공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261125800070</link>
+      <guid isPermaLink="false">20261125800070</guid>
+      <pubDate>Wed, 25 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
+    <item>
+      <title>[미래에셋맵스리츠] 기업설명회(IR)개최(안내공시)</title>
+      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261125800073</link>
+      <guid isPermaLink="false">20261125800073</guid>
+      <pubDate>Wed, 25 Nov 2026 09:00:00 +0900</pubDate>
+      <description>주요 공시. 제목을 눌러 DART 원문에서 핵심을 확인하세요.</description>
+    </item>
     <item>
       <title>[신한서부티엔디리츠] 부동산투자회사자금차입</title>
       <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261124800820</link>
@@ -405,20 +419,6 @@
       <guid isPermaLink="false">20261111800679</guid>
       <pubDate>Wed, 11 Nov 2026 09:00:00 +0900</pubDate>
       <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[KB스타리츠] 부동산투자회사자금차입</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800676</link>
-      <guid isPermaLink="false">20261111800676</guid>
-      <pubDate>Wed, 11 Nov 2026 09:00:00 +0900</pubDate>
-      <description>차입·사채 공시. 금리·만기가 이자비용과 배당에 영향을 줍니다.</description>
-    </item>
-    <item>
-      <title>[삼성FN리츠] 유상증자또는주식관련사채등의청약결과(자율공시)</title>
-      <link>https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800233</link>
-      <guid isPermaLink="false">20261110800233</guid>
-      <pubDate>Tue, 10 Nov 2026 09:00:00 +0900</pubDate>
-      <description>새 주식 발행 공시. 주식 수 증가로 주당 배당이 희석될 수 있어요.</description>
     </item>
   </channel>
 </rss>

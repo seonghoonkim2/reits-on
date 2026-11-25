@@ -1,6 +1,22 @@
 {
-  "retrievedAt": "2026-11-24T19:00:32.678Z",
+  "retrievedAt": "2026-11-25T04:16:31.096Z",
   "filings": [
+    {
+      "rcept_no": "20261125800070",
+      "ticker": "396690",
+      "title": "기업설명회(IR)개최(안내공시)              ",
+      "filed_at": "2026-11-25",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261125800070",
+      "category": []
+    },
+    {
+      "rcept_no": "20261125800073",
+      "ticker": "357250",
+      "title": "기업설명회(IR)개최(안내공시)              ",
+      "filed_at": "2026-11-25",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261125800073",
+      "category": []
+    },
     {
       "rcept_no": "20261124800820",
       "ticker": "404990",
@@ -482,27 +498,6 @@
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800679",
       "category": [
         "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20261111800676",
-      "ticker": "432320",
-      "title": "부동산투자회사자금차입              ",
-      "filed_at": "2026-11-11",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800676",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20261110800233",
-      "ticker": "448730",
-      "title": "유상증자또는주식관련사채등의청약결과(자율공시)              ",
-      "filed_at": "2026-11-10",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261110800233",
-      "category": [
-        "차입/만기",
-        "증자"
       ]
     }
   ]
