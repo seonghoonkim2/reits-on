@@ -1,6 +1,14 @@
 {
-  "retrievedAt": "2026-11-25T18:06:12.013Z",
+  "retrievedAt": "2026-11-26T17:50:56.540Z",
   "filings": [
+    {
+      "rcept_no": "20261126800354",
+      "ticker": "481850",
+      "title": "정기주주총회결과              ",
+      "filed_at": "2026-11-26",
+      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261126800354",
+      "category": []
+    },
     {
       "rcept_no": "20261125800070",
       "ticker": "396690",
@@ -431,64 +439,6 @@
       "title": "매출액또는손익구조30%(대규모법인은15%)이상변경              ",
       "filed_at": "2026-11-12",
       "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112801156",
-      "category": []
-    },
-    {
-      "rcept_no": "20261112000736",
-      "ticker": "334890",
-      "title": "주주총회소집공고",
-      "filed_at": "2026-11-12",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112000736",
-      "category": []
-    },
-    {
-      "rcept_no": "20261112801118",
-      "ticker": "334890",
-      "title": "[기재정정]부동산투자회사자금차입              ",
-      "filed_at": "2026-11-12",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112801118",
-      "category": [
-        "차입/만기"
-      ]
-    },
-    {
-      "rcept_no": "20261112801079",
-      "ticker": "334890",
-      "title": "타법인주식및출자증권처분결정              ",
-      "filed_at": "2026-11-12",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261112801079",
-      "category": []
-    },
-    {
-      "rcept_no": "20261111800079",
-      "ticker": "293940",
-      "title": "기타경영사항(자율공시)              ",
-      "filed_at": "2026-11-11",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800079",
-      "category": []
-    },
-    {
-      "rcept_no": "20261111000209",
-      "ticker": "404990",
-      "title": "[기재정정]주주총회소집공고",
-      "filed_at": "2026-11-11",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111000209",
-      "category": []
-    },
-    {
-      "rcept_no": "20261111000251",
-      "ticker": "481850",
-      "title": "주주총회소집공고",
-      "filed_at": "2026-11-11",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111000251",
-      "category": []
-    },
-    {
-      "rcept_no": "20261111800416",
-      "ticker": "481850",
-      "title": "주주총회소집결의              ",
-      "filed_at": "2026-11-11",
-      "url": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261111800416",
       "category": []
     }
   ]
